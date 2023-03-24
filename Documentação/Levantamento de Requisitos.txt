@@ -1,0 +1,26 @@
+- Check List
+
+1 - A aplicação deverá ter:
+	1.1 - Check List do tipo Diário;
+	1.2 - Check List do tipo Mensal;
+	1.3 - Relatórios em Dashboards;
+
+2 - No check list (Mensal):
+	2.1 - Perguntas que venham por padrão;
+	2.2 - Ter campo para criar(cadastrar) e editar, para o check list especifico, perguntas personalizadas;
+	2.3 - Deverá ter 3 opções de respostas nas perguntas para o usuário escolher: Conforme(SIM), Não Conforme(NÃO) E N/A;
+	2.4 - Nas perguntas onde foram marcados os 'NC(NÃO)' deverá ter um campo de texto para observações;
+	2.4 - Deverá realizar uma somatória das respostas;
+	2.5 - Dos itens que contenham um 'NC(NÃO)' gerar um relatório, mostrando tais itens;
+	2.6 - Relatórios gerados em CSV e PDF;
+	2.7 - Acrescentar as informações nos graficos dos dashboards;
+	2.8 - Enviar relatórios por email;
+
+3 - No check list (Diário):
+	3.1 - Cadastrar os setores da empresa;
+	3.2 - Perguntas que venham por padrão (para cada setor);
+	3.3 - Ter campo para criar(cadastrar) e editar, para o check list especifico, perguntas personalizadas;
+	3.4 - Deverá ter 3 opções de respostas nas perguntas para o usuário escolher: Conforme(SIM), Não Conforme(NÃO) E N/A;
+	3.5 - Nas perguntas onde foram marcados os 'NC(NÃO)' deverá ter um campo de texto para observações;
+	3.6 - Dos itens que contenham um 'NC(NÃO)' gerar um relatório, mostrando tais itens, por setor;
+	3.7 - Enviar relatórios por email;
