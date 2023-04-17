@@ -1,0 +1,49 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+.header a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-weight: 100;
+}
+.header .logo {
+  max-height: 50px;
+  margin: 20px;
+}
+.header .title-group i {
+  padding-right: 5px;
+}
+
+/*Nav Bar*/
+.sidenav {
+  /*background-color: #483D8B;*/
+  width: 200px;
+  border: 1px solid rgb(64, 64, 64);
+}
+span {
+  /*color: #fff; */
+  color: #ffc745;
+}
+.sidenav i {
+  padding-right: 10px;
+}
+.content {
+  padding: 16px;
+  background-color: #fff;
+  margin-top: 30px;
+}
+.menu {
+  color: #fff;
+  border: none;
+  border-radius: 100%;
+  padding: 10px;
+  cursor: pointer;
+}
+.menu:hover {
+  background-color: #f5f5f586;
+}
