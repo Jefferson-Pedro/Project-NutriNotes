@@ -6,8 +6,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
-
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +18,7 @@ import { ProfileComponent } from './view/profile/profile.component';
 import { AboutComponent } from './view/about/about.component';
 import { SupportUsComponent } from './view/support-us/support-us.component';
 import { CardsComponent } from './view/cards/cards.component';
+import { LegislationComponent } from './dialog/legislation/legislation.component';
 
 
 @NgModule({
@@ -30,7 +30,8 @@ import { CardsComponent } from './view/cards/cards.component';
     AboutComponent,
     SupportUsComponent,
     CardsComponent,
-    HeaderComponent
+    HeaderComponent,
+    LegislationComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +41,11 @@ import { CardsComponent } from './view/cards/cards.component';
     MatSidenavModule,
     MatListModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+  ],
+  exports: [
+    LegislationComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
