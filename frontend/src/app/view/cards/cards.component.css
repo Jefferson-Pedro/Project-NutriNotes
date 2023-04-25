@@ -1,7 +1,7 @@
 .container--main{
     display: inline-block;
-    
   }
+
   .card-container {
     margin-top: 15px;
     max-width: 260px;
@@ -10,9 +10,11 @@
     display: inline-block;
     margin-left: 4rem;
   }
+
   .title {
     padding: 10px;
   }
+
   .image-container{
     border-top: 1px solid black;
     border-bottom: 1px solid black;
@@ -22,6 +24,40 @@
   .image-container img {
     width: 50%;
     height: auto;
-    
+  }
+
+  @media (min-width: 834px) and (max-width: 884px) {
+    .card-container {
+      margin-top: 20px;
+      max-width: 260px;
+      max-height: 450px;
+      background-color: #f5f5f5;
+      display: inline-block;
+      margin-left: 6rem;
+    }
+  }
+
+  /*Para telas menores que 390px*/
+
+  @media (max-width: 390px) {
+    .card-container {
+      margin-top: 20px;
+      max-width: 260px;
+      max-height: 450px;
+      background-color: #f5f5f5;
+      display: inline-block;
+      margin-left: 2.7rem;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .card-container {
+      margin-top: 20px;
+      max-width: 260px;
+      max-height: 450px;
+      background-color: #f5f5f5;
+      display: inline-block;
+      margin-left: 1rem;
+    }
   }
   

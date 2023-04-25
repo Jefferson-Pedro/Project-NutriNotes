@@ -1,0 +1,16 @@
+mat-card{
+    max-width: 90%;
+    margin: 2em auto;
+}
+.container-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.card-container{
+    margin-top: 5%; 
+}
+
+.full-width{
+   width: 70%;  
+}

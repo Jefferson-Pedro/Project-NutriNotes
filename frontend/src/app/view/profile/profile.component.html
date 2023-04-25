@@ -1,1 +1,31 @@
-<p>profile works!</p>
+<mat-card class="card-container">
+
+  <mat-toolbar class="color-primary color-secondary">Perfil</mat-toolbar>
+
+<form [formGroup]="form" class="container-form">
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Nome e Sobrenome</mat-label>
+    <input matInput  formControlName="nome">
+    <mat-icon matSuffix>person</mat-icon>
+  </mat-form-field>
+
+  <mat-radio-group formControlName="sexo">
+    <mat-label>Sexo:</mat-label>
+    <mat-radio-button value="M">Masculino</mat-radio-button>
+    <mat-radio-button value="F">Feminino</mat-radio-button>
+  </mat-radio-group>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Telefone</mat-label>
+    <input matInput  formControlName="tel">
+    <mat-icon matSuffix>phone</mat-icon>
+  </mat-form-field>
+
+  <mat-card-actions>
+    <button mat-button>SALVAR</button>
+    <button mat-button>CANCELAR</button>
+  </mat-card-actions>
+
+</form>
+</mat-card>
