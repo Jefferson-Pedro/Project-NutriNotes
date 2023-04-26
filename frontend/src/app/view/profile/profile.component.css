@@ -5,6 +5,8 @@ mat-card{
 .container-form{
     display: flex;
     flex-direction: column;
+    padding: 20px;
+    align-items: center;
 }
 
 .card-container{
@@ -13,4 +15,12 @@ mat-card{
 
 .full-width{
    width: 70%;  
+}
+
+.checkbox{
+    font: inherit;
+    font-size: large;
+    color: rgba(0, 0, 0, 0.87);
+    margin-left: 0;
+    margin-bottom: 5px;
 }

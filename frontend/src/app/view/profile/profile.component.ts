@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Component } from '@angular/core';
 
 @Component({
@@ -10,13 +10,10 @@ export class ProfileComponent {
 
   form: FormGroup;
 
-  profile = {
-    Nome: String,
-    Sexo: String,
-    Email: String,
-    Telefone: Number,
-    CRN: Number,
-  }
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
 
   constructor(private formBuilder: FormBuilder){
     this.form = this.formBuilder.group({
@@ -27,4 +24,10 @@ export class ProfileComponent {
       crn: [Number],
     });
   }
+
+  public onSubmit(){
+    console.log(this.form.value)
+  }
+
+  public onCancel(){}
 }

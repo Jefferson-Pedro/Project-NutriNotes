@@ -4,28 +4,46 @@
 
 <form [formGroup]="form" class="container-form">
 
-  <mat-form-field appearance="fill" class="full-width">
+   <!--LEMBRAR DE INSERIR CAMPO PARA UPLOAD DE FOTO-->
+
+  <mat-form-field appearance="fill" class="full-width" >
     <mat-label>Nome e Sobrenome</mat-label>
-    <input matInput  formControlName="nome">
+    <input matInput  formControlName="nome" required>
     <mat-icon matSuffix>person</mat-icon>
   </mat-form-field>
 
+  <div class="checkbox">
   <mat-radio-group formControlName="sexo">
-    <mat-label>Sexo:</mat-label>
+    <mat-label class="sex">Sexo:</mat-label>
     <mat-radio-button value="M">Masculino</mat-radio-button>
     <mat-radio-button value="F">Feminino</mat-radio-button>
   </mat-radio-group>
+</div>
+
+ <!--LEMBRAR DE INSERIR DATA DE NASCIMENTO DATEPICKER-->
 
   <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Telefone</mat-label>
-    <input matInput  formControlName="tel">
+    <mat-label>Email</mat-label>
+    <input matInput  formControlName="email" placeholder="pat@example.com" required>
+    <mat-icon matSuffix>alternate_email</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Telefone + DDD</mat-label>
+    <input matInput  formControlName="tel"  placeholder="(XX)9XXXX-XXXX" required>
     <mat-icon matSuffix>phone</mat-icon>
   </mat-form-field>
 
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>CRN</mat-label>
+    <input matInput  formControlName="cnr" required>
+    <mat-icon matSuffix>pin</mat-icon>
+  </mat-form-field>
+
   <mat-card-actions>
-    <button mat-button>SALVAR</button>
-    <button mat-button>CANCELAR</button>
+    <button mat-button (click)="onSubmit()">SALVAR</button>
+    <button mat-button (click)="onCancel()">CANCELAR</button>
   </mat-card-actions>
 
 </form>
-</mat-card>
+</mat-card> 
