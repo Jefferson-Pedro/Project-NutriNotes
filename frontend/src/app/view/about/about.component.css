@@ -1,8 +1,12 @@
+.main-container {
+  min-height: 100vh;
+}
+
 .card-container {
-  margin-top: 5%;
-  max-width: 63%;
+  max-width: 60%;
   align-items: center;
-  margin: 5% auto 0;
+  margin: 0 auto;
+  margin-top: 5%;
 }
 
 .text-container {
@@ -17,7 +21,7 @@
 
 @media (min-width: 834px) and (max-width: 884px) {
   .card-container {
-    margin-top: 50px;
+    margin-top: 20%;
     max-width: 400px;
     display: inline-block;
     margin-left: 8rem;

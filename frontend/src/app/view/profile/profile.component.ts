@@ -9,12 +9,7 @@ import { Component } from '@angular/core';
 export class ProfileComponent {
 
   form: FormGroup;
-
-  range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
-  });
-
+  
   constructor(private formBuilder: FormBuilder){
     this.form = this.formBuilder.group({
       nome: [String],

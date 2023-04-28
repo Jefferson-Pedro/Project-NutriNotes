@@ -1,37 +1,102 @@
-mat-card{
-    max-width: 90%;
-    margin: 2em auto;
-}
-.container-form{
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    align-items: center;
+.card-container {
+  margin-top: 5%;
+  margin-left: 10%;
+  width: 70%;
+  height: 100hv;
 }
 
-.card-container{
-    margin-top: 5%; 
+.profile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.full-width{
-   width: 70%;  
+img {
+  width: 200px;
+  height: 200pxpx;
 }
 
-.checkbox{
-    font: inherit;
-    font-size: large;
-    color: rgba(0, 0, 0, 0.87);
-    margin-left: 0;
-    margin-bottom: 5px;
+.container-main {
+  padding: 15px;
+}
+
+.user-input-box {
+  display: inline-block;
+  padding: 10px;
+  width: 47%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.gener-checkbox {
+  border: solid 1px rgba(0, 0, 0, 0.203);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font: inherit;
+  font-size: large;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #dbdbdb2f;
+  padding: 5px;
+  width: 45%;
+  margin-left: 10px;
+}
+
+.button {
+  margin-top: 10px;
 }
 
 @media (max-width: 390px) {
-    .full-width{
-        width: 80%;  
-     }
+  .card-container {
+    margin-top: 5%;
+    margin-left: 10%;
+    width: 80%;
+    height: 100hv;
+  }
+  img {
+    width: 100px;
+    height: 100pxpx;
+  }
+  .user-input-box {
+    display: inline-block;
+    padding: 0;
+    width: 100%;
+  }
+  .gener-checkbox {
+    border: solid 1px rgba(0, 0, 0, 0.203);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font: inherit;
+    font-size: large;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: #dbdbdb2f;
+    padding: 5px;
+    width: 50%;
+    margin-left: 5px;
+  }
+  .button {
+    margin-top: 10px;
+  }
 }
 @media (max-width: 320px) {
-    .full-width{
-        width: 100%;  
-     }
+  .full-width {
+    width: 100%;
   }
+  img {
+    width: 70px;
+    height: 70pxpx;
+  }
+  .gener-checkbox {
+    border: solid 1px rgba(0, 0, 0, 0.203);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font: inherit;
+    font-size: large;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: #dbdbdb2f;
+    padding: 5px;
+    width: 60%;
+    margin-left: 5px;
+}
+}
