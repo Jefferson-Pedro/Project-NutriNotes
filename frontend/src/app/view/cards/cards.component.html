@@ -8,13 +8,13 @@
         <div class="image-container"> 
           <img
             mat-card-image
-            src="../../../assets/img/lista-diaria.png" alt="lista-diaria"/>
+            src="assets/img/lista-diaria.png" alt="lista-diaria"/>
         </div>
         <mat-card-content>
           <p>Crie, Personalize ou Consulte sua rotina de verificação diária.</p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>CRIAR</button>
+          <button mat-button (click)="openDialogCreate()">CRIAR</button>
           <button mat-button>CONSULTAR</button>
         </mat-card-actions>
       </mat-card>
@@ -28,7 +28,7 @@
         <div class="image-container"> 
           <img
             mat-card-image
-            src="../../../assets/img/lista-mensal.png" alt="lista-mensal"/>
+            src="assets/img/lista-mensal.png" alt="lista-mensal"/>
         </div>
         <mat-card-content>
           <p>Crie, Personalize ou Consulte sua rotina de verificação mensal.</p>
@@ -48,7 +48,7 @@
         <div class="image-container"> 
           <img
             mat-card-image
-            src="../../../assets/img/relatorio.png" alt="relatórios"/>
+            src="assets/img/relatorio.png" alt="relatórios"/>
         </div>
         <mat-card-content>
           <p>Consulte, analise e compare seus dados.</p>
@@ -68,7 +68,7 @@
         <div class="image-container"> 
           <img
             mat-card-image
-            src="../../../assets/img/cadastro-empresa.png" alt="cadastro-empresas"/>
+            src="assets/img/cadastro-empresa.png" alt="cadastro-empresas"/>
         </div>
         <mat-card-content>
           <p>Cadastre os dados de Empresas e dos seus respectivos setores.</p>
@@ -88,13 +88,13 @@
         <div class="image-container"> 
           <img
             mat-card-image
-            src="../../../assets/img/legislacao.png" alt="legislação"/>
+            src="assets/img/legislacao.png" alt="legislação"/>
         </div>
         <mat-card-content>
           <p>Consulte as principais leis que regem a Nutrição.</p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button (click)="openDialog()">CONSULTAR</button>
+          <button mat-button (click)="openDialogLegislation()">CONSULTAR</button>
         </mat-card-actions>
       </mat-card>
 
@@ -107,7 +107,7 @@
         <div class="image-container"> 
           <img
             mat-card-image
-            src="../../../assets/img/lembrete.png" alt="lembretes"/>
+            src="assets/img/lembrete.png" alt="lembretes"/>
         </div>
         <mat-card-content>
           <p>Cadastre lembretes para Agendamentos, Renovação de Laudos Detetização e etc.</p>

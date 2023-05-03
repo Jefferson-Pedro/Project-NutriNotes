@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import { LegislationComponent } from 'src/app/dialog/legislation/legislation.component';
+import { LegislationComponent } from 'src/app/checklist-modules/dialog/legislation/legislation.component';
+import { OptionClDailyComponent } from 'src/app/checklist-modules/dialog/option-type-cl/option-cl-daily/option-cl-daily.component';
+
+
+
 
 @Component({
   selector: 'app-cards',
@@ -9,11 +13,13 @@ import { LegislationComponent } from 'src/app/dialog/legislation/legislation.com
 })
 export class CardsComponent {
 
-  
-
   constructor(private dialog: MatDialog ) {}
 
-  openDialog() {
+  openDialogCreate(){
+    const dialogRef = this.dialog.open(OptionClDailyComponent);
+  }
+
+  openDialogLegislation() {
     const dialogRef = this.dialog.open(LegislationComponent);
   }
 
