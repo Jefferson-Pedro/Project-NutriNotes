@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DocumentationComponent } from './checklist-diario/create-checkList/documentation/documentation.component';
+import { CreateBusinessComponent } from './business/create-business/create-business.component';
+
 
 const routes: Routes = [
   {
-    path: 'documentation',
-    component: DocumentationComponent,
+    path: 'empresa',
+    component: CreateBusinessComponent,
   }
   
 ];
@@ -14,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class CheklistRoutingModule {}
+export class BusinessRoutingModule {}

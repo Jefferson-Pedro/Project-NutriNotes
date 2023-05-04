@@ -74,7 +74,7 @@
           <p>Cadastre os dados de Empresas e dos seus respectivos setores.</p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>CRIAR</button>
+          <button mat-button (click)="onClickBusiness()">CRIAR</button>
           <button mat-button>CONSULTAR</button>
         </mat-card-actions>
       </mat-card>
@@ -117,4 +117,5 @@
           <button mat-button>CONSULTAR</button>
         </mat-card-actions>
       </mat-card>
+      <router-outlet></router-outlet>
 </div>

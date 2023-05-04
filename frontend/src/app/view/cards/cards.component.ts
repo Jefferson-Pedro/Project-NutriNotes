@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import { Router } from '@angular/router';
+
 import { LegislationComponent } from 'src/app/checklist-modules/dialog/legislation/legislation.component';
 import { OptionClDailyComponent } from 'src/app/checklist-modules/dialog/option-type-cl/option-cl-daily/option-cl-daily.component';
-
-
 
 
 @Component({
@@ -13,7 +13,7 @@ import { OptionClDailyComponent } from 'src/app/checklist-modules/dialog/option-
 })
 export class CardsComponent {
 
-  constructor(private dialog: MatDialog ) {}
+  constructor(private dialog: MatDialog, private router: Router ) {}
 
   openDialogCreate(){
     const dialogRef = this.dialog.open(OptionClDailyComponent);
@@ -21,6 +21,11 @@ export class CardsComponent {
 
   openDialogLegislation() {
     const dialogRef = this.dialog.open(LegislationComponent);
+  }
+
+  onClickBusiness(){
+    console.log('Clicou!')
+    this.router.navigate(['empresa']);
   }
 
 }

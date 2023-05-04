@@ -1,7 +1,6 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,8 +13,7 @@ import { SupportUsComponent } from './view/support-us/support-us.component';
 import { CardsComponent } from './view/cards/cards.component';
 import { ChecklistModule } from './checklist-modules/checklist.module';
 import { AppMaterialModule } from './shared/app-material/app-material.module';
-
-
+import { BusinessModule } from './business-modules/business.module';
 
 @NgModule({
   declarations: [
@@ -27,19 +25,17 @@ import { AppMaterialModule } from './shared/app-material/app-material.module';
     SupportUsComponent,
     CardsComponent,
     HeaderComponent,
-  
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ChecklistModule,
-    AppMaterialModule
-  ], 
-  exports: [
-   
+    AppMaterialModule,
+    BusinessModule,
   ],
+  exports: [],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
