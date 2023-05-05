@@ -1,102 +1,100 @@
-.card-container {
-  margin-top: 5%;
-  margin-left: 10%;
-  width: 70%;
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100hv;
 }
-
-.profile-icon {
+.card-container {
+  margin-top: 5%;
+  width: 60%;
+  height: 100hv;
+}
+.profile-icon{
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-img {
+.profile-icon > img{
   width: 200px;
   height: 200pxpx;
 }
 
-.container-main {
-  padding: 15px;
+.name-birthday{
+  display: flex;
+  gap: 1rem;
+  margin: 1em 1em 0 1em;
 }
 
-.user-input-box {
-  display: inline-block;
-  padding: 10px;
-  width: 47%;
+.name-birthday > .input-name{
+  width: 80%;
 }
 
-.full-width {
+.email-tel, .crn-gener{
+  display: flex;
+  gap: 1rem;
+  margin: 0 1em 0 1em;
+}
+
+.input-email, .input-tel {
   width: 100%;
 }
 
-.gener-checkbox {
-  border: solid 1px rgba(0, 0, 0, 0.203);
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  font: inherit;
-  font-size: large;
-  color: rgba(0, 0, 0, 0.87);
-  background-color: #dbdbdb2f;
-  padding: 5px;
-  width: 45%;
-  margin-left: 10px;
+.input-crn{
+  width: 49%;
+}
+.check-sex{
+  align-items: center;
 }
 
-.button {
-  margin-top: 10px;
+.button{
+  display: flex;
+  justify-content: end;
+}
+
+/*ESPAÇO PARA ACERTAR TELAS MOBILE*/
+
+@media (max-width: 884px) {
+  .container{
+    height: 100%;
+  }
+  .card-container {
+    margin-top: 5%;
+    width: 80%;
+    height: 100hv;
+  }
+  .name-birthday > .input-name{
+    width: 70%;
+  }
+
 }
 
 @media (max-width: 390px) {
   .card-container {
     margin-top: 5%;
-    margin-left: 10%;
     width: 80%;
     height: 100hv;
   }
   img {
-    width: 100px;
-    height: 100pxpx;
+    max-width: 50%;
   }
-  .user-input-box {
-    display: inline-block;
-    padding: 0;
+  .name-birthday, .email-tel, .crn-gener{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .input-name, .input-crn{
     width: 100%;
   }
-  .gener-checkbox {
-    border: solid 1px rgba(0, 0, 0, 0.203);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    font: inherit;
-    font-size: large;
-    color: rgba(0, 0, 0, 0.87);
-    background-color: #dbdbdb2f;
-    padding: 5px;
-    width: 50%;
-    margin-left: 5px;
+
+  @media (max-width: 320px){
+    img {
+      max-width: 50%;
+    }
+    .check-sex{
+      width: 10%;
+    }
   }
-  .button {
-    margin-top: 10px;
-  }
-}
-@media (max-width: 320px) {
-  .full-width {
-    width: 100%;
-  }
-  img {
-    width: 70px;
-    height: 70pxpx;
-  }
-  .gener-checkbox {
-    border: solid 1px rgba(0, 0, 0, 0.203);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    font: inherit;
-    font-size: large;
-    color: rgba(0, 0, 0, 0.87);
-    background-color: #dbdbdb2f;
-    padding: 5px;
-    width: 60%;
-    margin-left: 5px;
-}
+    
+    
+    
 }

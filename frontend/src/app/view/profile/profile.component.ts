@@ -12,9 +12,9 @@ export class ProfileComponent {
   
   constructor(private formBuilder: FormBuilder){
     this.form = this.formBuilder.group({
-      nome: [String],
-      sexo: [String],
-      email: [String],
+      nome: [''],
+      sexo: [''],
+      email: [''],
       tel: [Number],
       crn: [Number],
     });
