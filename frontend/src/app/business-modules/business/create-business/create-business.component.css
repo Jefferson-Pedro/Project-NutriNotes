@@ -1,36 +1,36 @@
-.container-main {
+.container{
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 100hv;
 }
-
 .card-container {
-  max-width: 80%;
-  width: 80%;
   margin-top: 5%;
+  width: 60%;
+  height: 100hv;
+}
+.full-width{
+  width: 100%;
+}
+.input-business{
+  /*width: 100%;*/
+  margin: 1em 0 0 1em;
+}
+.input-cnpj{
+  /*width: 100%;*/
+  margin: 1em 1em 0 1em;
+}
+.input-cep, .input-tel{
+  display: flex;
+  justify-content: flex-start;
+  /*width: 70%;*/
+  margin: 1em 1em 0 1em;
+
 }
 
-.input-group {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+.one{
+  background-color: blue;
 }
-
-.title {
-  display: flex;
-  margin: 10px;
-  padding: 10px 0 10px 0;
-  background-color: #e6e6e6;
-  font-weight: 500; 
-}
-.input-name {
-  display: flex;
-  justify-content: center;
-}
-
-.input-name mat-form-field {
-  width: 90%;
-  gap: 0.5rem;
-  flex: 0 0 90%;
+.two{
+  background-color: brown;
 }
