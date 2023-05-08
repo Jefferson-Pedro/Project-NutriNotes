@@ -14,6 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTableModule,
  ]
 })
 export class AppMaterialModule { }
