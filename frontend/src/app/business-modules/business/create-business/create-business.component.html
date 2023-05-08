@@ -5,7 +5,7 @@
     </mat-toolbar>
 
     <form>
-      <mat-grid-list cols="2" rowHeight="100px">
+      <mat-grid-list cols="2" rowHeight="80px">
 
         <mat-grid-tile class="one">
           <mat-form-field class="input-business full-width">
@@ -27,6 +27,7 @@
           <mat-form-field class="input-cep full-width">
             <mat-label>CEP</mat-label>
             <input type="text" matInput placeholder="XXXXX-XXX" required>
+            <mat-icon matSuffix>123</mat-icon>
           </mat-form-field>
         </mat-grid-tile>
 
@@ -34,9 +35,75 @@
           <mat-form-field class="input-tel full-width">
             <mat-label>Telefone</mat-label>
             <input type="text" matInput placeholder="(XX) 9XXXX-XXXX" required>
+            <mat-icon matSuffix>call</mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+      <mat-grid-list cols="3" rowHeight="80px">
+        <mat-grid-tile colspan="2" class="one">
+          <mat-form-field class="input-adress full-width">
+            <mat-label>Logradouro</mat-label>
+            <input type="text" matInput placeholder="Rua/Avenida/Travessa" required>
+            <mat-icon matSuffix></mat-icon>
           </mat-form-field>
         </mat-grid-tile>
 
+        <mat-grid-tile class="two">
+          <mat-form-field class="input-number full-width">
+            <mat-label>Numero</mat-label>
+            <input type="text" matInput placeholder="123" required>
+            <mat-icon matSuffix>123</mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+      <mat-grid-list cols="3" rowHeight="80px">
+        <mat-grid-tile class="one">
+          <mat-form-field class="input-city full-width">
+            <mat-label>Cidade</mat-label>
+            <input type="text" matInput placeholder="Ex. São Paulo" required>
+            <mat-icon matSuffix></mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile class="two">
+          <mat-form-field class="input-district full-width">
+            <mat-label>Bairro</mat-label>
+            <input type="text" matInput placeholder="Ex.Vila Madalena" required>
+            <mat-icon matSuffix></mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile class="one">
+          <mat-form-field class="input-uf full-width">
+            <mat-label>UF</mat-label>
+            <input type="text" matInput placeholder="Ex.SP" required>
+            <mat-icon matSuffix></mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+      <mat-grid-list cols="2" rowHeight="80px">
+        <mat-grid-tile class="one">
+          <mat-form-field class="input-trade-representative full-width">
+            <mat-label>Representante Comercial</mat-label>
+            <input type="text" matInput placeholder="Nome do Representante" required>
+            <mat-icon matSuffix>person</mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile class="two">
+          <mat-form-field class="input-technical-manager full-width">
+            <mat-label>Responsável Técnico</mat-label>
+            <input type="text" matInput placeholder="Nome do Nutricionista" required>
+            <mat-icon matSuffix>person</mat-icon>
+          </mat-form-field>
+        </mat-grid-tile>
       </mat-grid-list>
     </form>
+    <mat-card-actions class="button">
+      <button mat-button>Cancelar</button>
+      <button mat-button>Salvar</button>
+    </mat-card-actions>
 </mat-card>

@@ -1,36 +1,54 @@
 .container{
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100hv;
+  min-height: 100vh;
 }
 .card-container {
   margin-top: 5%;
   width: 60%;
-  height: 100hv;
+  
 }
 .full-width{
   width: 100%;
 }
 .input-business{
-  /*width: 100%;*/
   margin: 1em 0 0 1em;
 }
 .input-cnpj{
-  /*width: 100%;*/
   margin: 1em 1em 0 1em;
 }
 .input-cep, .input-tel{
   display: flex;
   justify-content: flex-start;
-  /*width: 70%;*/
-  margin: 1em 1em 0 1em;
-
+  margin: 0 5em 0 1em;
+}
+.input-number{
+  margin: 0 1em 0 1em;
+}
+.input-adress{
+  margin: 0 0 0 1em;
+}
+.input-city{
+  margin: 0 1em 0 1em;
+}
+.input-district{
+  margin: 0;
+}
+.input-uf{
+  margin: 0 1em 0 1em;
+}
+.input-trade-representative, .input-technical-manager{
+  margin: 0 1em 0 1em;
+}
+.button{
+  display: flex;
+  justify-content: end;
 }
 
+/*
 .one{
   background-color: blue;
 }
 .two{
   background-color: brown;
-}
+}*/
