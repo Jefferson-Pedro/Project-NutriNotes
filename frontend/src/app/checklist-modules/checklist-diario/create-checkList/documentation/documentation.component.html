@@ -19,13 +19,31 @@
       <!-- Conforme Column -->
       <ng-container matColumnDef="conforme">
         <th mat-header-cell *matHeaderCellDef> Conforme </th>
-        <td mat-cell *matCellDef="let element"> {{element.conforme}} </td>
+        <td mat-cell *matCellDef="let element">
+          <mat-radio-group [(ngModel)]="element.conforme">
+            <mat-radio-button value="C">Sim</mat-radio-button>
+          </mat-radio-group>
+        </td>
       </ng-container>
     
       <!-- Não Conforme Column -->
       <ng-container matColumnDef="naoConforme">
         <th mat-header-cell *matHeaderCellDef> Não-Conforme </th>
-        <td mat-cell *matCellDef="let element"> {{element.naoConforme}} </td>
+        <td mat-cell *matCellDef="let element">
+          <mat-radio-group [(ngModel)]="element.naoConforme">
+            <mat-radio-button value="NC">Não</mat-radio-button>
+          </mat-radio-group>
+        </td>
+      </ng-container>
+
+       <!-- Não Aplica Column -->
+       <ng-container matColumnDef="naoSeAplica">
+        <th mat-header-cell *matHeaderCellDef> Não Se Aplica </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-radio-group [(ngModel)]="element.naoSeAplica">
+            <mat-radio-button value="NA">N/A</mat-radio-button>
+          </mat-radio-group>
+        </td>
       </ng-container>
 
       <!-- Observação Column -->

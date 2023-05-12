@@ -11,11 +11,13 @@ export class DocumentationComponent implements OnInit {
   public checkList: CheckListDaily[] = [
     {num: 1, 
      item: 'Proteção nos cabelos', 
-     conforme:'n',
-     naoConforme: '', 
-     observacao:'Foi constatado que a funcionária não usava touca'}
+     conforme: true,
+     naoConforme: false,
+     naoSeAplica: false, 
+     observacao:'Foi constatado que a funcionária não usava touca'
+    }
   ];
-  public displayedColumns = ['num', 'item', 'conforme', 'naoConforme', 'observacao'];
+  public displayedColumns = ['num', 'item', 'conforme', 'naoConforme','naoSeAplica', 'observacao'];
 
   constructor(){
     //this.checkList = [];
