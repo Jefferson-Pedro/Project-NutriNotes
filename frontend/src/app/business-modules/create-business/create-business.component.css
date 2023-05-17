@@ -40,15 +40,11 @@
 .input-trade-representative, .input-technical-manager{
   margin: 0 1em 0 1em;
 }
+.plan{
+  margin: 0 1em 0 1em;
+}
 .button{
   display: flex;
   justify-content: end;
 }
 
-/*
-.one{
-  background-color: blue;
-}
-.two{
-  background-color: brown;
-}*/

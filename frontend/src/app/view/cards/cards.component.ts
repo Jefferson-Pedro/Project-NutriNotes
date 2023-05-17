@@ -23,9 +23,14 @@ export class CardsComponent {
     const dialogRef = this.dialog.open(LegislationComponent);
   }
 
-  onClickBusiness(){
+  onClickCreateBusiness(){
     console.log('Clicou!')
-    this.router.navigate(['empresa']);
+    this.router.navigate(['business']);
+  }
+
+  onClickReadBusiness(){
+    console.log('Clicou!')
+    this.router.navigate(['readBusiness']);
   }
 
 }

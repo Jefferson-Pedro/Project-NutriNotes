@@ -1,8 +1,8 @@
 .footer {
-    /*position: static;*/
     bottom: 0;
     display: flex;
     justify-content: center;
+    height: 50px;
 }
 .footer > span{
     font-weight: 200;

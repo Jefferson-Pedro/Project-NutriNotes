@@ -1,109 +1,142 @@
-<div class="container">
+<div class="container"> 
   <mat-card class="card-container">
     <mat-toolbar class="color-primary color-secondary">
       Cadastro de Empresa
     </mat-toolbar>
 
-    <form>
+    <form [formGroup]="form">
       <mat-grid-list cols="2" rowHeight="80px">
 
-        <mat-grid-tile class="one">
+        <mat-grid-tile>
           <mat-form-field class="input-business full-width">
             <mat-label>Nome da Empresa</mat-label>
-            <input type="text" matInput placeholder="Empresa de exemplo ltda." required>
+            <input 
+              type="text" matInput 
+              placeholder="Empresa de exemplo ltda."
+              formControlName="nome"  required>
             <mat-icon matSuffix>corporate_fare</mat-icon>
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile class="two">
+        <mat-grid-tile>
           <mat-form-field class="input-cnpj full-width">
             <mat-label>CNPJ</mat-label>
-            <input type="text" matInput placeholder="XX. XXX. XXX/0001-XX" required>
+            <input type="text" matInput 
+              placeholder="XX. XXX. XXX/0001-XX"
+              formControlName="cnpj" required>
             <mat-icon matSuffix>123</mat-icon>
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile class="one">
+        <mat-grid-tile>
           <mat-form-field class="input-cep full-width">
             <mat-label>CEP</mat-label>
-            <input type="text" matInput placeholder="XXXXX-XXX" required>
+            <input type="text" matInput 
+              placeholder="XXXXX-XXX"
+              formControlName="cep" required>
             <mat-icon matSuffix>123</mat-icon>
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile class="two">
+        <mat-grid-tile>
           <mat-form-field class="input-tel full-width">
             <mat-label>Telefone</mat-label>
-            <input type="text" matInput placeholder="(XX) 9XXXX-XXXX" required>
+            <input type="text" matInput
+              placeholder="(XX) 9XXXX-XXXX"
+              formControlName="telefone" required>
             <mat-icon matSuffix>call</mat-icon>
           </mat-form-field>
         </mat-grid-tile>
       </mat-grid-list>
 
       <mat-grid-list cols="3" rowHeight="80px">
-        <mat-grid-tile colspan="2" class="one">
+        <mat-grid-tile colspan="2">
           <mat-form-field class="input-adress full-width">
             <mat-label>Logradouro</mat-label>
-            <input type="text" matInput placeholder="Rua/Avenida/Travessa" required>
+            <input type="text" matInput
+             placeholder="Rua/Avenida/Travessa"
+             formControlName="logradouro"  required>
             <mat-icon matSuffix></mat-icon>
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile class="two">
+        <mat-grid-tile>
           <mat-form-field class="input-number full-width">
             <mat-label>Numero</mat-label>
-            <input type="text" matInput placeholder="123" required>
+            <input type="text" matInput
+             placeholder="123"
+             formControlName="telefone" required>
             <mat-icon matSuffix>123</mat-icon>
           </mat-form-field>
         </mat-grid-tile>
       </mat-grid-list>
 
       <mat-grid-list cols="3" rowHeight="80px">
-        <mat-grid-tile class="one">
+        <mat-grid-tile>
           <mat-form-field class="input-city full-width">
             <mat-label>Cidade</mat-label>
-            <input type="text" matInput placeholder="Ex. São Paulo" required>
+            <input type="text" matInput
+             placeholder="Ex. São Paulo"
+             formControlName="cidade" required>
             <mat-icon matSuffix></mat-icon>
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile class="two">
+        <mat-grid-tile>
           <mat-form-field class="input-district full-width">
             <mat-label>Bairro</mat-label>
-            <input type="text" matInput placeholder="Ex.Vila Madalena" required>
+            <input type="text" matInput
+             placeholder="Ex.Vila Madalena"
+             formControlName="bairro" required>
             <mat-icon matSuffix></mat-icon>
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile class="one">
+        <mat-grid-tile>
           <mat-form-field class="input-uf full-width">
             <mat-label>UF</mat-label>
-            <input type="text" matInput placeholder="Ex.SP" required>
+            <input type="text" matInput
+             placeholder="Ex.SP"
+             formControlName="uf" required>
             <mat-icon matSuffix></mat-icon>
           </mat-form-field>
         </mat-grid-tile>
       </mat-grid-list>
 
       <mat-grid-list cols="2" rowHeight="80px">
-        <mat-grid-tile class="one">
+        <mat-grid-tile>
           <mat-form-field class="input-trade-representative full-width">
             <mat-label>Representante Comercial</mat-label>
-            <input type="text" matInput placeholder="Nome do Representante" required>
+            <input type="text" matInput
+             placeholder="Nome do Representante"
+             formControlName="representante" required>
             <mat-icon matSuffix>person</mat-icon>
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile class="two">
+        <mat-grid-tile>
           <mat-form-field class="input-technical-manager full-width">
             <mat-label>Responsável Técnico</mat-label>
-            <input type="text" matInput placeholder="Nome do Nutricionista" required>
+              <input matInput disabled value="Google">
             <mat-icon matSuffix>person</mat-icon>
           </mat-form-field>
         </mat-grid-tile>
       </mat-grid-list>
+
+        <mat-form-field class="plan">
+          <mat-label>Plano Contratado</mat-label>
+          <mat-select  formControlName="plano">
+            <mat-option value="null"></mat-option>
+            <mat-option value="Diário">Diário</mat-option>
+            <mat-option value="Semanal">Semanal</mat-option>
+            <mat-option value="Quinzenal">Quinzenal</mat-option>
+            <mat-option value="Mensal">Mensal</mat-option>
+          </mat-select>
+        </mat-form-field>
+
     </form>
     <mat-card-actions class="button">
-      <button mat-button>Cancelar</button>
-      <button mat-button>Salvar</button>
+      <button mat-button (click)="onCancel()">Cancelar</button>
+      <button mat-button (click)="onSubmit()">Salvar</button>
     </mat-card-actions>
 </mat-card>

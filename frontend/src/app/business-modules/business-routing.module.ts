@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateBusinessComponent } from './business/create-business/create-business.component';
+import { CreateBusinessComponent } from './create-business/create-business.component';
+import { ReadBusinessComponent } from './read-business/read-business.component';
 
 
 const routes: Routes = [
   {
-    path: 'empresa',
+    path: 'business',
     component: CreateBusinessComponent,
+  },
+  {
+    path: 'readBusiness',
+    component: ReadBusinessComponent,
   }
   
 ];

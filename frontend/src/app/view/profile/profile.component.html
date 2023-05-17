@@ -12,24 +12,25 @@
         <div class="name-birthday">
           <mat-form-field class="input-name">
             <mat-label>Nome e Sobrenome</mat-label>
-            <input matInput formControlName="nome" required />
+            <input matInput 
+            formControlName="nome" 
+            required />
             <mat-icon matSuffix>person</mat-icon>
           </mat-form-field>
   
-          <mat-form-field class="input-birthday" appearance="fill">
+          <mat-form-field class="input-birthday">
             <mat-label>Data de Aniversário</mat-label>
-            <input  formControlName="dob" matInput [matDatepicker]="picker">
+            <input  formControlName="data_nasc" matInput [matDatepicker]="picker">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
   
         <div class="email-tel">
-          <mat-form-field appearance="fill" class="input-email">
+          <mat-form-field class="input-email">
             <mat-label>Email</mat-label>
-            <input
+            <input matInput
               type="email"
-              matInput
               formControlName="email"
               placeholder="pat@example.com"
               required
@@ -37,12 +38,11 @@
             <mat-icon matSuffix>alternate_email</mat-icon>
           </mat-form-field>
   
-          <mat-form-field appearance="fill" class="input-tel">
+          <mat-form-field class="input-tel">
             <mat-label>Telefone + DDD</mat-label>
-            <input
+            <input matInput
               type="number"
-              matInput
-              formControlName="tel"
+              formControlName="telefone"
               placeholder="(XX)9XXXX-XXXX"
               required
             />
@@ -51,13 +51,15 @@
         </div>
   
         <div class="crn-gener">
-          <mat-form-field appearance="fill" class="input-crn">
+          <mat-form-field class="input-crn">
             <mat-label>CRN</mat-label>
-            <input type="number" matInput formControlName="cnr" required />
+            <input matInput  
+            formControlName="crn" 
+            required />
             <mat-icon matSuffix>pin</mat-icon>
           </mat-form-field>
   
-          <mat-radio-group formControlName="check-sex">
+          <mat-radio-group formControlName="sexo">
             <mat-label class="sex">Sexo:</mat-label>
             <mat-radio-button value="M">Masculino</mat-radio-button>
             <mat-radio-button value="F">Feminino</mat-radio-button>

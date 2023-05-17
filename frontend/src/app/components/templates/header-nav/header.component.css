@@ -26,11 +26,13 @@
   border: 1px solid rgb(64, 64, 64);
 }
 span {
-  /*color: #fff; */
   color: #ffc745;
 }
 .sidenav i {
   padding-right: 10px;
+}
+.nav-list{
+  margin-top: 30%;
 }
 .content {
   padding: 16px;

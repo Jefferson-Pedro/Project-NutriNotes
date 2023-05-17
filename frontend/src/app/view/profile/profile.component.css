@@ -63,7 +63,10 @@
     height: 100hv;
   }
   .name-birthday > .input-name{
-    width: 70%;
+    width: 80%;
+  }
+  .name-birthday > .label-birthday{
+    font-size: 0.5rem;
   }
 
 }

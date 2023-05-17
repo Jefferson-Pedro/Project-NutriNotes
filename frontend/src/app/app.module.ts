@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +15,7 @@ import { CardsComponent } from './view/cards/cards.component';
 import { ChecklistModule } from './checklist-modules/checklist.module';
 import { AppMaterialModule } from './shared/app-material/app-material.module';
 import { BusinessModule } from './business-modules/business.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,9 +35,13 @@ import { BusinessModule } from './business-modules/business.module';
     ChecklistModule,
     AppMaterialModule,
     BusinessModule,
+    HttpClientModule
   ],
-  exports: [],
-  providers: [],
+  exports: [HttpClientModule],
+  providers: [{
+    provide: LOCALE_ID,
+      useValue: 'pt'
+  }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
