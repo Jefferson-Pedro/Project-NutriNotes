@@ -1,0 +1,14 @@
+.sidenav {
+  /*background-color: #483D8B;*/
+  width: 200px;
+  border: 1px solid rgb(64, 64, 64);
+}
+span {
+  color: #ffc745;
+}
+.sidenav i {
+  padding-right: 10px;
+}
+.nav-list {
+  margin-top: 5px;
+}

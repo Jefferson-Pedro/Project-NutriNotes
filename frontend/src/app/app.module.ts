@@ -16,6 +16,7 @@ import { ChecklistModule } from './checklist-modules/checklist.module';
 import { AppMaterialModule } from './shared/app-material/app-material.module';
 import { BusinessModule } from './business-modules/business.module';
 import { HttpClientModule } from '@angular/common/http';
+import { NavComponent } from './components/templates/nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     SupportUsComponent,
     CardsComponent,
     HeaderComponent,
+    NavComponent,
   ],
   imports: [
     BrowserModule,
