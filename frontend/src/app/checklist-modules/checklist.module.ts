@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 
 
@@ -23,7 +22,6 @@ import { CheklistRoutingModule } from './checklist-routing.module';
   ],
   imports: [
     CommonModule,
-    MatDialogModule,
     AppMaterialModule,
     CheklistRoutingModule,
     AppRoutingModule,

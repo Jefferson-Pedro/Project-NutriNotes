@@ -1,0 +1,7 @@
+[
+      { "idBusiness": "1", "nome": "Empresa 1", "cnpj":"123456789"},
+      { "idBusiness": "2", "nome": "Empresa 2", "cnpj":"123456789"},
+      { "idBusiness": "3", "nome": "Empresa 3", "cnpj":"123456789"},
+      { "idBusiness": "4", "nome": "Empresa 4", "cnpj":"123456789"},
+      { "idBusiness": "5", "nome": "Empresa 5", "cnpj":"123456789"}
+]

@@ -1,27 +1,54 @@
-  <div class="container">
-    <mat-card class="card-container">
-      <mat-toolbar class="color-primary color-secondary">
-        Empresas Cadastradas
-      </mat-toolbar>
-    <table mat-table [dataSource]="business" class="mat-elevation-z8">
-      <!--Id Column -->
-      <ng-container matColumnDef="idBusiness">
-        <th mat-header-cell *matHeaderCellDef>Nº</th>
-        <td mat-cell *matCellDef="let business">{{ business.idBusiness }}</td>
-      </ng-container>
-      <!-- Name Column -->
-      <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef>Nome da Empresa</th>
-        <td mat-cell *matCellDef="let business">{{ business.nome }}</td>
-      </ng-container>
-      <!-- Cnpj Column -->
-      <ng-container matColumnDef="cnpj">
-        <th mat-header-cell *matHeaderCellDef>CNPJ</th>
-        <td mat-cell *matCellDef="let business">{{ business.cnpj }}</td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-    </mat-card>
-  </div>
+<div class="container">
+  <mat-card class="card-container">
 
+    <mat-toolbar class="color-primary color-secondary">
+      Empresas Cadastradas
+    </mat-toolbar>
+
+    <div *ngIf="business$ | async as business; else loading">
+      <table mat-table [dataSource]="business" class="mat-elevation-z8">
+        <!--Id Column -->
+        <ng-container matColumnDef="idBusiness">
+          <th mat-header-cell *matHeaderCellDef>Nº</th>
+          <td mat-cell *matCellDef="let business">{{ business.idBusiness }}</td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef>Nome da Empresa</th>
+          <td mat-cell *matCellDef="let business">{{ business.nome }}</td>
+        </ng-container>
+        <!-- Cnpj Column -->
+        <ng-container matColumnDef="cnpj">
+          <th mat-header-cell *matHeaderCellDef>CNPJ</th>
+          <td mat-cell *matCellDef="let business">{{ business.cnpj }}</td>
+        </ng-container>
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef class="action-button">
+            <button mat-icon-button aria-label="Business Registration"
+            (click)="onCreateBusiness()">
+              <mat-icon class=" icon-add color-primary color-secondary" >add</mat-icon>
+            </button>
+          </mat-header-cell>
+         <mat-cell *matCellDef="let business" class="action-button">
+          <button mat-icon-button style="color:#004746" aria-label="Edit Business">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" aria-label="Remove Business">
+            <mat-icon>delete</mat-icon>
+          </button>
+         </mat-cell>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <ng-template #loading>
+      <div class="loading-spinner">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+    
+
+  </mat-card>
+</div>

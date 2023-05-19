@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Business } from '../models/business';
+import { delay, first } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,10 @@ export class BusinessService {
   }
 
   public list(){
-    
+    return this.http.get<Business[]>(this.baseUrl)
+    .pipe(first(),
+     //delay(3000)
+     );
   }
   
   public create(business:Business): Observable<Business>{

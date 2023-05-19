@@ -8,12 +8,15 @@ import { BusinessRoutingModule } from './business-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReadBusinessComponent } from './read-business/read-business.component';
 
+import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
+
 
 
 @NgModule({
   declarations: [
     CreateBusinessComponent,
-    ReadBusinessComponent
+    ReadBusinessComponent,
+    ErrorDialogComponent
   ],
   imports: [
     CommonModule,
