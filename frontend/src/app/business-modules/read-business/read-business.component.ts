@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Business } from 'src/app/models/business';
 import { BusinessService } from '../business.service';
@@ -42,5 +41,9 @@ export class ReadBusinessComponent implements OnInit {
   public onCreateBusiness(){
     console.log('clicou!');
     this.router.navigate(['business']);
+  }
+
+  public onEdit(business: Business){
+
   }
 }

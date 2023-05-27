@@ -71,7 +71,8 @@
 
 }
 
-@media (max-width: 390px) {
+/*Para telas menores que 428px*/
+@media (max-width: 428px) {
   .card-container {
     margin-top: 5%;
     width: 80%;
@@ -85,19 +86,11 @@
     flex-direction: column;
     gap: 0;
   }
-  .input-name, .input-crn{
+  .name-birthday > .input-name{
     width: 100%;
   }
-
-  @media (max-width: 320px){
-    img {
-      max-width: 50%;
-    }
-    .check-sex{
-      width: 10%;
-    }
-  }
-    
-    
+  .input-name, .input-crn{
+    width: 100%;
+  }  
     
 }

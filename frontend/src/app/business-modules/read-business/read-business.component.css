@@ -5,9 +5,12 @@
    min-height: 100hv;
 }
 .card-container{
+    display: flex;
+    flex-direction: column;
     margin-top: 5%;
     margin-bottom: 15px;
-    width: 60%;
+    width: 90%;
+    
 }
 .loading-spinner{
     padding: 25px;

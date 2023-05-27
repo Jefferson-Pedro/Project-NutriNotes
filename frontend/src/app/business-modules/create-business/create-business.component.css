@@ -4,47 +4,89 @@
   min-height: 100vh;
 }
 .card-container {
+  display: flex;
   margin-top: 5%;
-  width: 60%;
+  max-width: 60%;
   margin-bottom: 15px;
 }
-.full-width{
+.business-cnpj{
+  display: flex;
+  padding: 1em 1em 0;
+  gap: 1em;
+}
+.business-cnpj > .input-business{
+  width: 60%;
+}
+.cep-tel{
+  display: flex;
+  padding: 0 1em 0;
+  gap: 1em;
+}
+.adress-number{
+  display: flex;
+  padding: 0 1em 0;
+  gap: 1em;
+}
+.adress-number > .input-adress{
+  width: 60%;
+}
+.city-district-uf{
+  display: flex;
+  padding: 0 1em 0;
+  gap: 1em;
+}
+.representative{
+  display: flex;
+  padding: 0 1em 0;
+  gap: 1em;
+}
+.representative > .input-trade-representative, .input-technical-manager{
   width: 100%;
 }
-.input-business{
-  margin: 1em 0 0 1em;
-}
-.input-cnpj{
-  margin: 1em 1em 0 1em;
-}
-.input-cep, .input-tel{
-  display: flex;
-  justify-content: flex-start;
-  margin: 0 5em 0 1em;
-}
-.input-number{
-  margin: 0 1em 0 1em;
-}
-.input-adress{
-  margin: 0 0 0 1em;
-}
-.input-city{
-  margin: 0 1em 0 1em;
-}
-.input-district{
-  margin: 0;
-}
-.input-uf{
-  margin: 0 1em 0 1em;
-}
-.input-trade-representative, .input-technical-manager{
-  margin: 0 1em 0 1em;
-}
 .plan{
-  margin: 0 1em 0 1em;
+  display: flex;
+  padding: 0 1em 0;
+  gap: 1em;
 }
 .button{
   display: flex;
   justify-content: end;
+}
+.full-width{
+  width: 100%;
+}
+
+
+@media (min-width: 834px) and (max-width: 884px) {
+  .container{
+    display: flex;
+    justify-content: center;
+  }
+  .card-container {
+    display: flex;
+    margin-top: 5%;
+    width: 90%;
+    margin-bottom: 15px;
+  }
+}
+
+/*Para telas menores que 428px*/
+@media (max-width: 428px) {
+  .card-container {
+    width: 90%;
+    display: flex;
+  }
+  .business-cnpj, .cep-tel , .adress-number, .city-district-uf,.representative{
+    display:block;
+  }
+  mat-form-field{
+    width: 100%;
+  }
+  .adress-number > .input-adress{
+    width: 100%;
+  }
+  .business-cnpj > .input-business{
+    width: 100%;
+  }
 }
 

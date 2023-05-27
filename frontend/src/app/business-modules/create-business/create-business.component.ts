@@ -25,7 +25,7 @@ export class CreateBusinessComponent implements OnInit{
         bairro: [''],
         uf: [''],
         representante: [''],
-        responsavelTec: [''],
+        responsavelTec: ['1'],
         plano: ['']
       });
   }
@@ -34,7 +34,9 @@ export class CreateBusinessComponent implements OnInit{
   public onSubmit(){
     this.service.create(this.form.value).subscribe({
       next: () => {
+        console.log(this.form.value);
         this.service.showMessageSucess('Sucesso! Empresa cadastrada');
+        
       },
       error: (err) => {
           this.service.showMessageFail('Ocorreu um erro ao salvar as informações de empresa');

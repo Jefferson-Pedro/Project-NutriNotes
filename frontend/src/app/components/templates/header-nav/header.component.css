@@ -25,3 +25,9 @@
   position: absolute;
   right: 0;
 }
+
+@media (max-width: 320px) {
+  .icon-navigate {
+    display: none;
+  }
+}
