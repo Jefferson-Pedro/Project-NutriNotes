@@ -11,7 +11,7 @@ public interface IBusinessService {
 	public Business alterar(Business profile);
 	public List<Business> buscarTodos();
 	public List<Business> buscarPorNome(String nome);
-	public Business recuperarPeloId(Integer id);
-	public boolean deletar(Integer id);
+	public Business findById(Integer id);
+	public boolean delete(Integer id);
 
 }

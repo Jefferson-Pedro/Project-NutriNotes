@@ -16,7 +16,11 @@ public class BusinessImpl implements IBusinessService {
 
 	@Override
 	public Business cadastrar(Business novo) {
-		if(novo.getNome() != null && novo.getCnpj() != null ) {
+		novo.setResponsavelTec(novo.getResponsavelTec()); 
+		if(novo.getNome() != null || novo.getNome().length() > 0 || 
+		   novo.getCnpj() != null || novo.getCnpj().length() > 0 ) {
+			
+			System.out.println(novo.toString());
 			return dao.save(novo);
 		}
 		System.out.println("Erro ao cadastrar empresa!");
@@ -36,20 +40,18 @@ public class BusinessImpl implements IBusinessService {
 
 	@Override
 	public List<Business> buscarPorNome(String nome) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findByNomeContaining(nome);
 	}
 
 	@Override
-	public Business recuperarPeloId(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Business findById(Integer id) {
+		return dao.findById(id).orElse(null);
 	}
 
 	@Override
-	public boolean deletar(Integer id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delete(Integer id) {
+		dao.deleteById(id);
+		return true;
 	}
 
 }

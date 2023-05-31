@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,13 +21,14 @@ import br.com.nutrinotes.project.model.Profile;
 import br.com.nutrinotes.project.service.IProfileService;
 
 @RestController
+@RequestMapping("/profile")
 @CrossOrigin("*")
 public class ProfileController {
 	
 	@Autowired
 	private IProfileService service;
 	
-	@GetMapping("/profile")
+	@GetMapping()
 	public ResponseEntity<List<Profile>> recuperarTodos(){
 		List<Profile> lista = service.buscarTodos();
 		if (lista.size() > 0) {
@@ -35,7 +37,7 @@ public class ProfileController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("/profile/buscar")
+	@GetMapping("/buscar")
 	public ResponseEntity<List<Profile>> recuperarPeloNome(@RequestParam (name = "nome") String nome){
 		List<Profile> lista = service.buscarPorNome(nome);
 		if (lista.size() > 0) {
@@ -44,7 +46,7 @@ public class ProfileController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("/profile/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Profile> recuperarPeloId(@PathVariable Integer id){
 		Profile res = service.recuperarPeloId(id);
 		if (res != null) {
@@ -53,16 +55,16 @@ public class ProfileController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@PostMapping("/profile")
+	@PostMapping()
 	public ResponseEntity<Profile> cadastrar(@RequestBody Profile novo) throws URISyntaxException{
 		Profile res = service.cadastrar(novo);
-		if (res.getNome() != null && res.getCrn() != null) {
+		if(res != null) {
 			return ResponseEntity.created(new URI("/profile/" + res.getIdProfile())).body(res);
 		}
 		return ResponseEntity.badRequest().build();
 	}
 	
-	@PutMapping("/profile/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Profile> alterarProfile(@RequestBody Profile profile, @PathVariable Integer id){
 		if(profile.getIdProfile() == null) {
 			profile.setIdProfile(id);
@@ -74,7 +76,7 @@ public class ProfileController {
 		return ResponseEntity.badRequest().build();
 	}
 	
-	@DeleteMapping("profile/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Profile> excluirProfile(@PathVariable Integer id){
 		boolean res = service.deletar(id);
 		if(res) {

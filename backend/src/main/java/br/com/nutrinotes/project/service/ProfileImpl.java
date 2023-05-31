@@ -16,7 +16,10 @@ public class ProfileImpl implements IProfileService {
 
 	@Override
 	public Profile cadastrar(Profile novo) {
-		if(novo.getNome() != null && novo.getCrn() != null) {
+		System.out.println(novo.getNome().length());
+		 if (novo.getNome() != null && novo.getNome().length() > 0 &&
+			 novo.getCrn() != null && novo.getCrn().length() > 0) {
+			
 		novo.setAtivo(1);
 		return dao.save(novo);
 		}
@@ -47,14 +50,12 @@ public class ProfileImpl implements IProfileService {
 	public boolean deletar(Integer id) {
 		Profile p = recuperarPeloId(id);
 		if(p != null) {
-			p.setAtivo(0);
-			dao.save(p);
+			dao.deleteById(id);
+			System.out.println("Perfil com id " + id + " excluido com sucesso!");
 			return true;
 		}
-	return false;
-		
-		//dao.deleteById(id);
-		//System.out.println("Perfil com id " + id + " excluido com sucesso!");
+		System.out.println("Ocorreu um erro ao excluir o perfil " + id);
+		return false;
 	}
 
 }
