@@ -1,4 +1,4 @@
-package br.com.nutrinotes.project.controller;
+package br.com.nutrinotes.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.nutrinotes.project.model.Business;
-import br.com.nutrinotes.project.service.IBusinessService;
+import br.com.nutrinotes.model.Business;
+import br.com.nutrinotes.service.business.IBusinessService;
 
 @RestController
 @CrossOrigin("*")
@@ -29,7 +29,7 @@ public class BusinessController {
 	
 	@GetMapping()
 	public ResponseEntity<List<Business>> findAll(){
-		List<Business> list = service.buscarTodos();
+		List<Business> list = service.findAll();
 		if(list.size() > 0) {
 			return ResponseEntity.ok(list);
 		}
@@ -48,7 +48,7 @@ public class BusinessController {
 	
 	@GetMapping("/buscar")
 	public ResponseEntity<List<Business>> findByName(@RequestParam (name = "nome") String nome){
-		List<Business> list = service.buscarPorNome(nome);
+		List<Business> list = service.findByName(nome);
 		if(!list.isEmpty()) {
 			return ResponseEntity.ok(list);
 		}
@@ -57,7 +57,7 @@ public class BusinessController {
 	
 	@PostMapping()
 	public ResponseEntity<Business> save(@RequestBody Business novo) throws URISyntaxException{
-		Business res = service.cadastrar(novo);
+		Business res = service.save(novo);
 		if (res != null) {
 			return ResponseEntity.created(new URI("business/" + res.getIdBusiness())).body(res);	
 		}

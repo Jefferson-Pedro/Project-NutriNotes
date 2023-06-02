@@ -1,10 +1,10 @@
-package br.com.nutrinotes.project.dao;
+package br.com.nutrinotes.dao;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.nutrinotes.project.model.Profile;
+import br.com.nutrinotes.model.Profile;
 
 public interface ProfileDAO extends JpaRepository<Profile, Integer> {
 	

@@ -1,4 +1,4 @@
-package br.com.nutrinotes.project.model;
+package br.com.nutrinotes.model;
 
 public class Departament {
 	private Integer idSetores;

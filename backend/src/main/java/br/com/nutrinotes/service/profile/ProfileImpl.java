@@ -1,12 +1,13 @@
-package br.com.nutrinotes.project.service;
+package br.com.nutrinotes.service.profile;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.nutrinotes.project.dao.ProfileDAO;
-import br.com.nutrinotes.project.model.Profile;
+import br.com.nutrinotes.dao.ProfileDAO;
+import br.com.nutrinotes.model.Profile;
 
 @Component
 public class ProfileImpl implements IProfileService {
@@ -15,7 +16,7 @@ public class ProfileImpl implements IProfileService {
 	private ProfileDAO dao;
 
 	@Override
-	public Profile cadastrar(Profile novo) {
+	public Profile save(Profile novo) {
 		System.out.println(novo.getNome().length());
 		 if (novo.getNome() != null && novo.getNome().length() > 0 &&
 			 novo.getCrn() != null && novo.getCrn().length() > 0) {
@@ -27,28 +28,28 @@ public class ProfileImpl implements IProfileService {
 	}
 
 	@Override
-	public Profile alterar(Profile profile) {
+	public Profile update(Profile profile) {
 		return dao.save(profile);
 	}
 	
 	@Override
-	public List<Profile> buscarTodos() {
+	public List<Profile> findAll() {
 		return dao.findAll();
 	}
 
 	@Override
-	public List<Profile> buscarPorNome(String nome) {
+	public List<Profile> findByName(String nome) {
 		return dao.findByNomeContaining(nome);
 	}
 
 	@Override
-	public Profile recuperarPeloId(Integer id) {
+	public Profile findById(Integer id) {
 		return dao.findById(id).orElse(null);
 	}
 
 	@Override
-	public boolean deletar(Integer id) {
-		Profile p = recuperarPeloId(id);
+	public boolean delete(Integer id) {
+		Optional<Profile> p = dao.findById(id);
 		if(p != null) {
 			dao.deleteById(id);
 			System.out.println("Perfil com id " + id + " excluido com sucesso!");

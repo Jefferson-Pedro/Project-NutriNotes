@@ -1,12 +1,12 @@
-package br.com.nutrinotes.project.service;
+package br.com.nutrinotes.service.business;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.nutrinotes.project.dao.BusinessDAO;
-import br.com.nutrinotes.project.model.Business;
+import br.com.nutrinotes.dao.BusinessDAO;
+import br.com.nutrinotes.model.Business;
 
 @Component
 public class BusinessImpl implements IBusinessService {
@@ -15,7 +15,7 @@ public class BusinessImpl implements IBusinessService {
 	BusinessDAO dao;
 
 	@Override
-	public Business cadastrar(Business novo) {
+	public Business save(Business novo) {
 		novo.setResponsavelTec(novo.getResponsavelTec()); 
 		if(novo.getNome() != null || novo.getNome().length() > 0 || 
 		   novo.getCnpj() != null || novo.getCnpj().length() > 0 ) {
@@ -28,18 +28,18 @@ public class BusinessImpl implements IBusinessService {
 	}
 
 	@Override
-	public Business alterar(Business profile) {
+	public Business update(Business profile) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Business> buscarTodos() {
+	public List<Business> findAll() {
 		return dao.findAll();
 	}
 
 	@Override
-	public List<Business> buscarPorNome(String nome) {
+	public List<Business> findByName(String nome) {
 		return dao.findByNomeContaining(nome);
 	}
 
@@ -53,5 +53,4 @@ public class BusinessImpl implements IBusinessService {
 		dao.deleteById(id);
 		return true;
 	}
-
 }

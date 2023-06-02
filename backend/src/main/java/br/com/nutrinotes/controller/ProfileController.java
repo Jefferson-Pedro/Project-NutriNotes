@@ -1,4 +1,4 @@
-package br.com.nutrinotes.project.controller;
+package br.com.nutrinotes.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.nutrinotes.project.model.Profile;
-import br.com.nutrinotes.project.service.IProfileService;
+import br.com.nutrinotes.model.Profile;
+import br.com.nutrinotes.service.profile.IProfileService;
 
 @RestController
 @RequestMapping("/profile")
@@ -29,8 +29,8 @@ public class ProfileController {
 	private IProfileService service;
 	
 	@GetMapping()
-	public ResponseEntity<List<Profile>> recuperarTodos(){
-		List<Profile> lista = service.buscarTodos();
+	public ResponseEntity<List<Profile>> findAll(){
+		List<Profile> lista = service.findAll();
 		if (lista.size() > 0) {
 			return ResponseEntity.ok(lista);
 		} 
@@ -38,8 +38,8 @@ public class ProfileController {
 	}
 	
 	@GetMapping("/buscar")
-	public ResponseEntity<List<Profile>> recuperarPeloNome(@RequestParam (name = "nome") String nome){
-		List<Profile> lista = service.buscarPorNome(nome);
+	public ResponseEntity<List<Profile>> findByName(@RequestParam (name = "nome") String nome){
+		List<Profile> lista = service.findByName(nome);
 		if (lista.size() > 0) {
 			return ResponseEntity.ok(lista);
 		} 
@@ -47,8 +47,8 @@ public class ProfileController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Profile> recuperarPeloId(@PathVariable Integer id){
-		Profile res = service.recuperarPeloId(id);
+	public ResponseEntity<Profile> findById(@PathVariable Integer id){
+		Profile res = service.findById(id);
 		if (res != null) {
 			return ResponseEntity.ok(res);
 		} 
@@ -56,8 +56,8 @@ public class ProfileController {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<Profile> cadastrar(@RequestBody Profile novo) throws URISyntaxException{
-		Profile res = service.cadastrar(novo);
+	public ResponseEntity<Profile> save(@RequestBody Profile novo) throws URISyntaxException{
+		Profile res = service.save(novo);
 		if(res != null) {
 			return ResponseEntity.created(new URI("/profile/" + res.getIdProfile())).body(res);
 		}
@@ -65,11 +65,11 @@ public class ProfileController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Profile> alterarProfile(@RequestBody Profile profile, @PathVariable Integer id){
+	public ResponseEntity<Profile> update(@RequestBody Profile profile, @PathVariable Integer id){
 		if(profile.getIdProfile() == null) {
 			profile.setIdProfile(id);
 		}
-		Profile res = service.alterar(profile);
+		Profile res = service.update(profile);
 		if(res != null) {
 			return ResponseEntity.ok(res);
 		}
@@ -77,10 +77,10 @@ public class ProfileController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Profile> excluirProfile(@PathVariable Integer id){
-		boolean res = service.deletar(id);
+	public ResponseEntity<Profile> delete(@PathVariable Integer id){
+		boolean res = service.delete(id);
 		if(res) {
-			return ResponseEntity.ok(service.recuperarPeloId(id));
+			return ResponseEntity.ok(service.findById(id));
 		}
 		return ResponseEntity.notFound().build();
 	}

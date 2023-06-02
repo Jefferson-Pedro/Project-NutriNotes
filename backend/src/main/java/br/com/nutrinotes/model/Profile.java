@@ -1,4 +1,4 @@
-package br.com.nutrinotes.project.model;
+package br.com.nutrinotes.model;
 
 import java.time.LocalDate;
 import java.util.Date;

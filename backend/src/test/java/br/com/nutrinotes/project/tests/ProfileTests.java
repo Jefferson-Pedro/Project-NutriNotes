@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import br.com.nutrinotes.project.model.Profile;
-import br.com.nutrinotes.project.service.IProfileService;
+import br.com.nutrinotes.model.Profile;
+import br.com.nutrinotes.service.profile.IProfileService;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -27,29 +27,29 @@ public class ProfileTests {
 		p.setIdProfile(109);
 		p.setNome("Jefferson");
 		p.setCrn("123456789");
-		Profile res = service.cadastrar(p);
+		Profile res = service.save(p);
 		assertTrue(res != null && res.getAtivo() == 1);
 	}
 	
 	@Test
 	public void shouldDeleteProfile() {
-		assertTrue(service.deletar(100));
+		assertTrue(service.delete(100));
 	}
 	
 	@Test
 	public void shouldNotDeleteProfile() {
-		assertFalse(service.deletar(150));
+		assertFalse(service.delete(150));
 	}
 	
 	@Test
 	public void shouldReturnServeralProfile() {
-		List<Profile> lista = service.buscarPorNome("a");
+		List<Profile> lista = service.findByName("a");
 		assertTrue(lista.size() > 0);
 	}
 	
 	@Test
 	public void shouldNotFindProfile() {
-		List<Profile> lista = service.buscarPorNome("adamastor");
+		List<Profile> lista = service.findByName("adamastor");
 		assertTrue(lista.size() == 0);
 	}
 
