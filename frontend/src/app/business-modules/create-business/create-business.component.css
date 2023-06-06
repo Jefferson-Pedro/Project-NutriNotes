@@ -21,7 +21,13 @@
   display: flex;
   padding: 0 1em 0;
   gap: 1em;
+  align-items: baseline;
 }
+
+.cep-tel > .input-tel{
+  float: right;
+}
+
 .adress-number{
   display: flex;
   padding: 0 1em 0;

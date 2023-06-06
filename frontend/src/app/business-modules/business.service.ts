@@ -33,10 +33,14 @@ export class BusinessService {
     })
   }
 
+  public searchCep(cep:string): Observable<any>{
+    return this.http.get<any>(`https://viacep.com.br/ws/${cep}/json/`);
+  }
+
   public list(){
     return this.http.get<Business[]>(this.baseUrl)
     .pipe(first(),
-     //delay(3000)
+     delay(1000)
      );
   }
   

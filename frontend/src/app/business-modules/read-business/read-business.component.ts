@@ -42,7 +42,7 @@ export class ReadBusinessComponent implements OnInit {
   }
 
   public onCreateBusiness(){
-    this.router.navigate(['business/new']);
+    this.router.navigate(['business']);
   }
 
   public onEdit(business: Business){
@@ -52,9 +52,13 @@ export class ReadBusinessComponent implements OnInit {
 
   public onDelete(business: Number){
     this.service.delete(business).subscribe({
-     next() {
-         
-     },
+      next: () => {
+        this.service.showMessageSucess('Sucesso! Empresa excluída');
+        window.location.reload();
+      },
+      error: () => {
+        this.service.showMessageFail('Ocorreu um erro ao excluir a empresa');
+      }
     });
   }
 }

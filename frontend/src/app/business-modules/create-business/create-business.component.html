@@ -38,12 +38,16 @@
           <input
             type="text"
             matInput
-            placeholder="XXXXX-XXX"
+            placeholder="XXXXXXXX"
             formControlName="cep"
             required
           />
           <mat-icon matSuffix>123</mat-icon>
         </mat-form-field>
+
+          <button mat-mini-fab color="accent" aria-label="Consultar" (click)="validationCep()">
+            <mat-icon class="color-secondary">search</mat-icon>
+          </button>
 
         <mat-form-field class="input-tel">
           <mat-label>Telefone</mat-label>
