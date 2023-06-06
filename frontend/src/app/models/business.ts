@@ -12,6 +12,6 @@ export interface Business {
     bairro?: string,
     uf?: string,
     representante?: string,
-    responsavelTec?: Number,
+    responsavelTec?: Profile,
     plano?: string
 }
