@@ -1,5 +1,6 @@
 import { Profile } from 'src/app/models/profile';
 export interface Business {
+
     idBusiness?: number,
     nome: string,
     cnpj: string,
@@ -11,6 +12,6 @@ export interface Business {
     bairro?: string,
     uf?: string,
     representante?: string,
-    responsavelTec?: Profile,
+    responsavelTec?: Number,
     plano?: string
 }

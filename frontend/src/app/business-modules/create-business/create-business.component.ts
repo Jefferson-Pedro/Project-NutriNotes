@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../business.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Business } from 'src/app/models/business';
 
 @Component({
   selector: 'app-create-business',
@@ -12,8 +13,9 @@ export class CreateBusinessComponent implements OnInit{
   
   form: FormGroup;
 
-  constructor(private route:Router, private service: BusinessService, 
-    private formBuilder: FormBuilder){
+  constructor(private router:Router, private service: BusinessService, 
+    private formBuilder: FormBuilder, private route: ActivatedRoute){
+
       this.form = this.formBuilder.group({
         nome: [''],
         cnpj: [''],
@@ -25,18 +27,18 @@ export class CreateBusinessComponent implements OnInit{
         bairro: [''],
         uf: [''],
         representante: [''],
-        responsavelTec: ['1'],
+        responsavelTec: [{"idProfile": 1}],
         plano: ['']
       });
   }
   ngOnInit(): void {}
 
   public onSubmit(){
+    console.log(this.form.value);
     this.service.create(this.form.value).subscribe({
-      next: () => {
-        console.log(this.form.value);
+      next: (res:any) => {
+        console.log(res);
         this.service.showMessageSucess('Sucesso! Empresa cadastrada');
-        
       },
       error: (err) => {
           this.service.showMessageFail('Ocorreu um erro ao salvar as informações de empresa');
@@ -45,6 +47,6 @@ export class CreateBusinessComponent implements OnInit{
   }
 
   public onCancel(){
-    this.route.navigate(['']);
+    this.router.navigate(['']);
   }
 }

@@ -8,5 +8,7 @@ import { TemplateService } from '../template.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {  
+
  constructor(public service: TemplateService){}
+ 
 }

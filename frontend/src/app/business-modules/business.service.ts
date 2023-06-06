@@ -44,4 +44,12 @@ export class BusinessService {
     return this.http.post<Business>(this.baseUrl, business);
   }
 
+  public loadById(id: Number){
+    return this.http.get<Business>(`${this.baseUrl}/${id}`);
+  }
+
+  public delete(id: Number){
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
+
 }

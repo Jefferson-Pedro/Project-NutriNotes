@@ -39,7 +39,8 @@
           (click)="onEdit(business)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" aria-label="Remove Business">
+          <button mat-icon-button color="warn" aria-label="Remove Business"
+          (click)="onDelete(business.idBusiness)">
             <mat-icon>delete</mat-icon>
           </button>
          </mat-cell>

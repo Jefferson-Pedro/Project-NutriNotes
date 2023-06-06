@@ -7,18 +7,14 @@ import { AboutComponent } from './view/about/about.component';
 import { SupportUsComponent } from './view/support-us/support-us.component'; 
 
 const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent,
-  },{
-    path: 'profile',
-    component: ProfileComponent,
-  },{
-    path: 'about',
-    component: AboutComponent,
-  },{
-    path: 'supportUs',
-    component: SupportUsComponent,
+
+  {path: '', component: HomeComponent},
+
+  {path: 'profile', component: ProfileComponent},
+  
+  {path: 'about',component: AboutComponent},
+
+  {path: 'supportUs',component: SupportUsComponent
   } 
   
 ];

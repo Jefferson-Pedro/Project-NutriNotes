@@ -24,6 +24,7 @@ export class ProfileComponent {
   }
 
   public onSubmit(){
+    console.log(this.form.value);
     this.service.create(this.form.value).subscribe({
       next: () => {
         this.service.showMessageSucess('Perfil salvo com sucesso!');

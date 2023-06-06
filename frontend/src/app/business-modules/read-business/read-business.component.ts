@@ -30,7 +30,10 @@ export class ReadBusinessComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const business: Business = this.route.snapshot.data['business']
+    console.log('NgOnit: ',business);
+  }
 
   public onError(errorMsg: string) {
     this.dialog.open(ErrorDialogComponent, {
@@ -39,11 +42,19 @@ export class ReadBusinessComponent implements OnInit {
   }
 
   public onCreateBusiness(){
-    console.log('clicou!');
-    this.router.navigate(['business']);
+    this.router.navigate(['business/new']);
   }
 
   public onEdit(business: Business){
+    this.router.navigate(['business/edit', business.idBusiness]);
+    console.log('id selecionado: ', business.idBusiness);
+  }
 
+  public onDelete(business: Number){
+    this.service.delete(business).subscribe({
+     next() {
+         
+     },
+    });
   }
 }

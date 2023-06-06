@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { LegislationComponent } from 'src/app/checklist-modules/dialog/legislation/legislation.component';
 import { OptionClDailyComponent } from 'src/app/checklist-modules/dialog/option-type-cl/option-cl-daily/option-cl-daily.component';
@@ -13,7 +13,7 @@ import { OptionClDailyComponent } from 'src/app/checklist-modules/dialog/option-
 })
 export class CardsComponent {
 
-  constructor(private dialog: MatDialog, private router: Router ) {}
+  constructor(private dialog: MatDialog, private router: Router, route: ActivatedRoute ) {}
 
   openDialogCreate(){
     const dialogRef = this.dialog.open(OptionClDailyComponent);
@@ -30,7 +30,7 @@ export class CardsComponent {
 
   onClickReadBusiness(){
     console.log('Clicou!')
-    this.router.navigate(['readBusiness']);
+    this.router.navigate(['business/read']);
   }
 
 }
