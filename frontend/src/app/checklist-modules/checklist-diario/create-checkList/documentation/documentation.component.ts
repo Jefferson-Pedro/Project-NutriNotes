@@ -11,11 +11,25 @@ export class DocumentationComponent implements OnInit {
   public checkList: CheckListDaily[] = [
     {num: 1, 
      item: 'Proteção nos cabelos', 
-     conforme: true,
+     conforme: false,
      naoConforme: false,
      naoSeAplica: false, 
      observacao:'Foi constatado que a funcionária não usava touca'
-    }
+    },
+    {num: 2, 
+      item: 'Proteção nas mãos', 
+      conforme: false,
+      naoConforme: false,
+      naoSeAplica: false, 
+      observacao:'Foi constatado que a funcionária não usava luva'
+     },
+     {num: 3, 
+      item: 'Proteção nos olhos', 
+      conforme: false,
+      naoConforme: false,
+      naoSeAplica: false, 
+      observacao:'Foi constatado que a funcionária não usava oculos de proteção'
+     }
   ];
   public displayedColumns = ['num', 'item', 'conforme', 'naoConforme','naoSeAplica', 'observacao'];
 
@@ -27,7 +41,9 @@ export class DocumentationComponent implements OnInit {
     //this.checkList = [];
   }
 
-  public onSave(){}
+  public onSave(){
+    console.log(this.checkList.values);
+  }
 
   public onCancel(){}
 
