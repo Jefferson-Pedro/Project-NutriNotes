@@ -1,7 +1,9 @@
 package br.com.nutrinotes.service.business;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,10 +30,17 @@ public class BusinessImpl implements IBusinessService {
 	}
 
 	@Override
-	public Business update(Business profile) {
-		// TODO Auto-generated method stub
-		return null;
+	public Business update(Business business, Integer id) {
+	    Optional<Business> res = dao.findById(id);
+	    if (res.isPresent()) {
+	        Business existingBusiness = res.get();
+	        BeanUtils.copyProperties(business, existingBusiness, "idBusiness");
+	        return dao.save(existingBusiness);
+	    }
+	    System.out.println("Erro ao editar a empresa!");
+	    return null;
 	}
+
 
 	@Override
 	public List<Business> findAll() {
@@ -53,4 +62,5 @@ public class BusinessImpl implements IBusinessService {
 		dao.deleteById(id);
 		return true;
 	}
+
 }

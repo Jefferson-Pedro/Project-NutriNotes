@@ -55,7 +55,7 @@ public class Business {
 	
 	@ManyToOne
 	@JoinColumn(name = "responsavel_tec")
-	@JsonIgnoreProperties("idProfile")
+	@JsonIgnoreProperties("business")
 	private Profile responsavelTec;
 	
 	//GETS E SETS
@@ -163,5 +163,20 @@ public class Business {
 	public void setResponsavelTec(Profile responsavelTec) {
 		this.responsavelTec = responsavelTec;
 	}
+
+	@Override
+	public String toString() {
+		return "Business [idBusiness=" + idBusiness + ", nome=" + nome + ", cnpj=" + cnpj + ", cep=" + cep
+				+ ", telefone=" + telefone + ", logradouro=" + logradouro + ", compl=" + compl + ", cidade=" + cidade
+				+ ", bairro=" + bairro + ", uf=" + uf + ", representante=" + representante + ", plano=" + plano
+				+ ", responsavelTec=" + responsavelTec + ", getIdBusiness()=" + getIdBusiness() + ", getNome()="
+				+ getNome() + ", getCnpj()=" + getCnpj() + ", getCep()=" + getCep() + ", getTelefone()=" + getTelefone()
+				+ ", getLogradouro()=" + getLogradouro() + ", getCompl()=" + getCompl() + ", getCidade()=" + getCidade()
+				+ ", getBairro()=" + getBairro() + ", getUf()=" + getUf() + ", getRepresentante()=" + getRepresentante()
+				+ ", getPlano()=" + getPlano() + ", getResponsavelTec()=" + getResponsavelTec() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	}
+	
+	
 	
 }

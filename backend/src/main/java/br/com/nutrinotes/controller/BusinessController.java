@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +40,6 @@ public class BusinessController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Business> findById(@PathVariable Integer id){
 		Business res = service.findById(id);
-		//System.out.println(res.toString());
 		if(res != null) {
 			return ResponseEntity.ok().body(res);
 		}
@@ -47,8 +47,8 @@ public class BusinessController {
 	}
 	
 	@GetMapping("/buscar")
-	public ResponseEntity<List<Business>> findByName(@RequestParam (name = "nome") String nome){
-		List<Business> list = service.findByName(nome);
+	public ResponseEntity<List<Business>> findByName(@RequestParam (name = "nome") String name){
+		List<Business> list = service.findByName(name);
 		if(!list.isEmpty()) {
 			return ResponseEntity.ok(list);
 		}
@@ -56,10 +56,19 @@ public class BusinessController {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<Business> save(@RequestBody Business novo) throws URISyntaxException{
-		Business res = service.save(novo);
+	public ResponseEntity<Business> save(@RequestBody Business newBusiness) throws URISyntaxException{
+		Business res = service.save(newBusiness);
 		if (res != null) {
 			return ResponseEntity.created(new URI("business/" + res.getIdBusiness())).body(res);	
+		}
+		return ResponseEntity.badRequest().build();
+	}
+	
+	@PutMapping("/edit/{id}")
+	public ResponseEntity<Business> update(@RequestBody Business business, @PathVariable Integer id){
+		Business res = service.update(business, id);
+		if(res != null) {
+			return ResponseEntity.ok(res);
 		}
 		return ResponseEntity.badRequest().build();
 	}
@@ -67,7 +76,7 @@ public class BusinessController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Business> delete(@PathVariable Integer id) {
 		Business res = service.findById(id);
-		if(res != null) {
+		if(res != null) { 
 			service.delete(id);
 			return ResponseEntity.noContent().build();
 		}

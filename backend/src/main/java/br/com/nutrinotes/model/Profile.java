@@ -24,7 +24,7 @@ public class Profile {
 	@Column(name="id_profile")
 	private Integer idProfile;
 	
-	@Column(name="nome", length = 100, nullable = false)
+	@Column(name="nome", length = 100)
 	private String nome;
 	
 	@Column(name="data_nasc")
@@ -121,6 +121,13 @@ public class Profile {
 
 	public void setBusiness(List<Business> business) {
 		this.business = business;
+	}
+
+	@Override
+	public String toString() {
+		return "Profile [idProfile=" + idProfile + ", nome=" + nome + ", data_nasc=" + data_nasc + ", sexo=" + sexo
+				+ ", email=" + email + ", telefone=" + telefone + ", crn=" + crn + ", ativo=" + ativo + ", business="
+				+ business + "]";
 	}
 
 }

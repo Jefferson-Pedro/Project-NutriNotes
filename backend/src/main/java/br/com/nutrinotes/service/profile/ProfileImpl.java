@@ -3,10 +3,12 @@ package br.com.nutrinotes.service.profile;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.nutrinotes.dao.ProfileDAO;
+import br.com.nutrinotes.model.Business;
 import br.com.nutrinotes.model.Profile;
 
 @Component
@@ -28,8 +30,15 @@ public class ProfileImpl implements IProfileService {
 	}
 
 	@Override
-	public Profile update(Profile profile) {
-		return dao.save(profile);
+	public Profile update(Profile profile, Integer id) {
+		 Optional<Profile> res = dao.findById(id);
+		    if (res.isPresent()) {
+		    	Profile existingProfile = res.get();
+		        BeanUtils.copyProperties(profile, existingProfile, "idProfile");
+		        return dao.save(existingProfile);
+		    }
+		    System.out.println("Erro ao editar a perfil!");
+		    return null;
 	}
 	
 	@Override

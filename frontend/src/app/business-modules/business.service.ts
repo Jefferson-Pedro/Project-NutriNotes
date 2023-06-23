@@ -39,7 +39,7 @@ export class BusinessService {
 
   public list(){
     return this.http.get<Business[]>(this.baseUrl)
-    .pipe(first(),
+    .pipe(first(), 
      delay(1000)
      );
   }
@@ -55,5 +55,9 @@ export class BusinessService {
   public delete(id: Number){
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
+
+ /* public edit(id: Number){
+    return this.http.put(`${this.baseUrl}/${id}`); 
+  }*/
 
 }

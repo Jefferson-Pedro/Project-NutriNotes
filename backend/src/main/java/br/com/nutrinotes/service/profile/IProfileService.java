@@ -7,7 +7,7 @@ import br.com.nutrinotes.model.Profile;
 public interface IProfileService {
 	
 	public Profile save(Profile novo);
-	public Profile update(Profile profile);
+	public Profile update(Profile profile, Integer id);
 	public List<Profile> findAll();
 	public List<Profile> findByName(String nome);
 	public Profile findById(Integer id);

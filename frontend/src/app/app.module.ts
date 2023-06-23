@@ -17,7 +17,7 @@ import { AppMaterialModule } from './shared/app-material/app-material.module';
 import { BusinessModule } from './business-modules/business.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './components/templates/nav/nav.component';
-import { CreateReminderComponent } from './reminder-modules/create-reminder/create-reminder.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +30,6 @@ import { CreateReminderComponent } from './reminder-modules/create-reminder/crea
     CardsComponent,
     HeaderComponent,
     NavComponent,
-    CreateReminderComponent,
   ],
   imports: [
     BrowserModule,

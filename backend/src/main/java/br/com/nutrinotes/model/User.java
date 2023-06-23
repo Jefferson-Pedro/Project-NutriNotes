@@ -14,12 +14,12 @@ import jakarta.persistence.Table;
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name="login", length = 50)
 	private String login;
 	
 	@Column(name="senha", length = 50)
 	private String senha;
+	
 	
 	@ManyToOne
 	@JoinColumn(name="id_profile")

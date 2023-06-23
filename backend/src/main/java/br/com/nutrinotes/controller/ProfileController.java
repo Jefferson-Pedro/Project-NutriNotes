@@ -57,6 +57,7 @@ public class ProfileController {
 	
 	@PostMapping()
 	public ResponseEntity<Profile> save(@RequestBody Profile novo) throws URISyntaxException{
+		System.out.println(novo.getNome());
 		Profile res = service.save(novo);
 		if(res != null) {
 			return ResponseEntity.created(new URI("/profile/" + res.getIdProfile())).body(res);
@@ -64,12 +65,9 @@ public class ProfileController {
 		return ResponseEntity.badRequest().build();
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("edit/{id}")
 	public ResponseEntity<Profile> update(@RequestBody Profile profile, @PathVariable Integer id){
-		if(profile.getIdProfile() == null) {
-			profile.setIdProfile(id);
-		}
-		Profile res = service.update(profile);
+		Profile res = service.update(profile, id);
 		if(res != null) {
 			return ResponseEntity.ok(res);
 		}
