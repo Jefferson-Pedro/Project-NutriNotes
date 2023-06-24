@@ -6,7 +6,7 @@ import { DEFAULT_CURRENCY_CODE, LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FooterComponent } from './components/templates/footer/footer.component';
-import { HeaderComponent } from './components/templates/header-nav/header.component';
+import { HeaderComponent } from './components/templates/header/header.component';
 import { HomeComponent } from './view/home/home.component';
 import { ProfileComponent } from './view/profile/profile.component';
 import { AboutComponent } from './view/about/about.component';

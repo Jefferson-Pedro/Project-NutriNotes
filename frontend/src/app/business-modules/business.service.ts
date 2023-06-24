@@ -5,13 +5,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Business } from '../models/business';
 import { delay, first } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BusinessService {
-
-  private baseUrl = 'http://localhost:8080/business';
 
   constructor(private route: Router, 
               private snackBar: MatSnackBar,
@@ -38,26 +37,27 @@ export class BusinessService {
   }
 
   public list(){
-    return this.http.get<Business[]>(this.baseUrl)
+    return this.http.get<Business[]>(`${environment.baseUrl}/business`)
     .pipe(first(), 
      delay(1000)
      );
   }
   
   public create(business:Business): Observable<Business>{
-    return this.http.post<Business>(this.baseUrl, business);
+    return this.http.post<Business>(`${environment.baseUrl}/new`, business);
   }
 
   public loadById(id: Number){
-    return this.http.get<Business>(`${this.baseUrl}/${id}`);
+    return this.http.get<Business>(`${environment.baseUrl}/business/${id}`);
   }
 
   public delete(id: Number){
-    return this.http.delete(`${this.baseUrl}/${id}`);
+    return this.http.delete(`${environment.baseUrl}/business/${id}`);
   }
 
- /* public edit(id: Number){
-    return this.http.put(`${this.baseUrl}/${id}`); 
-  }*/
+  public update(business: Business, id: number): Observable<Business>{
+    return this.http.put<Business>(`http://localhost:8080/business/edit/${id}`, business);
+    //(`${environment.baseUrl}/edit/${id}`, business); 
+  }
 
 }

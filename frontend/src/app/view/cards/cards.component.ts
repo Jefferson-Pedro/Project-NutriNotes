@@ -25,7 +25,7 @@ export class CardsComponent {
 
   onClickCreateBusiness(){
     console.log('Clicou!')
-    this.router.navigate(['business']);
+    this.router.navigate(['business/new']);
   }
 
   onClickReadBusiness(){

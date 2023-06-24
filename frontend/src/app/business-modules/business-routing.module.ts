@@ -7,14 +7,12 @@ import { ReadBusinessComponent } from './read-business/read-business.component';
 
 const routes: Routes = [
 
- /* {path: 'business',
-  loadChildren: () => import('./business.module').then(m => m.BusinessModule)},*/
+  {path: 'business/new', component: CreateBusinessComponent},
 
-  {path: 'business', component: CreateBusinessComponent},
+  {path: 'business/edit/:id',component: CreateBusinessComponent} ,
  
   {path: 'business/read', component: ReadBusinessComponent},
   
-  {path: 'business/edit/:id',component: CreateBusinessComponent} 
 ];
 
 @NgModule({

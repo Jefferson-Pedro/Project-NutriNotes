@@ -55,7 +55,7 @@ public class BusinessController {
 		return ResponseEntity.notFound().build();	
 	}
 	
-	@PostMapping()
+	@PostMapping("/new")
 	public ResponseEntity<Business> save(@RequestBody Business newBusiness) throws URISyntaxException{
 		Business res = service.save(newBusiness);
 		if (res != null) {

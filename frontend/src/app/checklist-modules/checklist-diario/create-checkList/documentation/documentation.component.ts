@@ -11,7 +11,7 @@ export class DocumentationComponent implements OnInit {
   public checkList: CheckListDaily[] = [
     {num: 1, 
      item: 'Proteção nos cabelos', 
-     conforme: false,
+     conforme: true,
      naoConforme: false,
      naoSeAplica: false, 
      observacao:'Foi constatado que a funcionária não usava touca'
@@ -31,15 +31,12 @@ export class DocumentationComponent implements OnInit {
       observacao:'Foi constatado que a funcionária não usava oculos de proteção'
      }
   ];
+
   public displayedColumns = ['num', 'item', 'conforme', 'naoConforme','naoSeAplica', 'observacao'];
 
-  constructor(){
-    //this.checkList = [];
-  }
+  constructor(){}
 
-  ngOnInit(): void {
-    //this.checkList = [];
-  }
+  ngOnInit(): void {}
 
   public onSave(){
     console.log(this.checkList.values);

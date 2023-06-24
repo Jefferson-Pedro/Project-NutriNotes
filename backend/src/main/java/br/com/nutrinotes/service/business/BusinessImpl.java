@@ -41,7 +41,6 @@ public class BusinessImpl implements IBusinessService {
 	    return null;
 	}
 
-
 	@Override
 	public List<Business> findAll() {
 		return dao.findAll();

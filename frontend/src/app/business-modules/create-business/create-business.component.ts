@@ -1,63 +1,81 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessService } from '../business.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Business } from 'src/app/models/business';
+import { map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-create-business',
   templateUrl: './create-business.component.html',
-  styleUrls: ['./create-business.component.css']
+  styleUrls: ['./create-business.component.css'],
 })
-export class CreateBusinessComponent implements OnInit{
-  
+export class CreateBusinessComponent implements OnInit {
   form: FormGroup;
+  id: any;
 
-  constructor(private router:Router, private service: BusinessService, 
-    private formBuilder: FormBuilder, private route: ActivatedRoute){
-
-      this.form = this.formBuilder.group({
-        nome: [''],
-        cnpj: [''],
-        cep: [''],
-        telefone: [''],
-        logradouro: [''],
-        compl: [''],
-        cidade: [''],
-        bairro: [''],
-        uf: [''],
-        representante: [''],
-        responsavelTec: [{"idProfile": 1}],
-        plano: ['']
-      });
+  constructor(
+    private router: Router,
+    private service: BusinessService,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute
+  ) {
+    this.form = this.formBuilder.group({
+      nome: ['', [Validators.required, Validators.minLength(3)]],
+      cnpj: [''],
+      cep: ['', [Validators.required, Validators.minLength(8)]],
+      telefone: [''],
+      logradouro: [''],
+      compl: [''],
+      cidade: [''],
+      bairro: [''],
+      uf: [''],
+      representante: [''],
+      responsavelTec: [{ idProfile: 1 }],
+      plano: [''],
+    });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.route.params.subscribe(
+    //   (value: any) => {
+    //       const id = value['id'];
+    //       this.service.loadById(id).subscribe(
+    //         business => {
+    //           this.onUpdateBusiness(business);
+    //         }
+    //       );
+    //    },
+    // )
+    this.id = this.route.snapshot.params['id'];
+    this.route.params.pipe(
+      map((params: any) => params['id']),
+      switchMap(id => this.service.loadById(id)))
+      .subscribe(business => this.onUpdateBusiness(business));
+  }
 
-  public validationCep(){
-
+  public validationCep() {
     console.log(this.form.value.cep);
-    let cep = this.form.value.cep
+    let cep = this.form.value.cep;
 
     //Nova variável "cep" somente com dígitos.
     cep = cep.replace(/\D/g, '');
 
     //Verifica se campo cep possui valor informado.
-    if (cep != "") {
+    if (cep != '') {
       //Expressão regular para validar o CEP.
-       let validacep = /^[0-9]{8}$/;
+      let validacep = /^[0-9]{8}$/;
       //Valida o formato do CEP.
-      if(validacep.test(cep)) {
+      if (validacep.test(cep)) {
         this.search(cep);
-      }else{
+      } else {
         alert('CEP invalido! Verifique a informação e tente novamente.');
       }
     }
   }
 
-  public search(cep: string){
-    
+  public search(cep: string) {
     this.service.searchCep(cep).subscribe({
-      next:(res:any) =>{
+      next: (res: any) => {
         this.fillForms(res, this.form);
         console.log(res);
       },
@@ -67,7 +85,7 @@ export class CreateBusinessComponent implements OnInit{
     });
   }
 
-  public fillForms(res:any, form:any){
+  public fillForms(res: any, form: any) {
     form.patchValue({
       cep: res.cep,
       logradouro: res.logradouro,
@@ -78,20 +96,51 @@ export class CreateBusinessComponent implements OnInit{
     });
   }
 
-  public onSubmit(){
+  public onSubmit() {
     console.log(this.form.value);
-    this.service.create(this.form.value).subscribe({
-      next: (res:any) => {
-        console.log(res);
-        this.service.showMessageSucess('Sucesso! Empresa cadastrada');
-      },
-      error: (err) => {
-          this.service.showMessageFail('Ocorreu um erro ao salvar as informações de empresa');
-      }
-    });
+    if (this.form.valid) {
+      this.service.create(this.form.value).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.service.showMessageSucess('Sucesso! Empresa cadastrada');
+        },
+        error: (err) => {
+          this.service.showMessageFail(
+            'Ocorreu um erro ao salvar as informações de empresa'
+          );
+        },
+      });
+    }
   }
 
-  public onCancel(){
+  public onUpdateBusiness(business: Business){
+    /*this.form.patchValue({
+      nome: business.nome,
+      cnpj:  business.cnpj,
+      cep:  business.cep,
+      telefone:  business.telefone,
+      logradouro:  business.logradouro,
+      compl:  business.compl,
+      cidade: business.cidade,
+      bairro:  business.bairro,
+      uf:  business.uf,
+      representante:  business.representante,
+      responsavelTec: [{ idProfile: 1 }],
+      plano:  business.plano,
+    })*/
+    this.form.patchValue(business);
+    // this.service.update(this.form.value,this.id).subscribe({
+    //   next:(res: any) =>{
+    //     console.log(res);
+    //   },
+    //   error:(err)=> {
+    //       console.log(err);
+    //   },
+    // });
+
+  }
+
+  public onCancel() {
     this.router.navigate(['']);
   }
 }
