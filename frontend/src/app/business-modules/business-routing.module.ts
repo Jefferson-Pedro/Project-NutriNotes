@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateBusinessComponent } from './create-business/create-business.component';
-import { ReadBusinessComponent } from './read-business/read-business.component';
+import { FormBusinessComponent } from './form-business/form-business.component';
+import { ListBusinessComponent } from './list-business/list-business.component';
 
 
 
 const routes: Routes = [
 
-  {path: 'business/new', component: CreateBusinessComponent},
+  {path: 'business/new', component: FormBusinessComponent},
 
-  {path: 'business/edit/:id',component: CreateBusinessComponent} ,
+  {path: 'business/edit/:id',component: FormBusinessComponent} ,
  
-  {path: 'business/read', component: ReadBusinessComponent},
+  {path: 'business/read', component: ListBusinessComponent},
   
 ];
 

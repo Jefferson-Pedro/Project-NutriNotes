@@ -7,11 +7,11 @@ import { ErrorDialogComponent } from '../dialog/error-dialog/error-dialog.compon
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-read-business',
-  templateUrl: './read-business.component.html',
-  styleUrls: ['./read-business.component.css'],
+  selector: 'app-list-business',
+  templateUrl: './list-business.component.html',
+  styleUrls: ['./list-business.component.css'],
 })
-export class ReadBusinessComponent implements OnInit {
+export class ListBusinessComponent implements OnInit {
   business$: Observable<Business[]>;
   displayedColumns = ['idBusiness', 'nome', 'cnpj', 'actions'];
 

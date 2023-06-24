@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReadBusinessComponent } from './read-business.component';
+import { ReadBusinessComponent } from './list-business.component';
 
 describe('ReadBusinessComponent', () => {
   let component: ReadBusinessComponent;

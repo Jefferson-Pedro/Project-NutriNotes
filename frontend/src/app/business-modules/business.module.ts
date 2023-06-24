@@ -2,20 +2,19 @@ import { ChecklistModule } from './../checklist-modules/checklist.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CreateBusinessComponent } from './create-business/create-business.component';
 import { AppMaterialModule } from '../shared/app-material/app-material.module';
 import { BusinessRoutingModule } from './business-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReadBusinessComponent } from './read-business/read-business.component';
-
+import { ListBusinessComponent} from './list-business/list-business.component';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
+import { FormBusinessComponent } from './form-business/form-business.component';
 
 
 
 @NgModule({
   declarations: [
-    CreateBusinessComponent,
-    ReadBusinessComponent,
+    FormBusinessComponent,
+    ListBusinessComponent,
     ErrorDialogComponent
   ],
   imports: [

@@ -44,7 +44,7 @@ export class BusinessService {
   }
   
   public create(business:Business): Observable<Business>{
-    return this.http.post<Business>(`${environment.baseUrl}/new`, business);
+    return this.http.post<Business>(`${environment.baseUrl}/business/new`, business);
   }
 
   public loadById(id: Number){
@@ -55,9 +55,9 @@ export class BusinessService {
     return this.http.delete(`${environment.baseUrl}/business/${id}`);
   }
 
-  public update(business: Business, id: number): Observable<Business>{
+  /*public update(business: Business, id: number): Observable<Business>{
     return this.http.put<Business>(`http://localhost:8080/business/edit/${id}`, business);
     //(`${environment.baseUrl}/edit/${id}`, business); 
-  }
+  }*/
 
 }

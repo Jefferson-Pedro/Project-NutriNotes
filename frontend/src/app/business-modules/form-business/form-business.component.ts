@@ -6,11 +6,11 @@ import { Business } from 'src/app/models/business';
 import { map, switchMap } from 'rxjs';
 
 @Component({
-  selector: 'app-create-business',
-  templateUrl: './create-business.component.html',
-  styleUrls: ['./create-business.component.css'],
+  selector: 'app-form-business',
+  templateUrl: './form-business.component.html',
+  styleUrls: ['./form-business.component.css'],
 })
-export class CreateBusinessComponent implements OnInit {
+export class FormBusinessComponent implements OnInit {
   form: FormGroup;
   id: any;
 
@@ -54,9 +54,7 @@ export class CreateBusinessComponent implements OnInit {
   }
 
   public validationCep() {
-    console.log(this.form.value.cep);
     let cep = this.form.value.cep;
-
     //Nova variável "cep" somente com dígitos.
     cep = cep.replace(/\D/g, '');
 
@@ -129,15 +127,6 @@ export class CreateBusinessComponent implements OnInit {
       plano:  business.plano,
     })*/
     this.form.patchValue(business);
-    // this.service.update(this.form.value,this.id).subscribe({
-    //   next:(res: any) =>{
-    //     console.log(res);
-    //   },
-    //   error:(err)=> {
-    //       console.log(err);
-    //   },
-    // });
-
   }
 
   public onCancel() {
