@@ -55,9 +55,16 @@ export class BusinessService {
     return this.http.delete(`${environment.baseUrl}/business/${id}`);
   }
 
-  /*public update(business: Business, id: number): Observable<Business>{
-    return this.http.put<Business>(`http://localhost:8080/business/edit/${id}`, business);
-    //(`${environment.baseUrl}/edit/${id}`, business); 
-  }*/
+  public update(business: Business): Observable<Business>{
+    return this.http.put<Business>
+    (`${environment.baseUrl}/business/edit/${business.idBusiness}`,business);
+  }
 
+  //Cria ou Atualiza uma empresa.
+  public save(business: Business){
+    if(business.idBusiness){
+      return this.update(business);
+    }
+    return this.create(business);
+  }
 }
