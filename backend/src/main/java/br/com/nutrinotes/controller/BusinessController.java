@@ -5,6 +5,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,12 +32,13 @@ public class BusinessController {
 	IBusinessService service;
 	
 	@GetMapping()
-	public ResponseEntity<List<Business>> findAll(){
-		List<Business> list = service.findAll();
-		if(list.size() > 0) {
-			return ResponseEntity.ok(list);
-		}
-		return ResponseEntity.notFound().build();	
+	public ResponseEntity<Page<Business>> findAll(Pageable pageable){
+	    Page<Business> page = service.findAll(pageable);
+	    
+	    if(page.hasContent()) {
+	        return ResponseEntity.ok(page);
+	    }
+	    return ResponseEntity.notFound().build();
 	}
 	
 	@GetMapping("/{id}")

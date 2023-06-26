@@ -20,9 +20,11 @@ export class FormBusinessComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute
   ) {
+    // INICIA O FORMS VAZIO E FAZ A PRÉ VALIDAÇÃO
     this.form = this.formBuilder.group({
+      idBusiness:[null],
       nome: ['', [Validators.required, Validators.minLength(3)]],
-      cnpj: [''],
+      cnpj: ['', [Validators.required, Validators.minLength(14)]],
       cep: ['', [Validators.required, Validators.minLength(8)]],
       telefone: [''],
       logradouro: [''],
@@ -35,25 +37,19 @@ export class FormBusinessComponent implements OnInit {
       plano: [''],
     });
   }
+
   ngOnInit(): void {
-    // this.route.params.subscribe(
-    //   (value: any) => {
-    //       const id = value['id'];
-    //       this.service.loadById(id).subscribe(
-    //         business => {
-    //           this.onUpdateBusiness(business);
-    //         }
-    //       );
-    //    },
-    // )
+    // FAZ A CHAMADA PARA O DATABASE, RETORNA UM OBJETO COM BASE NO ID DA URL
     this.id = this.route.snapshot.params['id'];
     this.route.params.pipe(
-      map((params: any) => params['id']),
-      switchMap(id => this.service.loadById(id)))
-      .subscribe(business => this.onUpdateBusiness(business));
+        map((params: any) => params['id']),
+        switchMap((id) => this.service.loadById(id))
+      )
+      .subscribe((business) => this.onUpdateBusiness(business));
   }
 
   public validationCep() {
+    //          VALIDA O CEP
     let cep = this.form.value.cep;
     //Nova variável "cep" somente com dígitos.
     cep = cep.replace(/\D/g, '');
@@ -72,6 +68,7 @@ export class FormBusinessComponent implements OnInit {
   }
 
   public search(cep: string) {
+    //FAZ A CHAMADA PARA API VIACEP E RETORNA OS DADOS
     this.service.searchCep(cep).subscribe({
       next: (res: any) => {
         this.fillForms(res, this.form);
@@ -84,6 +81,7 @@ export class FormBusinessComponent implements OnInit {
   }
 
   public fillForms(res: any, form: any) {
+    //PREENCHE OS CAMPOS DE ENDEREÇO COM A API VIA CEP
     form.patchValue({
       cep: res.cep,
       logradouro: res.logradouro,
@@ -96,36 +94,32 @@ export class FormBusinessComponent implements OnInit {
 
   public onSubmit() {
     console.log(this.form.value);
+
     if (this.form.valid) {
-      this.service.create(this.form.value).subscribe({
-        next: (res: any) => {
-          console.log(res);
-          this.service.showMessageSucess('Sucesso! Empresa cadastrada');
-        },
-        error: (err) => {
-          this.service.showMessageFail(
-            'Ocorreu um erro ao salvar as informações de empresa'
-          );
-        },
-      });
+      let msgSucess = 'Sucesso! Empresa cadastrada';
+      let msgError = 'Ocorreu um erro ao salvar as informações de empresa';
+
+      if (this.form.value.idBusiness) {
+        msgSucess = 'Empresa atualizada com sucesso!';
+        msgError = 'Ocorreu um erro ao atualizar as informações de empresa.';
+      }
+        this.service.save(this.form.value).subscribe({
+          next: (res: any) => {
+            this.service.showMessageSucess(msgSucess);
+            this.router.navigate(['business/list']);
+          },
+          error: (err: any) => {
+            this.service.showMessageFail(msgError);
+            console.log(err);
+          },
+        });
+    }else{
+      alert('Existem campos preenchidos incorretamente, verifique-os e tente novamente!')
     }
   }
 
-  public onUpdateBusiness(business: Business){
-    /*this.form.patchValue({
-      nome: business.nome,
-      cnpj:  business.cnpj,
-      cep:  business.cep,
-      telefone:  business.telefone,
-      logradouro:  business.logradouro,
-      compl:  business.compl,
-      cidade: business.cidade,
-      bairro:  business.bairro,
-      uf:  business.uf,
-      representante:  business.representante,
-      responsavelTec: [{ idProfile: 1 }],
-      plano:  business.plano,
-    })*/
+  public onUpdateBusiness(business: Business) {
+    //PRENCHE O FORMS PARA EDIÇÃO
     this.form.patchValue(business);
   }
 

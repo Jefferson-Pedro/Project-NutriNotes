@@ -11,7 +11,7 @@ const routes: Routes = [
 
   {path: 'business/edit/:id',component: FormBusinessComponent} ,
  
-  {path: 'business/read', component: ListBusinessComponent},
+  {path: 'business/list', component: ListBusinessComponent},
   
 ];
 

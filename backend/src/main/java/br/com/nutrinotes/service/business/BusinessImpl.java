@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import br.com.nutrinotes.dao.BusinessDAO;
@@ -42,8 +44,8 @@ public class BusinessImpl implements IBusinessService {
 	}
 
 	@Override
-	public List<Business> findAll() {
-		return dao.findAll();
+	public Page<Business> findAll(Pageable pageable) {
+		return dao.findAll(pageable);
 	}
 
 	@Override

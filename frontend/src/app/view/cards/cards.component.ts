@@ -29,8 +29,7 @@ export class CardsComponent {
   }
 
   onClickReadBusiness(){
-    console.log('Clicou!')
-    this.router.navigate(['business/read']);
+    this.router.navigate(['business/list']);
   }
 
 }
