@@ -32,13 +32,22 @@ public class BusinessController {
 	IBusinessService service;
 	
 	@GetMapping()
-	public ResponseEntity<Page<Business>> findAll(Pageable pageable){
-	    Page<Business> page = service.findAll(pageable);
+	public ResponseEntity<Page<Business>> findAllPage(Pageable pageable){
+	    Page<Business> page = service.findAllPage(pageable);
 	    
 	    if(page.hasContent()) {
 	        return ResponseEntity.ok(page);
 	    }
 	    return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("all")
+	public ResponseEntity<List<Business>> findAll(){
+		List<Business> list = service.findAll();
+		if(list.size() > 0) {
+			return ResponseEntity.ok(list);
+		}
+		return ResponseEntity.notFound().build();	
 	}
 	
 	@GetMapping("/{id}")

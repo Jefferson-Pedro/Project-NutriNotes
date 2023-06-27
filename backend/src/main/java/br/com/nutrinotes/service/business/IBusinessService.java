@@ -12,7 +12,8 @@ public interface IBusinessService {
 	
 	public Business save(Business novo);
 	public Business update(Business business, Integer id);
-	public Page<Business> findAll(Pageable pageable);
+	public Page<Business> findAllPage(Pageable pageable);
+	public List<Business> findAll();
 	public List<Business> findByName(String nome);
 	public Business findById(Integer id);
 	public boolean delete(Integer id);

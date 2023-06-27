@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Business } from '../models/business';
-import { delay, first } from 'rxjs';
+import { delay, first, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -37,10 +37,14 @@ export class BusinessService {
   }
 
   public list(){
-    return this.http.get<Business[]>(`${environment.baseUrl}/business`)
+    return this.http.get<Business[]>(`${environment.baseUrl}/business/all`)
     .pipe(first(), 
      delay(1000)
      );
+  }
+
+  public pageList(page: number, size: number): Observable<any>{
+    return this.http.get<Business>(`${environment.baseUrl}/business?page=${page}&size=${size}`);
   }
   
   public create(business:Business): Observable<Business>{

@@ -42,9 +42,13 @@ public class BusinessImpl implements IBusinessService {
 	    System.out.println("Erro ao editar a empresa!");
 	    return null;
 	}
+	@Override
+	public List<Business> findAll() {
+		return dao.findAll();
+	}
 
 	@Override
-	public Page<Business> findAll(Pageable pageable) {
+	public Page<Business> findAllPage(Pageable pageable) {
 		return dao.findAll(pageable);
 	}
 
@@ -63,5 +67,8 @@ public class BusinessImpl implements IBusinessService {
 		dao.deleteById(id);
 		return true;
 	}
+
+
+
 
 }
