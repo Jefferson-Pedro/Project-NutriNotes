@@ -1,22 +1,22 @@
 .container-main{
-  margin-left: 20px;
-  margin-right: 20px;
   display: flex;
- /* justify-content: center;*/
-  align-items: center;
-  flex-wrap: wrap;
-  align-content: center;
-  row-gap: 10px;
-  column-gap: 30px;
-  /*background-color: brown;*/
+  flex-direction: column;
 }
 
 .card-container {
-  margin-left: 3.5rem;
-  max-width: 260px;
-  max-height: 450px;
-  margin-bottom: 15px;
   background-color: #f5f5f5;
+}
+
+.container-one{
+  display: flex;
+  margin-left: 0;
+  justify-content: space-around;
+}
+
+.container-two{
+  display: flex;
+  margin-left: 0;
+  justify-content: space-around;
 }
 
 .title {
@@ -34,43 +34,86 @@
   height: auto;
 }
 
-@media (min-width: 834px) and (max-width: 884px) {
-  .card-container {
-    max-width: 70%;
-    max-height: 450px;
-    background-color: #f5f5f5;
-    display: inline-block;
-    margin-left: 6rem;
-  }
-}
+/*Para telas menores que 1366px e maior que 1000px*/
 
-/*Para telas menores que 390px*/
-
-@media (max-width: 390px) {
+@media (min-width: 1000px) and (max-width: 1366px) {
   .container-main{
     display: flex;
     margin: 0 auto 1em;
     justify-items: center;
     justify-content: center;
     align-items: center;
-    gap: 1.5em;
+    row-gap: 1em;
+    column-gap: 3.5em;
   }
   .card-container {
-    max-width: 80%;
-    max-height: 450px;
-    background-color: #f5f5f5;
+    max-width: 25%;
+    max-height: 25%;
     margin: 0;
   }
-  .teste{
-    width: 50%
+}
+
+/*Para telas menores que 1000px e maior que 768px*/
+
+@media (min-width: 768px) and (max-width: 1000px) {
+  .card-container {
+    max-width: 30%;
+  }
+  .container-one{
+    display: flex;
+    margin: 0 1.5em;
+    row-gap: 15px;
+    column-gap: 1em;
+    margin-bottom: 15px;
+  }
+  .container-two{
+    display: flex;
+    margin: 0 1.5em;
+    row-gap: 15px;
+    column-gap: 2em;
+    margin-bottom: 15px;
   }
 }
+
+/*Para telas menores que 460px*/
+
+@media (max-width: 460px) {
+  .card-container {
+    max-width: 90%;
+  }
+  .container-one{
+    display: flex;
+    flex-direction: column;
+    margin-left: 2.5em;
+    row-gap: 15px;
+    margin-bottom: 15px;
+  }
+  .container-two{
+    display: flex;
+    flex-direction: column;
+    margin-left: 2.5em;
+    row-gap: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+/*Para telas menores que 320px*/
 
 @media (max-width: 320px) {
   .card-container {
     max-width: 90%;
-    max-height: 450px;
-    background-color: #f5f5f5;
-    display: inline-block;
+  }
+  .container-one{
+    display: flex;
+    flex-direction: column;
+    margin-left: 2em;
+    row-gap: 15px;
+  }
+  .container-two{
+    display: flex;
+    flex-direction: column;
+    margin-left: 2em;
+    row-gap: 15px;
+    margin-bottom: 15px;
   }
 }
