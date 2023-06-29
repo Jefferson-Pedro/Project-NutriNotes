@@ -1,8 +1,31 @@
-.button{
-    display: flex;
-    justify-content: end;
+.container {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
 }
-.card-container{
+.card-container {
+  display: flex;
+  margin-top: 5%;
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.input-information{
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+.business-select {
     display: flex;
-    max-width: 80%;
+    gap: 1em;
+}
+.business-select > .input-business {
+    width: 70%;
+}
+.business-select > .select-section {
+    width: 30%;
+}
+
+.button {
+  display: flex;
+  justify-content: end;
 }

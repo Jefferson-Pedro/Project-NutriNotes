@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Business } from '../models/business';
 import { delay, first, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { PaginatorConfig } from './list-business/paginatorConfig';
 
 @Injectable({
   providedIn: 'root'
@@ -42,9 +43,9 @@ export class BusinessService {
      delay(1000)
      );
   }
-
-  public pageList(page: number, size: number): Observable<any>{
-    return this.http.get<Business>(`${environment.baseUrl}/business?page=${page}&size=${size}`);
+  public getPageList(page?: number, size?:number): Observable<any>{
+    return this.http.get<Business>
+    (`${environment.baseUrl}/business?page=${page}&size=${size}`);
   }
   
   public create(business:Business): Observable<Business>{

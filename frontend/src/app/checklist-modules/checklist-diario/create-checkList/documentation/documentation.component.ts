@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { CheckListDaily } from 'src/app/models/check-list-daily';
 
 @Component({
