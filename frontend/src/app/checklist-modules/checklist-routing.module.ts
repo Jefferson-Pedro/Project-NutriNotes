@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DocumentationComponent } from './checklist-diario/create-checkList/documentation/documentation.component';
+import { DocumentationComponent } from './checklist-daily/create-checkList/documentation/documentation.component';
 
 const routes: Routes = [
   {

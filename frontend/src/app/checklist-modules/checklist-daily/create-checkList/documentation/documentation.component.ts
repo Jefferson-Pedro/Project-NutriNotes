@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CheckListDaily } from 'src/app/models/check-list-daily';
 
 @Component({
@@ -35,7 +35,11 @@ export class DocumentationComponent implements OnInit {
 
   public displayedColumns = ['num', 'item', 'conforme', 'naoConforme','naoSeAplica', 'observacao'];
 
-  constructor(){}
+  form: FormGroup;
+
+  constructor(private formBuilder: FormBuilder){
+    this.form = this.formBuilder.group({});
+  }
 
   ngOnInit(): void {}
 

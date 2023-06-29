@@ -6,9 +6,9 @@ import { ChecklistMensalComponent } from './checklist-mensal/checklist-mensal.co
 import { LegislationComponent } from './dialog/legislation/legislation.component';
 import { AppMaterialModule } from '../shared/app-material/app-material.module';
 import { OptionClDailyComponent } from './dialog/option-type-cl/option-cl-daily/option-cl-daily.component';
-import { DocumentationComponent } from './checklist-diario/create-checkList/documentation/documentation.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { CheklistRoutingModule } from './checklist-routing.module';
+import { DocumentationComponent } from './checklist-daily/create-checkList/documentation/documentation.component';
 
 
 

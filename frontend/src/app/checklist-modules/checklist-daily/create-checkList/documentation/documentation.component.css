@@ -1,0 +1,95 @@
+.container {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+.card-container {
+  display: flex;
+  margin-top: 5%;
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.input-information{
+  display: flex;
+  flex-direction: column;
+  padding: 1em 25px;
+}
+.business-select {
+    display: flex;
+    gap: 1em;
+}
+.business-select > .input-business {
+    width: 70%;
+}
+.business-select > .select-section {
+    width: 30%;
+}
+.manage-rotation{
+  display: flex;
+  gap: 1em;
+}
+.manage-rotation > .input-manager {
+  width: 70%;
+}
+.manage-rotation > .input-rotation {
+  width: 30%;
+}
+.technical-audit{
+  display: flex;
+  gap: 1em;
+}
+.technical-audit > .input-technical {
+  width: 70%;
+}
+.technical-audit > .input-audit {
+  width: 30%;
+}
+
+.button {
+  display: flex;
+  justify-content: end;
+}
+
+/*Para telas menores que 460px*/
+
+@media (max-width: 460px) {
+  .container {
+    max-width: 100%;
+  }
+  .business-select {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .business-select > .input-business {
+    width: 100%;
+  }
+  .business-select > .select-section {
+    width: 100%;
+  }
+  .manage-rotation{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .manage-rotation > .input-manager {
+    width: 100%;
+  }
+  .manage-rotation > .input-rotation {
+    width: 100%;
+  }
+  .technical-audit{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .technical-audit > .input-technical {
+    width: 100%;;
+  }
+  .technical-audit > .input-audit {
+    width: 100%;;
+  }
+}
+
+
+
