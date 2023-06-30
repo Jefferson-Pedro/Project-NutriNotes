@@ -124,6 +124,6 @@ export class FormBusinessComponent implements OnInit {
   }
 
   public onCancel() {
-    this.router.navigate(['']);
+    this.router.navigate(['home']);
   }
 }

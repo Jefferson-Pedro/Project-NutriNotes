@@ -15,7 +15,7 @@ export class ProfileComponent {
   constructor(private formBuilder: FormBuilder, private route: Router, private service: ProfileService ){
     this.form = this.formBuilder.group({
       nome: ['',Validators.required],
-      data_nasc: [],
+      data_nasc: [null, Validators.required],
       sexo: ['',Validators.required],
       email: ['',Validators.required],
       telefone: [''],
@@ -36,6 +36,6 @@ export class ProfileComponent {
   }
 
   public onCancel(){
-    this.route.navigate(['']);
+    this.route.navigate(['home']);
   }
 }

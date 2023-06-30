@@ -14,7 +14,7 @@
             type="text"
             matInput
             placeholder="Empresa de exemplo ltda."
-            formControlName="nome"
+            formControlName="nomeEmpresa"
             required
           />
           <mat-icon matSuffix>corporate_fare</mat-icon>
@@ -22,7 +22,7 @@
 
         <mat-form-field class="select-section">
           <mat-label>Unidade</mat-label>
-          <mat-select>
+          <mat-select formControlName="unidade">
             <mat-option>Clear</mat-option>
             <mat-option value="Cozinha">Cozinha</mat-option>
             <mat-option value="Copa">Copa</mat-option>
@@ -43,13 +43,13 @@
       <div class="manage-rotation">
         <mat-form-field class="input-manager">
           <mat-label>Nome do Gestor</mat-label>
-          <input matInput formControlName="nome" required />
+          <input matInput formControlName="gestor" required />
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
 
         <mat-form-field class="input-rotation">
           <mat-label>Turno</mat-label>
-          <mat-select>
+          <mat-select formControlName="turno">
             <mat-option>Clear</mat-option>
             <mat-option value="Manhã">Manhã</mat-option>
             <mat-option value="Tarde">Tarde</mat-option>
@@ -61,14 +61,14 @@
       <div class="technical-audit">
         <mat-form-field class="input-technical">
           <mat-label>Responsável Técnico</mat-label>
-          <input matInput disabled value="Anna Thays" />
+          <input matInput disabled value="Anna Thays"/>
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
 
         <mat-form-field class="input-audit">
           <mat-label>Data da Auditoria</mat-label>
           <input
-            formControlName="data_nasc"
+            formControlName="dataAuditoria"
             matInput
             [matDatepicker]="picker"/>
           <mat-datepicker-toggle

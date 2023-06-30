@@ -8,7 +8,9 @@ import { SupportUsComponent } from './view/support-us/support-us.component';
 
 const routes: Routes = [
 
-  {path: '', component: HomeComponent},
+  { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirecionamento para '/home' quando o caminho estiver vazio
+  
+  {path: 'home', component: HomeComponent},
 
   {path: 'profile', component: ProfileComponent},
   

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CheckListDaily } from 'src/app/models/check-list-daily';
 
 @Component({
@@ -37,8 +38,15 @@ export class DocumentationComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder){
-    this.form = this.formBuilder.group({});
+  constructor(private formBuilder: FormBuilder, private route: Router){
+    this.form = this.formBuilder.group({
+      nomeEmpresa: ['',Validators.required],
+      unidade: ['',Validators.required],
+      gestor: ['',Validators.required],
+      turno: [''],
+      responsavelTec: [{ idProfile: 1 }],
+      dataAuditoria: [null, Validators.required],
+    });
   }
 
   ngOnInit(): void {}
@@ -47,6 +55,8 @@ export class DocumentationComponent implements OnInit {
     console.log(this.checkList.values);
   }
 
-  public onCancel(){}
+  public onCancel(){
+    this.route.navigate(['home']);
+  }
 
 }
