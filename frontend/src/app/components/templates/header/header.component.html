@@ -16,10 +16,13 @@
   </div>
 
     <div class="reminder-profile">
-      <button mat-icon-button color="icon-reminder">
+      <button 
+      mat-icon-button 
+      color="icon-reminder" 
+      (click)="onCLickReminderNotifications()">
         <mat-icon class="color-secondary">notifications</mat-icon>
       </button>
-      <button mat-icon-button color="icon-profile" (click)="onCLickReminderNotifications()">
+      <button mat-icon-button color="icon-profile" >
         <mat-icon class="color-secondary">person</mat-icon>
       </button>
     </div>

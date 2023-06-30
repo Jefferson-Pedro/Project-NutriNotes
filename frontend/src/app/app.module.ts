@@ -17,6 +17,7 @@ import { AppMaterialModule } from './shared/app-material/app-material.module';
 import { BusinessModule } from './business-modules/business.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './components/templates/nav/nav.component';
+import { ReminderModule } from './reminder-modules/reminder.module';
 
 
 @NgModule({
@@ -32,13 +33,14 @@ import { NavComponent } from './components/templates/nav/nav.component';
     NavComponent,
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
+    BrowserModule, 
     BrowserAnimationsModule,
-    ChecklistModule,
+    HttpClientModule,
+    AppRoutingModule,
     AppMaterialModule,
+    ChecklistModule,
     BusinessModule,
-    HttpClientModule
+    ReminderModule,
   ],
   exports: [HttpClientModule],
   providers: [{

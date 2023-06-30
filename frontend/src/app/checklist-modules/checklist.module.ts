@@ -17,7 +17,7 @@ import { DocumentationComponent } from './checklist-daily/create-checkList/docum
     ChecklistMensalComponent,
     LegislationComponent,
     DocumentationComponent,
-    OptionClDailyComponent, 
+    OptionClDailyComponent,  
 
   ],
   imports: [

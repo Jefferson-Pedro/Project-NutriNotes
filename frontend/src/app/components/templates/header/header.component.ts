@@ -12,7 +12,7 @@ export class HeaderComponent {
   constructor(public service: TemplateService, private route: Router) {}
 
   public onCLickReminderNotifications(){
-    this.route.navigate(['reminder-notifications'])
+    this.route.navigate(['reminder/notifications']);
   }
 
 }
