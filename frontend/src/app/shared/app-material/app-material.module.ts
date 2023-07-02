@@ -19,6 +19,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule } from '@angular/material/dialog';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 
 
@@ -44,7 +49,11 @@ import {MatDialogModule } from '@angular/material/dialog';
     MatSnackBarModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatBadgeModule,
+    MatMenuModule,
+    MatStepperModule,
+    MatTabsModule
  ]
 })
 export class AppMaterialModule { }

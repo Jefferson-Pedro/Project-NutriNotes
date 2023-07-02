@@ -18,19 +18,29 @@ import { BusinessModule } from './business-modules/business.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './components/templates/nav/nav.component';
 import { ReminderModule } from './reminder-modules/reminder.module';
+import { LoginComponent } from './components/sign-in/login/login.component';
+import { AccountComponent } from './components/sign-in/account/account.component';
+import { CssDirective } from './directives/css/css.directive';
+import { AuthService } from './components/sign-in/auth.service';
+
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
+    HeaderComponent,
+    NavComponent,
     HomeComponent,
     ProfileComponent,
     AboutComponent,
     SupportUsComponent,
     CardsComponent,
-    HeaderComponent,
-    NavComponent,
+    LoginComponent,
+    AccountComponent,
+    CssDirective
+    
   ],
   imports: [
     BrowserModule, 
@@ -46,7 +56,7 @@ import { ReminderModule } from './reminder-modules/reminder.module';
   providers: [{
     provide: LOCALE_ID,
       useValue: 'pt'
-  }],
+  }, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

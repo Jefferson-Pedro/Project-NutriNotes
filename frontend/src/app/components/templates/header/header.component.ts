@@ -1,18 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TemplateService } from '../template.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../sign-in/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
-  constructor(public service: TemplateService, private route: Router) {}
+  public badgevisible = false;
+  showMenu: boolean = false;
 
-  public onCLickReminderNotifications(){
-    this.route.navigate(['reminder/notifications']);
+  constructor(public service: TemplateService, private route: Router, 
+              private auth: AuthService) {
+                
+  }
+  ngOnInit(): void {
+    this.auth.emitter.subscribe({
+      next:(res: any)=>{this.showMenu = res},
+      error:(err: any)=>{console.log(err);}
+    });            
+  }
+
+
+
+  public badgeVisibility(){
+    this.badgevisible = true;
+  }
+
+  public openAccount(){
+    this.route.navigate(['account']);
   }
 
 }

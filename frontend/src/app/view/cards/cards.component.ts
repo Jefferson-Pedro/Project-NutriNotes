@@ -31,5 +31,8 @@ export class CardsComponent {
   onClickReadBusiness(){
     this.router.navigate(['business/list']);
   }
+  onClickCreateReminder(){
+    this.router.navigate(['reminder/notifications']);
+  }
 
 }

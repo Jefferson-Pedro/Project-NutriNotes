@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+   min-height: 100vh;
+}
+.card-container {
+  display: flex;
+  margin: 5% auto;
+  max-width: 60%;
+}
+.button {
+  display: flex;
+  justify-content: end;
+}
+
+@media (max-width: 460px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+     min-height: 100vh;
+  }
+  .card-container {
+    display: flex;
+    margin: 10% auto;
+    max-width: 90%;
+    
+  }
+}

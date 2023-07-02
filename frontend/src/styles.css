@@ -1,4 +1,4 @@
-html, body { height: 100%; margin: 0; padding: 0; }
+html, body { min-height: 100vh; margin: 0; padding: 0; overflow: inherit; }
 body {font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .color-primary{

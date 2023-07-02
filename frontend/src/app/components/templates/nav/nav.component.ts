@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { TemplateService } from '../template.service';
+import { AuthService } from '../../sign-in/auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -9,6 +10,14 @@ import { TemplateService } from '../template.service';
 })
 export class NavComponent {  
 
- constructor(public service: TemplateService){}
+ showMenu: boolean = false;
+
+ constructor(public service: TemplateService, private auth: AuthService){
+  
+  // this.auth.emitter.subscribe({
+  //   next:(res: any)=>{this.showMenu = res},
+  //   error:(err: any)=>{console.log(err);}
+  // });            
+ }
  
 }
