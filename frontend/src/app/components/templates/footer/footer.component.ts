@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent {
+  
   showMenu: boolean = false;
 
   public constructor(private auth: AuthService){

@@ -29,9 +29,9 @@ import { AuthService } from './components/sign-in/auth.service';
 @NgModule({
   declarations: [
     AppComponent,
+    NavComponent,
     FooterComponent,
     HeaderComponent,
-    NavComponent,
     HomeComponent,
     ProfileComponent,
     AboutComponent,

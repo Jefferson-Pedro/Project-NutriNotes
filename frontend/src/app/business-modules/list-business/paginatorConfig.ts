@@ -1,14 +1,14 @@
 import { Business } from "src/app/models/business"
 
-export interface PaginatorConfig {
+export class PaginatorConfig {
   content?: Business[]
   totalPages?: number
-  totalElements?: number
+  totalElements: number = 0;
   last?: boolean
   pageSize?: number
   pageIndex?: number
   sort?: any
   numberOfElements?: number
   first?: boolean
-  empty?: boolean
+  empty?: boolean 
 }

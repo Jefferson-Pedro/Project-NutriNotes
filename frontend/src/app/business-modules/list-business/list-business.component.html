@@ -68,13 +68,13 @@
       <div class="paginator">
         <mat-paginator #paginator
                (page)="handlePageEvent($event)"
-               [length]="paginatorConfig.totalPages"
-               [pageSize]="paginatorConfig.pageSize"
-               [pageIndex]="paginatorConfig.pageIndex"
+               [length]="length"
+               [pageSize]="pageSize"
+               [pageIndex]="pageIndex"
                [showFirstLastButtons]="true"
                [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
               
-               aria-label="Select page">
+               aria-label="Select page"> 
 </mat-paginator>
 
       </div>

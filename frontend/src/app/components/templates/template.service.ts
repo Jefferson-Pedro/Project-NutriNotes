@@ -7,11 +7,11 @@ export class TemplateService {
 
   constructor() {}
 
-  private opened: boolean = true;
+  public opened: boolean = true;
 
   toggleMenu(): void {
     this.opened = !this.opened;
-    console.log(this.opened);
+    console.log('template service:', this.opened);
   }
 
   isMenuOpen(): boolean {

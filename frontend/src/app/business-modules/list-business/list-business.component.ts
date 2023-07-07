@@ -1,6 +1,6 @@
 import { MatTableDataSource } from '@angular/material/table';
-import {PageEvent } from '@angular/material/paginator';
-import { Component, OnInit} from '@angular/core';
+import {MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { BusinessService } from '../business.service';
 import { Observable, catchError, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,6 +13,7 @@ import { ErrorDialogComponent } from '../dialog/error-dialog/error-dialog.compon
 import { PaginatorConfig } from './paginatorConfig';
 
 
+
 @Component({
   selector: 'app-list-business',
   templateUrl: './list-business.component.html',
@@ -21,15 +22,21 @@ import { PaginatorConfig } from './paginatorConfig';
 export class ListBusinessComponent implements OnInit {
 
  // business$: Observable<Business[]>;
-  business!: Observable<Business[]> ;
-  paginatorConfig: PaginatorConfig = {
-    pageIndex: 0,
-    pageSize: 5,
-    totalPages: 0
-  };
-  pageSizeOptions = [5, 10, 25];
-  showPageSizeOptions = true;
+  business!: Business[];
+
   pageEvent: PageEvent | undefined;
+  paginator: PaginatorConfig | undefined;
+
+  length = 50;
+  pageSize = 0;
+  pageIndex = 0;
+  pageSizeOptions = [5, 10, 25];
+
+  hidePageSize = false;
+  showPageSizeOptions = true;
+  showFirstLastButtons = true;
+  disabled = false;
+ 
   displayedColumns = ['idBusiness', 'nome', 'cnpj', 'actions'];
 
   constructor(
@@ -48,8 +55,9 @@ export class ListBusinessComponent implements OnInit {
     this.onpageList();    
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
 
+  }
 
   public onError(errorMsg: string) {
     this.dialog.open(ErrorDialogComponent, {
@@ -57,43 +65,28 @@ export class ListBusinessComponent implements OnInit {
     });
   }
 
-  handlePageEvent(pageEvent: PageEvent){
-    console.log('evento', pageEvent);
-    this.paginatorConfig.pageIndex = pageEvent.pageIndex;
-    this.paginatorConfig.pageSize = pageEvent.pageSize;
-    this.paginatorConfig.totalPages = pageEvent.length;
+  handlePageEvent(e: PageEvent){
+   
+    console.log('evento', e);
+    this.pageEvent = e;
+    this.length = e.length;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
 
-    console.log('evento:', this.paginatorConfig.pageIndex, this.paginatorConfig.pageSize, this.paginatorConfig.totalPages);
-
-    this.service.getPageList(this.paginatorConfig.pageIndex, this.paginatorConfig.pageSize).subscribe({
-      next:(res) => {
-        console.log(res);
-        console.log('metodo getPage',this.paginatorConfig.pageIndex, this.paginatorConfig.pageSize);
-        this.business = res.content;
-      },
-      error:(err)=> {
-          console.log(err);
-      },
-    });
-    
   }
 
   public onpageList(){
-
-    // this.service.list().subscribe({
-    //   next:(res: any) => {
-    //     this.business = res;
-    //   },
-    // });
-    this.service.getPageList(this.paginatorConfig.pageIndex, this.paginatorConfig.pageSize).subscribe({
-      next:(res) => {
+    console.log(this.pageIndex, this.pageSize);
+    this.service.getPageList(this.pageIndex, this.pageSize).subscribe({
+      next: (res) => {
         console.log(res);
-        console.log('metodo getPage2',this.paginatorConfig.pageIndex, this.paginatorConfig.pageSize, this.paginatorConfig.totalPages);
         this.business = res.content;
+        this.paginator = res;
+        this.length = this.paginator!.totalElements;
       },
-      error:(err)=> {
-          console.log(err);
-      },
+      error: (err) => {
+        console.log(err);
+      }, 
     });
   }
 

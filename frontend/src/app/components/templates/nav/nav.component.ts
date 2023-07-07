@@ -10,14 +10,15 @@ import { AuthService } from '../../sign-in/auth.service';
 })
 export class NavComponent {  
 
- showMenu: boolean = false;
+//  showMenu: boolean = false;
 
- constructor(public service: TemplateService, private auth: AuthService){
+ constructor(public service: TemplateService, ){
   
   // this.auth.emitter.subscribe({
-  //   next:(res: any)=>{this.showMenu = res},
+  //   next:(res: any)=>{this.showMenu = res
+  //   console.log('nav-var:',res)},
   //   error:(err: any)=>{console.log(err);}
-  // });            
+  // });            private auth: AuthService
  }
  
 }

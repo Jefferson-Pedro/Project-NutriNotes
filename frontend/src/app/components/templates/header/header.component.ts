@@ -13,8 +13,7 @@ export class HeaderComponent implements OnInit {
   public badgevisible = false;
   showMenu: boolean = false;
 
-  constructor(public service: TemplateService, private route: Router, 
-              private auth: AuthService) {
+  constructor(public service: TemplateService, private route: Router, private auth: AuthService) {
                 
   }
   ngOnInit(): void {

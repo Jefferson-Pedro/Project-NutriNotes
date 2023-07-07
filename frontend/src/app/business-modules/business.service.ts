@@ -43,9 +43,14 @@ export class BusinessService {
      delay(1000)
      );
   }
+  
   public getPageList(page?: number, size?:number): Observable<any>{
+    if(page == undefined && size == undefined){
+      page = 0
+      size = 5
+    }
     return this.http.get<Business>
-    (`${environment.baseUrl}/business?page=${page}&size=${size}`);
+    (`${environment.baseUrl}/business?page=${page}&size=${size}`); 
   }
   
   public create(business:Business): Observable<Business>{
