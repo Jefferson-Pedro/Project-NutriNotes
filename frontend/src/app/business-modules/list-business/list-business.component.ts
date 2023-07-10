@@ -55,15 +55,7 @@ export class ListBusinessComponent implements OnInit {
     this.onpageList();    
   }
 
-  ngOnInit(): void {
-
-  }
-
-  public onError(errorMsg: string) {
-    this.dialog.open(ErrorDialogComponent, {
-      data: errorMsg,
-    });
-  }
+  ngOnInit(): void {}
 
   handlePageEvent(e: PageEvent){
    
@@ -73,10 +65,11 @@ export class ListBusinessComponent implements OnInit {
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
 
+    this.onpageList();
   }
 
   public onpageList(){
-    console.log(this.pageIndex, this.pageSize);
+    console.log('onPage List:',this.pageIndex, this.pageSize); 
     this.service.getPageList(this.pageIndex, this.pageSize).subscribe({
       next: (res) => {
         console.log(res);
@@ -87,6 +80,12 @@ export class ListBusinessComponent implements OnInit {
       error: (err) => {
         console.log(err);
       }, 
+    });
+  }
+
+  public onError(errorMsg: string) {
+    this.dialog.open(ErrorDialogComponent, {
+      data: errorMsg,
     });
   }
 

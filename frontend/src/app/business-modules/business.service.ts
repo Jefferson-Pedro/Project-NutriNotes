@@ -45,7 +45,7 @@ export class BusinessService {
   }
   
   public getPageList(page?: number, size?:number): Observable<any>{
-    if(page == undefined && size == undefined){
+    if(page ==  0 && size == 0){
       page = 0
       size = 5
     }
