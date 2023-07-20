@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.nutrinotes.model.Profile;
+import br.com.nutrinotes.model.profile.Profile;
 
 public interface ProfileDAO extends JpaRepository<Profile, Integer> {
 	

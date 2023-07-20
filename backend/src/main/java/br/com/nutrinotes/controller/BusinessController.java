@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.nutrinotes.model.Business;
+import br.com.nutrinotes.model.business.Business;
 import br.com.nutrinotes.service.business.IBusinessService;
 
 @RestController

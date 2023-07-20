@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import br.com.nutrinotes.dao.BusinessDAO;
-import br.com.nutrinotes.model.Business;
+import br.com.nutrinotes.model.business.Business;
 
 @Component
 public class BusinessImpl implements IBusinessService {

@@ -2,7 +2,7 @@ package br.com.nutrinotes.service.reminder;
 
 import java.util.List;
 
-import br.com.nutrinotes.model.Reminder;
+import br.com.nutrinotes.model.reminder.Reminder;
 
 public interface IReminderService {
 	

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import br.com.nutrinotes.model.Business;
+import br.com.nutrinotes.model.business.Business;
 
 
 public interface IBusinessService {

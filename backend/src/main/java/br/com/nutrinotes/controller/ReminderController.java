@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.nutrinotes.model.Reminder;
+import br.com.nutrinotes.model.reminder.Reminder;
 import br.com.nutrinotes.service.reminder.IReminderService;
 
 @RestController

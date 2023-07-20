@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.nutrinotes.model.Reminder;
+import br.com.nutrinotes.model.reminder.Reminder;
 
 public interface ReminderDAO extends JpaRepository<Reminder, Integer>{
 	

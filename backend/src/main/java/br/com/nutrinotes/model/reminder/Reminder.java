@@ -1,7 +1,8 @@
-package br.com.nutrinotes.model;
+package br.com.nutrinotes.model.reminder;
 
 import java.util.Date;
 
+import br.com.nutrinotes.model.profile.Profile;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

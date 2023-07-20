@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.nutrinotes.dao.ProfileDAO;
-import br.com.nutrinotes.model.Business;
-import br.com.nutrinotes.model.Profile;
+import br.com.nutrinotes.model.business.Business;
+import br.com.nutrinotes.model.profile.Profile;
 
 @Component
 public class ProfileImpl implements IProfileService {

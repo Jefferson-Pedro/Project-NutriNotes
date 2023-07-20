@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.nutrinotes.dao.UserDAO;
-import br.com.nutrinotes.model.User;
+import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.security.Token;
 
 @Component
@@ -16,7 +16,10 @@ public class AuthServiceImpl implements IAuthService {
 
 	@Override
 	public User createUser(User newUser) {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
+		/*BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(5);
+		String newPassword = encoder.encode(newUser.getSenha());
+		newUser.setSenha(newPassword);
+		return dao.save(newUser);*/
 		return null;
 	}
 
