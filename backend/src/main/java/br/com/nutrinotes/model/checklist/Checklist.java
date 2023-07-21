@@ -1,5 +1,6 @@
 package br.com.nutrinotes.model.checklist;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -29,7 +30,7 @@ public class Checklist {
 	private String nomeGestor;
 	
 	@Column(name = "data_auditoria")
-	private Date dataAuditoria;
+	private LocalDate dataAuditoria;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_setores")
@@ -44,7 +45,7 @@ public class Checklist {
 	@ManyToOne
 	@JoinColumn(name = "id_template_documentation")
 	@JsonIgnoreProperties("checklist_template_documentation") //Tabela checklist_template_documentation
-	private TemplateDocumentation idTemplate_Documentation;
+	private TemplateDocumentation idTemplate;
 
 	
 	//SET AND GET
@@ -65,11 +66,11 @@ public class Checklist {
 		this.nomeGestor = nomeGestor;
 	}
 
-	public Date getDataAuditoria() {
+	public LocalDate getDataAuditoria() {
 		return dataAuditoria;
 	}
 
-	public void setDataAuditoria(Date dataAuditoria) {
+	public void setDataAuditoria(LocalDate dataAuditoria) {
 		this.dataAuditoria = dataAuditoria;
 	}
 
@@ -90,10 +91,10 @@ public class Checklist {
 	}
 
 	public TemplateDocumentation getidTemplate_Documentation() {
-		return idTemplate_Documentation;
+		return idTemplate;
 	}
 
-	public void setidTemplate_Documentation(TemplateDocumentation idChecklist_Documentation) {
-		this.idTemplate_Documentation = idChecklist_Documentation;
+	public void setidTemplate_Documentation(TemplateDocumentation idTemplate) {
+		this.idTemplate = idTemplate;
 	}
 }

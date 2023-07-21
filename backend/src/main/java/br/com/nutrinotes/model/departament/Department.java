@@ -55,5 +55,4 @@ public class Department {
 		this.idBusiness = idBusiness;
 	}
 	
-	
 }
