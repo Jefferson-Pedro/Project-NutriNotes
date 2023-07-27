@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import br.com.nutrinotes.dao.ChecklistDAO;
+import br.com.nutrinotes.dao.checklist.ChecklistDAO;
 import br.com.nutrinotes.model.checklist.Checklist;
 
 @Component
@@ -68,6 +68,4 @@ public class CheckListImpl implements ICheckList {
 		dao.deleteById(id);
 		return true;
 	}
-
-	
 }

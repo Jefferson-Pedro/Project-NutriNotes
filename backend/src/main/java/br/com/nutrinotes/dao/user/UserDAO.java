@@ -1,4 +1,4 @@
-package br.com.nutrinotes.dao;
+package br.com.nutrinotes.dao.user;
 
 import java.util.List;
 

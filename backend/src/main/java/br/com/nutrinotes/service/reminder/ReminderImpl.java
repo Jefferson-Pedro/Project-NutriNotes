@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.nutrinotes.dao.ReminderDAO;
+import br.com.nutrinotes.dao.reminder.ReminderDAO;
 import br.com.nutrinotes.model.reminder.Reminder;
 
 @Component

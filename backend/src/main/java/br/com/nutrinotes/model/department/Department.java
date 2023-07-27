@@ -1,4 +1,4 @@
-package br.com.nutrinotes.model.departament;
+package br.com.nutrinotes.model.department;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -54,5 +54,4 @@ public class Department {
 	public void setIdBusiness(Business idBusiness) {
 		this.idBusiness = idBusiness;
 	}
-	
 }

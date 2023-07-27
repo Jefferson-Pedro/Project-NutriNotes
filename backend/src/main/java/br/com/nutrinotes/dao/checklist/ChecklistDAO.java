@@ -1,4 +1,4 @@
-package br.com.nutrinotes.dao;
+package br.com.nutrinotes.dao.checklist;
 
 import java.time.LocalDate;
 import java.util.List;

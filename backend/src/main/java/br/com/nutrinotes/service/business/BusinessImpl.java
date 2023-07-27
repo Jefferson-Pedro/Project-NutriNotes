@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import br.com.nutrinotes.dao.BusinessDAO;
+import br.com.nutrinotes.dao.business.BusinessDAO;
 import br.com.nutrinotes.model.business.Business;
 
 @Component

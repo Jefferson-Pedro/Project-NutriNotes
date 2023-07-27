@@ -6,7 +6,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.nutrinotes.model.business.Business;
-import br.com.nutrinotes.model.departament.Department;
+import br.com.nutrinotes.model.department.Department;
 import br.com.nutrinotes.model.templates.TemplateDocumentation;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

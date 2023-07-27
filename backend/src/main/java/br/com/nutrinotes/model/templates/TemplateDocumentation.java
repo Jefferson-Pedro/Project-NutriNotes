@@ -2,7 +2,7 @@ package br.com.nutrinotes.model.templates;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import br.com.nutrinotes.model.departament.Department;
+import br.com.nutrinotes.model.department.Department;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

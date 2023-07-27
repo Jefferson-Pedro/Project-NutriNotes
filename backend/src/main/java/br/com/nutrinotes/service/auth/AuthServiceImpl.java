@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import br.com.nutrinotes.dao.UserDAO;
+import br.com.nutrinotes.dao.user.UserDAO;
 import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.security.Token;
 
