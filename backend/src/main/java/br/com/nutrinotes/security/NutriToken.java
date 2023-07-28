@@ -1,10 +1,10 @@
 package br.com.nutrinotes.security;
 
-public class Token {
+public class NutriToken {
 	
 	private String token;
 
-	public Token(String token) {
+	public NutriToken(String token) {
 		super();
 		this.token = token;
 	}

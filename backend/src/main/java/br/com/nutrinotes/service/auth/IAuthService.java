@@ -1,9 +1,9 @@
 package br.com.nutrinotes.service.auth;
 
 import br.com.nutrinotes.model.user.User;
-import br.com.nutrinotes.security.Token;
+import br.com.nutrinotes.security.NutriToken;
 
 public interface IAuthService {
 	public User createUser(User newUser);
-	public Token authenticate(User dataLogin);
+	public NutriToken authenticate(User dataLogin);
 }
