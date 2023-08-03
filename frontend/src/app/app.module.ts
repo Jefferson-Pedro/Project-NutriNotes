@@ -22,6 +22,7 @@ import { LoginComponent } from './components/sign-in/login/login.component';
 import { AccountComponent } from './components/sign-in/account/account.component';
 import { CssDirective } from './directives/css/css.directive';
 import { AuthService } from './components/sign-in/auth.service';
+import { PageNotFoundComponent } from './components/not-found/page-not-found/page-not-found.component';
 
 
 
@@ -39,7 +40,8 @@ import { AuthService } from './components/sign-in/auth.service';
     CardsComponent,
     LoginComponent,
     AccountComponent,
-    CssDirective
+    CssDirective,
+    PageNotFoundComponent
     
   ],
   imports: [

@@ -11,20 +11,19 @@ import { AuthService } from '../../sign-in/auth.service';
 export class HeaderComponent implements OnInit {
 
   public badgevisible = false;
-  showMenu: boolean = false;
+  showMenu: boolean = true; //Mudar para false;
 
   constructor(public service: TemplateService, private route: Router, private auth: AuthService) {
                 
   }
   ngOnInit(): void {
-    this.auth.emitter.subscribe({
-      next:(res: any)=>{this.showMenu = res},
-      error:(err: any)=>{console.log(err);}
-    });            
+    // this.auth.emitter.subscribe({
+    //   next:(res: any)=>{this.showMenu = res},
+    //   error:(err: any)=>{console.log(err);}
+    // });            
   }
 
-
-
+  //Tratando das notificações
   public badgeVisibility(){
     this.badgevisible = true;
   }

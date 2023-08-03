@@ -8,12 +8,12 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
   
-  showMenu: boolean = false;
+  showMenu: boolean = true; //false;
 
   public constructor(private auth: AuthService){
-      this.auth.emitter.subscribe({
-        next:(res: any)=>{this.showMenu = res},
-        error:(err: any)=>{console.log(err);}
-      });
+      // this.auth.emitter.subscribe({
+      //   next:(res: any)=>{this.showMenu = res},
+      //   error:(err: any)=>{console.log(err);}
+      // });
   }
 }

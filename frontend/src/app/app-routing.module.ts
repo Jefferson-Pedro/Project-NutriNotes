@@ -7,11 +7,12 @@ import { AboutComponent } from './view/about/about.component';
 import { SupportUsComponent } from './view/support-us/support-us.component'; 
 import { LoginComponent } from './components/sign-in/login/login.component';
 import { AccountComponent } from './components/sign-in/account/account.component';
+import { PageNotFoundComponent } from './components/not-found/page-not-found/page-not-found.component';
 
 const routes: Routes = [
 
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirecionamento para '/home' quando o caminho estiver vazio
-  
+
   {path: 'home', component: HomeComponent},
 
   {path: 'profile', component: ProfileComponent},
@@ -22,7 +23,9 @@ const routes: Routes = [
   
   {path: 'account',component: AccountComponent},
 
-  {path: 'login',component: LoginComponent}
+  {path: 'login',component: LoginComponent},
+
+  {path: '**',component: PageNotFoundComponent},
   
 ];
 

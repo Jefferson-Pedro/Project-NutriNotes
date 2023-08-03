@@ -12,9 +12,13 @@ export class AuthService {
 
   constructor(private route: Router) { } 
 
+  public isAuth(): boolean{
+      return true;
+  }
+
   public loginValidation(login: string, senha:string){
 
-    if (login === 'jefferson@nutri.com' && senha === '1234') {
+   /* if (login === 'jefferson@nutri.com' && senha === '1234') {
       this.authUserTest = true;
       this.emitter.emit(true);
       this.route.navigate(['home']);
@@ -22,8 +26,10 @@ export class AuthService {
       this.authUserTest = false;
       this.emitter.emit(false);
       alert('Erro! Usuário não encontrado!');
-    }
+    }*/
   }
+
+  public logout(){}
 
   public createUser(){}
 

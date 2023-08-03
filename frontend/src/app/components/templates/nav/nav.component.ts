@@ -12,7 +12,7 @@ export class NavComponent {
 
 //  showMenu: boolean = false;
 
- constructor(public service: TemplateService, ){
+ constructor(public service: TemplateService ){
   
   // this.auth.emitter.subscribe({
   //   next:(res: any)=>{this.showMenu = res
