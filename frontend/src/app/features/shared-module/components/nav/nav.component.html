@@ -1,0 +1,45 @@
+<mat-sidenav-container style="position: relative;">
+  <mat-sidenav
+    class="sidenav"
+    mainColors
+    mode="side"
+    [opened]="navService.isMenuOpen()"
+    fixedInViewport="false"
+    fixedTopGap="58"
+  >
+    <mat-nav-list class="nav-list">
+      <a mat-list-item routerLink="">
+        <span>
+          <i class="material-icons v-middle"> home </i>
+          Início
+        </span>
+      </a>
+      <a mat-list-item routerLink="profile">
+        <span>
+          <i class="material-icons v-middle"> account_circle </i>
+          Perfil
+        </span>
+      </a>
+      <a mat-list-item routerLink="about">
+        <span>
+          <i class="material-icons v-middle"> group </i>
+          Sobre nós
+        </span>
+      </a>
+      <a mat-list-item routerLink="supportUs">
+        <span>
+          <i class="material-icons v-middle"> handshake </i>
+          Apoie-nos
+        </span>
+      </a>
+      <a mat-list-item routerLink="login">
+        <span>
+          <i class="material-icons v-middle"> logout </i>
+          Sair
+        </span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+   <router-outlet></router-outlet>
+   <app-footer></app-footer>
+</mat-sidenav-container>

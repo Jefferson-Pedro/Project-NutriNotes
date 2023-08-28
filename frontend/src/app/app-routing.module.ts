@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AboutComponent } from './core/components/about';
+import { AccountComponent } from './core/components/account';
+import { HomeComponent } from './core/components/home';
+import { LoginComponent } from './core/components/login';
+import { PageNotFoundComponent } from './core/components/page-not-found';
+import { ProfileComponent } from './core/components/profile';
+import { SupportUsComponent } from './core/components/support-us';
 
-import { HomeComponent } from './view/home/home.component';
-import {ProfileComponent} from './view/profile/profile.component';
-import { AboutComponent } from './view/about/about.component';
-import { SupportUsComponent } from './view/support-us/support-us.component'; 
-import { LoginComponent } from './components/sign-in/login/login.component';
-import { AccountComponent } from './components/sign-in/account/account.component';
-import { PageNotFoundComponent } from './components/not-found/page-not-found/page-not-found.component';
 
 const routes: Routes = [
 
@@ -24,6 +24,14 @@ const routes: Routes = [
   {path: 'account',component: AccountComponent},
 
   {path: 'login',component: LoginComponent},
+
+  {path: 'business', loadChildren: () =>
+  import('./features/business-module/business.module').then(
+    (module) => module.BusinessModule)},
+  
+  {path: 'reminder', loadChildren: () =>
+  import('./features/reminder-module/reminder.module').then(
+    (module) => module.ReminderModule)},
 
   {path: '**',component: PageNotFoundComponent},
   

@@ -1,0 +1,66 @@
+<div class="container">
+  <mat-card class="card-container">
+    <mat-toolbar class="color-primary color-secondary">
+      Sua Conta
+    </mat-toolbar>
+
+    <div class="formAccount">
+      <mat-stepper [orientation]="stepperOrientation" #stepper>
+
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Seu email</ng-template>
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="email@exemple.com" 
+              type="email" formControlName="email" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext>Próximo</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup" label="Sua Senha">
+          <form [formGroup]="secondFormGroup">
+            <mat-form-field>
+              <mat-label>Senha</mat-label>
+              <input matInput formControlName="senha" type="password" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Voltar</button>
+              <button mat-button matStepperNext>Proximo</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="thirdFormGroup" label="Seu CRN">
+          <form [formGroup]="thirdFormGroup">
+            <mat-form-field>
+              <mat-label>CRN</mat-label>
+              <input matInput formControlName="crn" type="text" 
+              placeholder="CRM/SP 123456" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Voltar</button>
+              <button mat-button matStepperNext>Proximo</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Feito</ng-template>
+          <p>Agora você terminou.</p>
+          <div>
+            <button mat-button matStepperPrevious>Voltar</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </div>
+    <mat-card-actions class="button">
+      <button mat-button (click)="onClose()">Cancelar</button>
+      <button mat-button (click)="onSubmit()">Salvar</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,166 @@
+<div class="container">
+  <mat-card class="card-container">
+    <mat-toolbar class="color-primary color-secondary">
+      Cadastro de Empresa
+    </mat-toolbar>
+
+    <form [formGroup]="form"> 
+
+      <div class="business-cnpj">
+        <mat-form-field class="input-business">
+          <mat-label>Nome da Empresa</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Empresa de exemplo ltda."
+            formControlName="nome"
+            required
+          />
+          <mat-icon matSuffix>corporate_fare</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="input-cnpj">
+          <mat-label>CNPJ</mat-label>
+            <input
+              type="text"
+              matInput
+              placeholder="XX. XXX. XXX/0001-XX"
+              formControlName="cnpj"
+              required
+            />
+          <mat-icon matSuffix>123</mat-icon>
+      </mat-form-field>
+    </div>
+
+      <div class="cep-tel">
+        <mat-form-field class="input-cep">
+          <mat-label>CEP</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="XXXXXXXX"
+            formControlName="cep"
+            required
+          />
+          <mat-icon matSuffix>123</mat-icon>
+        </mat-form-field>
+
+          <button mat-mini-fab color="accent" aria-label="Consultar" (click)="validationCep()">
+            <mat-icon class="color-secondary">search</mat-icon>
+          </button>
+
+        <mat-form-field class="input-tel">
+          <mat-label>Telefone</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="(XX) 9XXXX-XXXX"
+            formControlName="telefone"
+            required
+          />
+          <mat-icon matSuffix>call</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="adress-number">
+        <mat-form-field class="input-adress">
+          <mat-label>Logradouro</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Rua/Avenida/Travessa"
+            formControlName="logradouro"
+            required
+          />
+          <mat-icon matSuffix></mat-icon>
+        </mat-form-field>
+        <mat-form-field class="input-number">
+          <mat-label>Numero</mat-label>
+          <input
+            type="number"
+            matInput
+            placeholder="123"
+            formControlName="telefone"
+            required
+          />
+          <mat-icon matSuffix>123</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="city-district-uf">
+        <mat-form-field class="input-city">
+          <mat-label>Cidade</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Ex. São Paulo"
+            formControlName="cidade"
+            required
+          />
+          <mat-icon matSuffix></mat-icon>
+        </mat-form-field>
+        <mat-form-field class="input-district">
+          <mat-label>Bairro</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Ex.Vila Madalena"
+            formControlName="bairro"
+            required
+          />
+          <mat-icon matSuffix></mat-icon>
+        </mat-form-field>
+        <mat-form-field class="input-uf">
+          <mat-label>UF</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Ex.SP"
+            formControlName="uf"
+            required
+          />
+          <mat-icon matSuffix></mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="representative">
+        <mat-form-field class="input-trade-representative">
+          <mat-label>Representante Comercial</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Nome do Representante"
+            formControlName="representante"
+            required
+          />
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="input-technical-manager">
+          <mat-label>Responsável Técnico</mat-label>
+          <input matInput disabled value="1" />
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="plan">
+        <mat-form-field class="input-plan">
+          <mat-label>Plano Contratado</mat-label>
+          <mat-select formControlName="plano">
+            <mat-option value="null"></mat-option>
+            <mat-option value="Diário">Diário</mat-option>
+            <mat-option value="Semanal">Semanal</mat-option>
+            <mat-option value="Quinzenal">Quinzenal</mat-option>
+            <mat-option value="Mensal">Mensal</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+    
+    <mat-card-actions class="button">
+      <button mat-button (click)="onCancel()">Cancelar</button>
+      <button mat-button (click)="onSubmit()">Salvar</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+

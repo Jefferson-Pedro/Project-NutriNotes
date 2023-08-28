@@ -1,0 +1,36 @@
+.home{
+    margin: 20px;
+}
+.title {
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2;
+}
+.subtitle {
+    font-size: 1rem;
+}
+.title-subtitle{
+    margin-bottom: 1.5rem;
+}
+
+mat-card{
+    padding: 2em;
+}
+
+@media (max-width: 390px) {
+    .title {
+        font-size: 1.8rem;
+        font-weight: 400;
+        line-height: 1.2;
+        padding: 5px;
+    }
+}
+
+@media (max-width: 320px) {
+    .title {
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.2;
+        padding: 5px;
+    }
+}

@@ -1,0 +1,96 @@
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100hv;
+}
+.card-container {
+  margin-top: 5%;
+  width: 60%;
+  margin-bottom: 15px;
+}
+.profile-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-icon > img{
+  width: 200px;
+  height: 200pxpx;
+}
+
+.name-birthday{
+  display: flex;
+  gap: 1rem;
+  margin: 1em 1em 0 1em;
+}
+
+.name-birthday > .input-name{
+  width: 80%;
+}
+
+.email-tel, .crn-gener{
+  display: flex;
+  gap: 1rem;
+  margin: 0 1em 0 1em;
+}
+
+.input-email, .input-tel {
+  width: 100%;
+}
+
+.input-crn{
+  width: 49%;
+}
+.check-sex{
+  align-items: center;
+}
+
+.button{
+  display: flex;
+  justify-content: end;
+}
+
+/*ESPAÇO PARA ACERTAR TELAS MOBILE*/
+
+@media (max-width: 884px) {
+  .container{
+    height: 100%;
+  }
+  .card-container {
+    margin-top: 5%;
+    width: 80%;
+    height: 100hv;
+  }
+  .name-birthday > .input-name{
+    width: 80%;
+  }
+  .name-birthday > .label-birthday{
+    font-size: 0.5rem;
+  }
+
+}
+
+/*Para telas menores que 428px*/
+@media (max-width: 428px) {
+  .card-container {
+    margin-top: 5%;
+    width: 80%;
+    height: 100hv;
+  }
+  img {
+    max-width: 50%;
+  }
+  .name-birthday, .email-tel, .crn-gener{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .name-birthday > .input-name{
+    width: 100%;
+  }
+  .input-name, .input-crn{
+    width: 100%;
+  }  
+    
+}

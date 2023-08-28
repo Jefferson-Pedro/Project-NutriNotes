@@ -12,7 +12,8 @@ export class NavComponent {
 
 //  showMenu: boolean = false;
 
- constructor(public service: TemplateService ){
+
+ constructor(public service: TemplateService, private authserv: AuthService ){
   
   // this.auth.emitter.subscribe({
   //   next:(res: any)=>{this.showMenu = res
@@ -20,5 +21,4 @@ export class NavComponent {
   //   error:(err: any)=>{console.log(err);}
   // });            private auth: AuthService
  }
- 
 }

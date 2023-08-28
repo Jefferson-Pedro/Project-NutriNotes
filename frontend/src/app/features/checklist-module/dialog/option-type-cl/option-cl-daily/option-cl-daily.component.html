@@ -1,0 +1,36 @@
+<div mat-dialog-content>
+    <mat-label class="title">
+      <strong>Escolha um Tipo de Check List:</strong>
+    </mat-label>
+  
+    <mat-list>
+      <mat-list-item class="item-list" (click)="onDocumentationClick()">
+        1. Documentação
+      </mat-list-item>
+  
+      <mat-divider></mat-divider>
+  
+      <mat-list-item class="item-list">2. Segurança do Trabalho</mat-list-item>
+  
+      <mat-divider></mat-divider>
+  
+      <mat-list-item class="item-list">3. Segurança Ambiental</mat-list-item>
+  
+      <mat-divider></mat-divider>
+  
+      <mat-list-item class="item-list">4. Segurança Alimentar</mat-list-item>
+  
+      <mat-divider></mat-divider>
+  
+      <mat-list-item class="item-list">5. Saúde do Funcionário</mat-list-item>
+  
+      <mat-divider></mat-divider>
+      
+    </mat-list>
+  
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button [mat-dialog-close]="true" (click)="onContinueClick()">Continuar</button>
+  </div>
+  

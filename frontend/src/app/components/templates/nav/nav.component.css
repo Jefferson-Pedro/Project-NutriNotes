@@ -12,3 +12,9 @@ span {
 .nav-list {
   margin-top: 5px;
 }
+
+#menu{
+  position: fixed;
+  top: 0;
+  left: 0;
+}

@@ -1,0 +1,53 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* background-color: #6BF2AF; */
+  /* background-color: #004746; */
+  background-image: url('../../../../assets/img/plano-fundo.jpg');
+  background-repeat: no-repeat; /* Impede que a imagem se repita */
+  background-size: cover; /* Faz com que a imagem cubra todo o plano de fundo*/
+  /* opacity: 0.5; */
+
+}
+.login-password {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.card-container {
+  min-width: 40%;
+}
+mat-card-header {
+  display: flex;
+  justify-content: center;
+}
+.image-logo {
+  display: inline-block; /* Torna a div ajustável ao tamanho da imagem */
+  border-radius: 50%; /* Arredonda a div, criando uma forma circular */
+  overflow: hidden; /* Oculta qualquer parte da imagem que ultrapasse os limites da div */
+  width: 150px; /* Define a largura desejada para a div */
+  height: 150px; /* Define a altura desejada para a div */
+  margin-bottom: 5%; /* Define uma marge em relação a Label Login e Cadastro */
+}
+.image-logo img {
+  width: 100%; /* Faz com que a imagem ocupe toda a largura da div */
+  height: 100%; /* Faz com que a imagem ocupe toda a altura da div */
+  object-fit: cover; /* Redimensiona a imagem proporcionalmente para preencher a div */
+}
+mat-form-field{
+    width: 100%;
+}
+@media (max-width: 834px) {
+  .card-container {
+    min-width: 70%;
+  }
+    
+}
+@media (max-width: 428px) {
+  .card-container {
+    min-width: 75%;
+  }
+    
+}
