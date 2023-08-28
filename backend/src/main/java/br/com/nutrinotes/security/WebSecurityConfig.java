@@ -25,6 +25,10 @@ public class WebSecurityConfig {
 		.requestMatchers(HttpMethod.GET, "/business/{id}").permitAll()
 		.requestMatchers(HttpMethod.POST, "/business").permitAll()
 		.requestMatchers(HttpMethod.DELETE, "/business/{id}").permitAll()
+		.requestMatchers(HttpMethod.GET, "/checklist/all").permitAll()
+		.requestMatchers(HttpMethod.GET, "/checklist/{id}").permitAll()
+		.requestMatchers(HttpMethod.GET, "/checklist/date/{date}").permitAll()
+		.requestMatchers(HttpMethod.DELETE, "/checklist/{id}").permitAll()
 		.anyRequest().authenticated().and().cors();
 		
 		http.addFilterBefore(new MyFilter(), UsernamePasswordAuthenticationFilter.class);

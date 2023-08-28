@@ -26,7 +26,7 @@ public class ChecklistController {
 	@Autowired
 	ICheckList service;
 	
-	@GetMapping("all")
+	@GetMapping("/all")
 	public ResponseEntity<List<Checklist>> findAll() {
 		List<Checklist> list = service.findAll();
 		if(list.size() > 0) {
@@ -66,6 +66,7 @@ public class ChecklistController {
 	public ResponseEntity<Checklist> delete(@PathVariable Integer id){
 		Checklist res = service.findById(id);
 		if(res != null) {
+			service.delete(id);
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.notFound().build();
