@@ -28,6 +28,7 @@ public class WebSecurityConfig {
 		.requestMatchers(HttpMethod.GET, "/checklist/all").permitAll()
 		.requestMatchers(HttpMethod.GET, "/checklist/{id}").permitAll()
 		.requestMatchers(HttpMethod.GET, "/checklist/date/{date}").permitAll()
+		.requestMatchers(HttpMethod.POST, "/checklist/new").permitAll()
 		.requestMatchers(HttpMethod.DELETE, "/checklist/{id}").permitAll()
 		.anyRequest().authenticated().and().cors();
 		
