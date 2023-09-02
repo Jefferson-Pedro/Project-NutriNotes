@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SidenavService } from '../../services/sidenav';
-import { AuthService } from 'src/app/core/services/auth';
+import { AuthService } from 'src/app/features/login-module/services/auth';
+import { ReminderService } from 'src/app/features/reminder-module/services';
+import { ReminderPaginator } from '../../../reminder-module/services/reminder-paginator';
+import { Reminder } from 'src/app/core/models/reminder';
+
 
 
 @Component({
@@ -14,7 +18,16 @@ export class HeaderComponent implements OnInit {
   public badgevisible = false;
   showMenu: boolean = true; //Mudar para false;
 
-  constructor(public navService: SidenavService, private route: Router, private auth: AuthService) {
+  public list!: Reminder[];
+  public paginator!: ReminderPaginator;
+
+  constructor(public navService: SidenavService, 
+              private route: Router, 
+              private auth: AuthService,
+              protected reminder: ReminderService) {
+    
+    this.showReminderNotification();
+    console.log(this.showReminderNotification());
                 
   }
   ngOnInit(): void {
@@ -27,6 +40,18 @@ export class HeaderComponent implements OnInit {
   //Tratando das notificações
   public badgeVisibility(){
     this.badgevisible = true;
+  }
+
+  public showReminderNotification(){
+    this.reminder.getPageList().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.list = res.content;
+      },
+      error: (err) => {
+        console.log(err);
+      }, 
+    });
   }
 
   public openAccount(){

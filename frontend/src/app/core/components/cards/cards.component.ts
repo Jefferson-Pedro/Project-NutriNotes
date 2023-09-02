@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LegislationComponent } from 'src/app/features/checklist-module/dialog/legislation';
-import { OptionClDailyComponent } from 'src/app/features/checklist-module/dialog/option-type-cl/option-cl-daily';
-
-
-
+import { LegislationComponent } from 'src/app/core/dialog/legislation';
+import { OptionDailyDialogComponent } from 'src/app/features/checklist-module/option-daily-dialog';
+import { OptionMonthlyDialogComponent } from 'src/app/features/checklist-module/option-monthly-dialog/option-monthly-dialog.component';
 
 @Component({
   selector: 'app-cards',
@@ -16,8 +14,12 @@ export class CardsComponent {
 
   constructor(private dialog: MatDialog, private router: Router, route: ActivatedRoute ) {}
 
-  openDialogCreate(){
-    const dialogRef = this.dialog.open(OptionClDailyComponent);
+  openDialogCreateDaily(){
+    const dialogRef = this.dialog.open(OptionDailyDialogComponent);
+  }
+
+  openDialogCreateMonthly(){
+    const dialogRef = this.dialog.open(OptionMonthlyDialogComponent);
   }
 
   openDialogLegislation() {

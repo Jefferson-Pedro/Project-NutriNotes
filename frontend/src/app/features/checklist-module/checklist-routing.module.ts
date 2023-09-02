@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DocumentationComponent } from './components/checklist-daily-documentation';
+import { DocumentationDailyComponent } from './components/checklist-daily';
+import { DocumentationMonthlyComponent } from './components/checklist-monthly';
+
 
 
 const routes: Routes = [
-  {
-    path: 'documentation',
-    component: DocumentationComponent,
-  }
+  
+  {path: 'documentation-daily', component: DocumentationDailyComponent},
+  {path: 'documentation-monthly', component: DocumentationMonthlyComponent}
   
 ];
 

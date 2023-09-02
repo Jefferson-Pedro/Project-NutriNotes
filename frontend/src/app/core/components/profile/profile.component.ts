@@ -2,6 +2,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileService } from '../../services/profile';
+import { ViaCepService } from 'src/app/features/shared-module/services/cep';
+import { NotificationService } from 'src/app/features/shared-module/services/notification';
 
 
 @Component({
@@ -13,7 +15,12 @@ export class ProfileComponent {
 
   form: FormGroup;
   
-  constructor(private formBuilder: FormBuilder, private route: Router, private service: ProfileService ){
+  constructor(private formBuilder: FormBuilder, 
+              private route: Router, 
+              private service: ProfileService, 
+              private viacep:ViaCepService, 
+              private notification: NotificationService ){
+
     this.form = this.formBuilder.group({
       nome: ['',Validators.required],
       data_nasc: [null, Validators.required],
@@ -28,10 +35,10 @@ export class ProfileComponent {
     console.log(this.form.value);
     this.service.create(this.form.value).subscribe({
       next: () => {
-        this.service.showMessageSucess('Perfil salvo com sucesso!');
+        this.notification.showMessageSucess('Perfil salvo com sucesso!');
       },
       error: (erro) => {
-        this.service.showMessageFail('Ocorreu um erro ao salvar as informações do perfil');
+        this.notification.showMessageFail('Ocorreu um erro ao salvar as informações do perfil');
       }
     });    
   }

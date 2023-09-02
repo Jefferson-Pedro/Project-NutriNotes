@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -60,6 +61,15 @@ public class ChecklistController {
 			return ResponseEntity.ok().body(res);
 		}
 		return ResponseEntity.notFound().build();
+	}
+	
+	@PutMapping("/edit/{id}")
+	public ResponseEntity<Checklist> update(@RequestBody Checklist checklist, @PathVariable Integer id){
+		Checklist res = service.update(checklist, id);
+		if(res != null) {
+			return ResponseEntity.ok(res);
+		}
+		return ResponseEntity.badRequest().build();
 	}
 	
 	@DeleteMapping("/{id}")

@@ -25,7 +25,7 @@ export class OptionClDailyComponent implements OnInit {
    
   onContinueClick(){
     if(this.documentacao == true){
-      this.router.navigate(['documentation']);
+      this.router.navigate(['checklist/documentation']);
     }
   }
 

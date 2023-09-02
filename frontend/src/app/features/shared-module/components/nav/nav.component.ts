@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { auditTime, distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 import { Subject, fromEvent } from 'rxjs';
 
-import { AuthService } from 'src/app/core/services/auth';
+import { AuthService } from 'src/app/features/login-module/services/auth';
 import { SidenavService } from '../../services/sidenav';
 
 

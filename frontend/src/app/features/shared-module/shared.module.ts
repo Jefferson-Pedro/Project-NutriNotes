@@ -1,14 +1,65 @@
+import { CommonModule, registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterModule } from '@angular/router';
+import { ErrorDialogComponent } from './components/error-dialog';
+import { FooterComponent } from './components/footer';
+import { HeaderComponent } from './components/header';
 import { LoaderComponent } from './components/loader';
-import { AppMaterialModule } from '../material-module';
+import { NavComponent } from './components/nav';
+import { CssDirective } from './directives/css';
+import { MatButtonModule } from '@angular/material/button';
+
+registerLocaleData(localePt);
 
 @NgModule({
-  declarations: [LoaderComponent],
+  declarations: [
+    LoaderComponent, 
+    ErrorDialogComponent,
+    NavComponent,
+    FooterComponent,
+    HeaderComponent,
+    CssDirective
+  ],
   imports: [
     CommonModule,
-    AppMaterialModule
+    RouterModule,
+    MatDialogModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatTooltipModule,
+    MatCardModule,
+    MatListModule,
+    MatIconModule,
+    MatDividerModule,
+    MatGridListModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatBadgeModule,
+    MatMenuModule,
+    MatButtonModule
   ],
-  exports: [LoaderComponent],
+  exports: [
+      CssDirective,
+      LoaderComponent,
+      ErrorDialogComponent,
+      NavComponent,
+      FooterComponent,
+      HeaderComponent,
+
+    ],
 })
 export class SharedModule { }

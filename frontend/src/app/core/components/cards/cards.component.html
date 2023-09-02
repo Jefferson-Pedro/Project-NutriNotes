@@ -13,14 +13,14 @@
             alt="lista-diaria"
           />
         </div>
-        <div class="card-footer">
+        <div class="card-footer"> 
           <mat-card-content>
             <p matTooltip=" Crie, Personalize ou Consulte sua rotina de verificação diária.">
               Crie, Personalize ou Consulte sua rotina de verificação diária.
             </p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button (click)="openDialogCreate()">CRIAR</button>
+            <button mat-button (click)="openDialogCreateDaily()">CRIAR</button>
             <button mat-button>CONSULTAR</button>
           </mat-card-actions>
         </div>
@@ -45,7 +45,7 @@
             </p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button>CRIAR</button>
+            <button mat-button (click)="openDialogCreateMonthly()">CRIAR</button>
             <button mat-button>CONSULTAR</button>
           </mat-card-actions>
         </div>

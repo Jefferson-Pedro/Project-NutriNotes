@@ -3,47 +3,19 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-
-import { AppComponent } from './app.component';
-import { NavComponent } from './features/shared-module/components/nav';
-import { FooterComponent } from './features/shared-module/components/footer';
-import { HeaderComponent } from './features/shared-module/components/header';
-import { HomeComponent } from './core/components/home';
-import { PageNotFoundComponent } from './core/components/page-not-found';
-import { ProfileComponent } from './core/components/profile';
-import { AboutComponent } from './core/components/about';
-import { SupportUsComponent } from './core/components/support-us';
-import { CardsComponent } from './core/components/cards';
-import { LoginComponent } from './core/components/login';
-import { AccountComponent } from './core/components/account';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppMaterialModule } from './features/material-module';
-import { ChecklistModule } from './features/checklist-module';
+import { AppComponent } from './app.component';
 import { BusinessModule } from './features/business-module';
+import { ChecklistModule } from './features/checklist-module';
+import { CheklistRoutingModule } from './features/checklist-module/checklist-routing.module';
+import { LoginModule } from './features/login-module/login.module';
 import { ReminderModule } from './features/reminder-module';
-
-import { CssDirective } from './core/directives/css';
-import { AuthService } from './core/services/auth';
 import { SharedModule } from './features/shared-module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
-    FooterComponent,
-    HeaderComponent,
-    HomeComponent,
-    ProfileComponent,
-    AboutComponent,
-    SupportUsComponent,
-    CardsComponent,
-    LoginComponent,
-    AccountComponent,
-    CssDirective,
-    PageNotFoundComponent,
-
-    
   ],
   imports: [
     BrowserModule, 
@@ -51,17 +23,19 @@ import { SharedModule } from './features/shared-module';
     HttpClientModule,
     RouterModule,
     AppRoutingModule,
-    AppMaterialModule,
     ChecklistModule,
+    CheklistRoutingModule,
     BusinessModule,
     ReminderModule,
-    SharedModule
+    SharedModule,
+    LoginModule,
+    CoreModule
   ],
   exports: [],
   providers: [{
     provide: LOCALE_ID,
       useValue: 'pt'
-  }, AuthService],
+  }, ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

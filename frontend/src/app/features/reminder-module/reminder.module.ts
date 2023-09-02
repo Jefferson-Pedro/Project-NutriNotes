@@ -6,7 +6,7 @@ import { ReminderNotificationsComponent } from './dialog/reminder-notification';
 
 
 import { ReminderRoutingModule } from './reminder-routing.module';
-import { AppMaterialModule } from '../material-module';
+
 import { SharedModule } from '../shared-module';
 
 
@@ -17,9 +17,8 @@ import { SharedModule } from '../shared-module';
   ],
   imports: [
     CommonModule,
-    AppMaterialModule, //Lib do angular compartilhado
     ReminderRoutingModule,
-    SharedModule
+    SharedModule //Lib do angular compartilhado
   ]
 })
 export class ReminderModule { }

@@ -4,10 +4,7 @@
       Empresas Cadastradas
     </mat-toolbar>
 
-    <!-- <div *ngIf="business$ | async as business; else loading">
-      <mat-table [dataSource]="business" class="mat-elevation-z8"> -->
-
-    <div *ngIf="business; else loading">
+    <div *ngIf="business$ | async as business; else loading">
       <mat-table [dataSource]="business" class="mat-elevation-z8">
         <!--Id Column -->
         <ng-container matColumnDef="idBusiness">
@@ -37,9 +34,9 @@
               aria-label="Business Registration"
               (click)="onCreateBusiness()"
             >
-              <mat-icon class="icon-add color-primary color-secondary"
-                >add</mat-icon
-              >
+              <mat-icon class="icon-add color-primary color-secondary">
+                add
+              </mat-icon>
             </button>
           </mat-header-cell>
           <mat-cell *matCellDef="let business" class="action-button">

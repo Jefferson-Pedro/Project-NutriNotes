@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs/internal/Observable';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { delay, first, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
@@ -11,33 +10,12 @@ import { Business } from 'src/app/core/models/business';
 @Injectable({
   providedIn: 'root'
 })
-export class BusinessService {
+export class BusinessService { 
 
-  constructor(private route: Router, 
-              private snackBar: MatSnackBar,
+  constructor(private route: Router,
               private http:HttpClient) { }
   
-  //Criar serviço dentro de shared para notification shared/services/notification
-  public showMessageSucess(msg: string): void{
-    this.snackBar.open(msg, 'x',{
-      duration: 4000,
-      horizontalPosition:'center',
-      verticalPosition:'bottom'
-    })
-  }
-  //Criar serviço dentro de shared para notification shared/services/notification
-  public showMessageFail(msg: string): void{
-    this.snackBar.open(msg, 'x',{
-      duration: 4000,
-      horizontalPosition:'center',
-      verticalPosition:'bottom'
-    })
-  }
-//Criar serviço dentro de shared para busca de cep shared/services/cep
-  public searchCep(cep:string): Observable<any>{
-    return this.http.get<any>(`https://viacep.com.br/ws/${cep}/json/`);
-  }
-
+ 
   public list(){
     return this.http.get<Business[]>(`${environment.baseUrl}/business/all`)
     .pipe(first(), 

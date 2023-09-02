@@ -1,14 +1,15 @@
-import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Component, OnInit, ViewChild} from '@angular/core';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { PaginatorConfig } from './paginatorConfig';
 import { Business } from 'src/app/core/models/business';
 import { BusinessService } from '../../services';
-import { ErrorDialogComponent } from '../../dialog/error-dialog';
+import { ErrorDialogComponent } from 'src/app/features/shared-module/components/error-dialog';
+import { NotificationService } from 'src/app/features/shared-module/services/notification';
+
 
 
 @Component({
@@ -18,8 +19,8 @@ import { ErrorDialogComponent } from '../../dialog/error-dialog';
 })
 export class ListBusinessComponent implements OnInit {
 
- // business$: Observable<Business[]>;
-  business!: Business[];
+  business$!: Observable<Business[]>;
+  //business!: Business[];
 
   pageEvent: PageEvent | undefined;
   paginator: PaginatorConfig | undefined;
@@ -38,6 +39,7 @@ export class ListBusinessComponent implements OnInit {
 
   constructor(
     private service: BusinessService,
+    private notification: NotificationService,
     public dialog: MatDialog,
     private router: Router,
   ) {
@@ -66,21 +68,22 @@ export class ListBusinessComponent implements OnInit {
   }
 
   public onpageList(){
-    console.log('onPage List:',this.pageIndex, this.pageSize); 
     this.service.getPageList(this.pageIndex, this.pageSize).subscribe({
       next: (res) => {
         console.log(res);
-        this.business = res.content;
+        this.business$ = res.content;
         this.paginator = res;
         this.length = this.paginator!.totalElements;
       },
       error: (err) => {
+        this.onError('Erro ao carregar a lista de empresas');
         console.log(err);
+        return of([]);
       }, 
     });
   }
 
-  public onError(errorMsg: string) {
+  public onError(errorMsg: string) { 
     this.dialog.open(ErrorDialogComponent, {
       data: errorMsg,
     });
@@ -97,11 +100,11 @@ export class ListBusinessComponent implements OnInit {
   public onDelete(business: Number) {
     this.service.delete(business).subscribe({
       next: () => {
-        this.service.showMessageSucess('Sucesso! Empresa excluída');
+        this.notification.showMessageSucess('Sucesso! Empresa excluída');
         window.location.reload();
       },
       error: () => {
-        this.service.showMessageFail('Ocorreu um erro ao excluir a empresa');
+        this.notification.showMessageFail('Ocorreu um erro ao excluir a empresa');
       },
     });
   }

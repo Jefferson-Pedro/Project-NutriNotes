@@ -1,36 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs/internal/Observable';
 import { Profile } from '../../models/profile';
-
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService { 
 
-  private baseUrl = 'http://localhost:8080/profile';
-
-  constructor(private snackBar: MatSnackBar, private http:HttpClient) { }
-
-  public showMessageSucess(msg: string): void{
-    this.snackBar.open(msg, 'x',{
-      duration: 4000,
-      horizontalPosition:'center',
-      verticalPosition:'bottom'
-    })
-  }
-
-  public showMessageFail(msg: string): void{
-    this.snackBar.open(msg, 'x',{
-      duration: 4000,
-      horizontalPosition:'center',
-      verticalPosition:'bottom'
-    })
-  }
+  constructor(private http:HttpClient) { }
 
   public create(profile:Profile): Observable<Profile>{
-    return this.http.post<Profile>(this.baseUrl, profile);
+    return this.http.post<Profile>(`${environment.baseUrl}/profile`, profile);
   }
 }

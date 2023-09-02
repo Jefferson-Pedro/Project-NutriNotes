@@ -1,9 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs';
-import { BusinessService } from '../../services';
 import { Business } from 'src/app/core/models/business';
+import { ViaCepService } from 'src/app/features/shared-module/services/cep';
+import { BusinessService } from '../../services';
+import { NotificationService } from 'src/app/features/shared-module/services/notification';
 
 @Component({
   selector: 'app-form-business',
@@ -17,6 +19,8 @@ export class FormBusinessComponent implements OnInit {
   constructor(
     private router: Router,
     private service: BusinessService,
+    private viacep: ViaCepService,
+    private notification: NotificationService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute
   ) {
@@ -69,7 +73,7 @@ export class FormBusinessComponent implements OnInit {
 
   public search(cep: string) {
     //FAZ A CHAMADA PARA API VIACEP E RETORNA OS DADOS
-    this.service.searchCep(cep).subscribe({
+    this.viacep.searchCep(cep).subscribe({
       next: (res: any) => {
         this.fillForms(res, this.form);
         console.log(res);
@@ -95,21 +99,21 @@ export class FormBusinessComponent implements OnInit {
   public onSubmit() {
     console.log(this.form.value);
 
-    if (this.form.valid) {
+    if (this.form.valid) { //Para Salvar informações
       let msgSucess = 'Sucesso! Empresa cadastrada';
       let msgError = 'Ocorreu um erro ao salvar as informações de empresa';
 
-      if (this.form.value.idBusiness) {
+      if (this.form.value.idBusiness) { //Para atualizar informações
         msgSucess = 'Empresa atualizada com sucesso!';
         msgError = 'Ocorreu um erro ao atualizar as informações de empresa.';
       }
         this.service.save(this.form.value).subscribe({
           next: (res: any) => {
-            this.service.showMessageSucess(msgSucess);
+            this.notification.showMessageSucess(msgSucess);
             this.router.navigate(['business/list']);
           },
           error: (err: any) => {
-            this.service.showMessageFail(msgError);
+            this.notification.showMessageFail(msgError);
             console.log(err);
           },
         });
