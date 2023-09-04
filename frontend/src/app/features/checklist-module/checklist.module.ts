@@ -20,7 +20,7 @@ import { SharedModule } from '../shared-module';
 import { CheklistRoutingModule } from './checklist-routing.module';
 import { DocumentationDailyComponent } from './components/checklist-daily';
 import { DocumentationMonthlyComponent } from './components/checklist-monthly';
-import { ListChecklistMonthlyComponent } from './components/list-checklist-monthly/list-checklist-monthly';
+import { ListChecklistMonthlyComponent } from './components/list-checklist-monthly';
 import { OptionDailyDialogComponent } from './option-daily-dialog';
 import { OptionMonthlyDialogComponent } from './option-monthly-dialog/option-monthly-dialog.component';
 

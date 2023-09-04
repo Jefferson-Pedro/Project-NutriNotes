@@ -22,7 +22,7 @@ export class NotificationService {
       duration: 4000,
       horizontalPosition:'right',
       verticalPosition:'top',
-      panelClass: ['snackbar-error']
+      panelClass: ['notification-error']
     })
   }
 }

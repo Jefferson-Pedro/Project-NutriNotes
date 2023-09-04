@@ -19,8 +19,8 @@ import { NotificationService } from 'src/app/features/shared-module/services/not
 })
 export class ListBusinessComponent implements OnInit {
 
-  business$!: Observable<Business[]>;
-  //business!: Business[];
+  //business$!: Observable<Business[]>;
+  business!: Business[];
 
   pageEvent: PageEvent | undefined;
   paginator: PaginatorConfig | undefined;
@@ -71,7 +71,7 @@ export class ListBusinessComponent implements OnInit {
     this.service.getPageList(this.pageIndex, this.pageSize).subscribe({
       next: (res) => {
         console.log(res);
-        this.business$ = res.content;
+        this.business = res.content;
         this.paginator = res;
         this.length = this.paginator!.totalElements;
       },

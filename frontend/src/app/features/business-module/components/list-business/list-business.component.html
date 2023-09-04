@@ -4,7 +4,7 @@
       Empresas Cadastradas
     </mat-toolbar>
 
-    <div *ngIf="business$ | async as business; else loading">
+    <div *ngIf="business; else loading"> 
       <mat-table [dataSource]="business" class="mat-elevation-z8">
         <!--Id Column -->
         <ng-container matColumnDef="idBusiness">

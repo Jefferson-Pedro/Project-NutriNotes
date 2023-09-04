@@ -1,0 +1,99 @@
+<div class="container">
+    <mat-card class="card-container">
+      <mat-toolbar class="color-primary color-secondary">
+       Lista dos Checklist's Mensais
+      </mat-toolbar>
+  
+      <div *ngIf="checklist$; else loading"> 
+        <mat-table [dataSource]="checklist$" class="mat-elevation-z8">
+          
+          <!--Name Column -->
+          <ng-container matColumnDef="titulo">
+            <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
+            <mat-cell *matCellDef="let checklist">
+              {{ checklist.titulo }}</mat-cell>
+          </ng-container>
+  
+          <!-- Business Column -->
+          <ng-container matColumnDef="idBusiness">
+            <mat-header-cell *matHeaderCellDef>
+              Empresa
+            </mat-header-cell>
+            <mat-cell *matCellDef="let checklist">
+              {{ checklist.idBusiness }}
+            </mat-cell>
+          </ng-container>
+  
+          <!-- Departament Column -->
+          <ng-container matColumnDef="idSetores">
+            <mat-header-cell *matHeaderCellDef>
+              Setor Avaliado
+            </mat-header-cell>
+            <mat-cell *matCellDef="let checklist">{{ checklist.idSetores }}</mat-cell>
+          </ng-container>
+
+            <!--Data Column -->
+            <ng-container matColumnDef="dataAuditoria">
+              <mat-header-cell *matHeaderCellDef>Data da Auditoria</mat-header-cell>
+              <mat-cell *matCellDef="let checklist">
+                {{ checklist.dataAuditoria | date:'dd/MM/yyyy' }}</mat-cell>
+            </ng-container>
+  
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef class="action-button">
+              <button
+                mat-icon-button
+                aria-label="Create CheckList"
+                (click)="onCreateBusiness()"
+              >
+                <mat-icon class="icon-add color-primary color-secondary">
+                  add
+                </mat-icon>
+              </button>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let business" class="action-button">
+              <button
+                mat-icon-button
+                style="color: #004746"
+                aria-label="Edit CheckList"
+                (click)="onEdit()"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="warn"
+                aria-label="Remove CheckList"
+                (click)="onDelete()"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+  
+        <div class="paginator">
+          <mat-paginator #paginator
+                 (page)="handlePageEvent($event)"
+                 [length]="length"
+                 [pageSize]="pageSize"
+                 [pageIndex]="pageIndex"
+                 [showFirstLastButtons]="true"
+                 [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+                
+                 aria-label="Select page"> 
+  </mat-paginator>
+  
+        </div>
+      </div>
+      <ng-template #loading>
+        <div class="loading-spinner">
+          <!-- <mat-spinner></mat-spinner> -->
+          <app-loader></app-loader>
+        </div>
+      </ng-template>
+    </mat-card>
+  </div>

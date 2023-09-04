@@ -14,15 +14,19 @@ export class CardsComponent {
 
   constructor(private dialog: MatDialog, private router: Router, route: ActivatedRoute ) {}
 
-  openDialogCreateDaily(){
+  public openDialogCreateDaily(): void{
     const dialogRef = this.dialog.open(OptionDailyDialogComponent);
   }
 
-  openDialogCreateMonthly(){
+  public openDialogCreateMonthly(): void{
     const dialogRef = this.dialog.open(OptionMonthlyDialogComponent);
   }
 
-  openDialogLegislation() {
+  public onListCheckListMonthly(): void{
+    this.router.navigate(['checklist/list-checklist']);
+  }
+
+  public openDialogLegislation():void{
     const dialogRef = this.dialog.open(LegislationComponent);
   }
 

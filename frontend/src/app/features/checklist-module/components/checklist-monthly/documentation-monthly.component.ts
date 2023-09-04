@@ -9,36 +9,19 @@ import { Checklist } from 'src/app/core/models/checklist';
   styleUrls: ['./documentation-monthly.component.css']
 })
 export class DocumentationMonthlyComponent {
-  public checkList: Checklist[] = [
-    {num: 1, 
-     item: 'Proteção nos cabelos', 
-     conforme: true,
-     naoConforme: false,
-     naoSeAplica: false, 
-     observacao:''
-    },
-    {num: 2, 
-      item: 'Proteção nas mãos', 
-      conforme: false,
-      naoConforme: false,
-      naoSeAplica: false, 
-      observacao:''
-     },
-     {num: 3, 
-      item: 'Proteção nos olhos', 
-      conforme: false,
-      naoConforme: false,
-      naoSeAplica: false, 
-      observacao:''
-     }
-  ];
+
+  public checkList!: Checklist[];
+  form: FormGroup;
+  isEditing: boolean = false;
+  defaultTitle: string = 'CheckList Mensal - Documentação';
+  editedTitle: string = '';
 
   public displayedColumns = ['num', 'item', 'conforme', 'naoConforme','naoSeAplica', 'observacao'];
 
-  form: FormGroup;
+  constructor(private formBuilder: FormBuilder, 
+              private router: Router){
 
-  constructor(private formBuilder: FormBuilder, private router: Router){
-    this.form = this.formBuilder.group({
+      this.form = this.formBuilder.group({
       nomeEmpresa: ['',Validators.required],
       unidade: ['',Validators.required],
       gestor: ['',Validators.required],
@@ -49,6 +32,24 @@ export class DocumentationMonthlyComponent {
   }
 
   ngOnInit(): void {}
+
+  startEditing() {
+    // Entra no modo de edição
+    this.isEditing = true;
+    this.editedTitle = this.defaultTitle;
+  }
+
+  stopEditing() {
+    // Sai do modo de edição e atualiza o título
+    this.isEditing = false;
+    this.defaultTitle = this.editedTitle;
+  }
+
+  cancelEditing() {
+    // Cancela a edição e volta para o título original
+    this.isEditing = false;
+    this.editedTitle = this.defaultTitle;
+  }
 
   public onSave(){
     console.log(this.checkList.values);

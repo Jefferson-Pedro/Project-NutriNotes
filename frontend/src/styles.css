@@ -8,13 +8,6 @@ body {font-family: Roboto, "Helvetica Neue", sans-serif; }
 .color-secondary{
     color: #FFC745;
 }
-.color-warn{
-    background-color: red;
-    color: red;
-}
-.blue{
-    color: blue;
-}
 .v-middle{
     vertical-align: middle;
 }

@@ -1,8 +1,13 @@
+import { Business } from "./business";
+import { Department } from "./departament";
+import { TemplateCheckList } from './templatechecklist';
+
 export interface Checklist {
-    num: number,
-    item: string,
-    conforme: boolean,
-    naoConforme: boolean,
-    naoSeAplica: boolean,
-    observacao: string,
+    idChecklist?: number,
+    titulo: String,
+    nomeGestor: string,
+    dataAuditoria: Date,
+    idSetores: Department,
+    idBusiness: Business,
+    idTemplate: TemplateCheckList,
 }

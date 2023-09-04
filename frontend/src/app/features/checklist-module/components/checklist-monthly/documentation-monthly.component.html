@@ -1,8 +1,24 @@
 <div class="container">
     <mat-card class="card-container">
       <mat-card-header>
-        <mat-toolbar class="color-primary color-secondary">
-          CheckList Mensal - Documentação
+        <mat-toolbar mainColors>
+          <div *ngIf="!isEditing; else editMode" 
+          class="editable-title">
+            {{ defaultTitle }}
+            <button mat-icon-button (click)="startEditing()">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+          <ng-template #editMode>
+            <input
+              type="text"
+              [(ngModel)]="editedTitle"
+              (blur)="stopEditing()"
+              (keyup.enter)="stopEditing()"
+              (keyup.escape)="cancelEditing()"
+              class="editable-input"
+            />
+          </ng-template>
         </mat-toolbar>
       </mat-card-header>
   
@@ -21,7 +37,7 @@
           </mat-form-field>
   
           <mat-form-field class="select-section">
-            <mat-label>Unidade</mat-label>
+            <mat-label>Setores</mat-label>
             <mat-select formControlName="unidade">
               <mat-option>Clear</mat-option>
               <mat-option value="Cozinha">Cozinha</mat-option>

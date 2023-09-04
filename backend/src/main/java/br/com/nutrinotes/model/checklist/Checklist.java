@@ -25,6 +25,9 @@ public class Checklist {
 	@Column(name = "id_checklist ")
 	private Integer idChecklist;
 	
+	@Column(name = "titulo")
+	private String titulo;
+	
 	@Column(name = "nome_gestor")
 	private String nomeGestor;
 	
@@ -56,6 +59,15 @@ public class Checklist {
 	public void setIdChecklist(Integer idChecklist) {
 		this.idChecklist = idChecklist;
 	}
+	
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
 
 	public String getNomeGestor() {
 		return nomeGestor;

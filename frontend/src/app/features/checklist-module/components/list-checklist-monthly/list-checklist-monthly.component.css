@@ -1,0 +1,30 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+    min-height: 100hv;
+ }
+ .card-container{
+     display: flex;
+     flex-direction: column;
+     margin-top: 5%;
+     margin-bottom: 15px;
+     width: 90%;
+     
+ }
+ .loading-spinner{
+     padding: 25px;
+     background-color: rgba(0, 0, 0, 0.15);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+ button{}
+ 
+ .action-button{
+     padding: 5px;
+ }
+ .icon-add{
+     padding: 8px;
+     border-radius: 50%;
+ }

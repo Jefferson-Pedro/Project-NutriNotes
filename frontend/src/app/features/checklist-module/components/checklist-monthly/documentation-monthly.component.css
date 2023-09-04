@@ -9,6 +9,14 @@
   max-width: 100%;
   margin-bottom: 15px;
 }
+.editable-input { /*campo de edição*/
+  background-color: transparent; 
+  font-size: 20px;
+  color: #FFC745;
+  border: none; /* Remove borda do input */
+  outline: none; /* Remove contorno do input */
+  width: 70%; 
+}
 .input-information {
   display: flex;
   flex-direction: column;
@@ -56,11 +64,14 @@
 .obs:focus{
   background-color: rgba(255, 255, 0, 0.2);
 }
-
 .button {
   display: flex;
   justify-content: end;
 }
+mat-icon{
+  padding-left: 12rem;
+}
+
 
 /*Para telas menores que 460px*/
 
@@ -101,4 +112,22 @@
   .technical-audit > .input-audit {
     width: 100%;
   }
+  .editable-title {
+    background-color: transparent;
+    font-size: 15px; 
+    display: flex;
+    align-items: center;
+  }
+  .editable-input { 
+    background-color: transparent; 
+    font-size: 15px;
+    color: #FFC745;
+    border: none; 
+    outline: none;
+    width: 100%; 
+  }
+  mat-icon{
+    padding-left: 2.5rem;
+  }
+  
 }

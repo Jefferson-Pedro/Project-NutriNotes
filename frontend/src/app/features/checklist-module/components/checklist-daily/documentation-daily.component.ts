@@ -11,29 +11,7 @@ import { Checklist } from 'src/app/core/models/checklist';
 })
 export class DocumentationDailyComponent implements OnInit {
 
-  public checkList: Checklist[] = [
-    {num: 1, 
-     item: 'Proteção nos cabelos', 
-     conforme: true,
-     naoConforme: false,
-     naoSeAplica: false, 
-     observacao:'Foi constatado que a funcionária não usava touca'
-    },
-    {num: 2, 
-      item: 'Proteção nas mãos', 
-      conforme: false,
-      naoConforme: false,
-      naoSeAplica: false, 
-      observacao:'Foi constatado que a funcionária não usava luva'
-     },
-     {num: 3, 
-      item: 'Proteção nos olhos', 
-      conforme: false,
-      naoConforme: false,
-      naoSeAplica: false, 
-      observacao:'Foi constatado que a funcionária não usava oculos de proteção'
-     }
-  ];
+  public checkList: Checklist[] = [];
 
   public displayedColumns = ['num', 'item', 'conforme', 'naoConforme','naoSeAplica', 'observacao'];
 
