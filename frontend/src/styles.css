@@ -11,3 +11,21 @@ body {font-family: Roboto, "Helvetica Neue", sans-serif; }
 .v-middle{
     vertical-align: middle;
 }
+
+.notification-error {
+  --mdc-snackbar-container-color: #bf2301;
+  --mat-mdc-snack-bar-button-color: #fff;
+
+  .mat-mdc-button {
+    color: #fff !important;
+  }
+}
+
+.notification-success {
+  --mdc-snackbar-container-color: #44a344;
+  --mat-mdc-snack-bar-button-color: #fff;
+
+  .mat-mdc-button {
+    color: #fff !important;
+  }
+}
