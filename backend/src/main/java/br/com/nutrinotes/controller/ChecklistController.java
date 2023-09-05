@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.nutrinotes.model.business.Business;
 import br.com.nutrinotes.model.checklist.Checklist;
 import br.com.nutrinotes.service.checklist.ICheckList;
 
@@ -26,6 +29,16 @@ public class ChecklistController {
 	
 	@Autowired
 	ICheckList service;
+	
+	@GetMapping()
+	public ResponseEntity<Page<Checklist>> findAllPage(Pageable pageable){
+	    Page<Checklist> page = service.findAllPage(pageable);
+	    
+	    if(page.hasContent()) {
+	        return ResponseEntity.ok(page);
+	    }
+	    return ResponseEntity.notFound().build();
+	}
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<Checklist>> findAll() {
