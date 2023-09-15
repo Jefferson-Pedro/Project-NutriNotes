@@ -1,8 +1,8 @@
-import { Profile } from "./profile";
+import { Profile } from './Profile';
 
 export interface Reminder {
-    idReminder: number,
-    descricao: string,
-    dataEvento: Date,
-    idProfile: Profile,
+  idReminder: number;
+  descricao: string;
+  dataEvento: Date;
+  idProfile: Profile;
 }

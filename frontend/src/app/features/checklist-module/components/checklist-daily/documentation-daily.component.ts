@@ -1,27 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Checklist } from 'src/app/core/models/checklist';
-
+import { Checklist } from 'src/app/core/models/Checklist';
 
 @Component({
   selector: 'documention-daily',
   templateUrl: './documentation-daily.component.html',
-  styleUrls: ['./documentation-daily.component.css']
+  styleUrls: ['./documentation-daily.component.css'],
 })
 export class DocumentationDailyComponent implements OnInit {
-
   public checkList!: Checklist[];
 
-  public displayedColumns = ['num', 'item', 'conforme', 'naoConforme','naoSeAplica', 'observacao'];
+  public displayedColumns = [
+    'num',
+    'item',
+    'conforme',
+    'naoConforme',
+    'naoSeAplica',
+    'observacao',
+  ];
 
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router){
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.form = this.formBuilder.group({
-      nomeEmpresa: ['',Validators.required],
-      unidade: ['',Validators.required],
-      gestor: ['',Validators.required],
+      nomeEmpresa: ['', Validators.required],
+      unidade: ['', Validators.required],
+      gestor: ['', Validators.required],
       turno: [''],
       responsavelTec: [{ idProfile: 1 }],
       dataAuditoria: [null, Validators.required],
@@ -30,12 +35,11 @@ export class DocumentationDailyComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public onSave(){
+  public onSave() {
     console.log(this.checkList.values);
   }
 
-  public onCancel(){
+  public onCancel() {
     this.router.navigate(['home']);
   }
-
 }

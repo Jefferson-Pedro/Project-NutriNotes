@@ -4,8 +4,7 @@
       Cadastro de Empresa
     </mat-toolbar>
 
-    <form [formGroup]="form"> 
-
+    <form [formGroup]="form">
       <div class="row input-container">
         <mat-form-field class="col-12">
           <mat-label>Nome da Empresa</mat-label>
@@ -14,7 +13,6 @@
             matInput
             placeholder="Empresa de exemplo ltda."
             formControlName="nome"
-            required
           />
           <mat-icon matSuffix>corporate_fare</mat-icon>
           <mat-error>O nome é obrigatório</mat-error>
@@ -22,34 +20,33 @@
 
         <mat-form-field class="col-6">
           <mat-label>CNPJ</mat-label>
-            <input
-              type="text"
-              matInput
-              placeholder="XX. XXX. XXX/0001-XX"
-              formControlName="cnpj"
-              required
-            />
+          <input
+            type="text"
+            matInput
+            inputmode="numeric"
+            placeholder="XX. XXX. XXX/0001-XX"
+            formControlName="cnpj"
+          />
           <mat-icon matSuffix>123</mat-icon>
           <mat-error>O CNPJ é obrigatório</mat-error>
-      </mat-form-field>
+        </mat-form-field>
 
         <mat-form-field class="col-4">
           <mat-label>CEP</mat-label>
           <input
             type="text"
             matInput
+            inputmode="numeric"
             placeholder="XXXXXXXX"
             formControlName="cep"
-            required
           />
           <mat-icon matSuffix>123</mat-icon>
           <mat-error>O CEP é obrigatório</mat-error>
         </mat-form-field>
 
-          <button mat-mini-fab mainColors class="col-2" 
-          (click)="validationCep()">
-            <mat-icon class="color-secondary">search</mat-icon>
-          </button>
+        <button mat-mini-fab mainColors class="col-2" (click)="validationCep()">
+          <mat-icon class="color-secondary">search</mat-icon>
+        </button>
 
         <mat-form-field class="col-12">
           <mat-label>Logradouro</mat-label>
@@ -58,7 +55,6 @@
             matInput
             placeholder="Rua/Avenida/Travessa"
             formControlName="logradouro"
-            required
           />
           <mat-icon matSuffix></mat-icon>
           <mat-error>O logradouro é obrigatório</mat-error>
@@ -69,6 +65,7 @@
           <input
             type="number"
             matInput
+            inputmode="numeric"
             placeholder="123"
             formControlName="compl"
           />
@@ -82,7 +79,6 @@
             matInput
             placeholder="Ex. São Paulo"
             formControlName="cidade"
-            required
           />
           <mat-icon matSuffix></mat-icon>
           <mat-error>A cidade é obrigatória</mat-error>
@@ -95,7 +91,6 @@
             matInput
             placeholder="Ex.Vila Madalena"
             formControlName="bairro"
-            required
           />
           <mat-icon matSuffix></mat-icon>
           <mat-error>O bairro é obrigatório</mat-error>
@@ -108,7 +103,6 @@
             matInput
             placeholder="Ex.SP"
             formControlName="uf"
-            required
           />
           <mat-icon matSuffix></mat-icon>
           <mat-error>O UF é obrigatório</mat-error>
@@ -137,7 +131,6 @@
           <mat-error>O tipo plano é obrigatório</mat-error>
         </mat-form-field>
 
-
         <mat-form-field class="col-6">
           <mat-label>Representante Comercial</mat-label>
           <input
@@ -145,7 +138,6 @@
             matInput
             placeholder="Nome do Representante"
             formControlName="representante"
-            required
           />
           <mat-icon matSuffix>person</mat-icon>
           <mat-error>O nome é obrigatório</mat-error>
@@ -153,28 +145,19 @@
 
         <mat-form-field class="col-6">
           <mat-label>Responsável Técnico</mat-label>
-          <input
-            matInput
-            disabled
-            value="1"
-          />
+          <input matInput disabled value="1" />
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
-        
-
       </div>
     </form>
-    
-    <div class="d-flex justify-content-end col-12 gap-3">
-      <button mat-button 
-      mat-stroked-button
-      (click)="onCancel()">CANCELAR</button>
-      <button mat-button
-      mat-raised-button 
-      mainColors
-      (click)="onSubmit()">SALVAR</button>
-  </div>
 
+    <div class="d-flex justify-content-end col-12 gap-3">
+      <button mat-button mat-stroked-button (click)="onCancel()">
+        CANCELAR
+      </button>
+      <button mat-button mat-raised-button mainColors (click)="onSubmit()">
+        SALVAR
+      </button>
+    </div>
   </mat-card>
 </div>
-
