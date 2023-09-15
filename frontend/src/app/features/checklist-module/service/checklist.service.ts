@@ -21,5 +21,17 @@ export class ChecklistService {
       );
     }
 
+    public getPageList(page?: number, size?:number): Observable<any>{
+      if(page ==  0 && size == 0){
+        page = 0
+        size = 5
+      }
+      return this.http.get<Checklist>
+      (`${environment.baseUrl}/checklist?page=${page}&size=${size}`); 
+    }
+    public create(){}
+    public update(){}
+    public delete(){}
+
     public listQuestions(){}
 }

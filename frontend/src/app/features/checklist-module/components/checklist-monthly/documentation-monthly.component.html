@@ -1,5 +1,6 @@
 <div class="container">
     <mat-card class="card-container">
+                    <!-- TITULO DA APLICAÇÃO -->
       <mat-card-header>
         <mat-toolbar mainColors>
           <div *ngIf="!isEditing; else editMode" 
@@ -21,7 +22,8 @@
           </ng-template>
         </mat-toolbar>
       </mat-card-header>
-  
+      
+                  <!-- FORMS DE PREENCHIMENTO -->
       <div class="input-information" [formGroup]="form">
         <div class="business-select">
           <mat-form-field class="input-business">
@@ -95,7 +97,7 @@
           </mat-form-field>
         </div>
       </div>
-  
+                        <!-- ITENS DO CHECKLIST -->
       <table mat-table [dataSource]="checkList" class="mat-elevation-z2">
         <!--Number Column -->
         <ng-container matColumnDef="num">
@@ -151,7 +153,7 @@
       <div class="button">
         <mat-card-actions>
           <button mat-button (click)="onCancel()">Cancelar</button>
-          <button mat-button>Salvar</button>
+          <button mat-button (click)="onSave()">Salvar</button>
         </mat-card-actions>
       </div>
     </mat-card>

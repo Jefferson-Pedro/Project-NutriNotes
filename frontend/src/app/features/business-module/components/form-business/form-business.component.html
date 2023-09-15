@@ -1,13 +1,13 @@
 <div class="container">
-  <mat-card class="card-container">
+  <mat-card class="card-container p-3">
     <mat-toolbar class="color-primary color-secondary">
       Cadastro de Empresa
     </mat-toolbar>
 
     <form [formGroup]="form"> 
 
-      <div class="business-cnpj">
-        <mat-form-field class="input-business">
+      <div class="row input-container">
+        <mat-form-field class="col-12">
           <mat-label>Nome da Empresa</mat-label>
           <input
             type="text"
@@ -17,9 +17,10 @@
             required
           />
           <mat-icon matSuffix>corporate_fare</mat-icon>
+          <mat-error>O nome é obrigatório</mat-error>
         </mat-form-field>
 
-        <mat-form-field class="input-cnpj">
+        <mat-form-field class="col-6">
           <mat-label>CNPJ</mat-label>
             <input
               type="text"
@@ -29,11 +30,10 @@
               required
             />
           <mat-icon matSuffix>123</mat-icon>
+          <mat-error>O CNPJ é obrigatório</mat-error>
       </mat-form-field>
-    </div>
 
-      <div class="cep-tel">
-        <mat-form-field class="input-cep">
+        <mat-form-field class="col-4">
           <mat-label>CEP</mat-label>
           <input
             type="text"
@@ -43,27 +43,15 @@
             required
           />
           <mat-icon matSuffix>123</mat-icon>
+          <mat-error>O CEP é obrigatório</mat-error>
         </mat-form-field>
 
-          <button mat-mini-fab color="accent" aria-label="Consultar" (click)="validationCep()">
+          <button mat-mini-fab mainColors class="col-2" 
+          (click)="validationCep()">
             <mat-icon class="color-secondary">search</mat-icon>
           </button>
 
-        <mat-form-field class="input-tel">
-          <mat-label>Telefone</mat-label>
-          <input
-            type="text"
-            matInput
-            placeholder="(XX) 9XXXX-XXXX"
-            formControlName="telefone"
-            required
-          />
-          <mat-icon matSuffix>call</mat-icon>
-        </mat-form-field>
-      </div>
-
-      <div class="adress-number">
-        <mat-form-field class="input-adress">
+        <mat-form-field class="col-12">
           <mat-label>Logradouro</mat-label>
           <input
             type="text"
@@ -73,22 +61,21 @@
             required
           />
           <mat-icon matSuffix></mat-icon>
+          <mat-error>O logradouro é obrigatório</mat-error>
         </mat-form-field>
-        <mat-form-field class="input-number">
+
+        <mat-form-field class="col-3">
           <mat-label>Numero</mat-label>
           <input
             type="number"
             matInput
             placeholder="123"
-            formControlName="telefone"
-            required
+            formControlName="compl"
           />
           <mat-icon matSuffix>123</mat-icon>
         </mat-form-field>
-      </div>
 
-      <div class="city-district-uf">
-        <mat-form-field class="input-city">
+        <mat-form-field class="col-5">
           <mat-label>Cidade</mat-label>
           <input
             type="text"
@@ -98,8 +85,10 @@
             required
           />
           <mat-icon matSuffix></mat-icon>
+          <mat-error>A cidade é obrigatória</mat-error>
         </mat-form-field>
-        <mat-form-field class="input-district">
+
+        <mat-form-field class="col-4">
           <mat-label>Bairro</mat-label>
           <input
             type="text"
@@ -109,8 +98,10 @@
             required
           />
           <mat-icon matSuffix></mat-icon>
+          <mat-error>O bairro é obrigatório</mat-error>
         </mat-form-field>
-        <mat-form-field class="input-uf">
+
+        <mat-form-field class="col-3">
           <mat-label>UF</mat-label>
           <input
             type="text"
@@ -120,11 +111,34 @@
             required
           />
           <mat-icon matSuffix></mat-icon>
+          <mat-error>O UF é obrigatório</mat-error>
         </mat-form-field>
-      </div>
 
-      <div class="representative">
-        <mat-form-field class="input-trade-representative">
+        <mat-form-field class="col-5">
+          <mat-label>Telefone</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="(XX) 9XXXX-XXXX"
+            formControlName="telefone"
+          />
+          <mat-icon matSuffix>call</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="col-4">
+          <mat-label>Plano Contratado</mat-label>
+          <mat-select formControlName="plano">
+            <mat-option value="Limpar"></mat-option>
+            <mat-option value="Diário">Diário</mat-option>
+            <mat-option value="Semanal">Semanal</mat-option>
+            <mat-option value="Quinzenal">Quinzenal</mat-option>
+            <mat-option value="Mensal">Mensal</mat-option>
+          </mat-select>
+          <mat-error>O tipo plano é obrigatório</mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field class="col-6">
           <mat-label>Representante Comercial</mat-label>
           <input
             type="text"
@@ -134,33 +148,33 @@
             required
           />
           <mat-icon matSuffix>person</mat-icon>
+          <mat-error>O nome é obrigatório</mat-error>
         </mat-form-field>
 
-        <mat-form-field class="input-technical-manager">
+        <mat-form-field class="col-6">
           <mat-label>Responsável Técnico</mat-label>
-          <input matInput disabled value="1" />
+          <input
+            matInput
+            disabled
+            value="1"
+          />
           <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
-      </div>
+        
 
-      <div class="plan">
-        <mat-form-field class="input-plan">
-          <mat-label>Plano Contratado</mat-label>
-          <mat-select formControlName="plano">
-            <mat-option value="null"></mat-option>
-            <mat-option value="Diário">Diário</mat-option>
-            <mat-option value="Semanal">Semanal</mat-option>
-            <mat-option value="Quinzenal">Quinzenal</mat-option>
-            <mat-option value="Mensal">Mensal</mat-option>
-          </mat-select>
-        </mat-form-field>
       </div>
     </form>
     
-    <mat-card-actions class="button">
-      <button mat-button (click)="onCancel()">Cancelar</button>
-      <button mat-button (click)="onSubmit()">Salvar</button>
-    </mat-card-actions>
+    <div class="d-flex justify-content-end col-12 gap-3">
+      <button mat-button 
+      mat-stroked-button
+      (click)="onCancel()">CANCELAR</button>
+      <button mat-button
+      mat-raised-button 
+      mainColors
+      (click)="onSubmit()">SALVAR</button>
+  </div>
+
   </mat-card>
 </div>
 

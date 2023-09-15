@@ -6,8 +6,9 @@ import { ListChecklistMonthlyComponent } from './components/list-checklist-month
 
 
 
+
 const routes: Routes = [
-  
+
   {path: 'documentation-daily', component: DocumentationDailyComponent},
 
   {path: 'documentation-monthly', component: DocumentationMonthlyComponent},

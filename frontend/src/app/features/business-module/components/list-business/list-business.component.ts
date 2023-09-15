@@ -9,7 +9,7 @@ import { Business } from 'src/app/core/models/business';
 import { BusinessService } from '../../services';
 import { ErrorDialogComponent } from 'src/app/features/shared-module/components/error-dialog';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
-
+import { AlertService } from 'src/app/features/shared-module/services/alert/alert.service';
 
 
 @Component({
@@ -19,8 +19,8 @@ import { NotificationService } from 'src/app/features/shared-module/services/not
 })
 export class ListBusinessComponent implements OnInit {
 
-  //business$!: Observable<Business[]>;
-  business!: Business[];
+  business!: Observable<Business[]>;
+  //business!: Business[];
 
   pageEvent: PageEvent | undefined;
   paginator: PaginatorConfig | undefined;
@@ -42,16 +42,9 @@ export class ListBusinessComponent implements OnInit {
     private notification: NotificationService,
     public dialog: MatDialog,
     private router: Router,
-  ) {
-  
-    // this.business$ = this.service.list().pipe(
-    //   catchError((erro) => {
-    //     this.onError('Erro ao carregar a lista de empresas');
-    //     console.log(erro);
-    //     return of([]);
-    //   })
-    // );
-    this.onpageList();    
+    protected alert: AlertService) {
+
+     this.onpageList();    
   }
 
   ngOnInit(): void {}
@@ -76,19 +69,13 @@ export class ListBusinessComponent implements OnInit {
         this.length = this.paginator!.totalElements;
       },
       error: (err) => {
-        this.onError('Erro ao carregar a lista de empresas');
+        this.alert.onError('Erro ao carregar a lista de empresas, verifique a conexão com o banco de dados!');
         console.log(err);
         return of([]);
       }, 
     });
-  }
-
-  public onError(errorMsg: string) { 
-    this.dialog.open(ErrorDialogComponent, {
-      data: errorMsg,
-    });
-  }
-
+  } 
+  
   public onCreateBusiness() {
     this.router.navigate(['business/new']);
   }

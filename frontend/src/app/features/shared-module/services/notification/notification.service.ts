@@ -10,19 +10,19 @@ export class NotificationService {
 
   public showMessageSucess(msg: string): void{
     this.snackBar.open(msg, 'x',{
-      duration: 4000,
+      duration: 2000,
       horizontalPosition:'right',
       verticalPosition:'top',
       panelClass:['notification-success']
-    })
+    });
   }
 
   public showMessageFail(msg: string): void{
     this.snackBar.open(msg, 'x',{
-      duration: 4000,
+      duration: 2000,
       horizontalPosition:'right',
       verticalPosition:'top',
       panelClass: ['notification-error']
-    })
+    });
   }
 }

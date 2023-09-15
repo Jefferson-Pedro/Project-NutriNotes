@@ -21,7 +21,7 @@ export class CardsComponent {
   public openDialogCreateMonthly(): void{
     const dialogRef = this.dialog.open(OptionMonthlyDialogComponent);
   }
-
+  
   public onListCheckListMonthly(): void{
     this.router.navigate(['checklist/list-checklist']);
   }

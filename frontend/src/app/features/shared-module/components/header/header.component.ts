@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
   public showReminderNotification(){
     this.reminder.getPageList().subscribe({
       next: (res) => {
-        console.log(res);
+        //console.log(res);
         this.list = res.content;
       },
       error: (err) => {

@@ -17,36 +17,45 @@ export class BusinessService {
   
  
   public list(){
-    return this.http.get<Business[]>(`${environment.baseUrl}/business/all`)
-    .pipe(first(), 
-     delay(1000)
+    const url = `${environment.baseUrl}/business/all`;
+
+    return this.http.get<Business[]>(url).pipe(
+      first(), 
+      delay(1000)
      );
   }
   
   public getPageList(page?: number, size?:number): Observable<any>{
     if(page ==  0 && size == 0){
-      page = 0
-      size = 5
+      page = 0, size = 5
     }
-    return this.http.get<Business>
-    (`${environment.baseUrl}/business?page=${page}&size=${size}`); 
+    const url = `${environment.baseUrl}/business?page=${page}&size=${size}`;
+
+    return this.http.get<Business>(url); 
   }
   
   public create(business:Business): Observable<Business>{
-    return this.http.post<Business>(`${environment.baseUrl}/business/new`, business);
+    const url = `${environment.baseUrl}/business/new`;
+
+    return this.http.post<Business>(url, business);
   }
 
   public loadById(id: Number){
-    return this.http.get<Business>(`${environment.baseUrl}/business/${id}`);
+    const url = `${environment.baseUrl}/business/${id}`;
+
+    return this.http.get<Business>(url);
   }
 
   public delete(id: Number){
-    return this.http.delete(`${environment.baseUrl}/business/${id}`);
+    const url = `${environment.baseUrl}/business/${id}`;
+
+    return this.http.delete(url);
   }
 
   public update(business: Business): Observable<Business>{
-    return this.http.put<Business>
-    (`${environment.baseUrl}/business/edit/${business.idBusiness}`,business);
+    const url = `${environment.baseUrl}/business/edit/${business.idBusiness}`
+
+    return this.http.put<Business>(url,business);
   }
 
   //Cria ou Atualiza uma empresa.

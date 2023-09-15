@@ -1,0 +1,27 @@
+.icon-container{
+    display: flex;
+    justify-content: center;
+}
+mat-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    padding: 1rem;
+}
+
+.msg{
+    color: crimson;
+}
+
+mat-dialog-content{
+    text-align: center;
+}
+
+.button{
+    display: flex;
+    justify-content: center;
+}
+
+
+

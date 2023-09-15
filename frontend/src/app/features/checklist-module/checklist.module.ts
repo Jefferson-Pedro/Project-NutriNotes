@@ -23,6 +23,7 @@ import { DocumentationMonthlyComponent } from './components/checklist-monthly';
 import { ListChecklistMonthlyComponent } from './components/list-checklist-monthly';
 import { OptionDailyDialogComponent } from './option-daily-dialog';
 import { OptionMonthlyDialogComponent } from './option-monthly-dialog/option-monthly-dialog.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [ /*Declaro os modulos criados*/
@@ -54,7 +55,7 @@ import { OptionMonthlyDialogComponent } from './option-monthly-dialog/option-mon
     MatSelectModule,
     MatDialogModule,
     MatListModule,
-
+    MatTooltipModule,
   ], 
   exports: []
 })

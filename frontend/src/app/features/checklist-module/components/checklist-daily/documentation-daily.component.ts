@@ -11,7 +11,7 @@ import { Checklist } from 'src/app/core/models/checklist';
 })
 export class DocumentationDailyComponent implements OnInit {
 
-  public checkList: Checklist[] = [];
+  public checkList!: Checklist[];
 
   public displayedColumns = ['num', 'item', 'conforme', 'naoConforme','naoSeAplica', 'observacao'];
 

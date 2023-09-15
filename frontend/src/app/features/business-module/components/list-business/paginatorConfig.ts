@@ -1,6 +1,5 @@
 import { Business } from "src/app/core/models/business";
 
-
 export class PaginatorConfig {
   content?: Business[]
   totalPages?: number

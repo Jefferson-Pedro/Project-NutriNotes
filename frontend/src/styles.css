@@ -1,23 +1,40 @@
-html, body { min-height: 100vh; margin: 0; padding: 0; overflow: inherit; }
-body {font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-.color-primary{
-    background-color: #004746;
-    /*background-color: #344955;*/
-}
-.color-secondary{
-    color: #FFC745;
-}
-.v-middle{
-    vertical-align: middle;
+@import "~bootstrap/dist/css/bootstrap.css";
+html,
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.color-primary {
+  background-color: #004746;
+  /*background-color: #344955;*/
+}
+.color-secondary {
+  color: #ffc745;
+}
+.color-warn {
+  background-color: red;
+  color: red;
+}
+.blue {
+  color: blue;
+}
+.v-middle {
+  vertical-align: middle;
+}
 .notification-error {
   --mdc-snackbar-container-color: #bf2301;
   --mat-mdc-snack-bar-button-color: #fff;
 
   .mat-mdc-button {
-    color: #fff !important;
+    color: #fff!important;
   }
 }
 

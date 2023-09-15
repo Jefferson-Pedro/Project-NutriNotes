@@ -1,11 +1,13 @@
 <mat-dialog-content class="mat-typography msg">
-    <mat-icon matSuffix>dangerous</mat-icon>
+    <div class="icon-container">
+      <mat-icon>cancel</mat-icon>
+    </div>
     <h1 mat-dialog-title>Aconteceu um erro</h1>
     <div mat-dialog-content>
       <p>{{ data }}</p>
     </div>
     <div mat-dialog-actions class="button">
-      <button mat-button mat-dialog-close>Fechar</button>
+      <button mat-button mat-dialog-close mat-raised-button mainColors>Fechar</button>
     </div>
   </mat-dialog-content>
   

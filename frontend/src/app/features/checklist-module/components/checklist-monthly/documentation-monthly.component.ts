@@ -9,7 +9,7 @@ import { Checklist } from 'src/app/core/models/checklist';
   styleUrls: ['./documentation-monthly.component.css']
 })
 export class DocumentationMonthlyComponent {
-
+  
   public checkList!: Checklist[];
   form: FormGroup;
   isEditing: boolean = false;
@@ -21,7 +21,7 @@ export class DocumentationMonthlyComponent {
   constructor(private formBuilder: FormBuilder, 
               private router: Router){
 
-      this.form = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       nomeEmpresa: ['',Validators.required],
       unidade: ['',Validators.required],
       gestor: ['',Validators.required],
@@ -31,7 +31,7 @@ export class DocumentationMonthlyComponent {
     });
   }
 
-  ngOnInit(): void {}
+  
 
   startEditing() {
     // Entra no modo de edição

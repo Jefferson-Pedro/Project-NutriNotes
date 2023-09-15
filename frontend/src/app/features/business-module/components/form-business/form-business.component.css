@@ -9,59 +9,20 @@
   max-width: 60%;
   margin-bottom: 15px;
 }
-.business-cnpj{
-  display: flex;
-  padding: 1em 1em 0;
-  gap: 1em;
-}
-.business-cnpj > .input-business{
-  width: 60%;
-}
-.cep-tel{
-  display: flex;
-  padding: 0 1em 0;
-  gap: 1em;
-  align-items: baseline;
+
+.input-container{
+  margin-top: 2%;
 }
 
-.cep-tel > .input-tel{
-  float: right;
+input[type=number]::-webkit-inner-spin-button { 
+  -webkit-appearance: none;
+  
 }
+input[type=number] { 
+ -moz-appearance: textfield;
+ appearance: textfield;
 
-.adress-number{
-  display: flex;
-  padding: 0 1em 0;
-  gap: 1em;
 }
-.adress-number > .input-adress{
-  width: 60%;
-}
-.city-district-uf{
-  display: flex;
-  padding: 0 1em 0;
-  gap: 1em;
-}
-.representative{
-  display: flex;
-  padding: 0 1em 0;
-  gap: 1em;
-}
-.representative > .input-trade-representative, .input-technical-manager{
-  width: 100%;
-}
-.plan{
-  display: flex;
-  padding: 0 1em 0;
-  gap: 1em;
-}
-.button{
-  display: flex;
-  justify-content: end;
-}
-.full-width{
-  width: 100%;
-}
-
 
 @media (min-width: 834px) and (max-width: 884px) {
   .container{

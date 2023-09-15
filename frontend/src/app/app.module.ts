@@ -29,13 +29,14 @@ import { CoreModule } from './core/core.module';
     ReminderModule,
     SharedModule,
     LoginModule,
-    CoreModule
+    CoreModule,
+  
   ],
   exports: [],
   providers: [{
     provide: LOCALE_ID,
       useValue: 'pt'
-  }, ],
+  },  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

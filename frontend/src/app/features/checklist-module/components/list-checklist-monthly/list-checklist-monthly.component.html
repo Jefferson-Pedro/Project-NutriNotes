@@ -20,7 +20,7 @@
               Empresa
             </mat-header-cell>
             <mat-cell *matCellDef="let checklist">
-              {{ checklist.idBusiness }}
+              {{ checklist.idBusiness.nome }}
             </mat-cell>
           </ng-container>
   
@@ -29,7 +29,7 @@
             <mat-header-cell *matHeaderCellDef>
               Setor Avaliado
             </mat-header-cell>
-            <mat-cell *matCellDef="let checklist">{{ checklist.idSetores }}</mat-cell>
+            <mat-cell *matCellDef="let checklist">{{ checklist.idSetores.nome }}</mat-cell>
           </ng-container>
 
             <!--Data Column -->
@@ -42,33 +42,49 @@
           <!-- Actions Column -->
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef class="action-button">
+
               <button
                 mat-icon-button
+                matTooltip="Criar um checklist"
                 aria-label="Create CheckList"
-                (click)="onCreateBusiness()"
+                (click)="onCreateChecklist()"
               >
                 <mat-icon class="icon-add color-primary color-secondary">
                   add
                 </mat-icon>
               </button>
             </mat-header-cell>
+
             <mat-cell *matCellDef="let business" class="action-button">
               <button
                 mat-icon-button
+                matTooltip="Editar um checklist"
                 style="color: #004746"
                 aria-label="Edit CheckList"
                 (click)="onEdit()"
               >
                 <mat-icon>edit</mat-icon>
               </button>
+
               <button
                 mat-icon-button
-                color="warn"
+                matTooltip="Gerar um relatório"
+                color="primary"
                 aria-label="Remove CheckList"
-                (click)="onDelete()"
+                (click)="onCreateReport()"
               >
-                <mat-icon>delete</mat-icon>
+                <mat-icon>description</mat-icon>
               </button>
+
+              <button
+              mat-icon-button
+              matTooltip="Deletar um checklist"
+              color="warn"
+              aria-label="Remove CheckList"
+              (click)="onDelete()"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
             </mat-cell>
           </ng-container>
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -1,15 +1,12 @@
 .container{
    display: flex;
    justify-content: center;
-   align-items: center;   
-   min-height: 100hv;
 }
 .card-container{
     display: flex;
     flex-direction: column;
-    margin-top: 5%;
-    margin-bottom: 15px;
-    width: 90%;
+    margin: 5%;
+    width: 90%; 
     
 }
 .loading-spinner{

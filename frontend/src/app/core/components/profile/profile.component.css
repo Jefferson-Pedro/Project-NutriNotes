@@ -1,12 +1,11 @@
 .container{
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100hv;
+  margin-top: -15px;
 }
 .card-container {
   margin-top: 5%;
-  width: 60%;
+  width: 70%;
   margin-bottom: 15px;
 }
 .profile-icon{
@@ -17,38 +16,6 @@
 .profile-icon > img{
   width: 200px;
   height: 200pxpx;
-}
-
-.name-birthday{
-  display: flex;
-  gap: 1rem;
-  margin: 1em 1em 0 1em;
-}
-
-.name-birthday > .input-name{
-  width: 80%;
-}
-
-.email-tel, .crn-gener{
-  display: flex;
-  gap: 1rem;
-  margin: 0 1em 0 1em;
-}
-
-.input-email, .input-tel {
-  width: 100%;
-}
-
-.input-crn{
-  width: 49%;
-}
-.check-sex{
-  align-items: center;
-}
-
-.button{
-  display: flex;
-  justify-content: end;
 }
 
 input[type=number]::-webkit-inner-spin-button { 

@@ -23,7 +23,6 @@ import { CoreRoutingModule } from './core-routing.module';
 import { LegislationComponent } from './dialog/legislation';
 import { RouterModule } from '@angular/router';
 
-
 @NgModule({
   declarations: [
     HomeComponent,
@@ -51,7 +50,8 @@ import { RouterModule } from '@angular/router';
     MatRadioModule,
     MatIconModule,
     MatDialogModule,
-    MatToolbarModule
-  ]
+    MatToolbarModule,
+       
+  ],
 })
 export class CoreModule { }
