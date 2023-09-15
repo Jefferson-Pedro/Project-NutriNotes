@@ -1,7 +1,7 @@
-import { Profile } from "./profile";
+import { Profile } from './Profile';
 
 export interface User {
- login: string;
- senha: string;
- id?:Profile;
+  login: string;
+  senha: string;
+  id?: Profile;
 }

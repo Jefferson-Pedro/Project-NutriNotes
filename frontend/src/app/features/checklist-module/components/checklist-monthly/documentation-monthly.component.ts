@@ -1,37 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Checklist } from 'src/app/core/models/checklist';
+import { Checklist } from 'src/app/core/models/Checklist';
 
 @Component({
   selector: 'app-monthly-documentation',
   templateUrl: './documentation-monthly.component.html',
-  styleUrls: ['./documentation-monthly.component.css']
+  styleUrls: ['./documentation-monthly.component.css'],
 })
 export class DocumentationMonthlyComponent {
-  
   public checkList!: Checklist[];
   form: FormGroup;
   isEditing: boolean = false;
   defaultTitle: string = 'CheckList Mensal - Documentação';
   editedTitle: string = '';
 
-  public displayedColumns = ['num', 'item', 'conforme', 'naoConforme','naoSeAplica', 'observacao'];
+  public displayedColumns = [
+    'num',
+    'item',
+    'conforme',
+    'naoConforme',
+    'naoSeAplica',
+    'observacao',
+  ];
 
-  constructor(private formBuilder: FormBuilder, 
-              private router: Router){
-
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.form = this.formBuilder.group({
-      nomeEmpresa: ['',Validators.required],
-      unidade: ['',Validators.required],
-      gestor: ['',Validators.required],
+      nomeEmpresa: ['', Validators.required],
+      unidade: ['', Validators.required],
+      gestor: ['', Validators.required],
       turno: [''],
       responsavelTec: [{ idProfile: 1 }],
       dataAuditoria: [null, Validators.required],
     });
   }
-
-  
 
   startEditing() {
     // Entra no modo de edição
@@ -51,11 +53,11 @@ export class DocumentationMonthlyComponent {
     this.editedTitle = this.defaultTitle;
   }
 
-  public onSave(){
+  public onSave() {
     console.log(this.checkList.values);
   }
 
-  public onCancel(){
+  public onCancel() {
     this.router.navigate(['home']);
   }
 }

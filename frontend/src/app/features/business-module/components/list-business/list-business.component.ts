@@ -1,16 +1,14 @@
-import {MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Component, OnInit, ViewChild} from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 
-import { PaginatorConfig } from './paginatorConfig';
-import { Business } from 'src/app/core/models/business';
-import { BusinessService } from '../../services';
-import { ErrorDialogComponent } from 'src/app/features/shared-module/components/error-dialog';
-import { NotificationService } from 'src/app/features/shared-module/services/notification';
+import { Business } from 'src/app/core/models/Business';
 import { AlertService } from 'src/app/features/shared-module/services/alert/alert.service';
-
+import { NotificationService } from 'src/app/features/shared-module/services/notification';
+import { BusinessService } from '../../services';
+import { PaginatorConfig } from './paginatorConfig';
 
 @Component({
   selector: 'app-list-business',
@@ -18,7 +16,6 @@ import { AlertService } from 'src/app/features/shared-module/services/alert/aler
   styleUrls: ['./list-business.component.css'],
 })
 export class ListBusinessComponent implements OnInit {
-
   business!: Observable<Business[]>;
   //business!: Business[];
 
@@ -34,7 +31,7 @@ export class ListBusinessComponent implements OnInit {
   showPageSizeOptions = true;
   showFirstLastButtons = true;
   disabled = false;
- 
+
   displayedColumns = ['idBusiness', 'nome', 'cnpj', 'actions'];
 
   constructor(
@@ -42,15 +39,14 @@ export class ListBusinessComponent implements OnInit {
     private notification: NotificationService,
     public dialog: MatDialog,
     private router: Router,
-    protected alert: AlertService) {
-
-     this.onpageList();    
+    protected alert: AlertService
+  ) {
+    this.onpageList();
   }
 
   ngOnInit(): void {}
 
-  handlePageEvent(e: PageEvent){
-   
+  handlePageEvent(e: PageEvent) {
     console.log('evento', e);
     this.pageEvent = e;
     this.length = e.length;
@@ -60,7 +56,7 @@ export class ListBusinessComponent implements OnInit {
     this.onpageList();
   }
 
-  public onpageList(){
+  public onpageList() {
     this.service.getPageList(this.pageIndex, this.pageSize).subscribe({
       next: (res) => {
         console.log(res);
@@ -69,13 +65,15 @@ export class ListBusinessComponent implements OnInit {
         this.length = this.paginator!.totalElements;
       },
       error: (err) => {
-        this.alert.onError('Erro ao carregar a lista de empresas, verifique a conexão com o banco de dados!');
+        this.alert.onError(
+          'Erro ao carregar a lista de empresas, verifique a conexão com o banco de dados!'
+        );
         console.log(err);
         return of([]);
-      }, 
+      },
     });
-  } 
-  
+  }
+
   public onCreateBusiness() {
     this.router.navigate(['business/new']);
   }
@@ -91,7 +89,9 @@ export class ListBusinessComponent implements OnInit {
         window.location.reload();
       },
       error: () => {
-        this.notification.showMessageFail('Ocorreu um erro ao excluir a empresa');
+        this.notification.showMessageFail(
+          'Ocorreu um erro ao excluir a empresa'
+        );
       },
     });
   }

@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, inject } from '@angular/core';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs';
-import { Business } from 'src/app/core/models/business';
-import { ViaCepService } from 'src/app/features/shared-module/services/cep';
-import { BusinessService } from '../../services';
-import { NotificationService } from 'src/app/features/shared-module/services/notification';
+import { Business } from 'src/app/core/models/Business';
+import { CepResponse } from 'src/app/core/models/CepResponse';
+import { validateCEP } from 'src/app/core/utils/validateCEP';
 import { AlertService } from 'src/app/features/shared-module/services/alert/alert.service';
+import { ViaCepService } from 'src/app/features/shared-module/services/cep';
+import { NotificationService } from 'src/app/features/shared-module/services/notification';
+import { BusinessService } from '../../services';
 
 @Component({
   selector: 'app-form-business',
@@ -14,91 +16,85 @@ import { AlertService } from 'src/app/features/shared-module/services/alert/aler
   styleUrls: ['./form-business.component.css'],
 })
 export class FormBusinessComponent implements OnInit {
-  
+  private router = inject(Router);
+  private alertService = inject(AlertService);
+  private viacepService = inject(ViaCepService);
+  private activatedRoute = inject(ActivatedRoute);
+  private businessService = inject(BusinessService);
+  private notification = inject(NotificationService);
+  private formBuilder = inject(NonNullableFormBuilder);
+
   protected form = this.buildForm();
   protected business!: Business;
   protected submitted = false;
-  protected msgSucess: string = '';
-  protected msgError: string = '';
-
-  constructor(private businessService: BusinessService,
-              private viacepService: ViaCepService,
-              private notificationService: NotificationService,
-              private alertService: AlertService,
-              private formBuilder: FormBuilder,
-              private router: Router,
-              private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    //this.buildForm();
-    this.loadingById();
+    this.loadBusinessById();
   }
 
-  private buildForm(){
-    // INICIA O FORMS VAZIO E FAZ A PRÉ VALIDAÇÃO
-    return this.formBuilder.group({
-      //idBusiness: [null],
-      nome: ['', [Validators.required, Validators.minLength(3)]],
-      cnpj: ['', [Validators.required, Validators.minLength(14)]],
-      cep: ['', [Validators.required, Validators.minLength(8)]],
-      telefone: [''],
-      logradouro: ['', Validators.required, Validators.minLength(5)],
-      compl: [''],
-      cidade: ['',Validators.required, Validators.minLength(5)],
-      bairro: ['', Validators.required, Validators.minLength(5)],
-      uf: ['', Validators.required, Validators.minLength(2)],
-      representante: ['', [Validators.required, Validators.minLength(5)]],
-      plano: ['', [Validators.required]],
-      responsavelTec: [{ idProfile: 1 }],
-    });
-  }
-
-  public onSubmit() {
+  protected onSubmit(): void {
     console.log(this.form.value);
     this.submitted = true;
 
     if (this.form.invalid) {
-      this.notificationService.showMessageFail('Preencha todos os campos corretamente!');
-      return
+      this.notification.showMessageFail(
+        'Preencha todos os campos corretamente!'
+      );
+      return;
     }
-    if (this.form.value.idBusiness) { //Para atualizar informações
-        this.msgSucess = 'Empresa atualizada com sucesso!';
-        this.msgError = 'Ocorreu um erro ao atualizar as informações de empresa.';
-        this.onCreateorUpdateBusiness(this.msgSucess, this.msgError);
-        return
 
-    }else{
-      this.msgSucess = 'Sucesso! Empresa cadastrada';
-      this.msgError = 'Ocorreu um erro ao salvar as informações de empresa.';
-      this.onCreateorUpdateBusiness(this.msgSucess, this.msgError);
+    if (this.business) {
+      // SE A EMPRESA EXISTIR, É EXECUTADA A FUNÇÃO DE ALTERAÇÃO
+      this.updateBusiness();
+      return; // QUEBRA A FUNÇÃO E NÃO EXECUTA NENHUM CÓDIGO QUE ESTÁ ABAIXO
     }
+
+    this.createBusiness(); // CASO A EMPRESA NÃO EXISTA, É EXECUTADA A FUNÇÃO DE CRIAÇÃO
   }
-    
-  protected validationCep() {
-        //  VALIDA O CEP
-    let cep = this.form.value.cep;
-    //Nova variável "cep" somente com dígitos.
-    cep = cep.replace(/\D/g, '');
 
-    //Verifica se campo cep possui valor informado.
-    if (cep != '') {
-      //Expressão regular para validar o CEP.
-      let validacep = /^[0-9]{8}$/;
-      //Valida o formato do CEP.
-      if (validacep.test(cep)) {
-        this.search(cep);
-      } else {
-        this.alertService.onError(' O CEP preenchido não é valido!');
-      }
+  protected validationCep(): void {
+    // Armazena o valor do CEP digitado no formulário na variável
+    const cep = this.form.controls.cep?.value;
+
+    //Verifica se existe o CEP, caso não exista, quebra a função
+    if (!cep) {
+      return;
     }
+
+    // Verifica se o formato do CEP, é um formato válido, caso sim, faz a busca e quebra a função
+    if (validateCEP(cep)) {
+      this.search(cep);
+      return;
+    }
+
+    // Caso o CEP não seja válido, exibe um alerta de erro
+    this.alertService.onError(' O CEP preenchido não é valido!');
+  }
+
+  private buildForm() {
+    // INICIA O FORMS VAZIO E FAZ A PRÉ VALIDAÇÃO
+    return this.formBuilder.group({
+      nome: ['', [Validators.required, Validators.minLength(3)]],
+      cnpj: ['', [Validators.required, Validators.minLength(14)]],
+      cep: ['', [Validators.required, Validators.minLength(8)]],
+      logradouro: ['', [Validators.required, Validators.minLength(5)]],
+      cidade: ['', [Validators.required, Validators.minLength(5)]],
+      bairro: ['', [Validators.required, Validators.minLength(5)]],
+      uf: ['', [Validators.required, Validators.minLength(2)]],
+      representante: ['', [Validators.required, Validators.minLength(5)]],
+      plano: ['', Validators.required],
+      responsavelTec: [{ idProfile: 1 }], // PQ ESSE VALOR É UM OBJETO COM VALOR FIXO?
+      compl: [''],
+      telefone: [''],
+    });
   }
 
   private search(cep: string) {
     //FAZ A CHAMADA PARA API VIACEP E RETORNA OS DADOS
     this.viacepService.searchCep(cep).subscribe({
-      next: (res: any) => {
-        this.fillCepForms(res, this.form);
-        console.log(res);
+      next: (cepResponse: CepResponse) => {
+        this.fillCepForms(cepResponse);
+        console.log(cepResponse);
       },
       error: (err) => {
         console.log(err);
@@ -106,60 +102,114 @@ export class FormBusinessComponent implements OnInit {
     });
   }
 
-  public fillCepForms(res: any, form: any) {
+  private fillCepForms(cepResponse: CepResponse) {
     //PREENCHE OS CAMPOS DE ENDEREÇO COM A API VIA CEP
-    form.patchValue({
-      cep: res.cep,
-      logradouro: res.logradouro,
-      compl: res.complemento,
-      cidade: res.localidade,
-      bairro: res.bairro,
-      uf: res.uf,
+    this.form.patchValue({
+      cep: cepResponse.cep,
+      logradouro: cepResponse.logradouro,
+      compl: cepResponse.complemento,
+      cidade: cepResponse.localidade,
+      bairro: cepResponse.bairro,
+      uf: cepResponse.uf,
     });
   }
 
-  public onCreateorUpdateBusiness(msg: string, msg2: string){
-    //SALVA OU EDITA UMA EMPRESA
-    this.businessService.save(this.form.value).subscribe({
-      next: (res: any) => {
-        this.notificationService.showMessageSucess(this.msgSucess);
+  private createBusinessPayload(): Business {
+    const form = this.form.getRawValue();
+
+    return {
+      nome: form.nome,
+      cnpj: form.cnpj,
+      bairro: form.bairro,
+      cep: form.cep,
+      cidade: form.cidade,
+      compl: form.compl,
+      logradouro: form.logradouro,
+      plano: form.plano,
+      representante: form.representante,
+      // responsavelTec: form.responsavelTec, O QUE DEVE SER ENVIADO AQUI, UM VALOR OU UM OBJETO?
+      telefone: form.telefone,
+      uf: form.uf,
+    };
+  }
+
+  private createBusiness(): void {
+    //SALVA UMA EMPRESA
+    this.businessService.save(this.createBusinessPayload()).subscribe({
+      next: (res) => {
+        this.notification.showMessageSucess('Sucesso! Empresa cadastrada');
         this.router.navigate(['business/list']);
         console.log(res);
       },
-      error: (err: any) => {
-        this.notificationService.showMessageFail(this.msgError);
+      error: (err) => {
+        this.notification.showMessageFail(
+          'Ocorreu um erro ao salvar as informações de empresa.'
+        );
         console.log(err);
       },
     });
   }
 
-  public onUpdateBusiness(business: Business) {
-    //PRENCHE O FORMS PARA EDIÇÃO
-    console.log('Estou sendo chamado:',business);
-    return this.form.patchValue(business);
+  private updateBusinessPayload(): Business {
+    const form = this.form.getRawValue();
+
+    return {
+      idBusiness: this.business.idBusiness,
+      nome: form.nome,
+      cnpj: form.cnpj,
+      bairro: form.bairro,
+      cep: form.cep,
+      cidade: form.cidade,
+      compl: form.compl,
+      logradouro: form.logradouro,
+      plano: form.plano,
+      representante: form.representante,
+      // responsavelTec: form.responsavelTec, O QUE DEVE SER ENVIADO AQUI, UM VALOR OU UM OBJETO?
+      telefone: form.telefone,
+      uf: form.uf,
+    };
   }
 
-  private loadingById(){
+  private updateBusiness(): void {
+    //ALTERA UMA EMPRESA
+    this.businessService.update(this.updateBusinessPayload()).subscribe({
+      next: (res) => {
+        this.notification.showMessageSucess('Sucesso! Empresa alterada');
+        this.router.navigate(['business/list']);
+        console.log(res);
+      },
+      error: (err) => {
+        this.notification.showMessageFail(
+          'Ocorreu um erro ao alterar as informações de empresa.'
+        );
+        console.log(err);
+      },
+    });
+  }
+
+  private loadBusinessById(): void {
     // FAZ A CHAMADA PARA O DATABASE, RETORNA UM OBJETO COM BASE NO ID DA URL
-     this.route.params.pipe(
-      map((params:any) => {
-        return params['id']
-      }),
-      switchMap((id) => {
-        return this.businessService.loadById(id);
-      }))
+    this.activatedRoute.params
+      .pipe(
+        map((params) => {
+          return params['id'];
+        }),
+        switchMap((id) => {
+          return this.businessService.loadById(id);
+        })
+      )
       .subscribe({
-        next: (res: any) => {
-          console.log(res);
-          this.onUpdateBusiness(res);
+        next: (business) => {
+          console.log(business);
+          this.business = business;
         },
         error: (err) => {
           console.log(err);
-        }
-      })
+        },
+      });
   }
 
-  public onCancel() {
+  public onCancel(): void {
     this.router.navigate(['home']);
   }
 }
