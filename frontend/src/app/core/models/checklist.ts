@@ -1,5 +1,5 @@
 import { Business } from './Business';
-import { Department } from './department';
+import { Department } from './Department';
 import { TemplateCheckList } from './template';
 
 export interface Checklist {
