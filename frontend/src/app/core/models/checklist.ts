@@ -1,6 +1,6 @@
 import { Business } from './Business';
 import { Department } from './Department';
-import { TemplateCheckList } from './template';
+import { TemplateCheckList } from './templatechecklist';
 
 export interface Checklist {
   idChecklist?: number;
