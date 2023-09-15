@@ -1,4 +1,4 @@
-import { Department } from './department';
+import { Department } from './Department';
 
 export interface TemplateCheckList {
   idTemplate: number;
