@@ -1,12 +1,13 @@
 package br.com.nutrinotes.model.checklist;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.nutrinotes.model.business.Business;
 import br.com.nutrinotes.model.department.Department;
-import br.com.nutrinotes.model.templates.TemplateCheckList;
+import br.com.nutrinotes.model.templates.TemplateDocumentation;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,9 +26,6 @@ public class Checklist {
 	@Column(name = "id_checklist ")
 	private Integer idChecklist;
 	
-	@Column(name = "titulo")
-	private String titulo;
-	
 	@Column(name = "nome_gestor")
 	private String nomeGestor;
 	
@@ -45,9 +43,9 @@ public class Checklist {
 	private Business idBusiness;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_template")
-	@JsonIgnoreProperties("checklist_template") //Tabela checklist_template_documentation
-	private TemplateCheckList idTemplate;
+	@JoinColumn(name = "id_template_documentation")
+	@JsonIgnoreProperties("checklist_template_documentation") //Tabela checklist_template_documentation
+	private TemplateDocumentation idTemplate;
 
 	
 	//SET AND GET
@@ -59,15 +57,6 @@ public class Checklist {
 	public void setIdChecklist(Integer idChecklist) {
 		this.idChecklist = idChecklist;
 	}
-	
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
 
 	public String getNomeGestor() {
 		return nomeGestor;
@@ -101,11 +90,11 @@ public class Checklist {
 		this.idBusiness = idBusiness;
 	}
 
-	public TemplateCheckList getidTemplate() {
+	public TemplateDocumentation getidTemplate_Documentation() {
 		return idTemplate;
 	}
 
-	public void setidTemplate(TemplateCheckList idTemplate) {
+	public void setidTemplate_Documentation(TemplateDocumentation idTemplate) {
 		this.idTemplate = idTemplate;
 	}
 }

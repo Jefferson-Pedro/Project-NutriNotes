@@ -13,8 +13,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "checklist_template")
-public class TemplateCheckList {
+@Table(name = "checklist_template_documentation")
+public class TemplateDocumentation {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class TemplateCheckList {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_setores")
-	@JsonIgnoreProperties("checklist_template") //Tabela checklist_template
+	@JsonIgnoreProperties("checklist_template_documentation") //Tabela checklist_template_documentation
 	private Department idSetores;
 	
 	//GET AND SET

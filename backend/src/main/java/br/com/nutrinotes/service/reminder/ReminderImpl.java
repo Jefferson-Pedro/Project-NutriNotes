@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import br.com.nutrinotes.dao.reminder.ReminderDAO;
@@ -53,11 +51,6 @@ public class ReminderImpl implements IReminderService{
 		}
 		System.out.println("Erro ao excluir o lembrete com id: " + id);
 		return false;
-	}
-
-	@Override
-	public Page<Reminder> findAllPage(Pageable pageable) {
-		return dao.findAll(pageable);
 	}
 
 	

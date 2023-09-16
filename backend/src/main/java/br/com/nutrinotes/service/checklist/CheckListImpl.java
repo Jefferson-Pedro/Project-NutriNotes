@@ -38,7 +38,8 @@ public class CheckListImpl implements ICheckList {
 
 	@Override
 	public Page<Checklist> findAllPage(Pageable pageable) {
-		return dao.findAll(pageable);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

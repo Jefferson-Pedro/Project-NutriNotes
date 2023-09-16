@@ -5,8 +5,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,23 +26,13 @@ public class ReminderController {
 	@Autowired
 	IReminderService service;
 	
-	@GetMapping("/all")
+	@GetMapping()
 	public ResponseEntity<List<Reminder>> findAll(){
 		List<Reminder> list =  service.findAll();
 		if(!list.isEmpty()) {
 			return ResponseEntity.ok(list);
 		}
 		return ResponseEntity.notFound().build();
-	}
-	
-	@GetMapping()
-	public ResponseEntity<Page<Reminder>> findAllPage(Pageable pageable){
-		Page<Reminder> page = service.findAllPage(pageable);
-		
-		if(page.hasContent()) {
-	        return ResponseEntity.ok(page);
-	    }
-	    return ResponseEntity.notFound().build();
 	}
 	
 	@GetMapping("/{id}")
