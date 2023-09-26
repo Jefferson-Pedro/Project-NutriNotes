@@ -21,6 +21,9 @@ public class Reminder {
 	@Column(name="id_reminder")
 	private Integer idReminder;
 	
+	@Column(name="titulo")
+	private String titulo;
+	
 	@Column(name="descricao")
 	private String descricao;
 	
@@ -39,6 +42,14 @@ public class Reminder {
 
 	public void setIdReminder(Integer idReminder) {
 		this.idReminder = idReminder;
+	}
+	
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public String getDescricao() {

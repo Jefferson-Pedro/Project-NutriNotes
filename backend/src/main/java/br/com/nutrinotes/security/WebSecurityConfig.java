@@ -1,7 +1,5 @@
 package br.com.nutrinotes.security;
 
-import javax.security.sasl.AuthorizeCallback;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -27,11 +25,12 @@ public class WebSecurityConfig {
 		 .requestMatchers(HttpMethod.GET, "/business/**").permitAll()
 		 .requestMatchers(HttpMethod.POST, "/business/new").permitAll()
 		 .requestMatchers(HttpMethod.DELETE, "/business/{id}").permitAll()
+		 .requestMatchers(HttpMethod.PUT, "/business/edit/{id}").permitAll()
 		 .requestMatchers(HttpMethod.GET, "/checklist/**").permitAll()
 		 .requestMatchers(HttpMethod.POST, "/checklist/new").permitAll()
 		 .requestMatchers(HttpMethod.PUT, "/checklist/edit/{id}").permitAll()
 		 .requestMatchers(HttpMethod.DELETE, "/checklist/{id}").permitAll()
-		 .requestMatchers(HttpMethod.GET, "/reminder").permitAll()
+		 .requestMatchers(HttpMethod.GET, "/reminder/**").permitAll()
 		 .anyRequest().authenticated().and().cors();
 
 		http.addFilterBefore(new MyFilter(), UsernamePasswordAuthenticationFilter.class);
