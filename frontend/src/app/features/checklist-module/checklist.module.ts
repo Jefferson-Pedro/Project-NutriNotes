@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
@@ -18,12 +18,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared-module';
 import { CheklistRoutingModule } from './checklist-routing.module';
-import { DocumentationDailyComponent } from './components/checklist-daily';
-import { DocumentationMonthlyComponent } from './components/checklist-monthly';
+import { DocumentationDailyComponent } from './components/checklist-daily/documentation-daily';
+import { DocumentationMonthlyComponent } from './components/checklist-monthly/documentation-monthly';
 import { ListChecklistMonthlyComponent } from './components/list-checklist-monthly';
 import { OptionDailyDialogComponent } from './option-daily-dialog';
 import { OptionMonthlyDialogComponent } from './option-monthly-dialog/option-monthly-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
+import { getPtPaginatorIntl } from 'src/app/core/intl/paginator-intl';
 
 @NgModule({
   declarations: [ /*Declaro os modulos criados*/
@@ -56,7 +58,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDialogModule,
     MatListModule,
     MatTooltipModule,
+    MatMenuModule
   ], 
-  exports: []
+  exports: [],
+  providers: [{ provide: MatPaginatorIntl, useValue: getPtPaginatorIntl() },
+  ],
 })
 export class ChecklistModule { }

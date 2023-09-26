@@ -19,6 +19,7 @@ import { SharedModule } from '../shared-module';
 import { BusinessRoutingModule } from './business-routing.module';
 import { FormBusinessComponent } from './components/form-business';
 import { ListBusinessComponent } from './components/list-business';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ListBusinessComponent } from './components/list-business';
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatMenuModule
 
   ]
 })

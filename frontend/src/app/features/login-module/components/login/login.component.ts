@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../../../../core/models/User';
 import { AuthService } from '../../services/auth';
+
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,6 @@ import { AuthService } from '../../services/auth';
 })
 export class LoginComponent {
   public stepperOrientation: 'horizontal' | 'vertical' = 'horizontal';
-  public user: User | undefined;
 
   formLogin = this.formBuilder.group({
     login: ['', Validators.required],

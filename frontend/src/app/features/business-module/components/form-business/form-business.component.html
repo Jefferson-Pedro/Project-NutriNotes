@@ -1,10 +1,12 @@
 <div class="container">
-  <mat-card class="card-container p-3">
-    <mat-toolbar class="color-primary color-secondary">
+  <mat-card class="card-container">
+    <div class="d-flex justify-content-between ">
+    <mat-toolbar mainColors>
       Cadastro de Empresa
     </mat-toolbar>
+    </div>
 
-    <form [formGroup]="form">
+    <form [formGroup]="form" class="p-3">
       <div class="row input-container">
         <mat-form-field class="col-12">
           <mat-label>Nome da Empresa</mat-label>
@@ -151,7 +153,7 @@
       </div>
     </form>
 
-    <div class="d-flex justify-content-end col-12 gap-3">
+    <div class="d-flex justify-content-end col-12 gap-3 p-3">
       <button mat-button mat-stroked-button (click)="onCancel()">
         CANCELAR
       </button>
@@ -161,3 +163,5 @@
     </div>
   </mat-card>
 </div>
+
+

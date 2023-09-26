@@ -1,0 +1,40 @@
+main {
+    display: grid;
+    height: calc(100vh - 40px);
+    margin: 20px;
+    grid-gap: 20px;
+  
+    grid-template-areas:
+      'box-1 box-1 box-1'
+      'box-2 box-2 box-4'
+      'box-3 box-3 box-4'
+      'box-3 box-3 box-5';
+  }
+  
+  div {
+    background-color: lightblue;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  
+  div.box-1 {
+    grid-area: box-1;
+  }
+  
+  div.box-2 {
+    grid-area: box-2;
+  }
+  
+  div.box-3 {
+    grid-area: box-3;
+  }
+  
+  div.box-4 {
+    grid-area: box-4;
+  }
+  
+  div.box-5 {
+    grid-area: box-5;
+  }
+  

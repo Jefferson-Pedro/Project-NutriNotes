@@ -25,6 +25,10 @@ const routes: Routes = [
     import('./features/checklist-module/checklist.module').then(
       (module) => module.ChecklistModule)},
   
+  {path: 'report', loadChildren: () =>
+      import('./features/report-module/report.module').then(
+        (module) => module.ReportModule)},
+  
   {path: 'login', loadChildren: () =>
     import('./features/login-module/login.module').then(
       (module) => module.LoginModule)},

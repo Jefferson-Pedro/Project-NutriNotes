@@ -19,13 +19,25 @@
   gap: 0.5em;
 }
 .button-menu:hover{
-  background-color: #f5f5f586;
+  background-color: #f5f5f586; 
 }
 .reminder-profile{
   display: flex;
   position: absolute;
   right: 0;
 }
+.menu-item:not(:last-child){ /*coloca a borda em todos menos no ultimo filho*/
+  border-bottom: 1px solid rgb(228, 228, 228);
+}
+
+small{
+  font-size: 12px; 
+}
+mat-icon{
+  overflow: unset;
+  color: #ffc745 !important;
+}
+
 
 @media (max-width: 320px) {
   .icon-navigate {

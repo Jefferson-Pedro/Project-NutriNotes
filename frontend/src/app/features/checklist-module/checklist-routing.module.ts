@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DocumentationDailyComponent } from './components/checklist-daily';
-import { DocumentationMonthlyComponent } from './components/checklist-monthly';
+import { DocumentationDailyComponent } from './components/checklist-daily/documentation-daily';
+import { DocumentationMonthlyComponent } from './components/checklist-monthly/documentation-monthly';
 import { ListChecklistMonthlyComponent } from './components/list-checklist-monthly';
 
 

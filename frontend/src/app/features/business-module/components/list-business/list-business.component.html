@@ -1,11 +1,24 @@
 <div class="container">
   <mat-card class="card-container">
-    <mat-toolbar class="color-primary color-secondary">
-      Empresas Cadastradas
-    </mat-toolbar>
+    <div class="d-flex justify-content-between ">
+      <mat-toolbar mainColors>
+        Empresas Cadastradas
+      </mat-toolbar>
+      <button
+      class="add-button"
+      mat-mini-fab
+      matTooltip="Criar uma empresa"
+      aria-label="Registrar uma empresa"
+      (click)="onCreateBusiness()"
+    >
+      <mat-icon class="add-icon"> 
+        add
+      </mat-icon>
+    </button>
+    </div>
 
-    <div *ngIf="business; else loading"> 
-      <mat-table [dataSource]="business" class="mat-elevation-z8">
+    <div *ngIf="business; else loading" class="mat-elevation-z8"> 
+      <mat-table [dataSource]="business">
         <!--Id Column -->
         <ng-container matColumnDef="idBusiness">
           <mat-header-cell *matHeaderCellDef>Nº</mat-header-cell>
@@ -28,36 +41,27 @@
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef class="action-button">
-            <button
-              mat-icon-button
-              matTooltip="Criar uma empresa"
-              aria-label="Business Registration"
-              (click)="onCreateBusiness()"
-            >
-              <mat-icon class="icon-add color-primary color-secondary">
-                add
-              </mat-icon>
-            </button>
+            Ações
           </mat-header-cell>
+
           <mat-cell *matCellDef="let business" class="action-button">
-            <button
-              mat-icon-button
-              matTooltip="Editar uma empresa"
-              style="color: #004746"
-              aria-label="Edit Business"
-              (click)="onEdit(business)"
-            >
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button
-              mat-icon-button
-              matTooltip="Deletar uma empresa"
-              color="warn"
-              aria-label="Remove Business"
-              (click)="onDelete(business.idBusiness)"
-            >
-              <mat-icon>delete</mat-icon>
-            </button>
+
+           <button mat-icon-button [matMenuTriggerFor]="beforeMenu" aria-label="Menu de ações">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+
+              <mat-menu #beforeMenu="matMenu">
+
+                <button mat-menu-item (click)="onEdit(business)">
+                  <mat-icon class="text-success">edit</mat-icon>
+                  Editar
+                </button>
+
+                <button mat-menu-item (click)="onDelete(business.idBusiness)">
+                  <mat-icon class="text-danger">delete</mat-icon>
+                  Excluir
+                </button>
+              </mat-menu>
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

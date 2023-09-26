@@ -8,7 +8,7 @@ import { Business } from 'src/app/core/models/Business';
 import { AlertService } from 'src/app/features/shared-module/services/alert/alert.service';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
 import { BusinessService } from '../../services';
-import { PaginatorConfig } from './paginatorConfig';
+import { PaginatorConfig } from '../../../../core/models/PaginatorConfig';
 
 @Component({
   selector: 'app-list-business',
@@ -37,7 +37,6 @@ export class ListBusinessComponent implements OnInit {
   constructor(
     private service: BusinessService,
     private notification: NotificationService,
-    public dialog: MatDialog,
     private router: Router,
     protected alert: AlertService
   ) {

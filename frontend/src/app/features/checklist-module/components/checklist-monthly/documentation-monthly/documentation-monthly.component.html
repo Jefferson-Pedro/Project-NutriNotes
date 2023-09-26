@@ -1,0 +1,102 @@
+<div class="container">
+  <mat-card class="card-container"> 
+        <mat-toolbar mainColors>
+        <div *ngIf="!isEditing; else editMode" class="editable-title">
+          {{ defaultTitle }}
+          <button mat-icon-button (click)="startEditing()">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+        <ng-template #editMode>
+          <input
+            type="text"
+            [(ngModel)]="editedTitle"
+            (blur)="stopEditing()"
+            (keyup.enter)="stopEditing()"
+            (keyup.escape)="cancelEditing()"
+            class="editable-input"
+          />
+        </ng-template>
+      </mat-toolbar>
+    <!-- FORMS DE PREENCHIMENTO -->
+    <div class="input-information" [formGroup]="form">
+      <div class="business-select">
+        <mat-form-field class="input-business">
+          <mat-label>Nome da Empresa</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Empresa de exemplo ltda."
+            formControlName="nomeEmpresa"
+            required
+          />
+          <mat-icon matSuffix>corporate_fare</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="select-section">
+          <mat-label>Setores</mat-label>
+          <mat-select formControlName="unidade">
+            <mat-option>Clear</mat-option>
+            <mat-option value="Cozinha">Cozinha</mat-option>
+            <mat-option value="Copa">Copa</mat-option>
+            <mat-option value="Estoque de Alimentos">
+              Estoque de Alimentos
+            </mat-option>
+            <mat-option value="Estoque de Materiais(DML)">
+              Estoque de Materiais(DML)
+            </mat-option>
+            <mat-option value="Salão Principal">Salão Principal</mat-option>
+            <mat-option value="Banheiro">Banheiro</mat-option>
+            <mat-option value="Laboratório">Laboratório</mat-option>
+            <mat-option value="Frigorifico">Frigorifico</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="manage-rotation">
+        <mat-form-field class="input-manager">
+          <mat-label>Nome do Gestor</mat-label>
+          <input matInput formControlName="gestor" required />
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="input-rotation">
+          <mat-label>Turno</mat-label>
+          <mat-select formControlName="turno">
+            <mat-option>Clear</mat-option>
+            <mat-option value="Manhã">Manhã</mat-option>
+            <mat-option value="Tarde">Tarde</mat-option>
+            <mat-option value="Noite">Noite</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="technical-audit">
+        <mat-form-field class="input-technical">
+          <mat-label>Responsável Técnico</mat-label>
+          <input matInput disabled value="Anna Thays" />
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="input-audit">
+          <mat-label>Data da Auditoria</mat-label>
+          <input
+            formControlName="dataAuditoria"
+            matInput
+            [matDatepicker]="picker"
+            />
+            <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+    </div>
+    <div class="button">
+      <button mat-button (click)="onCancel()">Cancelar</button>
+      <button mat-button (click)="onSave()">Salvar</button>
+    </div>
+  </mat-card>
+  
+</div>

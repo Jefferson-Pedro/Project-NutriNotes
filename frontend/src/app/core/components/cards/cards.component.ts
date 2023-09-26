@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LegislationComponent } from 'src/app/core/dialog/legislation';
+import { LegislationComponent } from 'src/app/core/components/legislation';
 import { OptionDailyDialogComponent } from 'src/app/features/checklist-module/option-daily-dialog';
 import { OptionMonthlyDialogComponent } from 'src/app/features/checklist-module/option-monthly-dialog/option-monthly-dialog.component';
 
@@ -30,16 +30,28 @@ export class CardsComponent {
     const dialogRef = this.dialog.open(LegislationComponent);
   }
 
-  onClickCreateBusiness(){
-    console.log('Clicou!')
+  public onCreateReport(){
+    //this.router.navigate(['report/new']);
+  }
+
+  public onViewReport(){
+    this.router.navigate(['report/dashboard']);
+  }
+
+  onCreateBusiness(){
     this.router.navigate(['business/new']);
   }
 
-  onClickReadBusiness(){
+  onReadBusiness(){
     this.router.navigate(['business/list']);
   }
-  onClickCreateReminder(){
-    this.router.navigate(['reminder/notifications']);
+
+  onFormReminder(){
+    this.router.navigate(['reminder/form-notifications']);
+  }
+
+  onListReminder(){
+    this.router.navigate(['reminder/list-notifications']);
   }
 
 }

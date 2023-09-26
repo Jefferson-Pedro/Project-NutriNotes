@@ -14,13 +14,13 @@
      display: flex;
      align-items: center;
      justify-content: center;
- }
- button{}
- 
- .action-button{
-     padding: 5px;
- }
- .icon-add{
-     padding: 8px;
-     border-radius: 50%;
- }
+ } 
+.add-button{
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    background-color: #ffc745;
+}
+.add-icon{
+    color: #004746;
+}

@@ -16,8 +16,8 @@ export class ReminderService {
       page = 0;
       size = 5;
     }
-    return this.http.get<Reminder>(
-      `${environment.baseUrl}/reminder?page=${page}&size=${size}`
-    );
+    const url = `${environment.baseUrl}/reminder?page=${page}&size=${size}`;
+
+    return this.http.get<Reminder>(url);
   }
 }

@@ -52,10 +52,10 @@ export class BusinessService {
   }
 
   //Cria ou Atualiza uma empresa.
-  public save(business: Business) {
-    if (business.idBusiness) {
-      return this.update(business);
-    }
-    return this.create(business);
-  }
+  // public save(business: Business) {
+  //   if (business.idBusiness) {
+  //     return this.update(business);
+  //   }
+  //   return this.create(business);
+  // }
 }

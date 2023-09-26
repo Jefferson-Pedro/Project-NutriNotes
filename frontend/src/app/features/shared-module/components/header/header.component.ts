@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Reminder } from 'src/app/core/models/Reminder';
 import { AuthService } from 'src/app/features/login-module/services/auth';
 import { ReminderService } from 'src/app/features/reminder-module/services';
-import { ReminderPaginator } from '../../../reminder-module/services/reminder-paginator';
+import { ReminderPaginator } from '../../../reminder-module/components/list-reminder/reminder-paginator';
 import { SidenavService } from '../../services/sidenav';
 
 @Component({

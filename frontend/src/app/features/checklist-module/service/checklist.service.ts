@@ -21,7 +21,7 @@ export class ChecklistService {
     if (page == 0 && size == 0) {
       page = 0;
       size = 5;
-    }
+    } 
     return this.http.get<Checklist>(
       `${environment.baseUrl}/checklist?page=${page}&size=${size}`
     );

@@ -2,6 +2,7 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { NgModule } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -15,20 +16,17 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
-import { ErrorDialogComponent } from './components/error-dialog';
 import { FooterComponent } from './components/footer';
 import { HeaderComponent } from './components/header';
 import { LoaderComponent } from './components/loader';
 import { NavComponent } from './components/nav';
 import { CssDirective } from './directives/css';
-import { MatButtonModule } from '@angular/material/button';
 
 registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
     LoaderComponent, 
-    ErrorDialogComponent,
     NavComponent,
     FooterComponent,
     HeaderComponent,
@@ -55,11 +53,9 @@ registerLocaleData(localePt);
   exports: [
       CssDirective,
       LoaderComponent,
-      ErrorDialogComponent,
       NavComponent,
       FooterComponent,
       HeaderComponent,
-
     ],
 })
 export class SharedModule { }

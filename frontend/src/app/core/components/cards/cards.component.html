@@ -65,8 +65,8 @@
             <p>Consulte, analise e compare seus dados.</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button>CRIAR</button>
-            <button mat-button>CONSULTAR</button>
+            <button mat-button (click)="onCreateReport()">CRIAR</button>
+            <button mat-button (click)="onViewReport()">CONSULTAR</button>
           </mat-card-actions>
         </div>
       </mat-card>
@@ -92,8 +92,8 @@
             </p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button (click)="onClickCreateBusiness()">CRIAR</button>
-            <button mat-button (click)="onClickReadBusiness()">CONSULTAR</button>
+            <button mat-button (click)="onCreateBusiness()">CRIAR</button>
+            <button mat-button (click)="onReadBusiness()">CONSULTAR</button>
           </mat-card-actions>
         </div>
       </mat-card>
@@ -140,8 +140,8 @@
            </p>
          </mat-card-content>
          <mat-card-actions>
-           <button mat-button>CRIAR</button>
-           <button mat-button (click)="onClickCreateReminder()">CONSULTAR</button>
+           <button mat-button (click)="onFormReminder()">CRIAR</button>
+           <button mat-button (click)="onListReminder()">CONSULTAR</button>
          </mat-card-actions>
        </div>
      </mat-card>

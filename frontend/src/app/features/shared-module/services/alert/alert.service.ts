@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
+import { CssDirective } from './../../directives/css/css.directive';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class AlertService {
       icon: 'success',
       title: title,
       text: msg,
+
     });
   }
 

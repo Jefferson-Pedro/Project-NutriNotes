@@ -20,8 +20,9 @@ import { PageNotFoundComponent } from './components/page-not-found';
 import { ProfileComponent } from './components/profile';
 import { SupportUsComponent } from './components/support-us';
 import { CoreRoutingModule } from './core-routing.module';
-import { LegislationComponent } from './dialog/legislation';
+import { LegislationComponent } from './components/legislation';
 import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [
@@ -51,7 +52,6 @@ import { RouterModule } from '@angular/router';
     MatIconModule,
     MatDialogModule,
     MatToolbarModule,
-       
   ],
 })
 export class CoreModule { }

@@ -1,9 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ReminderNotificationsComponent } from './dialog/reminder-notification';
+
+import { FormsReminderComponent } from './components/forms-reminder';
+import { ListReminderComponent } from './components/list-reminder/list-reminder.component';
 
 const routes: Routes = [
-  {path:'notifications', component: ReminderNotificationsComponent}
+
+  {path:'list-notifications', component: ListReminderComponent},
+
+  {path:'form-notifications', component: FormsReminderComponent},
+
 ];
 
 @NgModule({

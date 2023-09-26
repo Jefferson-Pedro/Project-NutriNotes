@@ -1,0 +1,104 @@
+<div class="container">
+  <mat-card class="card-container">
+    <div class="d-flex justify-content-between">
+      <mat-toolbar mainColors> Lista de Lembretes </mat-toolbar>
+      <button
+        class="add-button"
+        mat-mini-fab
+        matTooltip="Criar uma empresa"
+        aria-label="Registrar uma empresa"
+        (click)="onCreateReminder()"
+      >
+        <mat-icon class="add-icon"> add </mat-icon>
+      </button>
+    </div>
+
+    <div *ngIf="reminder; else loading" class="mat-elevation-z8">
+      <mat-table [dataSource]="reminder">
+        <!--Id Column -->
+        <ng-container matColumnDef="idReminder"> 
+          <mat-header-cell *matHeaderCellDef>Nº</mat-header-cell>
+          <mat-cell *matCellDef="let reminder">
+            {{ reminder.idReminder }}</mat-cell
+          >
+        </ng-container>
+
+         <!-- Title Column -->
+         <ng-container matColumnDef="titulo">
+            <mat-header-cell *matHeaderCellDef
+              >Titulo do Evento</mat-header-cell
+            >
+            <mat-cell *matCellDef="let reminder">
+              {{ reminder.titulo }}</mat-cell
+            >
+          </ng-container>
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="descricao">
+          <mat-header-cell *matHeaderCellDef
+            >Descrição do Evento</mat-header-cell
+          >
+          <mat-cell *matCellDef="let reminder">
+            {{ reminder.descricao }}</mat-cell
+          >
+        </ng-container>
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+          <mat-header-cell *matHeaderCellDef>Data do Evento</mat-header-cell>
+          <mat-cell *matCellDef="let reminder">{{ reminder.date }}</mat-cell>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef class="action-button">
+            Ações
+          </mat-header-cell>
+
+          <mat-cell *matCellDef="let reminder" class="action-button">
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="beforeMenu"
+              aria-label="Menu de ações"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #beforeMenu="matMenu">
+              <button mat-menu-item (click)="onEdit(reminder)">
+                <mat-icon class="text-success">edit</mat-icon>
+                Editar
+              </button>
+
+              <button mat-menu-item (click)="onDelete(reminder.idreminder)">
+                <mat-icon class="text-danger">delete</mat-icon>
+                Excluir
+              </button>
+            </mat-menu>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+
+      <div class="paginator">
+        <mat-paginator
+          #paginator
+          (page)="handlePageEvent($event)"
+          [length]="length"
+          [pageSize]="pageSize"
+          [pageIndex]="pageIndex"
+          [showFirstLastButtons]="true"
+          [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+          aria-label="Select page"
+        >
+        </mat-paginator> 
+      </div>
+    </div>
+    <ng-template #loading>
+      <div class="loading-spinner">
+        <app-loader></app-loader>
+      </div>
+    </ng-template>
+  </mat-card>
+</div>

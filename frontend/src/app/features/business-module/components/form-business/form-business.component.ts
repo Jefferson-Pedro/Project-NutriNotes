@@ -1,14 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap } from 'rxjs';
-import { Business } from 'src/app/core/models/Business';
+import { map, of, switchMap } from 'rxjs';
 import { CepResponse } from 'src/app/core/models/CepResponse';
 import { validateCEP } from 'src/app/core/utils/validateCEP';
 import { AlertService } from 'src/app/features/shared-module/services/alert/alert.service';
 import { ViaCepService } from 'src/app/features/shared-module/services/cep';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
 import { BusinessService } from '../../services';
+import { Business } from 'src/app/core/models/Business';
+import { Profile } from 'src/app/core/models/Profile';
 
 @Component({
   selector: 'app-form-business',
@@ -33,7 +34,8 @@ export class FormBusinessComponent implements OnInit {
   }
 
   protected onSubmit(): void {
-    console.log(this.form.value);
+    console.log('FORMULARIO NO SUBMIT:',this.form.value);
+
     this.submitted = true;
 
     if (this.form.invalid) {
@@ -42,21 +44,40 @@ export class FormBusinessComponent implements OnInit {
       );
       return;
     }
-
-    if (this.business) {
+    if (this.business.idBusiness != undefined) {
       // SE A EMPRESA EXISTIR, É EXECUTADA A FUNÇÃO DE ALTERAÇÃO
       this.updateBusiness();
       return; // QUEBRA A FUNÇÃO E NÃO EXECUTA NENHUM CÓDIGO QUE ESTÁ ABAIXO
+    }else{
+      this.createBusiness(); // CASO A EMPRESA NÃO EXISTA, É EXECUTADA A FUNÇÃO DE CRIAÇÃO    
     }
-
-    this.createBusiness(); // CASO A EMPRESA NÃO EXISTA, É EXECUTADA A FUNÇÃO DE CRIAÇÃO
   }
+
+  private buildForm() {
+    // INICIA O FORMULÁRIO VAZIO E FAZ A PRÉ VALIDAÇÃO
+    return this.formBuilder.group({
+      idBusiness: [null],
+      nome: ['', [Validators.required, Validators.minLength(3)]],
+      cnpj: ['', [Validators.required, Validators.minLength(14)]],
+      cep: ['', [Validators.required, Validators.minLength(8)]],
+      logradouro: ['', [Validators.required, Validators.minLength(5)]],
+      cidade: ['', [Validators.required, Validators.minLength(5)]],
+      bairro: ['', [Validators.required, Validators.minLength(5)]],
+      uf: ['', [Validators.required, Validators.minLength(2)]],
+      representante: ['', [Validators.required, Validators.minLength(5)]],
+      plano: ['', Validators.required],
+      responsavelTec: [{ idProfile: 1 }],
+      compl: [''],
+      telefone: [''],
+    });
+  }
+  
 
   protected validationCep(): void {
     // Armazena o valor do CEP digitado no formulário na variável
     const cep = this.form.controls.cep?.value;
 
-    //Verifica se existe o CEP, caso não exista, quebra a função
+    //Verifica se o CEP não é null, caso seja, quebra a função
     if (!cep) {
       return;
     }
@@ -69,24 +90,6 @@ export class FormBusinessComponent implements OnInit {
 
     // Caso o CEP não seja válido, exibe um alerta de erro
     this.alertService.onError(' O CEP preenchido não é valido!');
-  }
-
-  private buildForm() {
-    // INICIA O FORMS VAZIO E FAZ A PRÉ VALIDAÇÃO
-    return this.formBuilder.group({
-      nome: ['', [Validators.required, Validators.minLength(3)]],
-      cnpj: ['', [Validators.required, Validators.minLength(14)]],
-      cep: ['', [Validators.required, Validators.minLength(8)]],
-      logradouro: ['', [Validators.required, Validators.minLength(5)]],
-      cidade: ['', [Validators.required, Validators.minLength(5)]],
-      bairro: ['', [Validators.required, Validators.minLength(5)]],
-      uf: ['', [Validators.required, Validators.minLength(2)]],
-      representante: ['', [Validators.required, Validators.minLength(5)]],
-      plano: ['', Validators.required],
-      responsavelTec: [{ idProfile: 1 }], // PQ ESSE VALOR É UM OBJETO COM VALOR FIXO?
-      compl: [''],
-      telefone: [''],
-    });
   }
 
   private search(cep: string) {
@@ -116,6 +119,8 @@ export class FormBusinessComponent implements OnInit {
 
   private createBusinessPayload(): Business {
     const form = this.form.getRawValue();
+    const responsavelTec = {idProfile: 1,};
+  
 
     return {
       nome: form.nome,
@@ -127,15 +132,16 @@ export class FormBusinessComponent implements OnInit {
       logradouro: form.logradouro,
       plano: form.plano,
       representante: form.representante,
-      // responsavelTec: form.responsavelTec, O QUE DEVE SER ENVIADO AQUI, UM VALOR OU UM OBJETO?
       telefone: form.telefone,
       uf: form.uf,
+      responsavelTec: responsavelTec as Profile, //GAMBIARRA TEMPORARIA
+      idBusiness: form.idBusiness
     };
   }
 
   private createBusiness(): void {
     //SALVA UMA EMPRESA
-    this.businessService.save(this.createBusinessPayload()).subscribe({
+    this.businessService.create(this.createBusinessPayload()).subscribe({
       next: (res) => {
         this.notification.showMessageSucess('Sucesso! Empresa cadastrada');
         this.router.navigate(['business/list']);
@@ -152,9 +158,9 @@ export class FormBusinessComponent implements OnInit {
 
   private updateBusinessPayload(): Business {
     const form = this.form.getRawValue();
-
+    console.log('FORMULARIO COM VALORES CRUS: ', form);
     return {
-      idBusiness: this.business.idBusiness,
+      idBusiness: form.idBusiness,
       nome: form.nome,
       cnpj: form.cnpj,
       bairro: form.bairro,
@@ -164,9 +170,9 @@ export class FormBusinessComponent implements OnInit {
       logradouro: form.logradouro,
       plano: form.plano,
       representante: form.representante,
-      // responsavelTec: form.responsavelTec, O QUE DEVE SER ENVIADO AQUI, UM VALOR OU UM OBJETO?
       telefone: form.telefone,
       uf: form.uf,
+      responsavelTec: form.responsavelTec as Profile,//GAMBIARRA TEMPORARIA
     };
   }
 
@@ -195,13 +201,16 @@ export class FormBusinessComponent implements OnInit {
           return params['id'];
         }),
         switchMap((id) => {
-          return this.businessService.loadById(id);
+          return id !== undefined
+          ? this.businessService.loadById(id)
+          : of({} as Business);
         })
       )
       .subscribe({
         next: (business) => {
-          console.log(business);
+          console.log('OBJETO DO BANCO:',business);
           this.business = business;
+          this.form.patchValue(business as Partial<{ idBusiness: any; nome: string; cnpj: string; cep: string; logradouro: string; cidade: string; bairro: string; uf: string; representante: string; plano: string; responsavelTec: { idProfile: number; }; compl: string; telefone: string; }>)
         },
         error: (err) => {
           console.log(err);
