@@ -59,7 +59,7 @@ public class ProfileImpl implements IProfileService {
 	@Override
 	public boolean delete(Integer id) {
 		Optional<Profile> p = dao.findById(id);
-		if(p != null) {
+		if(p.isPresent()) {
 			dao.deleteById(id);
 			System.out.println("Perfil com id " + id + " excluido com sucesso!");
 			return true;

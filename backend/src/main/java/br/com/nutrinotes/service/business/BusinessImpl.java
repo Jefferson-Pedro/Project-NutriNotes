@@ -65,8 +65,13 @@ public class BusinessImpl implements IBusinessService {
 
 	@Override
 	public boolean delete(Integer id) {
-		dao.deleteById(id);
-		return true;
+		Optional<Business> b = dao.findById(id);
+		if (b.isPresent()) {
+			dao.deleteById(id);
+			return true;
+		}
+		System.err.println("Ocorreu um erro ao excluir a empresa");
+		return false;
 	}
 
 

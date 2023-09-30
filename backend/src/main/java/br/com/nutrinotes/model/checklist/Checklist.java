@@ -44,11 +44,6 @@ public class Checklist {
 	@JsonIgnoreProperties("business") //Tabela business
 	private Business idBusiness;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_template")
-	@JsonIgnoreProperties("checklist_template") //Tabela checklist_template_documentation
-	private TemplateCheckList idTemplate;
-
 	
 	//SET AND GET
 	
@@ -101,11 +96,4 @@ public class Checklist {
 		this.idBusiness = idBusiness;
 	}
 
-	public TemplateCheckList getidTemplate() {
-		return idTemplate;
-	}
-
-	public void setidTemplate(TemplateCheckList idTemplate) {
-		this.idTemplate = idTemplate;
-	}
 }
