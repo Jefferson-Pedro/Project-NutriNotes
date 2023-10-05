@@ -12,14 +12,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import br.com.nutrinotes.model.profile.Profile;
-import br.com.nutrinotes.service.profile.IProfileService;
+import br.com.nutrinotes.service.profile.IProfile;
 
 @SpringBootTest
 @ActiveProfiles("test")
 public class ProfileTests {
 	
 	@Autowired
-	IProfileService service;
+	IProfile service;
 	
 	@Test
 	public void shouldCreateProfile() {

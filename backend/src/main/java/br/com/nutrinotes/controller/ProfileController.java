@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nutrinotes.model.profile.Profile;
-import br.com.nutrinotes.service.profile.IProfileService;
+import br.com.nutrinotes.service.profile.IProfile;
 
 @RestController
 @RequestMapping("/profile")
@@ -26,7 +26,7 @@ import br.com.nutrinotes.service.profile.IProfileService;
 public class ProfileController {
 	
 	@Autowired
-	private IProfileService service;
+	private IProfile service;
 	
 	@GetMapping()
 	public ResponseEntity<List<Profile>> findAll(){
@@ -55,7 +55,7 @@ public class ProfileController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@PostMapping()
+	@PostMapping("/new")
 	public ResponseEntity<Profile> save(@RequestBody Profile novo) throws URISyntaxException{
 		System.out.println(novo.getNome());
 		Profile res = service.save(novo);

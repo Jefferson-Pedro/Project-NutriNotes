@@ -5,9 +5,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,30 +17,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.nutrinotes.model.business.Business;
-import br.com.nutrinotes.service.business.IBusiness;
+import br.com.nutrinotes.model.questions.Question;
+import br.com.nutrinotes.service.question.IQuestion;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/business")
-public class BusinessController {
+@RequestMapping("/question")
+public class QuestionController {
 	
 	@Autowired
-	IBusiness service;
-	
-	@GetMapping()
-	public ResponseEntity<Page<Business>> findAllPage(Pageable pageable){
-	    Page<Business> page = service.findAllPage(pageable);
-	    
-	    if(page.hasContent()) {
-	        return ResponseEntity.ok(page);
-	    }
-	    return ResponseEntity.notFound().build();
-	}
+	IQuestion service;
 	
 	@GetMapping("all")
-	public ResponseEntity<List<Business>> findAll(){
-		List<Business> list = service.findAll();
+	public ResponseEntity<List<Question>> findAll(){
+		List<Question> list = service.findAll();
 		if(list.size() > 0) {
 			return ResponseEntity.ok(list);
 		}
@@ -51,8 +38,8 @@ public class BusinessController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Business> findById(@PathVariable Integer id){
-		Business res = service.findById(id);
+	public ResponseEntity<Question> findById(@PathVariable Integer id){
+		Question res = service.findById(id);
 		if(res != null) {
 			return ResponseEntity.ok().body(res);
 		}
@@ -60,8 +47,8 @@ public class BusinessController {
 	}
 	
 	@GetMapping("/buscar")
-	public ResponseEntity<List<Business>> findByName(@RequestParam (name = "nome") String name){
-		List<Business> list = service.findByName(name);
+	public ResponseEntity<List<Question>> findByName(@RequestParam (name = "questao") String name){
+		List<Question> list = service.findByQuestions(name);
 		if(!list.isEmpty()) {
 			return ResponseEntity.ok(list);
 		}
@@ -69,17 +56,17 @@ public class BusinessController {
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<Business> save(@RequestBody Business newBusiness) throws URISyntaxException{
-		Business res = service.save(newBusiness);
+	public ResponseEntity<Question> save(@RequestBody Question newQuestion) throws URISyntaxException{
+		Question res = service.save(newQuestion);
 		if (res != null) {
-			return ResponseEntity.created(new URI("business/" + res.getIdBusiness())).body(res);	
+			//return ResponseEntity.created(new URI("Question/" + res.getIdQuestion())).body(res);	
 		}
 		return ResponseEntity.badRequest().build();
 	}
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<Business> update(@RequestBody Business business, @PathVariable Integer id){
-		Business res = service.update(business, id);
+	public ResponseEntity<Question> update(@RequestBody Question Question, @PathVariable Integer id){
+		Question res = service.update(Question, id);
 		if(res != null) {
 			return ResponseEntity.ok(res);
 		}
@@ -87,8 +74,8 @@ public class BusinessController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Business> delete(@PathVariable Integer id) {
-		Business res = service.findById(id);
+	public ResponseEntity<Question> delete(@PathVariable Integer id) {
+		Question res = service.findById(id);
 		if(res != null) { 
 			service.delete(id);
 			return ResponseEntity.noContent().build();

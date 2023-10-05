@@ -12,7 +12,7 @@ import br.com.nutrinotes.model.business.Business;
 import br.com.nutrinotes.model.profile.Profile;
 
 @Component
-public class ProfileImpl implements IProfileService {
+public class ProfileImpl implements IProfile {
 	
 	@Autowired
 	private ProfileDAO dao;

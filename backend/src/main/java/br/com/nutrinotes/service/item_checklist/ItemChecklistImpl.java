@@ -5,11 +5,13 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import br.com.nutrinotes.dao.item_checklist.ItemChecklistDAO;
 import br.com.nutrinotes.model.item_checklist.IdItemCheckList;
 import br.com.nutrinotes.model.item_checklist.ItemChecklist;
 
+@Component
 public class ItemChecklistImpl implements IItemChecklist {
 
 	@Autowired
@@ -39,8 +41,8 @@ public class ItemChecklistImpl implements IItemChecklist {
 
 	@Override
 	public List<ItemChecklist> findByName(String nome) {
-		return dao.findByNomeContaining(nome);
-	}
+		return null; //Descobrir um jeito de puxar
+	} 
 
 	@Override
 	public ItemChecklist findById(IdItemCheckList id) {

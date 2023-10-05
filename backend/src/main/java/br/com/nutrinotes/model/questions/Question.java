@@ -1,6 +1,6 @@
 package br.com.nutrinotes.model.questions;
 
-import br.com.nutrinotes.model.templates.TemplateCheckList;
+import br.com.nutrinotes.model.templates.TemplateChecklist;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,8 +23,8 @@ public class Question {
 	private String questions;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_template_documentation")
-	private TemplateCheckList template;
+	@JoinColumn(name = "id_template")
+	private TemplateChecklist template;
 
 	
 	public Integer getIdQuestions() {
@@ -43,16 +43,11 @@ public class Question {
 		this.questions = questions;
 	}
 
-	public TemplateCheckList getTemplate() {
+	public TemplateChecklist getTemplate() {
 		return template;
 	}
 
-	public void setTemplate(TemplateCheckList template) {
+	public void setTemplate(TemplateChecklist template) {
 		this.template = template;
 	}
-	
-	
-	
-
-	
 }

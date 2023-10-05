@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.nutrinotes.model.profile.Profile;
 
-public interface IProfileService {
+public interface IProfile {
 	
 	public Profile save(Profile novo);
 	public Profile update(Profile profile, Integer id);

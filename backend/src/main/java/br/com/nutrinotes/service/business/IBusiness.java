@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import br.com.nutrinotes.model.business.Business;
 
 
-public interface IBusinessService {
+public interface IBusiness {
 	
 	public Business save(Business novo);
 	public Business update(Business business, Integer id);

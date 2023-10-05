@@ -13,7 +13,7 @@ import br.com.nutrinotes.dao.business.BusinessDAO;
 import br.com.nutrinotes.model.business.Business;
 
 @Component
-public class BusinessImpl implements IBusinessService {
+public class BusinessImpl implements IBusiness {
 	
 	@Autowired
 	BusinessDAO dao;

@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "checklist_template")
-public class TemplateCheckList {
+public class TemplateChecklist {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,6 +76,4 @@ public class TemplateCheckList {
 	public void setIdSetores(Department idSetores) {
 		this.idSetores = idSetores;
 	}
-	
-	
 }

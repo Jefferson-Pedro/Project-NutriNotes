@@ -2,6 +2,7 @@ package br.com.nutrinotes.controller;
 
 import java.util.List;
 
+import org.aspectj.weaver.NewConstructorTypeMunger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nutrinotes.model.item_checklist.IdItemCheckList;
@@ -26,7 +28,7 @@ public class ItemChecklistController {
 	@Autowired
 	IItemChecklist service;
 	
-	@GetMapping("All")
+	@GetMapping("all")
 	public ResponseEntity<List<ItemChecklist>> findAll() {
 		List<ItemChecklist> list = service.findAll();
 		if(list.size() > 0) {
@@ -35,8 +37,11 @@ public class ItemChecklistController {
 		return ResponseEntity.notFound().build();	
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<ItemChecklist> findById(@PathVariable IdItemCheckList id){
+	@GetMapping("/")
+	public ResponseEntity<ItemChecklist> findById(@RequestParam (name = "idch") Integer idch,  
+												  @RequestParam (name = "iditem") Integer iditem){
+		IdItemCheckList id = new IdItemCheckList(idch, iditem);
+				
 		ItemChecklist res = service.findById(id);
 		if(res != null) {
 			return ResponseEntity.ok().body(res);
@@ -54,7 +59,8 @@ public class ItemChecklistController {
 	}
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<ItemChecklist> update (@RequestBody ItemChecklist item, @PathVariable IdItemCheckList id){
+	public ResponseEntity<ItemChecklist> update (@RequestBody ItemChecklist item, 
+												@PathVariable IdItemCheckList id){
 		ItemChecklist res = service.update(item, id);
 		if(res != null) {
 			return ResponseEntity.ok(res);

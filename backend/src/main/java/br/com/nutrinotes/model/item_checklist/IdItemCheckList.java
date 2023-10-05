@@ -11,12 +11,24 @@ import jakarta.persistence.ManyToOne;
 @Embeddable
 public class IdItemCheckList implements Serializable {
 	
+	public IdItemCheckList(Integer idch, Integer iditem) {
+		Question q = new Question();
+		Checklist c = new Checklist();
+		
+		c.setIdChecklist(idch);
+		q.setIdQuestions(iditem);
+		this.setChecklist(c);
+		this.setQuestion(q);
+	}
+	
+	public IdItemCheckList() {}
+
 	@ManyToOne
 	@JoinColumn(name = "id_questions")
 	private Question question;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_checkList")
+	@JoinColumn(name = "id_checklist")
 	private Checklist checklist;
 	
 
