@@ -40,6 +40,7 @@ public class ItemChecklistController {
 	@GetMapping("/")
 	public ResponseEntity<ItemChecklist> findById(@RequestParam (name = "idch") Integer idch,  
 												  @RequestParam (name = "iditem") Integer iditem){
+		
 		IdItemCheckList id = new IdItemCheckList(idch, iditem);
 				
 		ItemChecklist res = service.findById(id);
