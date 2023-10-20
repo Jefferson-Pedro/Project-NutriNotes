@@ -70,18 +70,18 @@ public class BusinessController {
 	
 	@PostMapping("/new")
 	public ResponseEntity<Business> save(@RequestBody Business newBusiness) throws URISyntaxException{
-		Business res = service.save(newBusiness);
-		if (res != null) {
-			return ResponseEntity.created(new URI("business/" + res.getIdBusiness())).body(res);	
+		
+		if (service.save(newBusiness)) {
+			return ResponseEntity.created(new URI("business/" + newBusiness.getIdBusiness())).body(newBusiness);	
 		}
 		return ResponseEntity.badRequest().build();
 	}
 	
 	@PutMapping("/edit/{id}")
 	public ResponseEntity<Business> update(@RequestBody Business business, @PathVariable Integer id){
-		Business res = service.update(business, id);
-		if(res != null) {
-			return ResponseEntity.ok(res);
+		
+		if(service.update(business, id)) {
+			return ResponseEntity.ok(business);
 		}
 		return ResponseEntity.badRequest().build();
 	}

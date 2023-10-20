@@ -7,8 +7,8 @@ import br.com.nutrinotes.model.templates.TemplateChecklist;
 
 public interface ITemplateChecklistService {
 	
-	public TemplateChecklist save(TemplateChecklist newTemplate);
-	public TemplateChecklist update(TemplateChecklist templateChecklist, Integer id);
+	public boolean save(TemplateChecklist newTemplate);
+	public boolean update(TemplateChecklist templateChecklist, Integer id);
 	public List<TemplateChecklist> findAll();
 	public List<TemplateChecklist> findByName(String nome);
 	public TemplateChecklist findById(Integer id);

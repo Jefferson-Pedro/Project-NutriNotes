@@ -1,10 +1,10 @@
 package br.com.nutrinotes.controller;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +28,7 @@ public class QuestionController {
 	@Autowired
 	IQuestion service;
 	
-	@GetMapping("all")
+	@GetMapping("/all")
 	public ResponseEntity<List<Question>> findAll(){
 		List<Question> list = service.findAll();
 		if(list.size() > 0) {
@@ -46,7 +46,7 @@ public class QuestionController {
 		return ResponseEntity.notFound().build();	
 	}
 	
-	@GetMapping("/buscar")
+	@GetMapping("/search")
 	public ResponseEntity<List<Question>> findByName(@RequestParam (name = "questao") String name){
 		List<Question> list = service.findByQuestions(name);
 		if(!list.isEmpty()) {
@@ -57,9 +57,12 @@ public class QuestionController {
 	
 	@PostMapping("/new")
 	public ResponseEntity<Question> save(@RequestBody Question newQuestion) throws URISyntaxException{
-		Question res = service.save(newQuestion);
-		if (res != null) {
-			//return ResponseEntity.created(new URI("Question/" + res.getIdQuestion())).body(res);	
+		
+		if (newQuestion == null) {	
+			 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+		if (service.save(newQuestion)) {
+			return ResponseEntity.ok(newQuestion);
 		}
 		return ResponseEntity.badRequest().build();
 	}

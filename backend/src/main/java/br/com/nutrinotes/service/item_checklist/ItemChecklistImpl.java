@@ -18,20 +18,27 @@ public class ItemChecklistImpl implements IItemChecklist {
 	private ItemChecklistDAO dao;
 
 	@Override
-	public ItemChecklist save(ItemChecklist newItem) {
-		return dao.save(newItem);
+	public boolean save(ItemChecklist newItem) {
+		if(newItem == null) {
+			System.err.println("O objeto está vazio.");
+			return false;
+		}
+		dao.save(newItem);
+		return true;
 	}
 
 	@Override
-	public ItemChecklist update(ItemChecklist itemChecklist, IdItemCheckList id) {
+	public boolean update(ItemChecklist itemChecklist, IdItemCheckList id) {
 		Optional<ItemChecklist> res = dao.findById(id);
 		if (res.isPresent()) {
 			ItemChecklist existingItem = res.get();
 			BeanUtils.copyProperties(itemChecklist, existingItem, "idItem");
-			return dao.save(existingItem);
+			dao.save(existingItem);
+			return true;
 		}
-		System.err.println("Erro ao editar o item do checklist");
-		return null;
+		System.err.println("Erro ao editar o item do checklist, verifique se as "
+				+ "informações estão preenchidas corretamente");
+		return false;
 	}
 
 	@Override

@@ -2,8 +2,8 @@ package br.com.nutrinotes.controller;
 
 import java.util.List;
 
-import org.aspectj.weaver.NewConstructorTypeMunger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,9 +41,9 @@ public class ItemChecklistController {
 	public ResponseEntity<ItemChecklist> findById(@RequestParam (name = "idch") Integer idch,  
 												  @RequestParam (name = "iditem") Integer iditem){
 		
-		IdItemCheckList id = new IdItemCheckList(idch, iditem);
-				
+		IdItemCheckList id = new IdItemCheckList(idch, iditem);	
 		ItemChecklist res = service.findById(id);
+		
 		if(res != null) {
 			return ResponseEntity.ok().body(res);
 		}
@@ -52,25 +52,41 @@ public class ItemChecklistController {
 	
 	@PostMapping("/new")
 	public ResponseEntity<ItemChecklist> save(@RequestBody ItemChecklist item){
-		ItemChecklist res = service.save(item);
-		if(res != null) {
-			return ResponseEntity.ok().body(res);
+		
+		if(item == null) {
+			System.err.println("Objeto vazio");
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
-		return ResponseEntity.notFound().build();
-	}
-	
-	@PutMapping("/edit/{id}")
-	public ResponseEntity<ItemChecklist> update (@RequestBody ItemChecklist item, 
-												@PathVariable IdItemCheckList id){
-		ItemChecklist res = service.update(item, id);
-		if(res != null) {
-			return ResponseEntity.ok(res);
+		
+		if(service.save(item)) {
+			return ResponseEntity.ok().body(item);
 		}
 		return ResponseEntity.badRequest().build();
 	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<ItemChecklist> delete (@PathVariable IdItemCheckList id){
+	@PutMapping("/edit/")
+	public ResponseEntity<ItemChecklist> update (@RequestBody ItemChecklist item,
+												 @RequestParam (name = "idch") Integer idch,  
+			  									 @RequestParam (name = "iditem") Integer iditem){
+		
+		IdItemCheckList id = new IdItemCheckList(idch, iditem);	
+				
+		if(item == null) {
+			System.err.println("Objeto vazio");
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+		
+		if(service.update(item, id)) {
+			return ResponseEntity.ok(item);
+		}
+		return ResponseEntity.badRequest().build();
+	}
+	
+	@DeleteMapping("/delete/")
+	public ResponseEntity<ItemChecklist> delete (@RequestParam (name = "idch") Integer idch,  
+				 								 @RequestParam (name = "iditem") Integer iditem){
+		
+		IdItemCheckList id = new IdItemCheckList(idch, iditem);	
 		ItemChecklist res = service.findById(id);
 		if(res != null) {
 			service.delete(id);

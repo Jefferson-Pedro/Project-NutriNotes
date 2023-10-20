@@ -17,13 +17,14 @@ public class QuestionImpl implements IQuestion {
 	QuestionDAO dao;
 
 	@Override
-	public Question save(Question novo) {
+	public boolean save(Question novo) {
 		if(novo.getQuestions().length() < 20) {
 			System.err.println("Erro ao cadastrar o novo item, "
 					+ "tem que ter no minimo 20 caracteres");
-			return null;
+			return false;
 		}
-		return dao.save(novo);
+		dao.save(novo);
+		return true;
 	}
 
 	@Override

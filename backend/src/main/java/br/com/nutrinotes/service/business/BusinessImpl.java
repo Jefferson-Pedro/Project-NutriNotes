@@ -19,28 +19,28 @@ public class BusinessImpl implements IBusiness {
 	BusinessDAO dao;
 
 	@Override
-	public Business save(Business novo) {
+	public boolean save(Business novo) {
 		novo.setResponsavelTec(novo.getResponsavelTec()); 
-		if(novo.getNome() != null || novo.getNome().length() > 0 || 
-		   novo.getCnpj() != null || novo.getCnpj().length() > 0 ) {
+		if(novo.getNome() != null || novo.getNome().length() > 3 || 
+		   novo.getCnpj() != null || novo.getCnpj().length() > 8 ) {
 			
-			System.out.println(novo.toString());
-			return dao.save(novo);
+			 dao.save(novo);
 		}
-		System.out.println("Erro ao cadastrar empresa!");
-		return null;
+		System.err.println("O objeto está nulo ou não cumpre os requisitos para o cadastro");
+		return false;
 	}
 
 	@Override
-	public Business update(Business business, Integer id) {
+	public boolean update(Business business, Integer id) {
 	    Optional<Business> res = dao.findById(id);
 	    if (res.isPresent()) {
 	        Business existingBusiness = res.get();
 	        BeanUtils.copyProperties(business, existingBusiness, "idBusiness");
-	        return dao.save(existingBusiness);
+	        dao.save(existingBusiness);
+	        return true;
 	    }
-	    System.out.println("Erro ao editar a empresa!");
-	    return null;
+	    System.err.println("Erro ao editar a empresa!");
+	    return false;
 	}
 	
 	@Override
@@ -70,7 +70,7 @@ public class BusinessImpl implements IBusiness {
 			dao.deleteById(id);
 			return true;
 		}
-		System.err.println("Ocorreu um erro ao excluir a empresa");
+		System.err.println("Ocorreu um erro ao excluir a empresa!");
 		return false;
 	}
 

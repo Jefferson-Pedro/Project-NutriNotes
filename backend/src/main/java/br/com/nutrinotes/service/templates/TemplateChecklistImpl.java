@@ -17,28 +17,32 @@ public class TemplateChecklistImpl implements ITemplateChecklistService {
 	TemplateChecklistDAO dao;
 
 	@Override
-	public TemplateChecklist save(TemplateChecklist newTemplate) {
+	public boolean save(TemplateChecklist newTemplate) {
 		
 		if(newTemplate.getTipoChecklist().length() < 5 
 				&& newTemplate.getFrequencia() == null ) {
 			System.err.println("Erro ao salvar o novo template. Não cumpre os requisitos minimos: "
 					+ "1- Ter a descrição do tipo maior que 5 caracteres "
 					+ "e/ou informado qual a frequencia do mesmo.");
-			return null;
+			return false;
 		}
-		return dao.save(newTemplate);
+		dao.save(newTemplate);
+		return true;
 	}
 
 	@Override
-	public TemplateChecklist update(TemplateChecklist templateChecklist, Integer id) {
+	public boolean update(TemplateChecklist templateChecklist, Integer id) {
+		
 		Optional<TemplateChecklist> res = dao.findById(id);
 		if (res.isPresent()) {
 			TemplateChecklist existingTemplate = res.get();
 			BeanUtils.copyProperties(templateChecklist, existingTemplate, "idTemplate");
-			return dao.save(existingTemplate);
+			dao.save(existingTemplate);
+			return true;
 		}
-		 System.err.println("Erro ao editar o template;");
-		return null;
+		 System.err.println("Erro ao editar o template, verifique se as " + 
+				 			"informações estão preenchidas corretamente");
+		return false;
 	}
 
 	@Override
@@ -58,7 +62,12 @@ public class TemplateChecklistImpl implements ITemplateChecklistService {
 
 	@Override
 	public boolean delete(Integer id) {
-
+		Optional<TemplateChecklist> template = dao.findById(id);
+		if (template.isPresent()) {
+			dao.deleteById(id);
+			return true;
+		}
+		System.err.println("Ocorreu um erro ao excluir o item do checklist");
 		return false;
 	}
 	

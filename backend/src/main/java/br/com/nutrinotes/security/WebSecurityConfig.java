@@ -18,11 +18,18 @@ public class WebSecurityConfig {
 		http.csrf().disable()
 		 .authorizeHttpRequests()
 		 .requestMatchers(HttpMethod.POST, "/user", "/login").permitAll()
-		 .requestMatchers(HttpMethod.POST, "/business/new", "/checklist/new", "/profile/**").permitAll()
+		 
+		 .requestMatchers(HttpMethod.POST, "/business/new", "/checklist/new", "/profile/**", 
+				 							"question/**", "/item/**", "template/**").permitAll()
+		 
 		 .requestMatchers(HttpMethod.GET, "/profile/**", "/business/**", "/checklist/**", 
-				 						  "/reminder/**", "/item/**", "question/**" ).permitAll()
-		 .requestMatchers(HttpMethod.DELETE, "/business/{id}", "/checklist/{id}").permitAll()
-		 .requestMatchers(HttpMethod.PUT, "/business/edit/{id}", "/checklist/edit/{id}").permitAll()
+				 						  "/reminder/**", "/item/**", "question/**", "template/**" ).permitAll()
+		 
+		 .requestMatchers(HttpMethod.DELETE, "/business/{id}", "/checklist/{id}", "question/{id}", 
+				 							"/item/delete/", "template/{id}"  ).permitAll()
+		 
+		 .requestMatchers(HttpMethod.PUT, "/business/edit/{id}", "/checklist/edit/{id}", 
+				 						 "question/edit/{id}","/item/edit/", "template/edit/{id}"  ).permitAll()
 	
 		 .anyRequest().authenticated().and().cors();
 
