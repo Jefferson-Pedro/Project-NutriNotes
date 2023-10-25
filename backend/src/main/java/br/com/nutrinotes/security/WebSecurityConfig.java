@@ -23,7 +23,7 @@ public class WebSecurityConfig {
 				 							"question/**", "/item/**", "template/**").permitAll()
 		 
 		 .requestMatchers(HttpMethod.GET, "/profile/**", "/business/**", "/checklist/**", 
-				 						  "/reminder/**", "/item/**", "question/**", "template/**" ).permitAll()
+				 						  "/reminder/**", "/item/**", "question/**", "template/**", "/department/**" ).permitAll()
 		 
 		 .requestMatchers(HttpMethod.DELETE, "/business/{id}", "/checklist/{id}", "question/{id}", 
 				 							"/item/delete/", "template/{id}"  ).permitAll()

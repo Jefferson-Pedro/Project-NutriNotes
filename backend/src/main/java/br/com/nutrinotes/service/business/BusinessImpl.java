@@ -55,7 +55,7 @@ public class BusinessImpl implements IBusiness {
 
 	@Override
 	public List<Business> findByName(String nome) {
-		return dao.findByNomeContaining(nome);
+		return dao.findByNomeStartingWith(nome);
 	}
 
 	@Override
@@ -73,8 +73,4 @@ public class BusinessImpl implements IBusiness {
 		System.err.println("Ocorreu um erro ao excluir a empresa!");
 		return false;
 	}
-
-
-
-
 }

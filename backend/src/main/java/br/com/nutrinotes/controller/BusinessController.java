@@ -59,8 +59,8 @@ public class BusinessController {
 		return ResponseEntity.notFound().build();	
 	}
 	
-	@GetMapping("/buscar")
-	public ResponseEntity<List<Business>> findByName(@RequestParam (name = "nome") String name){
+	@GetMapping("/search")
+	public ResponseEntity<List<Business>> findByName(@RequestParam (name = "name") String name){
 		List<Business> list = service.findByName(name);
 		if(!list.isEmpty()) {
 			return ResponseEntity.ok(list);

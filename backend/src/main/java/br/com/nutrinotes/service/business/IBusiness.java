@@ -17,5 +17,4 @@ public interface IBusiness {
 	public List<Business> findByName(String nome);
 	public Business findById(Integer id);
 	public boolean delete(Integer id);
-
 }
