@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 import br.com.nutrinotes.model.business.Business;
 
-
 public interface IBusiness {
 	
 	public boolean save(Business novo);

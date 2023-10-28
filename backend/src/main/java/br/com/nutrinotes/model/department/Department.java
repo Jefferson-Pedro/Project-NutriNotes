@@ -26,7 +26,7 @@ public class Department {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_business")
-	@JsonIgnoreProperties("department")
+	@JsonIgnoreProperties("setores")
 	private Business idBusiness;
 		
 	//GET AND SET

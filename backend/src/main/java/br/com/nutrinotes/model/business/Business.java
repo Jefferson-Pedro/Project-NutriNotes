@@ -1,8 +1,12 @@
 package br.com.nutrinotes.model.business;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import br.com.nutrinotes.model.department.Department;
 import br.com.nutrinotes.model.profile.Profile;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -58,6 +63,12 @@ public class Business {
 	@JoinColumn(name = "responsavel_tec")
 	@JsonIgnoreProperties("business")
 	private Profile responsavelTec;
+	
+	//No OneToMany não tem join column, só no contrário
+	@OneToMany(mappedBy = "idBusiness", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("business")
+    private List<Department> setores;
+
 	
 	//GETS E SETS
 
@@ -164,6 +175,14 @@ public class Business {
 	public void setResponsavelTec(Profile responsavelTec) {
 		this.responsavelTec = responsavelTec;
 	}
+		
+	public List<Department> getSetores() {
+		return setores;
+	}
+
+	public void setSetores(List<Department> setores) {
+		this.setores = setores;
+	}
 
 	@Override
 	public String toString() {
@@ -177,8 +196,4 @@ public class Business {
 				+ ", getPlano()=" + getPlano() + ", getResponsavelTec()=" + getResponsavelTec() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
-	
-	
-	
-	
 }

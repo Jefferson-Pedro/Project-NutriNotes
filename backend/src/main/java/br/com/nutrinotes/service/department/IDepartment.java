@@ -16,4 +16,6 @@ public interface IDepartment {
 	public List<Department> findByName(String nome);
 	public Department findById(Integer id);
 	public boolean delete(Integer id);
+	public List<Department> findDepartmentByIdBusiness(Integer id);
+	
 }

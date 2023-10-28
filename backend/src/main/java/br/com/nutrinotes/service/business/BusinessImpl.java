@@ -57,7 +57,7 @@ public class BusinessImpl implements IBusiness {
 	public List<Business> findByName(String nome) {
 		return dao.findByNomeStartingWith(nome);
 	}
-
+	
 	@Override
 	public Business findById(Integer id) {
 		return dao.findById(id).orElse(null);

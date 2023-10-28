@@ -43,6 +43,15 @@ public class DepartmentController {
 		return ResponseEntity.notFound().build();
 	}
 	
+	@GetMapping("/bybusiness/{id}")
+	public ResponseEntity<List<Department>> findByDepartmentByidBusiness(@PathVariable Integer id){
+		List<Department> list = service.findDepartmentByIdBusiness(id);
+		if(list.size() > 0) {
+			return ResponseEntity.ok(list);
+		}
+		return ResponseEntity.notFound().build();
+	}
+	
 	@PostMapping("/new")
 	public ResponseEntity<Department> save(@RequestBody Department department){
 		Department res = service.save(department);

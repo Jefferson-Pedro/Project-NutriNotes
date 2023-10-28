@@ -53,6 +53,11 @@ public class DepartmentImpl implements IDepartment {
 	public List<Department> findByName(String nome) {
 		return dao.findByNomeContaining(nome);
 	}
+	
+	@Override
+	public List<Department> findDepartmentByIdBusiness(Integer id) {
+		return dao.findDepartmentByIdBusiness(id);
+	}
 
 	@Override
 	public Department findById(Integer id) {
@@ -64,4 +69,5 @@ public class DepartmentImpl implements IDepartment {
 		dao.deleteById(id);
 		return true;
 	}
+
 }
