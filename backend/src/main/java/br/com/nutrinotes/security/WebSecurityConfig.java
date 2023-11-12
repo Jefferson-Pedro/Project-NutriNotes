@@ -20,7 +20,7 @@ public class WebSecurityConfig {
 		 .requestMatchers(HttpMethod.POST, "/user", "/login").permitAll()
 		 
 		 .requestMatchers(HttpMethod.POST, "/business/new", "/checklist/new", "/profile/**", 
-				 							"question/**", "/item/**", "template/**").permitAll()
+				 							"question/**", "/item/**", "template/**", "/reminder/**").permitAll()
 		 
 		 .requestMatchers(HttpMethod.GET, "/profile/**", "/business/**", "/checklist/**", 
 				 						  "/reminder/**", "/item/**", "question/**", "template/**", "/department/**" ).permitAll()

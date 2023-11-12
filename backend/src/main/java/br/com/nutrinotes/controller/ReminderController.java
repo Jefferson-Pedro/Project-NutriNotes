@@ -56,7 +56,7 @@ public class ReminderController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@PostMapping()
+	@PostMapping("/new")
 	public ResponseEntity<Reminder> create(@RequestBody Reminder reminder) throws URISyntaxException{
 		Reminder res = service.save(reminder);
 		if (res != null) {

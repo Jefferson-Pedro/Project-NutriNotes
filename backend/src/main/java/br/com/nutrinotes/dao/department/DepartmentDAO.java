@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.nutrinotes.model.department.Department;
@@ -12,6 +13,6 @@ import br.com.nutrinotes.model.department.Department;
 public interface DepartmentDAO extends JpaRepository<Department, Integer> {
 	public List<Department> findByNomeContaining(String palavraChave);
 	
-	@Query(value = "SELECT * FROM department WHERE id_business = ?1", nativeQuery = true)
-    List<Department> findDepartmentByIdBusiness(Integer IdBusiness);
+	@Query(value = "SELECT d FROM Department d WHERE d.idSetores = :idBusiness")
+    List<Department> findDepartmentByIdBusiness(@Param("idBusiness") Integer IdBusiness);
 }

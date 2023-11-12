@@ -30,6 +30,9 @@ public class Reminder {
 	@Column(name="data_evento")
 	private Date dataEvento;
 	
+	@Column(name="categoria")
+	private String categoria;
+	
 	@ManyToOne
 	@JoinColumn(name="id_profile")
 	private Profile idProfile;
@@ -66,6 +69,14 @@ public class Reminder {
 
 	public void setDataEvento(Date dataEvento) {
 		this.dataEvento = dataEvento;
+	}
+	
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 
 	public Profile getIdProfile() {
