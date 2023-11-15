@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.nutrinotes.dao.question.QuestionDAO;
+import br.com.nutrinotes.dto.QuestionDTO;
 import br.com.nutrinotes.model.questions.Question;
+import br.com.nutrinotes.model.templates.TemplateChecklist;
 
 @Component
 public class QuestionImpl implements IQuestion {
@@ -63,5 +65,10 @@ public class QuestionImpl implements IQuestion {
 		 }
 		 System.err.println("Ocorreu um erro para excluir a questão.");
 		return false;
+	}
+
+	@Override
+	public List<QuestionDTO> finQuestionByTemplate(Integer idTemplate) {
+		return dao.findQuestionsByTemplate(idTemplate);
 	}
 }

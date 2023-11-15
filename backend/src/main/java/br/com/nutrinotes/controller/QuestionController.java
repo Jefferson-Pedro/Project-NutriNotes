@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.nutrinotes.dto.QuestionDTO;
 import br.com.nutrinotes.model.questions.Question;
 import br.com.nutrinotes.service.question.IQuestion;
 
@@ -42,6 +43,15 @@ public class QuestionController {
 		Question res = service.findById(id);
 		if(res != null) {
 			return ResponseEntity.ok().body(res);
+		}
+		return ResponseEntity.notFound().build();	
+	}
+	
+	@GetMapping("template/{id}")
+	public ResponseEntity<List<QuestionDTO>> findQuestionsByTemplate(@PathVariable Integer id){
+		List<QuestionDTO> list = service.finQuestionByTemplate(id);
+		if(!list.isEmpty()) {
+			return ResponseEntity.ok().body(list);
 		}
 		return ResponseEntity.notFound().build();	
 	}
