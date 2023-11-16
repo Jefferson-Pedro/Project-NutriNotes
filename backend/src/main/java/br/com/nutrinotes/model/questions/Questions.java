@@ -12,35 +12,36 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "questions_checklist")
-public class Question {
+public class Questions {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_questions ")
-	private Integer idQuestions;
+	private Integer idQuestion;
 	
 	@Column(name = "questao")
-	private String questions;
+	private String question;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_template")
 	private TemplateChecklist template;
 
+						//GET E SET
 	
 	public Integer getIdQuestions() {
-		return idQuestions;
+		return idQuestion;
 	}
 
-	public void setIdQuestions(Integer idQuestions) {
-		this.idQuestions = idQuestions;
+	public void setIdQuestions(Integer idQuestion) {
+		this.idQuestion = idQuestion;
 	}
 
-	public String getQuestions() {
-		return questions;
+	public String getQuestion() {
+		return question;
 	}
 
-	public void setQuestions(String questions) {
-		this.questions = questions;
+	public void setQuestions(String question) {
+		this.question = question;
 	}
 
 	public TemplateChecklist getTemplate() {

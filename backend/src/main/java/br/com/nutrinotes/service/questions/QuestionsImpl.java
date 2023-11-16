@@ -1,4 +1,4 @@
-package br.com.nutrinotes.service.question;
+package br.com.nutrinotes.service.questions;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,20 +7,19 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.nutrinotes.dao.question.QuestionDAO;
+import br.com.nutrinotes.dao.questions.QuestionDAO;
 import br.com.nutrinotes.dto.QuestionDTO;
-import br.com.nutrinotes.model.questions.Question;
-import br.com.nutrinotes.model.templates.TemplateChecklist;
+import br.com.nutrinotes.model.questions.Questions;
 
 @Component
-public class QuestionImpl implements IQuestion {
+public class QuestionsImpl implements IQuestions {
 	
 	@Autowired
 	QuestionDAO dao;
 
 	@Override
-	public boolean save(Question novo) {
-		if(novo.getQuestions().length() < 20) {
+	public boolean save(Questions novo) {
+		if(novo.getQuestion().length() < 20) {
 			System.err.println("Erro ao cadastrar o novo item, "
 					+ "tem que ter no minimo 20 caracteres");
 			return false;
@@ -30,35 +29,35 @@ public class QuestionImpl implements IQuestion {
 	}
 
 	@Override
-	public Question update(Question question, Integer id) {
-		Optional<Question> res = dao.findById(id);
+	public Questions update(Questions Questions, Integer id) {
+		Optional<Questions> res = dao.findById(id);
 		  if (res.isPresent()) {
-			  Question  existingQuestion = res.get();
-			  BeanUtils.copyProperties(question, existingQuestion, "idQuestions");
-			  return dao.save(existingQuestion);
+			  Questions  existingQuestions = res.get();
+			  BeanUtils.copyProperties(Questions, existingQuestions, "idQuestionss");
+			  return dao.save(existingQuestions);
 		  }
 		  System.err.println("Erro ao editar a questão!");
 		return null;
 	}
 
 	@Override
-	public List<Question> findAll() {
+	public List<Questions> findAll() {
 		return dao.findAll();
 	}
 
 	@Override
-	public List<Question> findByQuestions(String nome) {
-		return dao.findByQuestions(nome);
+	public List<Questions> findByQuestions(String nome) {
+		return dao.findByQuestion(nome);
 	}
 
 	@Override
-	public Question findById(Integer id) {
+	public Questions findById(Integer id) {
 		return dao.findById(id).orElse(null);
 	}
 
 	@Override
 	public boolean delete(Integer id) {
-		Optional<Question> res = dao.findById(id);
+		Optional<Questions> res = dao.findById(id);
 		 if (res.isPresent()) {
 			 dao.deleteById(id);
 			 return true;
@@ -68,7 +67,7 @@ public class QuestionImpl implements IQuestion {
 	}
 
 	@Override
-	public List<QuestionDTO> finQuestionByTemplate(Integer idTemplate) {
+	public List<QuestionDTO> finQuestionsByTemplate(Integer idTemplate) {
 		return dao.findQuestionsByTemplate(idTemplate);
 	}
 }

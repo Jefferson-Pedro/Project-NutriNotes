@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nutrinotes.dto.QuestionDTO;
-import br.com.nutrinotes.model.questions.Question;
-import br.com.nutrinotes.service.question.IQuestion;
+import br.com.nutrinotes.model.questions.Questions;
+import br.com.nutrinotes.service.questions.IQuestions;
 
 @RestController
 @CrossOrigin("*")
@@ -27,11 +27,11 @@ import br.com.nutrinotes.service.question.IQuestion;
 public class QuestionController {
 	
 	@Autowired
-	IQuestion service;
+	IQuestions service;
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<Question>> findAll(){
-		List<Question> list = service.findAll();
+	public ResponseEntity<List<Questions>> findAll(){
+		List<Questions> list = service.findAll();
 		if(list.size() > 0) {
 			return ResponseEntity.ok(list);
 		}
@@ -39,8 +39,8 @@ public class QuestionController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Question> findById(@PathVariable Integer id){
-		Question res = service.findById(id);
+	public ResponseEntity<Questions> findById(@PathVariable Integer id){
+		Questions res = service.findById(id);
 		if(res != null) {
 			return ResponseEntity.ok().body(res);
 		}
@@ -49,7 +49,7 @@ public class QuestionController {
 	
 	@GetMapping("template/{id}")
 	public ResponseEntity<List<QuestionDTO>> findQuestionsByTemplate(@PathVariable Integer id){
-		List<QuestionDTO> list = service.finQuestionByTemplate(id);
+		List<QuestionDTO> list = service.finQuestionsByTemplate(id);
 		if(!list.isEmpty()) {
 			return ResponseEntity.ok().body(list);
 		}
@@ -57,8 +57,8 @@ public class QuestionController {
 	}
 	
 	@GetMapping("/search")
-	public ResponseEntity<List<Question>> findByName(@RequestParam (name = "questao") String name){
-		List<Question> list = service.findByQuestions(name);
+	public ResponseEntity<List<Questions>> findByName(@RequestParam (name = "questao") String name){
+		List<Questions> list = service.findByQuestions(name);
 		if(!list.isEmpty()) {
 			return ResponseEntity.ok(list);
 		}
@@ -66,7 +66,7 @@ public class QuestionController {
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<Question> save(@RequestBody Question newQuestion) throws URISyntaxException{
+	public ResponseEntity<Questions> save(@RequestBody Questions newQuestion) throws URISyntaxException{
 		
 		if (newQuestion == null) {	
 			 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -78,8 +78,8 @@ public class QuestionController {
 	}
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<Question> update(@RequestBody Question Question, @PathVariable Integer id){
-		Question res = service.update(Question, id);
+	public ResponseEntity<Questions> update(@RequestBody Questions Question, @PathVariable Integer id){
+		Questions res = service.update(Question, id);
 		if(res != null) {
 			return ResponseEntity.ok(res);
 		}
@@ -87,8 +87,8 @@ public class QuestionController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Question> delete(@PathVariable Integer id) {
-		Question res = service.findById(id);
+	public ResponseEntity<Questions> delete(@PathVariable Integer id) {
+		Questions res = service.findById(id);
 		if(res != null) { 
 			service.delete(id);
 			return ResponseEntity.noContent().build();

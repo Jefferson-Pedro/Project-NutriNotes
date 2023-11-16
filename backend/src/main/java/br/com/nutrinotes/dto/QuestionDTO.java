@@ -2,42 +2,34 @@ package br.com.nutrinotes.dto;
 
 public class QuestionDTO {
 	
-	private Integer idQuestions;
-	private String questions;
+	private Integer idQuestion;
+	private String question;
 	//private TemplateChecklist template;
 
 	
 	public QuestionDTO(Integer id, String question ) {
-		this.idQuestions = id;
-		this.questions = question;
+		this.idQuestion = id;
+		this.question = question;
 		
 	}
-	
-	//GETS E SETS
+							//GETS E SETS
 
 	public QuestionDTO() {}
 
-	public Integer getIdQuestions() {
-		return idQuestions;
+	public Integer getIdquestion() {
+		return idQuestion;
 	}
 
-	public void setIdQuestions(Integer idQuestions) {
-		this.idQuestions = idQuestions;
+	public void setIdquestion(Integer idquestion) {
+		this.idQuestion = idquestion;
 	}
 
-	public String getQuestions() {
-		return questions;
+	public String getquestion() {
+		return question;
 	}
 
-	public void setQuestions(String questions) {
-		this.questions = questions;
+	public void setquestion(String question) {
+		this.question = question;
 	}
 
-	/*public TemplateChecklist getTemplate() {
-		return template;
-	}
-
-	public void setTemplate(TemplateChecklist template) {
-		this.template = template;
-	}*/
 }

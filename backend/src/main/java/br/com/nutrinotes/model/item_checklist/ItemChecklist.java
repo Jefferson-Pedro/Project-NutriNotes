@@ -12,13 +12,14 @@ public class ItemChecklist {
 	@EmbeddedId
 	private IdItemCheckList idItem;
 	
-	@Column(name = "valor")
-	private Character valor;
+	@Column(name = "status")
+	private Character status;
 	
 	@Column(name = "observacoes")
 	private String observacoes;
 	
-
+			//GET E SET
+	
 	public IdItemCheckList getIdItem() {
 		return idItem;
 	}
@@ -27,12 +28,12 @@ public class ItemChecklist {
 		this.idItem = idItem;
 	}
 
-	public Character getValor() {
-		return valor;
+	public Character getstatus() {
+		return status;
 	}
 
-	public void setValor(Character valor) {
-		this.valor = valor;
+	public void setstatus(Character status) {
+		this.status = status;
 	}
 
 	public String getObservacoes() {

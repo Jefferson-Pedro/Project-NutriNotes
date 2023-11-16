@@ -3,7 +3,7 @@ package br.com.nutrinotes.model.item_checklist;
 import java.io.Serializable;
 
 import br.com.nutrinotes.model.checklist.Checklist;
-import br.com.nutrinotes.model.questions.Question;
+import br.com.nutrinotes.model.questions.Questions;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 public class IdItemCheckList implements Serializable {
 	
 	public IdItemCheckList(Integer idch, Integer iditem) {
-		Question q = new Question();
+		Questions q = new Questions();
 		Checklist c = new Checklist();
 		
 		c.setIdChecklist(idch);
@@ -25,18 +25,18 @@ public class IdItemCheckList implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "id_questions")
-	private Question question;
+	private Questions question;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_checklist")
 	private Checklist checklist;
 	
 
-	public Question getQuestion() {
+	public Questions getQuestions() {
 		return question;
 	}
 
-	public void setQuestion(Question question) {
+	public void setQuestion(Questions question) {
 		this.question = question;
 	}
 
