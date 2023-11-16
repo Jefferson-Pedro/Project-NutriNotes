@@ -1,4 +1,4 @@
 export interface QuestionDTO{
-    idQuestion: number;
+    idquestion: number;
     question: string;
 }

@@ -9,8 +9,7 @@ public class QuestionDTO {
 	
 	public QuestionDTO(Integer id, String question ) {
 		this.idQuestion = id;
-		this.question = question;
-		
+		this.question = question;	
 	}
 							//GETS E SETS
 
@@ -20,8 +19,8 @@ public class QuestionDTO {
 		return idQuestion;
 	}
 
-	public void setIdquestion(Integer idquestion) {
-		this.idQuestion = idquestion;
+	public void setIdquestion(Integer idQuestion) {
+		this.idQuestion = idQuestion;
 	}
 
 	public String getquestion() {

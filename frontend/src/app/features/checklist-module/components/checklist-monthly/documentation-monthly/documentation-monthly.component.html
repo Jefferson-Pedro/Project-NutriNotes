@@ -88,17 +88,20 @@
     </form>
 
                         <!-- FORM ITEM CHECKLIST -->
-    <form [formGroup]="formQuestion" (ngSubmit)="onSubmit()">
+    <form 
+      [formGroup]="formQuestion" 
+      (ngSubmit)="onSubmit()"
+      *ngIf="formQuestion">
       <table
         mat-table
-        [dataSource]="dataSource"
+        [dataSource]="questionFormArray.controls"
         formArrayName="questionsArray"
         class="mat-elevation-z2"
       >
         <ng-container matColumnDef="idQuestion">
           <th mat-header-cell *matHeaderCellDef>ID</th>
-          <td mat-cell *matCellDef="let row; index as i" #idRow>
-            {{ dataSource.data[i].idQuestion }}
+          <td mat-cell *matCellDef="let row; index as i">
+            {{ dataSource.data[i].idquestion }}
           </td>
         </ng-container>
 
@@ -136,7 +139,7 @@
                 #autosize="cdkTextareaAutosize"
                 cdkAutosizeMinRows="1"
                 cdkAutosizeMaxRows="5"
-                class="obs"
+                class="textarea-obs"
               ></textarea>
             </mat-form-field>
           </td>

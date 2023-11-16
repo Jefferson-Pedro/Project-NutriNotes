@@ -10,8 +10,6 @@ import { Department } from 'src/app/core/models/Department';
 import { MatTableDataSource } from '@angular/material/table';
 import { QuestionDTO } from 'src/app/core/models/QuestionDTO';
 
-
-
 @Component({
   selector: 'app-monthly-documentation',
   templateUrl: './documentation-monthly.component.html',
@@ -32,14 +30,16 @@ export class DocumentationMonthlyComponent implements OnInit {
   protected options: Business[] = [];
   protected setores?: Department[];
   private business: Business[] = [];
-  private questions: QuestionDTO[] = [];
   protected formChecklist = this.buildForm();
-  protected formQuestion = this.buildForm2();
+  protected formQuestion!: FormGroup;
   protected dataSource = new MatTableDataSource<QuestionDTO>();
   
   displayedColumns = ['idQuestion', 'question', 'status', 'considerations'];
 
-  constructor() {}
+  public get questionFormArray(): FormArray {
+    //Retorna o valor do formArray (variavel declarada no html)
+    return this.formQuestion?.controls['questionsArray'] as FormArray;
+  }
 
   ngOnInit(): void {
     this.onInputNomeEmpresaListener();
@@ -61,8 +61,8 @@ export class DocumentationMonthlyComponent implements OnInit {
   private listBusiness(){
     // Faz uma chamada unica ao BD para buscar as todas as empresas no banco de dados;
     this.checklistService.listBusiness().subscribe({
-      next: (value) => {
-          this.business = value;
+      next: (business) => {
+          this.business = business;
       },
       error: (err) => {
         console.log(err);
@@ -101,10 +101,20 @@ export class DocumentationMonthlyComponent implements OnInit {
     return business?.nome || '';
   }
 
-  private buildForm2() {
-    //Criando FormArray vazio com nome questionsArray
-    return this.fb.group({
-      questionsArray: this.fb.array([]),
+  private buildForm2(questions: QuestionDTO[]): void {
+    //Criar um array de FormGroup
+    const formGroups = questions.map((item) =>
+      this.fb.group({
+        idQuestion: item.idquestion,
+        question: item.question,
+        status: ['', Validators.required],
+        observacao: '',
+      })
+    );
+  
+    // Criar o FormArray com os FormGroup criados
+    this.formQuestion = this.fb.group({
+      questionsArray: this.fb.array(formGroups)
     });
   }
 
@@ -112,35 +122,15 @@ export class DocumentationMonthlyComponent implements OnInit {
     //Faz requisição ao BD para buscar a lista de questões por template
     let num = 1
     this.checklistService.listQuestions(num).subscribe({
-        next:(value)=> {
-          this.dataSource.data = value;
-          this.questions = value; 
-          console.log('Resposta do Servidor:', value);
+        next:(questions)=> {
+          this.dataSource.data = questions;
+          this.buildForm2(questions);
+          console.log(questions);
         },
         error:(err)=> {
             console.log(err);
         },
     });
-
-    this.createFormArray(this.questions);
-  }
-
-  private createFormArray(questions: QuestionDTO[]): void {
-    questions.forEach((item) => {
-      this.questionFormArray.push(
-        this.fb.group({
-          idQuestion: [item.idQuestion],
-          question: [item.question],
-          status: ['', Validators.required],
-          observacao: [''],
-        })
-      );
-    });
-  }
-
-  public get questionFormArray(): FormArray {
-    //Retorna o valor do formArray
-    return this.formQuestion.controls.questionsArray as FormArray;
   }
 
   startEditing() {

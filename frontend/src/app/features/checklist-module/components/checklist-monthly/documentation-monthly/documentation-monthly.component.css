@@ -25,18 +25,6 @@ table {
   /* width: 80vw; */
   margin: -1em auto 2em;
 }
-.obs {
-  width: 100%;
-  resize: none;
-  border: 1px solid #ccc;
-  padding: 5px;
-  box-sizing: border-box;
-  background-color: transparent; /* fundo inicial como transparente */
-  transition: background-color 0.3s; /*transição p/ mudar de cor*/
-}
-.obs:focus {
-  background-color: rgba(255, 255, 0, 0.2);
-}
 
 .buttons-container {
   display: flex;
