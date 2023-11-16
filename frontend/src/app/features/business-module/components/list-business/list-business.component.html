@@ -1,20 +1,15 @@
 <div class="container">
   <mat-card class="card-container">
-    <div class="d-flex justify-content-between ">
+    <div class="d-flex justify-content-between">
       <mat-toolbar mainColors>
-        Empresas Cadastradas
+        <div>Empresas Cadastradas</div>
+        <button 
+        mat-button 
+        class="add-button"
+        aria-label="Criar uma empresa"  
+        (click)="onCreateBusiness()">Criar Empresa
+        </button>
       </mat-toolbar>
-      <button
-      class="add-button"
-      mat-mini-fab
-      matTooltip="Criar uma empresa"
-      aria-label="Registrar uma empresa"
-      (click)="onCreateBusiness()"
-    >
-      <mat-icon class="add-icon"> 
-        add
-      </mat-icon>
-    </button>
     </div>
 
     <div *ngIf="business; else loading" class="mat-elevation-z8"> 
@@ -52,8 +47,13 @@
 
               <mat-menu #beforeMenu="matMenu">
 
+                <button mat-menu-item (click)="onCreateDepartment(business)">
+                  <mat-icon class="text-success">domain_add</mat-icon>
+                  Gerenciar Setores
+                </button>
+
                 <button mat-menu-item (click)="onEdit(business)">
-                  <mat-icon class="text-success">edit</mat-icon>
+                  <mat-icon color="primary">edit</mat-icon>
                   Editar
                 </button>
 

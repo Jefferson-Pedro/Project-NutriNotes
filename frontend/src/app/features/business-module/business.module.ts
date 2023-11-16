@@ -20,11 +20,15 @@ import { BusinessRoutingModule } from './business-routing.module';
 import { FormBusinessComponent } from './components/form-business';
 import { ListBusinessComponent } from './components/list-business';
 import { MatMenuModule } from '@angular/material/menu';
+import { FormDepartmentComponent } from './components/form-department/form-department.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     FormBusinessComponent,
     ListBusinessComponent,
+    FormDepartmentComponent,
 
   ],
   imports: [
@@ -47,7 +51,9 @@ import { MatMenuModule } from '@angular/material/menu';
     MatNativeDateModule,
     MatRadioModule,
     MatTooltipModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTabsModule,
+    MatDialogModule
 
   ]
 })

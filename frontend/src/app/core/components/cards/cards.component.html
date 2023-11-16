@@ -20,8 +20,12 @@
             </p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button (click)="openDialogCreateDaily()">CRIAR</button>
-            <button mat-button>CONSULTAR</button>
+            <button
+            class="me-2" 
+            mat-stroked-button 
+            (click)="openDialogCreateDaily()">CRIAR</button>
+            <button 
+            mat-stroked-button>CONSULTAR</button>
           </mat-card-actions>
         </div>
       </mat-card>
@@ -45,8 +49,13 @@
             </p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button (click)="openDialogCreateMonthly()">CRIAR</button>
-            <button mat-button (click)="onListCheckListMonthly()">CONSULTAR</button>
+            <button 
+              mat-stroked-button 
+              class="me-2" 
+              (click)="openDialogCreateMonthly()">CRIAR</button>
+            <button 
+              mat-stroked-button 
+              (click)="onListCheckListMonthly()">CONSULTAR</button>
           </mat-card-actions>
         </div>
       </mat-card>
@@ -65,8 +74,13 @@
             <p>Consulte, analise e compare seus dados.</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button (click)="onCreateReport()">CRIAR</button>
-            <button mat-button (click)="onViewReport()">CONSULTAR</button>
+            <button 
+              mat-stroked-button
+              class="me-2" 
+              (click)="onCreateReport()">CRIAR</button>
+            <button 
+              mat-stroked-button 
+              (click)="onViewReport()">CONSULTAR</button>
           </mat-card-actions>
         </div>
       </mat-card>
@@ -92,8 +106,13 @@
             </p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button (click)="onCreateBusiness()">CRIAR</button>
-            <button mat-button (click)="onReadBusiness()">CONSULTAR</button>
+            <button 
+              mat-stroked-button 
+              class="me-2" 
+              (click)="onCreateBusiness()">CRIAR</button>
+            <button 
+              mat-stroked-button 
+              (click)="onReadBusiness()">CONSULTAR</button>
           </mat-card-actions>
         </div>
       </mat-card>
@@ -112,7 +131,9 @@
            <p>Consulte as principais leis que regem a Nutrição.</p>
          </mat-card-content>
          <mat-card-actions>
-           <button mat-button (click)="openDialogLegislation()">CONSULTAR</button>
+           <button 
+            mat-stroked-button 
+            (click)="openDialogLegislation()">CONSULTAR</button>
          </mat-card-actions>
        </div>
      </mat-card>
@@ -140,8 +161,14 @@
            </p>
          </mat-card-content>
          <mat-card-actions>
-           <button mat-button (click)="onFormReminder()">CRIAR</button>
-           <button mat-button (click)="onListReminder()">CONSULTAR</button>
+           <button 
+            mat-stroked-button 
+            class="me-2" 
+            (click)="onFormReminder()">CRIAR</button>
+           <button 
+            mat-stroked-button
+            class="me-2"  
+            (click)="onListReminder()">CONSULTAR</button>
          </mat-card-actions>
        </div>
      </mat-card>

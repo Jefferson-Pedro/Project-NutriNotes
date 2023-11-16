@@ -3,13 +3,9 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  /* background-color: #6BF2AF; */
-  /* background-color: #004746; */
   background-image: url('../../../../../assets/img/plano-fundo.jpg');
   background-repeat: no-repeat; /* Impede que a imagem se repita */
   background-size: cover; /* Faz com que a imagem cubra todo o plano de fundo*/
-  /* opacity: 0.5; */
-
 }
 .login-password {
   display: flex;

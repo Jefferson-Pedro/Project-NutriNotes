@@ -2,6 +2,8 @@
     margin: 20px;
 }
 .title {
+    display: flex;
+    justify-content: space-between;
     font-size: 2rem; 
     font-weight: 400;
     line-height: 1.2;
@@ -11,6 +13,9 @@
 }
 .title-subtitle{
     margin-bottom: 1.5rem;
+}
+.button-toggle{
+   justify-content: end;
 }
 
 mat-card{

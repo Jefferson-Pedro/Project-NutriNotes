@@ -9,6 +9,7 @@ import { AlertService } from 'src/app/features/shared-module/services/alert/aler
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
 import { BusinessService } from '../../services';
 import { PaginatorConfig } from '../../../../core/models/PaginatorConfig';
+import { FormDepartmentComponent } from '../form-department';
 
 @Component({
   selector: 'app-list-business',
@@ -38,7 +39,8 @@ export class ListBusinessComponent implements OnInit {
     private service: BusinessService,
     private notification: NotificationService,
     private router: Router,
-    protected alert: AlertService
+    protected alert: AlertService,
+    private dialog: MatDialog
   ) {
     this.onpageList();
   }
@@ -75,6 +77,11 @@ export class ListBusinessComponent implements OnInit {
 
   public onCreateBusiness() {
     this.router.navigate(['business/new']);
+  }
+
+  public onCreateDepartment(business: Business){
+    const dialogRef = this.dialog.open(FormDepartmentComponent);
+    
   }
 
   public onEdit(business: Business) {

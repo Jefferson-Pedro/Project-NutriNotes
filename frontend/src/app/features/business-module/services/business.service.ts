@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { delay, first } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { Business } from 'src/app/core/models/Business';
+import { Department } from 'src/app/core/models/Department';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -49,6 +50,12 @@ export class BusinessService {
     const url = `${environment.baseUrl}/business/edit/${business.idBusiness}`;
 
     return this.http.put<Business>(url, business);
+  }
+
+  public findDepartmentByBusiness() {
+    const url = `${environment.baseUrl}/department/all`;
+
+    return this.http.get<Department[]>(url).pipe(first(), delay(1000));
   }
 
   //Cria ou Atualiza uma empresa.

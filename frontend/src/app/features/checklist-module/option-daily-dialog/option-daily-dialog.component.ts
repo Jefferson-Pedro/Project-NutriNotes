@@ -18,14 +18,53 @@ export class OptionDailyDialogComponent implements OnInit {
 
   public constructor (private router:Router){}
 
-  onDocumentationClick(){
-    this.documentacao = true;
-  }
-   
-  onContinueClick(){
-    if(this.documentacao == true){
-      this.router.navigate(['checklist/documentation-daily']);
-    }
+  public onDocumentationClick(): boolean{
+    return this.documentacao = true; 
   }
 
+  public onWorkplaceSafety(): boolean{
+    return this.segDoTrab = true; 
+  }
+
+  public onEnvironmentalSafety(): boolean{
+    return this.segAmb = true; 
+  }
+
+  public onFoodSafety(): boolean{
+    return this.segAlim = true; 
+  }
+
+  public onEmployeeHealth(): boolean{
+    return this.saudeFunc = true; 
+  }
+
+  onContinueClick(): void {
+    switch (true) {
+      case this.documentacao: {
+        this.router.navigate(['checklist/documentation-daily']);
+        break;
+      }
+      case this.segDoTrab: {
+        console.log('Clicou no Seg do trabalho!');
+        break;
+      }
+      case this.segAmb: {
+        // Lógica relacionada à segurança ambiental
+        break;
+      }
+      case this.segAlim: {
+        // Lógica relacionada à segurança alimentar
+        break;
+      }
+      case this.saudeFunc: {
+        // Lógica relacionada à saúde do funcionário
+        break;
+      }
+      default: {
+        // Caso nenhum botão seja clicado
+        break;
+      }
+    }
+  }
+  
 }

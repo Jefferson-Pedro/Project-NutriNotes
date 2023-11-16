@@ -1,3 +1,4 @@
+import { Department } from "./Department";
 import { Profile } from "./Profile";
 
 export interface Business {
@@ -13,6 +14,7 @@ export interface Business {
     uf?: string;
     representante?: string;
     responsavelTec?: Profile;
+    setores?: Department[];
     plano?: string;
   }
   

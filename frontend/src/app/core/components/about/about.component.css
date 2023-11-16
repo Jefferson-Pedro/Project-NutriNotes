@@ -5,13 +5,8 @@
 }
 
 .text-container {
-  padding: 15px;
-}
-
-.text {
-  font-size: medium;
-  text-align: left;
-  text-indent: 30px;
+  padding: 20px;
+  font-size: 1rem;
 }
 
 @media (min-width: 834px) and (max-width: 884px) {

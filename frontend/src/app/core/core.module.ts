@@ -10,18 +10,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterModule } from '@angular/router';
 import { SharedModule } from '../features/shared-module';
 import { AboutComponent } from './components/about';
 import { CardsComponent } from './components/cards';
 import { HomeComponent } from './components/home';
+import { LegislationComponent } from './components/legislation';
 import { PageNotFoundComponent } from './components/page-not-found';
 import { ProfileComponent } from './components/profile';
 import { SupportUsComponent } from './components/support-us';
 import { CoreRoutingModule } from './core-routing.module';
-import { LegislationComponent } from './components/legislation';
-import { RouterModule } from '@angular/router';
+import { AlternativeMainColorsDirective } from './directives/css-alternative';
 
 
 @NgModule({
@@ -33,6 +35,7 @@ import { RouterModule } from '@angular/router';
     CardsComponent,
     PageNotFoundComponent,
     LegislationComponent,
+    AlternativeMainColorsDirective,
   ],
   imports: [
     CommonModule,
@@ -52,6 +55,8 @@ import { RouterModule } from '@angular/router';
     MatIconModule,
     MatDialogModule,
     MatToolbarModule,
+    MatSlideToggleModule
+   
   ],
 })
 export class CoreModule { }

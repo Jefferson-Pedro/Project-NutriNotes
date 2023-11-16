@@ -8,7 +8,7 @@
     flex-direction: column;
     margin: 5%;
     width: 90%; 
-    
+    height: 90%;
 }
 
 .loading-spinner{
@@ -24,13 +24,14 @@
 }
 
 .add-button{
-    position: absolute;
-    right: 10px;
-    top: 12px;
-    background-color: #ffc745;
+    
+    background-color: #ffc745 !important;
+    color: #004746 !important;
 }
 
-.add-icon{
-    color: #004746;
+mat-toolbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 

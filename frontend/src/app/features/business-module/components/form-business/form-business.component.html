@@ -33,7 +33,7 @@
           <mat-error>O CNPJ é obrigatório</mat-error>
         </mat-form-field>
 
-        <mat-form-field class="col-4">
+        <mat-form-field class="col-6">
           <mat-label>CEP</mat-label>
           <input
             type="text"
@@ -41,14 +41,11 @@
             inputmode="numeric"
             placeholder="XXXXXXXX"
             formControlName="cep"
+            (blur)="validationCep()"
           />
           <mat-icon matSuffix>123</mat-icon>
           <mat-error>O CEP é obrigatório</mat-error>
         </mat-form-field>
-
-        <button mat-mini-fab mainColors class="col-2" (click)="validationCep()">
-          <mat-icon class="color-secondary">search</mat-icon>
-        </button>
 
         <mat-form-field class="col-12">
           <mat-label>Logradouro</mat-label>

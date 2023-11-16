@@ -22,6 +22,7 @@ import { LoaderComponent } from './components/loader';
 import { NavComponent } from './components/nav';
 import { CssDirective } from './directives/css';
 
+
 registerLocaleData(localePt);
 
 @NgModule({
@@ -48,7 +49,9 @@ registerLocaleData(localePt);
     MatProgressSpinnerModule,
     MatBadgeModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+
+
   ],
   exports: [
       CssDirective,

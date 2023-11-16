@@ -12,22 +12,16 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-/* .color-primary {
-  background-color: #004746;
-  /*background-color: #344955;
-}
-.color-secondary {
-  color: #ffc745;
-}*/
-
 .primary-button{
   background-color: #004746 !important;
   color: #ffc745 !important;
 }
+
 .color-warn {
   background-color: red;
   color: red;
 }
+
 .v-middle {
   vertical-align: middle;
 }
@@ -53,4 +47,3 @@ button.swal2-confirm{
   background-color: #004746 !important;
   color: #ffc745 !important;
 }
-

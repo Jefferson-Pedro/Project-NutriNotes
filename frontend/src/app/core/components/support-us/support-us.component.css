@@ -5,15 +5,9 @@
   }
   
   .text-container {
-    padding: 15px;
+    padding: 20px;
+    font-size: 1rem;
   } 
-  
-  .text {
-    font-size: medium;
-    text-align: left;
-    text-indent: 30px;
-  }
-
   
   @media (min-width: 834px) and (max-width: 884px) {
     .card-container {
