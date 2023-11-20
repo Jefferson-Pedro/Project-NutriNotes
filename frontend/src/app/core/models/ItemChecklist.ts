@@ -1,8 +1,10 @@
-import { IdItemCheckList } from "./IdItemCheckList";
-
 export interface ItemChecklist{
     idItem: IdItemCheckList;
-    question: string;
-    status?: string;
-    observacoes?: string;
+    valor: string;
+    observacoes: string;
+}
+
+interface IdItemCheckList {
+    question: {[key:string]:number},
+    checklist: {[key:string]:number}
 }

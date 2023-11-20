@@ -1,6 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Checklist } from 'src/app/core/models/Checklist';
 import { ChecklistService } from '../../../service';
 import { Business } from 'src/app/core/models/Business';
@@ -20,12 +20,14 @@ export class DocumentationMonthlyComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private fb = inject(NonNullableFormBuilder);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private checklistService = inject(ChecklistService);
   
   protected isEditing: boolean = false;
   protected defaultTitle: string = 'CheckList Mensal - Documentação';
   protected editedTitle: string = '';
 
+  private templateId = history.state.id;
   protected checkList!: Checklist[];
   protected options: Business[] = [];
   protected setores?: Department[];
@@ -44,7 +46,7 @@ export class DocumentationMonthlyComponent implements OnInit {
   ngOnInit(): void {
     this.onInputNomeEmpresaListener();
     this.listBusiness();
-    this.getQuestions();
+    this.getQuestions(); 
   }
 
   protected buildForm(){
@@ -102,26 +104,23 @@ export class DocumentationMonthlyComponent implements OnInit {
   }
 
   private buildForm2(questions: QuestionDTO[]): void {
-    //Criar um array de FormGroup
-    const formGroups = questions.map((item) =>
-      this.fb.group({
-        idQuestion: item.idquestion,
-        question: item.question,
-        status: ['', Validators.required],
-        observacao: '',
-      })
-    );
-  
-    // Criar o FormArray com os FormGroup criados
     this.formQuestion = this.fb.group({
-      questionsArray: this.fb.array(formGroups)
+      questionsArray: this.fb.array(
+        questions.map((item) => this.fb.group({
+          idQuestion: item.idquestion,
+          question: item.question,
+          status: ['', Validators.required],
+          observacao: '',
+        })
+        )
+      )
     });
   }
 
   private getQuestions(): void {
     //Faz requisição ao BD para buscar a lista de questões por template
-    let num = 1
-    this.checklistService.listQuestions(num).subscribe({
+    const id = 1;
+    this.checklistService.listQuestions(id).subscribe({
         next:(questions)=> {
           this.dataSource.data = questions;
           this.buildForm2(questions);

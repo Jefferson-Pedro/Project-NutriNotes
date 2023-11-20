@@ -18,7 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterModule } from '@angular/router';
+import { RouterModule, provideRouter, withComponentInputBinding } from '@angular/router';
 import { getPtPaginatorIntl } from 'src/app/core/intl/paginator-intl';
 import { SharedModule } from '../shared-module';
 import { CheklistRoutingModule } from './checklist-routing.module';
@@ -27,6 +27,7 @@ import { DocumentationMonthlyComponent } from './components/checklist-monthly/do
 import { ListChecklistMonthlyComponent } from './components/list-checklist-monthly';
 import { OptionDailyDialogComponent } from './option-daily-dialog';
 import { OptionMonthlyDialogComponent } from './option-monthly-dialog/option-monthly-dialog.component';
+import { provideHttpClient } from '@angular/common/http';
 
 
 @NgModule({
@@ -64,7 +65,10 @@ import { OptionMonthlyDialogComponent } from './option-monthly-dialog/option-mon
     MatAutocompleteModule
   ], 
   exports: [],
-  providers: [{ provide: MatPaginatorIntl, useValue: getPtPaginatorIntl() },
+  providers: [
+    { provide: MatPaginatorIntl, useValue: getPtPaginatorIntl() },
+    // provideHttpClient(),
+    // provideRouter(routes, withComponentInputBinding())
   ],
 })
 export class ChecklistModule { }

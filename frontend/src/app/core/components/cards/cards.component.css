@@ -2,6 +2,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
+  
+  @media screen and (width < 1432px) {
+    justify-content: center;
+  }
 }
 
 .card-container {
@@ -11,6 +15,7 @@
   min-height: 325px;
   border: 1px solid #d8d8d8;
   transition: transform 0.3s ease-in-out;
+  width: 260px;
 }
 
 .card-container:hover{
@@ -54,59 +59,3 @@ mat-card-content > p{
 
 /*Para telas menos que 1920px */
 
-@media (max-width: 1920px) {
-  .container-main {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    justify-content: center; 
-  }
-
-  .card-container {
-    flex-basis: calc(27% - 1rem); /* 33.33% para três cards em uma linha com o espaçamento */
-    margin: 0.5rem;
-    transition: transform 0.3s ease-in-out;
-  }
-}
-
-/*Para telas menores que 1366px e maior que 1000px*/
-
-@media (min-width: 1000px) and (max-width: 1366px) {
-  .container-main{
-    display: flex;
-    margin: 0 auto 1em;
-    justify-items: center;
-    justify-content: center;
-    align-items: center;
-    row-gap: 1em;
-    column-gap: 3.5em;
-  }
-  .card-container {
-    max-width: 25%;
-    max-height: 25%;
-    margin: 0;
-  }
-  mat-card-content {
-    width: 90%;
-    height: auto;
-    padding: 0.5rem;
-  }
-}
-
-/*Para telas menores que 1000px e maior que 768px*/
-
-@media (min-width: 768px) and (max-width: 1000px) {
-
-}
-
-/*Para telas menores que 460px*/
-
-@media (max-width: 460px) {
-
-}
-
-/*Para telas menores que 320px*/
-
-@media (max-width: 320px) {
-
-}

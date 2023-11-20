@@ -15,11 +15,15 @@ export class CardsComponent {
   constructor(private dialog: MatDialog, private router: Router, route: ActivatedRoute ) {}
 
   public openDialogCreateDaily(): void{
-    const dialogRef = this.dialog.open(OptionDailyDialogComponent);
+    const dialogRef = this.dialog.open(OptionDailyDialogComponent , {
+      autoFocus: false
+    });
   }
 
   public openDialogCreateMonthly(): void{
-    const dialogRef = this.dialog.open(OptionMonthlyDialogComponent);
+    const dialogRef = this.dialog.open(OptionMonthlyDialogComponent, {
+      autoFocus: false
+    });
   }
   
   public onListCheckListMonthly(): void{

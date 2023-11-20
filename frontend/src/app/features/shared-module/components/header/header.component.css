@@ -5,7 +5,8 @@
 .container{
   display: flex;
   justify-content: space-between;
-  margin: 0;
+  padding-left: 0;
+  margin-left: -10px;
 }
 .logo {
   display: flex;
