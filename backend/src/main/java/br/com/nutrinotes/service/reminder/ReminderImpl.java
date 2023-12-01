@@ -5,10 +5,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import br.com.nutrinotes.dao.reminder.ReminderDAO;
+import br.com.nutrinotes.dto.ReminderDTO;
+import br.com.nutrinotes.dto.ReminderMapper;
 import br.com.nutrinotes.model.reminder.Reminder;
 
 @Component
@@ -16,6 +19,10 @@ public class ReminderImpl implements IReminderService{
 	
 	@Autowired
 	private ReminderDAO dao;
+	
+	@Autowired
+	private ReminderMapper mapper;
+
 
 	@Override
 	public Reminder save(Reminder novo) {
@@ -58,6 +65,13 @@ public class ReminderImpl implements IReminderService{
 	@Override
 	public Page<Reminder> findAllPage(Pageable pageable) {
 		return dao.findAll(pageable);
+	}
+
+	@Override
+	public Page<ReminderDTO> findAllPageDTO(Pageable pageable) {
+		Page<Reminder> page = dao.findAll(PageRequest.of(0, 5));
+	
+		return null;
 	}
 
 	
