@@ -50,12 +50,12 @@ export class CardsComponent {
     this.router.navigate(['business/list']);
   }
 
-  onFormReminder(){
-    this.router.navigate(['reminder/form-notifications']);
+  onCalendarReminder(){
+    this.router.navigate(['reminder/calendario-de-eventos']);
   }
 
   onListReminder(){
-    this.router.navigate(['reminder/list-notifications']);
+    this.router.navigate(['reminder/lista-de-notificacoes']);
   }
 
 }
