@@ -1,0 +1,64 @@
+<!-- FORM DE PREENCHIMENTO -->
+<form [formGroup]="formChecklist" class="p-3">
+  <div class="row">
+    <mat-form-field class="col-8">
+      <mat-label>Nome da Empresa</mat-label>
+      <input
+        type="text"
+        placeholder="Empresa de exemplo ltda."
+        aria-label="Nome da Empresa"
+        matInput
+        formControlName="nomeEmpresa"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of options" [value]="option">
+          {{ option.nome }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-icon matSuffix>corporate_fare</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="col-4">
+      <mat-label>Setores</mat-label>
+      <mat-select formControlName="unidade">
+        <mat-option *ngFor="let setor of setores" [value]="setor">
+          {{ setor.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="col-8">
+      <mat-label>Nome do Gestor</mat-label>
+      <input matInput formControlName="gestor" required />
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="col-4">
+      <mat-label>Turno</mat-label>
+      <mat-select formControlName="turno">
+        <mat-option>Clear</mat-option>
+        <mat-option value="Manhã">Manhã</mat-option>
+        <mat-option value="Tarde">Tarde</mat-option>
+        <mat-option value="Noite">Noite</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="col-8">
+      <mat-label>Responsável Técnico</mat-label>
+      <input matInput disabled value="Anna Thays" />
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="col-4">
+      <mat-label>Data da Auditoria</mat-label>
+      <input
+        formControlName="dataAuditoria"
+        matInput
+        [matDatepicker]="picker"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+</form>
