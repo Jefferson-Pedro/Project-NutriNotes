@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent {
+
+  private formBuilder = inject(FormBuilder);
 
   firstFormGroup = this.formBuilder.group({
     email: ['', Validators.required],
@@ -17,11 +19,12 @@ export class AccountComponent {
   thirdFormGroup = this.formBuilder.group({
     crn: ['', Validators.required],
   });
+
   isEditable = false;
 
-  public stepperOrientation: 'horizontal' | 'vertical' = 'horizontal';
+  public stepperOrientation: 'horizontal' | 'vertical' = 'horizontal'; 
   
-  constructor(private formBuilder: FormBuilder) {
+  constructor() {
     this.setStepperOrientation();
   }
 
@@ -37,7 +40,6 @@ export class AccountComponent {
     this.stepperOrientation = screen <= 460 ? 'vertical' : 'horizontal';
   }
   
-
   public onClose(){}
 
   public onSubmit(){}
