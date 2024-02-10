@@ -1,0 +1,71 @@
+<!-- FORM ITEM CHECKLIST -->
+<form [formGroup]="formQuestion" (ngSubmit)="onSubmit()" *ngIf="formQuestion">
+  <table
+    mat-table
+    [dataSource]="questionFormArray.controls"
+    formArrayName="questionsArray"
+    class="mat-elevation-z2"
+  >
+    <ng-container matColumnDef="idQuestion">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let row; index as i">
+        {{ dataSource.data[i].idquestion }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="question">
+      <th mat-header-cell *matHeaderCellDef class="th-question">Item</th>
+      <td mat-cell *matCellDef="let row; index as i">
+        {{ dataSource.data[i].question }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let row; index as i" [formGroupName]="i">
+        <mat-form-field>
+          <mat-label>Defina o Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option value="conforme">Conforme</mat-option>
+            <mat-option value="nao-conforme">Não Conforme</mat-option>
+            <mat-option value="nao-se-aplica">Não Se Aplica</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="considerations">
+      <th mat-header-cell *matHeaderCellDef>Observações</th>
+      <td mat-cell *matCellDef="let row; index as i" [formGroupName]="i">
+        <mat-form-field>
+          <textarea
+            formControlName="observacao"
+            matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"
+            class="textarea-obs"
+          ></textarea>
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <div class="buttons-container p-3">
+    <button
+      mat-stroked-button
+      type="button"
+      class="primary-green-color me-3"
+      (click)="onCancel()"
+    >
+      VOLTAR
+    </button>
+    <button mat-raised-button type="submit" mainColors (click)="onSubmit()">
+      SALVAR
+    </button>
+  </div>
+</form>
