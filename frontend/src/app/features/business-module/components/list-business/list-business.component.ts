@@ -80,8 +80,11 @@ export class ListBusinessComponent implements OnInit {
   }
 
   public onCreateDepartment(business: Business){
-    const dialogRef = this.dialog.open(FormDepartmentComponent);
-    
+    const dialogRef = this.dialog.open(FormDepartmentComponent, {
+        data: {
+            idBusiness: business.idBusiness
+        }
+    });
   }
 
   public onEdit(business: Business) {
