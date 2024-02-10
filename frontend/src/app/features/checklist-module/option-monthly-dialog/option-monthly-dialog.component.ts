@@ -13,10 +13,10 @@ export class OptionMonthlyDialogComponent {
   
     protected checklistPages = [
       { id: 1, name: 'Documentação', path: 'checklist/documentacao-mensal' },
-      { id: 2, name: 'Segurança do Trabalho', path: 'checklist/seguranca-trabalho' },
+      { id: 2, name: 'Segurança do Trabalho', path: 'checklist/seguranca-do-trabalho-mensal' },
       { id: 3, name: 'Segurança Ambiental', path: 'checklist/seguranca-ambiental' },
       { id: 4, name: 'Segurança Alimentar', path: 'checklist/seguranca-alimentar' },
-      { id: 5, name: 'Saúde do Funcionário', path: 'checklist/saude-funcionario' },
+      { id: 5, name: 'Saúde do Funcionário', path: 'checklist/saude-funcionario' }, 
     ];
   
     selectedChecklist!: {  id: number, name: string; path: string; };
