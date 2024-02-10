@@ -54,8 +54,8 @@ public onpageList(){
   this.service.getPageList(this.pageIndex, this.pageSize).subscribe({
     next: (res) => {
       console.log(res);
-      this.reminder = res.content;
-      this.paginator = res;
+       this.reminder = res.content;
+       this.paginator = res;
       this.length = this.paginator!.totalElements;
     },
     error: (err) => {
