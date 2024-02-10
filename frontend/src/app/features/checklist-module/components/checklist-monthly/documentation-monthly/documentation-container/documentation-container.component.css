@@ -1,0 +1,27 @@
+.container{
+  display: flex;
+  justify-content: center;
+  margin-top: -15px;
+}
+.card-container {
+  margin-top: 5%;
+  width: 80%;
+  margin-bottom: 15px;
+}
+.editable-input {
+  /*campo de edição*/
+  background-color: transparent;
+  font-size: 20px;
+  color: #ffc745;
+  border: none; /* Remove borda do input */
+  outline: none; /* Remove contorno do input */
+  width: 70%;
+}
+.editable-title {
+  display: flex;
+  align-items: center;
+}
+
+/*INSERIR MEDIA QUERYS: Para telas menores que 460px*/
+
+
