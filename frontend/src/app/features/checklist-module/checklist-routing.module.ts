@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, provideRouter, withComponentInputBinding } from '@angular/router';
 import { DocumentationDailyComponent } from './components/checklist-daily/documentation-daily';
-import { DocumentationMonthlyComponent } from './components/checklist-monthly/documentation-monthly';
 import { ListChecklistMonthlyComponent } from './components/list-checklist-monthly';
 import { provideHttpClient } from '@angular/common/http';
+import { DocumentationContainerComponent } from './components/checklist-monthly/documentation-monthly/documentation-container';
+import { WorkplaceSafetyContainerComponent } from './components/checklist-monthly/workplace-safety-monthly/workplace-safety-container';
 
 
 const routes: Routes = [
@@ -12,7 +13,9 @@ const routes: Routes = [
 
   {path:'list-checklist', component: ListChecklistMonthlyComponent},
 
-  { path:'documentacao-mensal', component: DocumentationMonthlyComponent },
+  { path:'documentacao-mensal', component: DocumentationContainerComponent},
+
+  { path:'seguranca-do-trabalho-mensal', component: WorkplaceSafetyContainerComponent},
   
 ];
 
