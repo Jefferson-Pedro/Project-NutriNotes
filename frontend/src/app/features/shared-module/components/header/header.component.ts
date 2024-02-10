@@ -1,37 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Reminder } from 'src/app/core/models/Reminder';
 import { AuthService } from 'src/app/features/login-module/services/auth';
 import { ReminderService } from 'src/app/features/reminder-module/services';
-import { ReminderPaginator } from '../../../reminder-module/components/list-reminder/reminder-paginator';
 import { SidenavService } from '../../services/sidenav';
+
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
+
+  public navService = inject(SidenavService);
+  private route = inject( Router);
+  private auth = inject(AuthService);
+  protected reminderService = inject(ReminderService);
+
   public badgevisible = false;
   showMenu: boolean = true; //Mudar para false;
 
-  public list!: Reminder[];
-  public paginator!: ReminderPaginator;
+  public list: Reminder[] = [];
+  //public paginator!: ReminderPaginator[];
 
-  constructor(
-    public navService: SidenavService,
-    private route: Router,
-    private auth: AuthService,
-    protected reminder: ReminderService
-  ) {
+  constructor() {
     this.showReminderNotification();
     console.log(this.showReminderNotification());
-  }
-  ngOnInit(): void {
-    // this.auth.emitter.subscribe({
-    //   next:(res: any)=>{this.showMenu = res},
-    //   error:(err: any)=>{console.log(err);}
-    // });
   }
 
   //Tratando das notificações
@@ -40,9 +35,9 @@ export class HeaderComponent implements OnInit {
   }
 
   public showReminderNotification() {
-    this.reminder.getPageList().subscribe({
+    this.reminderService.getPageList().subscribe({
       next: (res) => {
-        //console.log(res);
+        //console.log('Informações do header', res);
         this.list = res.content;
       },
       error: (err) => {
@@ -51,7 +46,4 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  public openAccount() {
-    this.route.navigate(['account']);
-  }
 }
