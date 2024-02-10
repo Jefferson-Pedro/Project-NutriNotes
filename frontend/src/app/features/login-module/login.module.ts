@@ -23,8 +23,8 @@ import { SharedModule } from '../shared-module';
   imports: [
     CommonModule,
     SharedModule,
-    LoginRoutingModule,
     MatStepperModule,
+    LoginRoutingModule,
     MatTabsModule,
     MatFormFieldModule,
     MatButtonModule,
@@ -32,9 +32,9 @@ import { SharedModule } from '../shared-module';
     ReactiveFormsModule,
     FormsModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
   ],
-  exports: [],
+  exports: [AccountComponent],
   providers: [AuthService],
 })
 export class LoginModule { }
