@@ -23,20 +23,29 @@ import { getPtPaginatorIntl } from 'src/app/core/intl/paginator-intl';
 import { SharedModule } from '../shared-module';
 import { CheklistRoutingModule } from './checklist-routing.module';
 import { DocumentationDailyComponent } from './components/checklist-daily/documentation-daily';
-import { DocumentationMonthlyComponent } from './components/checklist-monthly/documentation-monthly';
+
 import { ListChecklistMonthlyComponent } from './components/list-checklist-monthly';
 import { OptionDailyDialogComponent } from './option-daily-dialog';
 import { OptionMonthlyDialogComponent } from './option-monthly-dialog/option-monthly-dialog.component';
-import { provideHttpClient } from '@angular/common/http';
+import { DocumentationContainerComponent } from './components/checklist-monthly/documentation-monthly/documentation-container';
+import { DocumentationQuestionsComponent } from './components/checklist-monthly/documentation-monthly/documentarion-questions';
+import { WorkplaceSafetyContainerComponent } from './components/checklist-monthly/workplace-safety-monthly/workplace-safety-container';
+import { WorkplaceSafetyFormComponent } from './components/checklist-monthly/workplace-safety-monthly/workplace-safety-form';
+import { WorkplaceSafetyQuestionsComponent } from './components/checklist-monthly/workplace-safety-monthly/workplace-safety-questions';
+
 
 
 @NgModule({
   declarations: [ /*Declaro os modulos criados*/
     DocumentationDailyComponent,
-    DocumentationMonthlyComponent,
     OptionMonthlyDialogComponent,
     OptionDailyDialogComponent,
     ListChecklistMonthlyComponent,
+    DocumentationContainerComponent,
+    DocumentationQuestionsComponent,
+    WorkplaceSafetyContainerComponent,
+    WorkplaceSafetyFormComponent,
+    WorkplaceSafetyQuestionsComponent
 
   ],
   imports: [
@@ -62,7 +71,7 @@ import { provideHttpClient } from '@angular/common/http';
     MatListModule,
     MatTooltipModule,
     MatMenuModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ], 
   exports: [],
   providers: [
