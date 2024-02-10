@@ -20,30 +20,7 @@
         [matMenuTriggerFor]="menu"
         (click)="badgeVisibility()"
       >
-
-
-      <!-- <button mat-icon-button [matMenuTriggerFor]="beforeMenu" aria-label="Menu de ações">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #beforeMenu="matMenu">
-        <button mat-menu-item (click)="onEdit()">
-          <mat-icon class="text-success">edit</mat-icon>
-          Editar
-        </button>
-        <button mat-menu-item (click)="onCreateReport()">
-          <mat-icon class="text-primary">description</mat-icon>
-          Gerar um relatório
-        </button>
-
-        <button mat-menu-item (click)="onDelete()">
-          <mat-icon class="text-danger">delete</mat-icon>
-          Excluir
-        </button>
-      </mat-menu> -->
-
-
-
-        <mat-menu #menu="matMenu">
+       <mat-menu #menu="matMenu">
           <button mat-menu-item *ngFor="let item of list" class="menu-item">
           <mat-icon>notifications</mat-icon>
             <small>
@@ -63,10 +40,8 @@
           notifications
         </mat-icon>
       </button>
-      <button mat-icon-button color="icon-profile" (click)="openAccount()">
-        <mat-icon class="color-secondary">person</mat-icon>
+
         <!--TROCAR O ICONE PELA FOTO COM BORDA VERDE INDICANDO A PESSOA ONLINE-->
-      </button>
     </div>
   </div>
 </mat-toolbar>
