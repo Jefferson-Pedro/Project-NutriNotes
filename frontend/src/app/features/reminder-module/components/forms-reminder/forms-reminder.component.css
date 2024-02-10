@@ -1,0 +1,29 @@
+.title{
+    display: flex;
+    background-color: transparent;
+    justify-content: center;
+}
+
+.container{
+    display: flex;
+}
+
+textarea {
+  resize: none;
+}
+
+.darkgrey-icon {
+    color: #808080 !important;
+}
+  
+.orange-icon {
+    color: #ffa500 !important;
+}
+  
+.blue-icon {
+    color: #0000ff !important;
+}
+  
+.green-icon {
+    color: #008000 !important;
+}
