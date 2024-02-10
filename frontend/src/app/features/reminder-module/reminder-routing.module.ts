@@ -3,12 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { FormsReminderComponent } from './components/forms-reminder';
 import { ListReminderComponent } from './components/list-reminder/list-reminder.component';
+import { CalendarReminderComponent } from './components/calendar-reminder/calendar-reminder.component';
 
 const routes: Routes = [
 
-  {path:'list-notifications', component: ListReminderComponent},
+  {path:'lista-de-notificacoes', component: ListReminderComponent},
 
-  {path:'form-notifications', component: FormsReminderComponent},
+  {path:'form-notificacoes', component: FormsReminderComponent},
+
+  {path:'calendario-de-eventos', component: CalendarReminderComponent},
 
 ];
 
