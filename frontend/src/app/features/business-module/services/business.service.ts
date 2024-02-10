@@ -11,6 +11,9 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class BusinessService {
+
+
+
   constructor(private route: Router, private http: HttpClient) {}
 
   public list() {
@@ -19,11 +22,9 @@ export class BusinessService {
     return this.http.get<Business[]>(url).pipe(first(), delay(1000));
   }
 
-  public getPageList(page?: number, size?: number): Observable<any> {
-    if (page == 0 && size == 0) {
-      (page = 0), (size = 5);
-    }
-    const url = `${environment.baseUrl}/business?page=${page}&size=${size}`;
+  public getPageList(page = 0 , size = 5): Observable<any> {
+
+   const url = `${environment.baseUrl}/business?page=${page}&size=${size}`;
 
     return this.http.get<Business>(url);
   }
@@ -52,8 +53,8 @@ export class BusinessService {
     return this.http.put<Business>(url, business);
   }
 
-  public findDepartmentByBusiness() {
-    const url = `${environment.baseUrl}/department/all`;
+  public findDepartmentByBusiness(id: number) {
+    const url = `${environment.baseUrl}/department/bybusiness/${id}`;
 
     return this.http.get<Department[]>(url).pipe(first(), delay(1000));
   }
