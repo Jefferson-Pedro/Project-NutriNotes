@@ -24,6 +24,9 @@ import { ProfileComponent } from './components/profile';
 import { SupportUsComponent } from './components/support-us';
 import { CoreRoutingModule } from './core-routing.module';
 import { AlternativeMainColorsDirective } from './directives/css-alternative';
+import { MatTabsModule } from '@angular/material/tabs';
+import { AccountComponent } from './components/account';
+import { MatStepperModule } from '@angular/material/stepper';
 
 
 @NgModule({
@@ -36,6 +39,7 @@ import { AlternativeMainColorsDirective } from './directives/css-alternative';
     PageNotFoundComponent,
     LegislationComponent,
     AlternativeMainColorsDirective,
+    AccountComponent
   ],
   imports: [
     CommonModule,
@@ -55,8 +59,9 @@ import { AlternativeMainColorsDirective } from './directives/css-alternative';
     MatIconModule,
     MatDialogModule,
     MatToolbarModule,
-    MatSlideToggleModule
-   
+    MatSlideToggleModule,
+    MatTabsModule,
+    MatStepperModule
   ],
 })
 export class CoreModule { }
