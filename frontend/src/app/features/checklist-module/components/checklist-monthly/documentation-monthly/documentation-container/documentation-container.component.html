@@ -1,0 +1,25 @@
+<div class="container">
+  <mat-card class="card-container">
+    <mat-toolbar mainColors>
+      <div *ngIf="!isEditing; else editMode" class="editable-title">
+        {{ defaultTitle }}
+        <button mat-icon-button (click)="startEditing()">
+          <mat-icon>edit</mat-icon> 
+        </button>
+      </div>
+      <ng-template #editMode>
+        <input
+          type="text"
+          [(ngModel)]="editedTitle"
+          (blur)="stopEditing()"
+          (keyup.enter)="stopEditing()"
+          (keyup.escape)="cancelEditing()"
+          class="editable-input"
+        />
+      </ng-template>
+  </mat-toolbar>
+  
+  <app-documentation-questions/> 
+     
+  </mat-card>
+</div>
