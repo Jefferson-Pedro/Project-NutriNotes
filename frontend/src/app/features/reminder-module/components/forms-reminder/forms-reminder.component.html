@@ -1,3 +1,72 @@
-<p>EM CONSTRUÇÃO!</p>
+<div class="container">
+        <form class="form-container p-3" [formGroup]="form">
+          <mat-toolbar class="title">
+            Genrenciar Eventos
+        </mat-toolbar>
+            <div class="row ">
+                <mat-form-field class="col-12">
+                  <mat-label>Nome do Evento</mat-label>
+                  <input matInput
+                  formControlName="titulo"
+                  required />
+                  <mat-icon matSuffix>edit_calendar</mat-icon>
+                  <mat-error>O nome é obrigatório</mat-error>
+                </mat-form-field>
+  
+              <mat-form-field class="col-6">
+                <mat-label>Horário do Evento</mat-label>
+                <input matInput
+                  type="datetime-local"
+                  formControlName="dataEvento"
+                  placeholder="00:00"
+                  required
+                />
+                <mat-icon matSuffix>schedule</mat-icon>
+                <mat-error>A hora é obrigatória</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-6">
+                <mat-label> Categoria </mat-label>
+                <mat-icon matSuffix class="darkgrey-icon">event</mat-icon>
+                <mat-select formControlName="categoria">
+                  <mat-select-trigger class="d-flex align-items-center">
+                    <mat-icon
+                      class="me-3"
+                    >
+                      circle
+                    </mat-icon>
+                    
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let category of categories" [value]="category">
+                    <mat-icon [class]="category.class"> circle </mat-icon>
+                    {{ category.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              
+              <mat-form-field class="col-12">
+                <mat-label>Descrição do Evento</mat-label>
+                <textarea 
+                matInput 
+                placeholder="Adicionar uma descrição" 
+                formControlName="descricao">
+                </textarea>
+                <mat-icon matSuffix>notes</mat-icon>
+              </mat-form-field>
+    
+              <div class="d-flex justify-content-end col-12 gap-3">
+                  <button mat-button 
+                  mat-stroked-button
+                  mat-dialog-close>CANCELAR</button>
+
+                  <button mat-button
+                  mat-raised-button 
+                  color="primary"
+                  (click)="onSubmit()">SALVAR</button>
+              </div>
+    
+            </div>
+          </form>    
+</div>
   
 
