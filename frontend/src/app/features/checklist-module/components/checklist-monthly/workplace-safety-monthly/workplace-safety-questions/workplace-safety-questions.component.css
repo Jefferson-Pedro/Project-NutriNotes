@@ -1,0 +1,9 @@
+table {
+  /* width: 80vw; */
+  margin: -1em auto 2em;
+}
+.buttons-container {
+  display: flex;
+  justify-content: end;
+}
+
