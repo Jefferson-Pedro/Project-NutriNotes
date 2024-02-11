@@ -9,7 +9,7 @@ import br.com.nutrinotes.model.department.Department;
 
 public interface IDepartment {
 	
-	public Department save(Department novo);
+	public Department create(Department novo);
 	public boolean update(Department department, Integer id);
 	public Page<Department> findAllPage(Pageable pageable);
 	public List<Department> findAll();
