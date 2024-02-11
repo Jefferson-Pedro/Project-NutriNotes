@@ -5,30 +5,31 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.item_checklist.ItemChecklistDAO;
 import br.com.nutrinotes.model.item_checklist.IdItemCheckList;
 import br.com.nutrinotes.model.item_checklist.ItemChecklist;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
-@Component
+@Validated
+@Service
 public class ItemChecklistImpl implements IItemChecklist {
 
 	@Autowired
 	private ItemChecklistDAO dao;
 
 	@Override
-	public boolean save(ItemChecklist newItem) {
-		if(newItem == null) {
-			System.err.println("O objeto está vazio.");
-			return false;
-		}
-		dao.save(newItem);
-		return true;
+	public ItemChecklist save(@Valid @NotNull ItemChecklist newItem) {
+		return dao.save(newItem);
 	}
 
 	@Override
-	public boolean update(ItemChecklist itemChecklist, IdItemCheckList id) {
+	public boolean update(@Valid @NotNull ItemChecklist itemChecklist, @NotNull @Positive IdItemCheckList id) {
 		Optional<ItemChecklist> res = dao.findById(id);
 		if (res.isPresent()) {
 			ItemChecklist existingItem = res.get();
@@ -47,17 +48,17 @@ public class ItemChecklistImpl implements IItemChecklist {
 	}
 
 	@Override
-	public List<ItemChecklist> findByName(String nome) {
+	public List<ItemChecklist> findByName(@NotNull @NotBlank String nome) {
 		return null; //Descobrir um jeito de puxar
 	} 
 
 	@Override
-	public ItemChecklist findById(IdItemCheckList id) {
+	public ItemChecklist findById(@NotNull @Positive IdItemCheckList id) {
 		return dao.findById(id).orElse(null);
 	}
 
 	@Override
-	public boolean delete(IdItemCheckList id) {
+	public boolean delete(@NotNull @Positive IdItemCheckList id) {
 		Optional<ItemChecklist> item = dao.findById(id);
 		if (item.isPresent()) {
 			dao.deleteById(id);
@@ -66,5 +67,4 @@ public class ItemChecklistImpl implements IItemChecklist {
 		System.err.println("Ocorreu um erro ao excluir o item do checklist");
 		return false;
 	}
-
 }
