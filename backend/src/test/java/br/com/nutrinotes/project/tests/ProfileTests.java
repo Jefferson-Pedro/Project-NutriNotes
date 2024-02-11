@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import br.com.nutrinotes.model.user.Profile;
-import br.com.nutrinotes.service.profile.IProfile;
+import br.com.nutrinotes.service.user.IProfile;
 
 @SpringBootTest
 @ActiveProfiles("test")
