@@ -1,5 +1,7 @@
 package br.com.nutrinotes.model.department;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.nutrinotes.model.business.Business;
@@ -11,6 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "department")
@@ -21,6 +25,9 @@ public class Department {
 	@Column(name = "id_setores")
 	private Integer idSetores;
 	
+	@NotBlank
+	@Length(min = 3, max = 45)
+	@NotNull(message = "O campo nome do gestor não pode ser nulo")
 	@Column(name = "nome")
 	private String nome;
 	
