@@ -7,7 +7,7 @@ import br.com.nutrinotes.model.item_checklist.ItemChecklist;
 
 public interface IItemChecklist {
 	
-	public boolean save(ItemChecklist novo);
+	public ItemChecklist save(ItemChecklist novo);
 	public boolean update(ItemChecklist itemChecklist, IdItemCheckList id);
 	public List<ItemChecklist> findAll();
 	public List<ItemChecklist> findByName(String nome);
