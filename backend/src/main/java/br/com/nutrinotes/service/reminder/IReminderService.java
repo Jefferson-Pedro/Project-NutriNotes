@@ -10,7 +10,7 @@ import br.com.nutrinotes.model.reminder.Reminder;
 
 public interface IReminderService {
 	
-	public Reminder save(Reminder novo);
+	public Reminder create(Reminder novo);
 	public boolean update(Reminder reminder, Integer id);
 	public boolean delete(Integer id);
 	public List<Reminder> findAll();
