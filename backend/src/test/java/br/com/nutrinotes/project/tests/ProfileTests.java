@@ -27,7 +27,7 @@ public class ProfileTests {
 		p.setIdProfile(109);
 		p.setNome("Jefferson");
 		p.setCrn("123456789");
-		User res = service.save(p);
+		User res = service.create(p);
 		assertTrue(res != null );
 	}
 	
