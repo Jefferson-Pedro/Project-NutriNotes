@@ -3,7 +3,6 @@ package br.com.nutrinotes.model.business;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.context.annotation.Profile;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
