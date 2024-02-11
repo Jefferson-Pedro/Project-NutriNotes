@@ -3,11 +3,12 @@ package br.com.nutrinotes.service.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import br.com.nutrinotes.dao.user.UserDAO;
+import br.com.nutrinotes.dto.AuthDTO;
 import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.security.NutriToken;
+import br.com.nutrinotes.security.TokenUtil;
 
 @Component
 public class AuthServiceImpl implements IAuthService {
@@ -24,12 +25,14 @@ public class AuthServiceImpl implements IAuthService {
 	}
 
 	@Override
-	public NutriToken authenticate(User dataLogin) {
+	public AuthDTO authenticate(User dataLogin) {
 		User res = dao.findByLogin(dataLogin.getLogin());
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
 		if(res != null) {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			if(encoder.matches(dataLogin.getSenha(), res.getSenha())) {
-				return new NutriToken("*NutriNotes");
+				NutriToken token = TokenUtil.encode(res);
+				return new AuthDTO(res.getIdProfile(),res.getLogin(),token.toString());
 			}
 		}
 		return null;
