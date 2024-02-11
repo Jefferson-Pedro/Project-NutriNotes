@@ -25,7 +25,7 @@ public class DepartmentImpl implements IDepartment {
 	DepartmentDAO dao;
 
 	@Override
-	public Department save(@Valid @NotNull Department novo) {
+	public Department create(@Valid @NotNull Department novo) {
 		return dao.save(novo);
 	}
 
