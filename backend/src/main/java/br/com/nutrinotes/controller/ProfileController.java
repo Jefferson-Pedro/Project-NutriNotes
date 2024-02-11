@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.nutrinotes.model.profile.Profile;
+import br.com.nutrinotes.model.user.Profile;
 import br.com.nutrinotes.service.profile.IProfile;
 
 @RestController
