@@ -24,7 +24,7 @@ import jakarta.validation.constraints.Positive;
 
 @Validated
 @RestController
-@RequestMapping("/User")
+@RequestMapping("/user")
 @CrossOrigin("*")
 public class UserController {
 	
@@ -59,7 +59,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<User> save(@RequestBody @Valid @NotNull User novo){
+	public ResponseEntity<User> create(@RequestBody @Valid @NotNull User novo){
 	
 		if(service.create(novo) != null) {
 			return ResponseEntity.ok().body(novo);
