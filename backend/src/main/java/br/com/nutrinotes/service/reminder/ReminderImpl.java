@@ -13,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.reminder.ReminderDAO;
 import br.com.nutrinotes.dto.ReminderDTO;
-import br.com.nutrinotes.dto.ReminderMapper;
 import br.com.nutrinotes.model.reminder.Reminder;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -26,9 +25,6 @@ public class ReminderImpl implements IReminderService{
 	@Autowired
 	private ReminderDAO dao;
 	
-	@Autowired
-	private ReminderMapper mapper;
-
 
 	@Override
 	public Reminder save(@Valid @NotNull Reminder novo) {
