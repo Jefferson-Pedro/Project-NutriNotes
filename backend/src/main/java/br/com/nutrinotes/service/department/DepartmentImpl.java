@@ -7,35 +7,38 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.department.DepartmentDAO;
 import br.com.nutrinotes.model.department.Department;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
-@Component
+@Validated
+@Service
 public class DepartmentImpl implements IDepartment {
 	
 	@Autowired
 	DepartmentDAO dao;
 
 	@Override
-	public Department save(Department novo) {
-		if(novo.getNome().length() > 3) {
-			return dao.save(novo);
-		}
-		System.out.println("Ocorreu um erro " + novo);
-		return null;
+	public Department save(@Valid @NotNull Department novo) {
+		return dao.save(novo);
 	}
 
 	@Override
-	public Department update(Department department, Integer id) {
+	public boolean update(@Valid @NotNull Department department, @NotNull @Positive Integer id) {
 		Optional<Department> res = dao.findById(id);
 		if(res.isPresent()) {
 			Department departmentExisting = res.get();
 			BeanUtils.copyProperties(department, departmentExisting, "idSetores");
-			return dao.save(departmentExisting);
+			dao.save(departmentExisting);
+			return true;
 		}
-		return null;
+		return false;
 	}
 
 	@Override
@@ -50,24 +53,29 @@ public class DepartmentImpl implements IDepartment {
 	}
 
 	@Override
-	public List<Department> findByName(String nome) {
+	public List<Department> findByName(@NotNull @NotBlank String nome) {
 		return dao.findByNomeContaining(nome);
 	}
 	
 	@Override
-	public List<Department> findDepartmentByIdBusiness(Integer id) {
+	public List<Department> findDepartmentByIdBusiness(@NotNull @Positive Integer id) {
 		return dao.findDepartmentByIdBusiness(id);
 	}
 
 	@Override
-	public Department findById(Integer id) {
+	public Department findById(@NotNull @Positive Integer id) {
 		return dao.findById(id).orElse(null);
 	}
 
 	@Override
-	public boolean delete(Integer id) {
-		dao.deleteById(id);
-		return true;
+	public boolean delete(@NotNull @Positive Integer id) {
+		Optional<Department> p = dao.findById(id);
+		if(p.isPresent()) {
+			dao.deleteById(id);
+			System.out.println("Perfil com id " + id + " excluido com sucesso!");
+			return true;
+		}
+		System.out.println("Ocorreu um erro ao excluir o perfil " + id);
+		return false;
 	}
-
 }
