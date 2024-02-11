@@ -22,7 +22,7 @@ public class TemplateChecklistImpl implements ITemplateChecklistService {
 	TemplateChecklistDAO dao;
 
 	@Override
-	public TemplateChecklist save(@Valid @NotNull TemplateChecklist newTemplate) {
+	public TemplateChecklist create(@Valid @NotNull TemplateChecklist newTemplate) {
 	
 		return dao.save(newTemplate);
 	}
