@@ -9,6 +9,6 @@ import br.com.nutrinotes.model.user.User;
 
 public interface UserDAO extends JpaRepository<User, Integer>{
 	
-	public User findByLogin(String login);
+	public User findByEmail(String login);
 	public List<User> findByNomeContaining(String palavraChave);
 }
