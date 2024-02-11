@@ -23,7 +23,7 @@ public class UserImpl implements IUser {
 	private UserDAO dao;
 
 	@Override
-	public User save(@Valid @NotNull User novo) {
+	public User create(@Valid @NotNull User novo) {
 		System.out.println(novo.getNome().length());
 		return dao.save(novo);
 	}
