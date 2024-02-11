@@ -3,8 +3,8 @@ package br.com.nutrinotes.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.nutrinotes.model.item_checklist.IdItemCheckList;
 import br.com.nutrinotes.model.item_checklist.ItemChecklist;
 import br.com.nutrinotes.service.item_checklist.IItemChecklist;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
+@Validated
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/item")
@@ -27,7 +31,7 @@ public class ItemChecklistController {
 	@Autowired
 	IItemChecklist service;
 	
-	@GetMapping("all")
+	@GetMapping("/all")
 	public ResponseEntity<List<ItemChecklist>> findAll() {
 		List<ItemChecklist> list = service.findAll();
 		if(list.size() > 0) {
@@ -37,8 +41,8 @@ public class ItemChecklistController {
 	}
 	
 	@GetMapping("/")
-	public ResponseEntity<ItemChecklist> findById(@RequestParam (name = "idch") Integer idch,  
-												  @RequestParam (name = "iditem") Integer iditem){
+	public ResponseEntity<ItemChecklist> findById(@RequestParam (name = "idch") @NotNull @Positive Integer idch,  
+												  @RequestParam (name = "iditem") @NotNull @Positive Integer iditem){
 		
 		IdItemCheckList id = new IdItemCheckList(idch, iditem);	
 		ItemChecklist res = service.findById(id);
@@ -50,30 +54,20 @@ public class ItemChecklistController {
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<ItemChecklist> save(@RequestBody ItemChecklist item){
+	public ResponseEntity<ItemChecklist> save(@RequestBody @NotNull @Valid ItemChecklist item){
 		
-		if(item == null) {
-			System.err.println("Objeto vazio");
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-		}
-		
-		if(service.save(item)) {
+		if(service.create(item) != null) {
 			return ResponseEntity.ok().body(item);
 		}
 		return ResponseEntity.badRequest().build();
 	}
 	
 	@PutMapping("/edit/")
-	public ResponseEntity<ItemChecklist> update (@RequestBody ItemChecklist item,
-												 @RequestParam (name = "idch") Integer idch,  
-			  									 @RequestParam (name = "iditem") Integer iditem){
+	public ResponseEntity<ItemChecklist> update (@RequestBody @NotNull @Valid ItemChecklist item,
+												 @RequestParam (name = "idch") @NotNull @Positive Integer idch,  
+			  									 @RequestParam (name = "iditem") @NotNull @Positive Integer iditem){
 		
 		IdItemCheckList id = new IdItemCheckList(idch, iditem);	
-				
-		if(item == null) {
-			System.err.println("Objeto vazio");
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-		}
 		
 		if(service.update(item, id)) {
 			return ResponseEntity.ok(item);
@@ -82,8 +76,8 @@ public class ItemChecklistController {
 	}
 	
 	@DeleteMapping("/delete/")
-	public ResponseEntity<ItemChecklist> delete (@RequestParam (name = "idch") Integer idch,  
-				 								 @RequestParam (name = "iditem") Integer iditem){
+	public ResponseEntity<ItemChecklist> delete (@RequestParam (name = "idch") @NotNull @Positive Integer idch,  
+				 								 @RequestParam (name = "iditem") @NotNull @Positive Integer iditem){
 		
 		IdItemCheckList id = new IdItemCheckList(idch, iditem);	
 		ItemChecklist res = service.findById(id);
