@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nutrinotes.model.business.Business;
 import br.com.nutrinotes.service.business.IBusiness;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
+@Validated
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/business")
@@ -40,7 +44,7 @@ public class BusinessController {
 	    return ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("all")
+	@GetMapping("/all")
 	public ResponseEntity<List<Business>> findAll(){
 		List<Business> list = service.findAll();
 		if(list.size() > 0) {
@@ -50,7 +54,7 @@ public class BusinessController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Business> findById(@PathVariable Integer id){
+	public ResponseEntity<Business> findById(@PathVariable @NotNull @Positive Integer id){
 		Business res = service.findById(id);
 		if(res != null) {
 			return ResponseEntity.ok().body(res);
@@ -59,7 +63,7 @@ public class BusinessController {
 	}
 	
 	@GetMapping("/search")
-	public ResponseEntity<List<Business>> findByName(@RequestParam (name = "name") String name){
+	public ResponseEntity<List<Business>> findByName(@RequestParam (name = "name") @NotNull String name){
 		List<Business> list = service.findByName(name);
 		if(!list.isEmpty()) {
 			return ResponseEntity.ok(list);
@@ -68,16 +72,18 @@ public class BusinessController {
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<Business> save(@RequestBody Business newBusiness) throws URISyntaxException{
+	public ResponseEntity<Business> create (@RequestBody Business newBusiness) throws URISyntaxException{
 		
-		if (service.save(newBusiness)) {
+		Business business = service.create(newBusiness);
+		
+		if (business != null) {
 			return ResponseEntity.created(new URI("business/" + newBusiness.getIdBusiness())).body(newBusiness);	
 		}
 		return ResponseEntity.badRequest().build();
 	}
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<Business> update(@RequestBody Business business, @PathVariable Integer id){
+	public ResponseEntity<Business> update(@RequestBody Business business, @PathVariable @NotNull @Positive Integer id){
 		
 		if(service.update(business, id)) {
 			return ResponseEntity.ok(business);
@@ -86,10 +92,9 @@ public class BusinessController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Business> delete(@PathVariable Integer id) {
-		Business res = service.findById(id);
-		if(res != null) { 
-			service.delete(id);
+	public ResponseEntity<Business> delete(@PathVariable @NotNull @Positive Integer id) {
+		
+		if(service.delete(id)) { 
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.notFound().build();
