@@ -2,7 +2,7 @@ package br.com.nutrinotes.service.profile;
 
 import java.util.List;
 
-import br.com.nutrinotes.model.profile.Profile;
+import br.com.nutrinotes.model.user.Profile;
 
 public interface IProfile {
 	
