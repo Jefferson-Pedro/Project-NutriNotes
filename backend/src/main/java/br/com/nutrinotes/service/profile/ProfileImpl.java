@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.nutrinotes.dao.profile.ProfileDAO;
 import br.com.nutrinotes.model.business.Business;
-import br.com.nutrinotes.model.profile.Profile;
+import br.com.nutrinotes.model.user.Profile;
 
 @Component
 public class ProfileImpl implements IProfile {
