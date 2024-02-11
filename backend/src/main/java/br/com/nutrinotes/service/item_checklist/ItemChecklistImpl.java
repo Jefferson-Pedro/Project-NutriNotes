@@ -24,7 +24,7 @@ public class ItemChecklistImpl implements IItemChecklist {
 	private ItemChecklistDAO dao;
 
 	@Override
-	public ItemChecklist save(@Valid @NotNull ItemChecklist newItem) {
+	public ItemChecklist create(@Valid @NotNull ItemChecklist newItem) {
 		return dao.save(newItem);
 	}
 
