@@ -11,7 +11,7 @@ import br.com.nutrinotes.model.checklist.Checklist;
 public interface ICheckList {
 	
 	public Checklist save(Checklist novo);
-	public Checklist update(Checklist checklist, Integer id);
+	public boolean update(Checklist checklist, Integer id);
 	public Page<Checklist> findAllPage(Pageable pageable);
 	public List<Checklist> findAll();
 	public List<Checklist> findAllByDate(LocalDate date);
