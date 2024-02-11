@@ -3,8 +3,8 @@ package br.com.nutrinotes.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nutrinotes.model.templates.TemplateChecklist;
 import br.com.nutrinotes.service.templates.ITemplateChecklistService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
+@Validated
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/template")
@@ -37,7 +41,7 @@ public class TemplateController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<TemplateChecklist> findById(@PathVariable Integer id){
+	public ResponseEntity<TemplateChecklist> findById(@PathVariable @NotNull @Positive Integer id){
 		TemplateChecklist res = service.findById(id);
 		if (res != null) {
 			return ResponseEntity.ok(res);
@@ -46,22 +50,17 @@ public class TemplateController {
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<TemplateChecklist> create (@RequestBody TemplateChecklist template){
-		if(template == null) {
-			 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-		}
-		if(service.save(template)) {
+	public ResponseEntity<TemplateChecklist> create (@RequestBody @NotNull @Valid TemplateChecklist template){
+		
+		if(service.create(template) != null) {
 			return ResponseEntity.ok(template);
 		}
 		return ResponseEntity.badRequest().build();
 	}
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<TemplateChecklist> update (@RequestBody TemplateChecklist template, 
-													@PathVariable Integer id){
-		if(template == null) {
-			 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-		}
+	public ResponseEntity<TemplateChecklist> update (@RequestBody @NotNull @Valid TemplateChecklist template, 
+													@PathVariable @NotNull @Positive Integer id){
 		if(service.update(template, id)) {
 			return ResponseEntity.ok(template);
 		}
@@ -69,10 +68,9 @@ public class TemplateController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<TemplateChecklist> delete (@RequestParam Integer id){
-		TemplateChecklist res = service.findById(id);
-		if (res != null) {
-			service.delete(id);
+	public ResponseEntity<TemplateChecklist> delete (@RequestParam @NotNull @Positive Integer id){
+		
+		if (service.delete(id)) {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.badRequest().build();
