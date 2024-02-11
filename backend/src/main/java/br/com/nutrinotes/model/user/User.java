@@ -19,6 +19,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 
 @Entity
 @Table(name="user")
@@ -35,7 +36,7 @@ public class User {
 	@Column(name="nome", length = 100)
 	private String nome;
 	
-	@NotBlank
+	@Past
 	@NotNull(message = "O campo Data de Nascimento não pode ser nulo")
 	@Length(min = 3, max = 75)
 	@Column(name="data_nasc")
