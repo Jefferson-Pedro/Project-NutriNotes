@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nutrinotes.model.department.Department;
 import br.com.nutrinotes.service.department.IDepartment;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
+@Validated
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/department")
@@ -25,7 +30,7 @@ public class DepartmentController {
 	@Autowired
 	IDepartment service;
 	
-	@GetMapping("all")
+	@GetMapping("/all")
 	public ResponseEntity<List<Department>> findAll(){
 		List<Department> list = service.findAll();
 		if(list.size() > 0) {
@@ -35,7 +40,7 @@ public class DepartmentController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Department> findById(@PathVariable Integer id){
+	public ResponseEntity<Department> findById(@PathVariable @NotNull @Positive Integer id){
 		Department res = service.findById(id);
 		if(res != null) {
 			return ResponseEntity.ok(res);
@@ -44,7 +49,7 @@ public class DepartmentController {
 	}
 	
 	@GetMapping("/bybusiness/{id}")
-	public ResponseEntity<List<Department>> findByDepartmentByidBusiness(@PathVariable Integer id){
+	public ResponseEntity<List<Department>> findByDepartmentByidBusiness(@PathVariable @NotNull @Positive Integer id){
 		List<Department> list = service.findDepartmentByIdBusiness(id);
 		if(list.size() > 0) {
 			return ResponseEntity.ok(list);
@@ -53,8 +58,8 @@ public class DepartmentController {
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<Department> save(@RequestBody Department department){
-		Department res = service.save(department);
+	public ResponseEntity<Department> create(@RequestBody @Valid @NotNull Department department){
+		Department res = service.create(department);
 		if(department != null) {
 			return ResponseEntity.ok().body(res);
 		}
@@ -62,19 +67,18 @@ public class DepartmentController {
 	}
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<Department> update (@RequestBody Department department, @PathVariable Integer id){
-		Department res = service.update(department, id);
-		if(res != null) {
-			return ResponseEntity.ok(res);
+	public ResponseEntity<Department> update (@RequestBody @Valid @NotNull Department department, 
+											  @PathVariable @NotNull @Positive Integer id){
+		
+		if(service.update(department, id)) {
+			return ResponseEntity.ok(department);
 		}
 		return ResponseEntity.notFound().build();
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Department> delete(@PathVariable Integer id){
-		Department res = service.findById(id);
-		if(res != null) {
-			service.delete(id);
+		if(service.delete(id)) {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.notFound().build();
