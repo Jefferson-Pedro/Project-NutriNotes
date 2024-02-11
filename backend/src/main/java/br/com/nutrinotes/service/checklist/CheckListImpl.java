@@ -26,7 +26,7 @@ public class CheckListImpl implements ICheckList {
 	ChecklistDAO dao;
 
 	@Override
-	public Checklist save(@Valid @NotNull Checklist novo) {
+	public Checklist create(@Valid @NotNull Checklist novo) {
 		return dao.save(novo);
 	}
 
