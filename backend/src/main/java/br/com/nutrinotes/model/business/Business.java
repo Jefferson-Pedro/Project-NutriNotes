@@ -54,7 +54,7 @@ public class Business {
 	private String telefone;
 	
 	@NotBlank
-	@Length(min = 3, max = 45)
+	@Length(min = 10, max = 20)
 	@NotNull(message = "O campo logradouro não pode ser nulo")
 	@Column(name = "logradouro")
 	private String logradouro;
