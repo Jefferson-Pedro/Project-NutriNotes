@@ -6,7 +6,7 @@ import br.com.nutrinotes.model.questions.Questions;
 
 
 public interface IQuestions {
-	public Questions save(Questions novo);
+	public Questions create(Questions novo);
 	public boolean update(Questions Questions, Integer id);
 	public List<Questions> findAll();
 	public List<Questions> findByQuestions(String nome);
