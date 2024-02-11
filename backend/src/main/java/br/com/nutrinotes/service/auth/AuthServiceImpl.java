@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.user.UserDAO;
 import br.com.nutrinotes.dto.AuthDTO;
+import br.com.nutrinotes.dto.LoginDTO;
 import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.security.NutriToken;
 import br.com.nutrinotes.security.TokenUtil;
@@ -29,12 +30,12 @@ public class AuthServiceImpl implements IAuthService {
 	}
 
 	@Override
-	public AuthDTO authenticate(@Valid @NotNull User dataLogin) {
-		User res = dao.findByLogin(dataLogin.getEmail());
+	public AuthDTO authenticate(@Valid @NotNull LoginDTO login) {
+		User res = dao.findByEmail(login.email());
 		
 		if(res != null) {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-			if(encoder.matches(dataLogin.getSenha(), res.getSenha())) {
+			if(encoder.matches(login.email(), res.getSenha())) {
 				NutriToken token = TokenUtil.encode(res);
 				return new AuthDTO(res.getIdProfile(),res.getEmail(),token.toString());
 			}
