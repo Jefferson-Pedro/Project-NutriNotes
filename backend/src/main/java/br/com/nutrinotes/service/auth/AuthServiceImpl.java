@@ -37,6 +37,4 @@ public class AuthServiceImpl implements IAuthService {
 		}
 		return null;
 	}
-	
-	
 }
