@@ -24,7 +24,7 @@ public class QuestionsImpl implements IQuestions {
 	QuestionDAO dao;
 
 	@Override
-	public Questions save(@Valid @NotNull Questions novo) {
+	public Questions create(@Valid @NotNull Questions novo) {
 		
 		return dao.save(novo);
 	}
