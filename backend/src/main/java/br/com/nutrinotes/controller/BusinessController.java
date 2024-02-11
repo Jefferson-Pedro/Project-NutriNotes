@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nutrinotes.model.business.Business;
 import br.com.nutrinotes.service.business.IBusiness;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -72,7 +73,7 @@ public class BusinessController {
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<Business> create (@RequestBody Business newBusiness) throws URISyntaxException{
+	public ResponseEntity<Business> create (@RequestBody @Valid @NotNull Business newBusiness) throws URISyntaxException{
 		
 		Business business = service.create(newBusiness);
 		
