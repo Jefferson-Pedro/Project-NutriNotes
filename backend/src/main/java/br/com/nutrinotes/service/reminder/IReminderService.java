@@ -11,7 +11,7 @@ import br.com.nutrinotes.model.reminder.Reminder;
 public interface IReminderService {
 	
 	public Reminder save(Reminder novo);
-	public Reminder update(Reminder reminder);
+	public boolean update(Reminder reminder, Integer id);
 	public boolean delete(Integer id);
 	public List<Reminder> findAll();
 	public Page<Reminder> findAllPage(Pageable pageable);
