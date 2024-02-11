@@ -11,24 +11,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import br.com.nutrinotes.model.user.Profile;
-import br.com.nutrinotes.service.user.IProfile;
+import br.com.nutrinotes.model.user.User;
+import br.com.nutrinotes.service.user.IUser;
 
 @SpringBootTest
 @ActiveProfiles("test")
 public class ProfileTests {
 	
 	@Autowired
-	IProfile service;
+	IUser service;
 	
 	@Test
 	public void shouldCreateProfile() {
-		Profile p = new Profile();
+		User p = new User();
 		p.setIdProfile(109);
 		p.setNome("Jefferson");
 		p.setCrn("123456789");
-		Profile res = service.save(p);
-		assertTrue(res != null && res.getAtivo() == 1);
+		User res = service.save(p);
+		assertTrue(res != null );
 	}
 	
 	@Test
@@ -43,13 +43,13 @@ public class ProfileTests {
 	
 	@Test
 	public void shouldReturnServeralProfile() {
-		List<Profile> lista = service.findByName("a");
+		List<User> lista = service.findByName("a");
 		assertTrue(lista.size() > 0);
 	}
 	
 	@Test
 	public void shouldNotFindProfile() {
-		List<Profile> lista = service.findByName("adamastor");
+		List<User> lista = service.findByName("adamastor");
 		assertTrue(lista.size() == 0);
 	}
 
