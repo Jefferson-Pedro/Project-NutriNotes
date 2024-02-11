@@ -2,10 +2,13 @@ package br.com.nutrinotes.model.business;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
+import org.springframework.context.annotation.Profile;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.nutrinotes.model.department.Department;
-import br.com.nutrinotes.model.user.Profile;
+import br.com.nutrinotes.model.user.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,6 +19,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "business")
@@ -26,30 +31,55 @@ public class Business {
 	@Column(name = "id_business")
 	private Integer idBusiness;
 	
+	@NotBlank
+	@Length(min = 3, max = 45)
+	@NotNull(message = "O campo nome não pode ser nulo")
 	@Column(name = "nome")
 	private String nome;
 	
+	@NotBlank
+	@Length(max = 14)
+	@NotNull(message = "O campo CNPJ não pode ser nulo")
 	@Column(name = "cnpj")
 	private String cnpj;
 	
+	@NotBlank
+	@Length(max = 8)
+	@NotNull(message = "O campo CEP não pode ser nulo")
 	@Column(name = "cep")
 	private String cep;
 	
+	@NotBlank
+	@Length(max = 9)
 	@Column(name = "telefone")
 	private String telefone;
 	
+	@NotBlank
+	@Length(min = 3, max = 45)
+	@NotNull(message = "O campo logradouro não pode ser nulo")
 	@Column(name = "logradouro")
 	private String logradouro;
 	
+	@NotBlank
+	@Length(min = 3, max = 45)
 	@Column(name = "compl")
 	private String compl;
 	
+	@NotBlank
+	@Length(min = 3, max = 45)
+	@NotNull(message = "O campo cidade não pode ser nulo")
 	@Column(name = "cidade")
 	private String cidade;
 	
+	@NotBlank
+	@Length(min = 3, max = 45)
+	@NotNull(message = "O campo bairro não pode ser nulo")
 	@Column(name = "bairro")
 	private String bairro;
 	
+	@NotBlank
+	@Length( max = 2)
+	@NotNull(message = "O campo UF não pode ser nulo")
 	@Column(name = "uf")
 	private String uf;
 	
@@ -62,7 +92,7 @@ public class Business {
 	@ManyToOne
 	@JoinColumn(name = "responsavel_tec")
 	@JsonIgnoreProperties("business")
-	private Profile responsavelTec;
+	private User responsavelTec;
 	
 	//No OneToMany não tem join column, só no contrário
 	@OneToMany(mappedBy = "idBusiness", cascade = CascadeType.ALL)
@@ -168,11 +198,11 @@ public class Business {
 		this.plano = plano;
 	}
 
-	public Profile getResponsavelTec() {
+	public User getResponsavelTec() {
 		return responsavelTec;
 	}
 
-	public void setResponsavelTec(Profile responsavelTec) {
+	public void setResponsavelTec(User responsavelTec) {
 		this.responsavelTec = responsavelTec;
 	}
 		
