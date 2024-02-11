@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nutrinotes.model.checklist.Checklist;
 import br.com.nutrinotes.service.checklist.ICheckList;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
+@Validated
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/checklist")
@@ -48,7 +53,7 @@ public class ChecklistController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Checklist> findById(@PathVariable Integer id){
+	public ResponseEntity<Checklist> findById(@PathVariable @NotNull @Positive Integer id){
 		Checklist res = service.findById(id);
 		if(res != null) {
 			return ResponseEntity.ok().body(res);
@@ -66,8 +71,8 @@ public class ChecklistController {
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<Checklist> save(@RequestBody Checklist checklist){
-		Checklist res = service.save(checklist);
+	public ResponseEntity<Checklist> create(@RequestBody @Valid @NotNull Checklist checklist){
+		Checklist res = service.create(checklist);
 		if(res != null) {
 			return ResponseEntity.ok().body(res);
 		}
@@ -75,19 +80,19 @@ public class ChecklistController {
 	}
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<Checklist> update(@RequestBody Checklist checklist, @PathVariable Integer id){
-		Checklist res = service.update(checklist, id);
-		if(res != null) {
-			return ResponseEntity.ok(res);
+	public ResponseEntity<Checklist> update(@RequestBody @Valid @NotNull Checklist checklist, 
+											@PathVariable @NotNull @Positive Integer id){
+
+		if(service.update(checklist, id)) {
+			return ResponseEntity.ok(checklist);
 		}
 		return ResponseEntity.badRequest().build();
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Checklist> delete(@PathVariable Integer id){
-		Checklist res = service.findById(id);
-		if(res != null) {
-			service.delete(id);
+	public ResponseEntity<Checklist> delete(@PathVariable @NotNull @Positive Integer id){
+		
+		if(service.delete(id)) {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.notFound().build();
