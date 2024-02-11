@@ -21,7 +21,7 @@ public class AuthServiceImpl implements IAuthService {
 	UserDAO dao;
 
 	@Override
-	public User createUser(@Valid @NotNull User newUser) {
+	public User create(@Valid @NotNull User newUser) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 		String newPassword = encoder.encode(newUser.getSenha());
 		newUser.setSenha(newPassword);
