@@ -61,7 +61,7 @@ public class User {
 	private String senha;
 	
 	@NotBlank
-	@NotNull(message = "O campo senha não pode ser nulo")
+	@NotNull(message = "O campo telefone não pode ser nulo")
 	@Length(min = 3, max = 45)
 	@Column(name="telefone", length = 45)
 	private String telefone;
