@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nutrinotes.dto.AuthDTO;
+import br.com.nutrinotes.dto.LoginDTO;
 import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.service.auth.IAuthService;
 import jakarta.validation.Valid;
@@ -33,9 +34,9 @@ public class AuthController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<AuthDTO> authenticate(@RequestBody @Valid @NotNull User dataUser){
+	public ResponseEntity<AuthDTO> authenticate(@RequestBody @Valid @NotNull LoginDTO login){
 		
-		AuthDTO auth = service.authenticate(dataUser);
+		AuthDTO auth = service.authenticate(login);
 		
 		if(auth != null) {
 			return ResponseEntity.ok(auth);
