@@ -2,6 +2,8 @@ package br.com.nutrinotes.dto;
 
 import java.util.Date;
 
+import br.com.nutrinotes.model.reminder.Reminder;
+
 public class ReminderDTO {
 	private Integer idReminder;
     private String titulo;
@@ -9,15 +11,6 @@ public class ReminderDTO {
     private Date dataEvento;
     private String categoria;
     
-	public ReminderDTO() {}
-	
-	public ReminderDTO(Integer idReminder, String titulo, String descricao, Date dataEvento, String categoria) {
-		this.idReminder = idReminder;
-		this.titulo = titulo;
-		this.descricao = descricao;
-		this.dataEvento = dataEvento;
-		this.categoria = categoria;
-	}
 		//GET E SET
 	
 	public Integer getIdReminder() {
@@ -58,5 +51,18 @@ public class ReminderDTO {
 
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+	
+	public static ReminderDTO fromReminder(Reminder reminder) {
+		
+		ReminderDTO dto = new ReminderDTO();
+		
+		dto.setIdReminder(reminder.getIdReminder()); 
+		dto.setTitulo(reminder.getTitulo());
+		dto.setDescricao(reminder.getDescricao());
+		dto.setDataEvento(reminder.getDataEvento());
+		dto.setCategoria(reminder.getCategoria());
+	
+		return dto;
 	}
 }
