@@ -7,31 +7,31 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.business.BusinessDAO;
 import br.com.nutrinotes.model.business.Business;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
-@Component
+@Validated
+@Service
 public class BusinessImpl implements IBusiness {
 	
 	@Autowired
 	BusinessDAO dao;
 
 	@Override
-	public boolean save(Business novo) {
-		novo.setResponsavelTec(novo.getResponsavelTec()); 
-		if(novo.getNome() != null || novo.getNome().length() > 3 || 
-		   novo.getCnpj() != null || novo.getCnpj().length() > 8 ) {
-			
-			 dao.save(novo);
-		}
-		System.err.println("O objeto está nulo ou não cumpre os requisitos para o cadastro");
-		return false;
+	public Business save(@Valid @NotNull Business novo) {
+		novo.setResponsavelTec(novo.getResponsavelTec()); 	
+		return dao.save(novo);
 	}
 
 	@Override
-	public boolean update(Business business, Integer id) {
+	public boolean update(@Valid @NotNull Business business, @NotNull @Positive Integer id) {
 	    Optional<Business> res = dao.findById(id);
 	    if (res.isPresent()) {
 	        Business existingBusiness = res.get();
@@ -54,17 +54,17 @@ public class BusinessImpl implements IBusiness {
 	}
 
 	@Override
-	public List<Business> findByName(String nome) {
+	public List<Business> findByName(@NotBlank @NotNull String nome) {
 		return dao.findByNomeStartingWith(nome);
 	}
 	
 	@Override
-	public Business findById(Integer id) {
+	public Business findById(@NotNull @Positive Integer id) {
 		return dao.findById(id).orElse(null);
 	}
 
 	@Override
-	public boolean delete(Integer id) {
+	public boolean delete(@NotNull @Positive Integer id) {
 		Optional<Business> b = dao.findById(id);
 		if (b.isPresent()) {
 			dao.deleteById(id);
