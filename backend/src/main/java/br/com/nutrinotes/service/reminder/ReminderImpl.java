@@ -27,7 +27,7 @@ public class ReminderImpl implements IReminderService{
 	
 
 	@Override
-	public Reminder save(@Valid @NotNull Reminder novo) {
+	public Reminder create(@Valid @NotNull Reminder novo) {
 			
 		return dao.save(novo);
 	}
