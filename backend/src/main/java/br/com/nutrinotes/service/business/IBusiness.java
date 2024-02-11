@@ -9,7 +9,7 @@ import br.com.nutrinotes.model.business.Business;
 
 public interface IBusiness {
 	
-	public Business save(Business novo);
+	public Business create(Business novo);
 	public boolean update(Business business, Integer id);
 	public Page<Business> findAllPage(Pageable pageable);
 	public List<Business> findAll();
