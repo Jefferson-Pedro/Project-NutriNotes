@@ -8,13 +8,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.reminder.ReminderDAO;
 import br.com.nutrinotes.dto.ReminderDTO;
 import br.com.nutrinotes.dto.ReminderMapper;
 import br.com.nutrinotes.model.reminder.Reminder;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
-@Component
+@Validated
+@Service
 public class ReminderImpl implements IReminderService{
 	
 	@Autowired
@@ -25,11 +30,9 @@ public class ReminderImpl implements IReminderService{
 
 
 	@Override
-	public Reminder save(Reminder novo) {
-		if(novo !=null) {
-			return dao.save(novo);
-		}
-		return null;
+	public Reminder save(@Valid @NotNull Reminder novo) {
+			
+		return dao.save(novo);
 	}
 
 	@Override
