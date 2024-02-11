@@ -26,8 +26,8 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_profile")
-	private Integer idProfile;
+	@Column(name="id_user")
+	private Integer idUser;
 	
 	@NotBlank
 	@NotNull(message = "O campo nome não pode ser nulo")
@@ -80,11 +80,11 @@ public class User {
 	//GETS E SETS
 	
 	public Integer getIdProfile() {
-		return idProfile;
+		return idUser;
 	}
 
-	public void setIdProfile(Integer idProfile) {
-		this.idProfile = idProfile;
+	public void setIdProfile(Integer idUser) {
+		this.idUser = idUser;
 	}
 
 	public String getNome() {
@@ -153,7 +153,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "Profile [idProfile=" + idProfile + ", nome=" + nome + ", data_nasc=" + data_nasc + ", sexo=" + sexo
+		return "Profile [idUser=" + idUser + ", nome=" + nome + ", data_nasc=" + data_nasc + ", sexo=" + sexo
 				+ ", email=" + email + ", senha=" + senha + ", telefone=" + telefone + ", crn=" + crn + ", business=" + business + "]";
 	}
 }
