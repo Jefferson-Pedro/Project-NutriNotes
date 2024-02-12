@@ -31,57 +31,58 @@ public class Business {
 	private Integer idBusiness;
 	
 	@NotBlank
-	@Length(min = 3, max = 45)
+	@Length(min = 9, max = 15, message = "Campo nome deve ter entre 3 e 45 caracteres (incluindo DDD).")
 	@NotNull(message = "O campo nome não pode ser nulo")
 	@Column(name = "nome")
 	private String nome;
 	
 	@NotBlank
-	@Length(max = 14)
+	@Length(min = 14, max = 18, message = "Campo CNPJ deve ter entre 14 e 18 caracteres (incluindo os caracteres especiais)")
 	@NotNull(message = "O campo CNPJ não pode ser nulo")
 	@Column(name = "cnpj")
 	private String cnpj;
 	
 	@NotBlank
-	@Length(max = 8)
+	@Length(min = 8, max = 9, message = "Campo CEP deve ter entre 8 e 9 caracteres (incluindo -).")
 	@NotNull(message = "O campo CEP não pode ser nulo")
 	@Column(name = "cep")
 	private String cep;
 	
 	@NotBlank
-	@Length(max = 9)
+	@Length(min = 9, max = 15, message = "Campo telefone deve ter entre 9 e 15 caracteres (incluindo DDD).")
 	@Column(name = "telefone")
 	private String telefone;
 	
 	@NotBlank
-	@Length(min = 10, max = 20)
+	@Length(min = 3, max = 45, message = "O campo logradouro deve ter entre 3 e 45 caracteres.")
 	@NotNull(message = "O campo logradouro não pode ser nulo")
 	@Column(name = "logradouro")
 	private String logradouro;
 	
-	@NotBlank
-	@Length(min = 3, max = 45)
+
+	@Length( max = 45, message = "O campo complemento deve ter o maximo de 45 caracteres.")
 	@Column(name = "compl")
 	private String compl;
 	
 	@NotBlank
-	@Length(min = 3, max = 45)
+	@Length(min = 3, max = 45, message = "O campo cidade deve ter entre 3 e 45 caracteres.")
 	@NotNull(message = "O campo cidade não pode ser nulo")
 	@Column(name = "cidade")
 	private String cidade;
 	
 	@NotBlank
-	@Length(min = 3, max = 45)
+	@Length(min = 3, max = 45, message = "O campo bairro deve ter entre 3 e 45 caracteres.")
 	@NotNull(message = "O campo bairro não pode ser nulo")
 	@Column(name = "bairro")
 	private String bairro;
 	
 	@NotBlank
-	@Length( max = 2)
+	@Length(min = 2, max = 2, message = "O campo UF deve ter apenas 2 caracteres.")
 	@NotNull(message = "O campo UF não pode ser nulo")
 	@Column(name = "uf")
 	private String uf;
 	
+	@Length(min = 3, max = 45, message = "O campo representante deve ter entre 3 e 45 caracteres.")
 	@Column(name = "representante")
 	private String representante;
 	
