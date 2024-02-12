@@ -2,6 +2,7 @@ package br.com.nutrinotes.service.business;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.business.BusinessDAO;
+import br.com.nutrinotes.dto.BusinessDTO;
 import br.com.nutrinotes.model.business.Business;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -44,8 +46,13 @@ public class BusinessImpl implements IBusiness {
 	}
 	
 	@Override
-	public List<Business> findAll() {
-		return dao.findAll();
+	public List<BusinessDTO> findAll() {
+		List<Business> list = dao.findAll();
+	    List<BusinessDTO> businessDTOs = list.stream()
+	           .map(BusinessDTO::toBusinessDTO)
+	           .collect(Collectors.toList());
+	    
+	    return businessDTOs;
 	}
 
 	@Override
@@ -73,4 +80,5 @@ public class BusinessImpl implements IBusiness {
 		System.err.println("Ocorreu um erro ao excluir a empresa!");
 		return false;
 	}
+
 }
