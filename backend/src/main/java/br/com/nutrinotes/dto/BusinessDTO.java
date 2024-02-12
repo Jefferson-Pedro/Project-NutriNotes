@@ -17,6 +17,7 @@ public class BusinessDTO {
 	private String representante;
 	private String plano;
 	private Integer idUser;
+	private String nomeUser;
 		
 	//					GET AND SET
 	
@@ -124,6 +125,14 @@ public class BusinessDTO {
 		this.idUser = IdUser;
 	}	
 	
+	public String getNomeUser() {
+		return nomeUser;
+	}
+
+	public void setNomeUser(String nomeUser) {
+		this.nomeUser = nomeUser;
+	}
+
 	public static BusinessDTO toBusinessDTO(Business business) {
 		  BusinessDTO dto = new BusinessDTO();
 		  	dto.setIdBusiness(business.getIdBusiness());
@@ -139,6 +148,7 @@ public class BusinessDTO {
 	        dto.setRepresentante(business.getRepresentante());
 	        dto.setPlano(business.getPlano());
 	        dto.setIdUser(business.getResponsavelTec().getIdUser());
+	        dto.setNomeUser(business.getResponsavelTec().getNome());
 	        
 	    return dto;
 	}
