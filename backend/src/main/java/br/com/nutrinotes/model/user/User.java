@@ -22,7 +22,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 
 @Entity
-@Table(name="user")
+@Table(name="users")
 public class User {
 	
 	@Id
@@ -38,14 +38,13 @@ public class User {
 	
 	@Past
 	@NotNull(message = "O campo Data de Nascimento não pode ser nulo")
-	@Length(min = 3, max = 75)
 	@Column(name="data_nasc")
 	private LocalDate data_nasc;
 	
 	@NotBlank
 	@NotNull(message = "O campo sexo não pode ser nulo")
-	@Length(min = 3, max = 75)
-	@Column(name="sexo", length = 10)
+	@Length(max = 1 )
+	@Column(name="sexo")
 	private String sexo;
 	
 	@NotBlank
@@ -57,8 +56,8 @@ public class User {
 	
 	@NotBlank
 	@NotNull(message = "O campo senha não pode ser nulo")
-	@Length(min = 3, max = 45)
-	@Column(name="senha", length = 45)
+	@Length(min = 3, max = 155)
+	@Column(name="senha")
 	private String senha;
 	
 	@NotBlank
@@ -80,11 +79,11 @@ public class User {
 		
 	//GETS E SETS
 	
-	public Integer getIdProfile() {
+	public Integer getIdUser() {
 		return idUser;
 	}
 
-	public void setIdProfile(Integer idUser) {
+	public void setIdUser(Integer idUser) {
 		this.idUser = idUser;
 	}
 
