@@ -29,6 +29,7 @@ public class UserImpl implements IUser {
 		String newPassword = encoder.encode(user.getSenha());
 		user.setSenha(newPassword);
 		
+		System.out.println("Usuário salvo com sucesso!");
 		return dao.save(user);
 	}
 
@@ -39,6 +40,7 @@ public class UserImpl implements IUser {
 		    	User existingUser = res.get();
 		        BeanUtils.copyProperties(User, existingUser, "idUser");
 		        dao.save(existingUser);
+		        System.out.println("Usuário atualizado com sucesso!");
 		        return true;
 		    }
 		    System.out.println("Erro ao editar a perfil!");
