@@ -1,7 +1,5 @@
 package br.com.nutrinotes.controller;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.nutrinotes.dto.BusinessDTO;
 import br.com.nutrinotes.model.business.Business;
 import br.com.nutrinotes.service.business.IBusiness;
 import jakarta.validation.Valid;
@@ -45,14 +44,14 @@ public class BusinessController {
 	    return ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("/all")
-	public ResponseEntity<List<Business>> findAll(){
-		List<Business> list = service.findAll();
-		if(list.size() > 0) {
-			return ResponseEntity.ok(list);
-		}
-		return ResponseEntity.notFound().build();	
-	}
+	  @GetMapping("/all")
+	    public ResponseEntity<List<BusinessDTO>> findAll(){
+	        List<BusinessDTO> list = service.findAll();
+	        if(!list.isEmpty()) {
+	            return ResponseEntity.ok(list);
+	        }
+	        return ResponseEntity.notFound().build();    
+	    }
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Business> findById(@PathVariable @NotNull @Positive Integer id){
@@ -73,12 +72,12 @@ public class BusinessController {
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<Business> create (@RequestBody @Valid @NotNull Business newBusiness) throws URISyntaxException{
+	public ResponseEntity<Business> create (@RequestBody @Valid @NotNull Business newBusiness){
 		
 		Business business = service.create(newBusiness);
 		
 		if (business != null) {
-			return ResponseEntity.created(new URI("business/" + newBusiness.getIdBusiness())).body(newBusiness);	
+			return ResponseEntity.ok(newBusiness);	
 		}
 		return ResponseEntity.badRequest().build();
 	}
