@@ -31,7 +31,7 @@ public class UserController {
 	@Autowired
 	private IUser service;
 	
-	@GetMapping()
+	@GetMapping("/all")
 	public ResponseEntity<List<User>> findAll(){
 		List<User> lista = service.findAll();
 		if (lista.size() > 0) {
