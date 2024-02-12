@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -23,9 +24,12 @@ public class UserImpl implements IUser {
 	private UserDAO dao;
 
 	@Override
-	public User create(@Valid @NotNull User novo) {
-		System.out.println(novo.getNome().length());
-		return dao.save(novo);
+	public User create(@Valid @NotNull User user) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String newPassword = encoder.encode(user.getSenha());
+		user.setSenha(newPassword);
+		
+		return dao.save(user);
 	}
 
 	@Override
@@ -47,7 +51,7 @@ public class UserImpl implements IUser {
 	}
 
 	@Override
-	public List<User> findByName(@Valid @NotNull @NotBlank String nome) {
+	public List<User> findByName(@NotNull @NotBlank String nome) {
 		return dao.findByNomeContaining(nome);
 	}
 
