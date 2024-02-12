@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.nutrinotes.dto.AuthDTO;
 import br.com.nutrinotes.dto.LoginDTO;
 import br.com.nutrinotes.service.auth.IAuthService;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 @Validated
@@ -24,7 +23,7 @@ public class AuthController {
 	
 
 	@PostMapping("/login")
-	public ResponseEntity<AuthDTO> authenticate(@RequestBody @Valid @NotNull LoginDTO login){
+	public ResponseEntity<AuthDTO> authenticate(@RequestBody @NotNull LoginDTO login){
 		
 		AuthDTO auth = service.authenticate(login);
 		
