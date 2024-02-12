@@ -24,7 +24,7 @@ public class ProfileTests {
 	@Test
 	public void shouldCreateProfile() {
 		User p = new User();
-		p.setIdProfile(109);
+		p.setIdUser(109);
 		p.setNome("Jefferson");
 		p.setCrn("123456789");
 		User res = service.create(p);
