@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.nutrinotes.dto.UserDTO;
 import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.service.user.IUser;
 import jakarta.validation.Valid;
@@ -32,12 +33,14 @@ public class UserController {
 	private IUser service;
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<User>> findAll(){
-		List<User> lista = service.findAll();
-		if (lista.size() > 0) {
-			return ResponseEntity.ok(lista);
+	public ResponseEntity<List<UserDTO>> findAll(){
+		List<UserDTO> list = service.findAll();
+		if (list.size() > 0) {
+			return ResponseEntity.ok(list);
 		} 
+		System.out.println(list.toString());
 		return ResponseEntity.notFound().build();
+		
 	}
 	
 	@GetMapping("/buscar")
@@ -68,7 +71,7 @@ public class UserController {
 	}
 	
 	@PutMapping("edit/{id}")
-	public ResponseEntity<User> update(@RequestBody @Valid @NotNull User user, 
+	public ResponseEntity<?> update(@RequestBody @Valid @NotNull User user, 
 									   @PathVariable @NotNull @Positive Integer id){
 
 		if(service.update(user, id)) {
