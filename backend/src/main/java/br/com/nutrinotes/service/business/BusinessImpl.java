@@ -2,6 +2,7 @@ package br.com.nutrinotes.service.business;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
@@ -49,8 +50,8 @@ public class BusinessImpl implements IBusiness {
 	public List<BusinessDTO> findAll() {
 		List<Business> list = dao.findAll();
 	    List<BusinessDTO> businessDTOs = list.stream()
-	           .map(BusinessDTO::toBusinessDTO)
-	           .collect(Collectors.toList());
+	    									 .map(BusinessDTO :: fromBusinessDTO)
+	    									 .collect(Collectors.toList());
 	    
 	    return businessDTOs;
 	}
