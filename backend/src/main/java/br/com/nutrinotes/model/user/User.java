@@ -30,10 +30,10 @@ public class User {
 	@Column(name="id_user")
 	private Integer idUser;
 	
-	@NotBlank
+	@NotBlank(message = "Nome não pode estar em branco")
 	@NotNull(message = "O campo nome não pode ser nulo")
-	@Length(min = 3, max = 75)
-	@Column(name="nome", length = 100)
+	@Length(min = 3, max = 75, message = "Campo telefone deve ter entre 3 e 75 caracteres")
+	@Column(name="nome")
 	private String nome;
 	
 	@Past
