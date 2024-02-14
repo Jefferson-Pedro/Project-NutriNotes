@@ -133,7 +133,7 @@ public class BusinessDTO {
 		this.nomeUser = nomeUser;
 	}
 
-	public static BusinessDTO toBusinessDTO(Business business) {
+	public static BusinessDTO fromBusinessDTO(Business business) {
 		  BusinessDTO dto = new BusinessDTO();
 		  	dto.setIdBusiness(business.getIdBusiness());
 	        dto.setNome(business.getNome());
@@ -152,5 +152,4 @@ public class BusinessDTO {
 	        
 	    return dto;
 	}
-
 }
