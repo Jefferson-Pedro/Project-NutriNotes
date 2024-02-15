@@ -59,7 +59,6 @@ public class Business {
 	@Column(name = "logradouro")
 	private String logradouro;
 	
-
 	@Length( max = 45, message = "O campo complemento deve ter o maximo de 45 caracteres.")
 	@Column(name = "compl")
 	private String compl;
@@ -98,9 +97,8 @@ public class Business {
 	@OneToMany(mappedBy = "idBusiness", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("business")
     private List<Department> setores;
-
 	
-	//GETS E SETS
+	//									GETS E SETS
 
 	public Integer getIdBusiness() {
 		return idBusiness;
