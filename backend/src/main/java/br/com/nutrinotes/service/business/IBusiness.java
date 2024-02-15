@@ -19,6 +19,6 @@ public interface IBusiness {
 	public Page<Business> findAllPage(Pageable pageable);
 	public List<BusinessDTO> findAll();
 	public List<Business> findByName(@NotBlank @NotNull String nome);
-	public Business findById(@NotNull @Positive  Integer id);
+	public BusinessDTO findById(@NotNull @Positive  Integer id);
 	public boolean delete(@NotNull @Positive Integer id);
 }
