@@ -1,5 +1,6 @@
 package br.com.nutrinotes.service.business;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collector;
@@ -14,7 +15,9 @@ import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.business.BusinessDAO;
 import br.com.nutrinotes.dto.BusinessDTO;
+import br.com.nutrinotes.dto.DepartmentDTO;
 import br.com.nutrinotes.model.business.Business;
+import br.com.nutrinotes.model.department.Department;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -49,9 +52,10 @@ public class BusinessImpl implements IBusiness {
 	@Override
 	public List<BusinessDTO> findAll() {
 		List<Business> list = dao.findAll();
-	    List<BusinessDTO> businessDTOs = list.stream()
-	    									 .map(BusinessDTO :: fromBusinessDTO)
-	    									 .collect(Collectors.toList());
+	    List<BusinessDTO> businessDTOs = 
+	    				list.stream()
+	    				.map(BusinessDTO :: fromBusinessDTO)
+	    				.collect(Collectors.toList());
 	    
 	    return businessDTOs;
 	}
@@ -67,8 +71,21 @@ public class BusinessImpl implements IBusiness {
 	}
 	
 	@Override
-	public Business findById(@NotNull @Positive Integer id) {
-		return dao.findById(id).orElse(null);
+	public BusinessDTO findById(@NotNull @Positive Integer id) {
+		Business business =  dao.findById(id).orElse(null);
+		BusinessDTO businessDTO = new BusinessDTO();
+		BeanUtils.copyProperties(business, businessDTO, "setores");
+		
+		if(business != null && business.getSetores() !=null) {
+			List<DepartmentDTO> lisDepartmentDTOs = new ArrayList<>();
+			for (Department department : business.getSetores()) {
+				DepartmentDTO departmentDTO = new DepartmentDTO();
+				BeanUtils.copyProperties(department, departmentDTO);
+				lisDepartmentDTOs.add(departmentDTO);
+			}
+			businessDTO.setSetores(lisDepartmentDTOs);
+		}
+		return businessDTO;
 	}
 
 	@Override
