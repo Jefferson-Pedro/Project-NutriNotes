@@ -54,8 +54,8 @@ public class BusinessController {
 	    }
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Business> findById(@PathVariable @NotNull @Positive Integer id){
-		Business res = service.findById(id);
+	public ResponseEntity<BusinessDTO> findById(@PathVariable @NotNull @Positive Integer id){
+		BusinessDTO res = service.findById(id);
 		if(res != null) {
 			return ResponseEntity.ok().body(res);
 		}
