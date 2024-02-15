@@ -3,6 +3,7 @@ package br.com.nutrinotes.service.user;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.user.UserDAO;
+import br.com.nutrinotes.dto.BusinessDTO;
 import br.com.nutrinotes.dto.UserDTO;
+import br.com.nutrinotes.dto.UserWithoutBusinessDTO;
+import br.com.nutrinotes.model.business.Business;
 import br.com.nutrinotes.model.user.User;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -55,25 +59,42 @@ public class UserImpl implements IUser {
 	}
 
 	@Override
-	public List<UserDTO> findAll() {
+	public List<UserWithoutBusinessDTO> findAll() {
 		List<User> listUsers = dao.findAll();
-		List<UserDTO> listUserDTO = new ArrayList<UserDTO>();
-		for (User user : listUsers) {
-			UserDTO userDTO = new UserDTO();
-			BeanUtils.copyProperties(user, userDTO);
-			listUserDTO.add(userDTO);
+		List<UserWithoutBusinessDTO> listUsersDtos = listUsers.stream()
+				.map(UserWithoutBusinessDTO :: fromUserWithoutBusinessDTO)
+				.collect(Collectors.toList());
+		
+		return listUsersDtos;
+	}
+
+	@Override
+	public List<UserWithoutBusinessDTO> findByName(@NotNull @NotBlank String nome) {
+		List<User> listUsers = dao.findByNomeContaining(nome);
+		List<UserWithoutBusinessDTO> listUsersDtos = listUsers.stream()
+				.map(UserWithoutBusinessDTO :: fromUserWithoutBusinessDTO)
+				.collect(Collectors.toList());
+		
+		return listUsersDtos;
+	}
+
+	@Override
+	public UserDTO findById(@NotNull @Positive Integer id) {
+		User user = dao.findById(id).orElse(null);
+		UserDTO userDTO = new UserDTO();
+		BeanUtils.copyProperties(user, userDTO, "business");
+		
+		//Copiando a lista de empresas manualmente
+		if (user != null && user.getBusiness() != null) {
+			List<BusinessDTO> listBusinessDTOs = new ArrayList<>();
+			for (Business business : user.getBusiness()) {
+				BusinessDTO businessDTO = new BusinessDTO();
+				BeanUtils.copyProperties(business, businessDTO);
+				listBusinessDTOs.add(businessDTO);
+			}
+			userDTO.setBusiness(listBusinessDTOs);
 		}
-		return listUserDTO;
-	}
-
-	@Override
-	public List<User> findByName(@NotNull @NotBlank String nome) {
-		return dao.findByNomeContaining(nome);
-	}
-
-	@Override
-	public User findById(@NotNull @Positive Integer id) {
-		return dao.findById(id).orElse(null);
+		return userDTO;
 	}
 
 	@Override
