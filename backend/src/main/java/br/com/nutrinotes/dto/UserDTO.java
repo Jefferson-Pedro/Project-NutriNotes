@@ -2,7 +2,6 @@ package br.com.nutrinotes.dto;
 
 import java.util.List;
 
-import br.com.nutrinotes.model.business.Business;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,9 +23,9 @@ public class UserDTO {
 	@NotNull(message = "O campo sexo não pode ser nulo")
 	private String crn;
 	
-	//private List<BusinessDTO> business;
+	private List<BusinessDTO> business;
 
-	//GET E SET
+	//GET AND SET
 	
 	public Integer getIdUser() {
 		return idUser;
@@ -61,11 +60,11 @@ public class UserDTO {
 		this.crn = crn;
 	}
 
-//	public List<BusinessDTO> getBusiness() {
-//		return business;
-//	}
-//
-//	public void setBusiness(List<BusinessDTO> business) {
-//		this.business = business;
-//	}
+	public List<BusinessDTO> getBusiness() {
+		return business;
+	}
+
+	public void setBusiness(List<BusinessDTO> business) {
+		this.business = business;
+	}
 }
