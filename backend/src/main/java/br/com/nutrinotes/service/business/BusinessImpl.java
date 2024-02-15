@@ -3,12 +3,12 @@ package br.com.nutrinotes.service.business;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -61,13 +61,24 @@ public class BusinessImpl implements IBusiness {
 	}
 
 	@Override
-	public Page<Business> findAllPage(Pageable pageable) {
-		return dao.findAll(pageable);
+	public Page<BusinessDTO> findAllPage(Pageable pageable) {
+		Page<Business> page = dao.findAll(pageable);
+		List<BusinessDTO> businessDTOs = page.getContent().stream()
+				.map(BusinessDTO :: fromBusinessDTO)
+				.collect(Collectors.toList());
+		return new PageImpl<>(businessDTOs, pageable, page.getTotalElements());
 	}
 
 	@Override
-	public List<Business> findByName(@NotBlank @NotNull String nome) {
-		return dao.findByNomeStartingWith(nome);
+	public List<BusinessDTO> findByName(@NotBlank @NotNull String nome) {
+		
+		List<Business> listBusinesses = dao.findByNomeStartingWith(nome);
+		List<BusinessDTO> listBusinessDTOs = listBusinesses.stream()
+				.map(BusinessDTO :: fromBusinessDTO)
+				.collect(Collectors.toList());
+		
+		return listBusinessDTOs;
+		
 	}
 	
 	@Override
