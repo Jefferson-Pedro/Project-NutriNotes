@@ -16,9 +16,9 @@ public interface IBusiness {
 	
 	public Business create(@Valid @NotNull Business novo);
 	public boolean update(@Valid @NotNull Business business, @NotNull @Positive Integer id);
-	public Page<Business> findAllPage(Pageable pageable);
+	public Page<BusinessDTO> findAllPage(Pageable pageable);
 	public List<BusinessDTO> findAll();
-	public List<Business> findByName(@NotBlank @NotNull String nome);
+	public List<BusinessDTO> findByName(@NotBlank @NotNull String nome);
 	public BusinessDTO findById(@NotNull @Positive  Integer id);
 	public boolean delete(@NotNull @Positive Integer id);
 }
