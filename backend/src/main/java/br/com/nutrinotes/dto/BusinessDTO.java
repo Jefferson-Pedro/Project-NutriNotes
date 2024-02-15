@@ -1,5 +1,7 @@
 package br.com.nutrinotes.dto;
 
+import java.util.List;
+
 import br.com.nutrinotes.model.business.Business;
 
 public class BusinessDTO {
@@ -18,6 +20,7 @@ public class BusinessDTO {
 	private String plano;
 	private Integer idUser;
 	private String nomeUser;
+	private List<DepartmentDTO> setores;
 		
 	//					GET AND SET
 	
@@ -131,6 +134,15 @@ public class BusinessDTO {
 
 	public void setNomeUser(String nomeUser) {
 		this.nomeUser = nomeUser;
+	}
+	
+
+	public List<DepartmentDTO> getSetores() {
+		return setores;
+	}
+
+	public void setSetores(List<DepartmentDTO> setores) {
+		this.setores = setores;
 	}
 
 	public static BusinessDTO fromBusinessDTO(Business business) {
