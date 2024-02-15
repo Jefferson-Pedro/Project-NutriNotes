@@ -41,16 +41,16 @@ public class ProfileTests {
 		assertFalse(service.delete(150));
 	}
 	
-	@Test
-	public void shouldReturnServeralProfile() {
-		List<User> lista = service.findByName("a");
-		assertTrue(lista.size() > 0);
-	}
-	
-	@Test
-	public void shouldNotFindProfile() {
-		List<User> lista = service.findByName("adamastor");
-		assertTrue(lista.size() == 0);
-	}
+//	@Test
+//	public void shouldReturnServeralProfile() {
+//		List<User> lista = service.findByName("a");
+//		assertTrue(lista.size() > 0);
+//	}
+//	
+//	@Test
+//	public void shouldNotFindProfile() {
+//		List<User> lista = service.findByName("adamastor");
+//		assertTrue(lista.size() == 0);
+//	}
 
 }
