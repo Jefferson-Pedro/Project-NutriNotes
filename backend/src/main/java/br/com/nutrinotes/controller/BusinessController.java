@@ -35,8 +35,8 @@ public class BusinessController {
 	IBusiness service;
 	
 	@GetMapping()
-	public ResponseEntity<Page<Business>> findAllPage(Pageable pageable){
-	    Page<Business> page = service.findAllPage(pageable);
+	public ResponseEntity<Page<BusinessDTO>> findAllPage(Pageable pageable){
+	    Page<BusinessDTO> page = service.findAllPage(pageable);
 	    
 	    if(page.hasContent()) {
 	        return ResponseEntity.ok(page);
@@ -63,8 +63,8 @@ public class BusinessController {
 	}
 	
 	@GetMapping("/search")
-	public ResponseEntity<List<Business>> findByName(@RequestParam (name = "name") @NotNull String name){
-		List<Business> list = service.findByName(name);
+	public ResponseEntity<List<BusinessDTO>> findByName(@RequestParam (name = "name") @NotNull String name){
+		List<BusinessDTO> list = service.findByName(name);
 		if(!list.isEmpty()) {
 			return ResponseEntity.ok(list);
 		}
