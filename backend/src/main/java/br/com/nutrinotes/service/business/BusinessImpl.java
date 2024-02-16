@@ -32,7 +32,6 @@ public class BusinessImpl implements IBusiness {
 
 	@Override
 	public Business create(@Valid @NotNull Business novo) {
-		novo.setResponsavelTec(novo.getResponsavelTec()); 	
 		return dao.save(novo);
 	}
 
