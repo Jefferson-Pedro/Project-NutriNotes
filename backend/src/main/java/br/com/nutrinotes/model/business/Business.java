@@ -31,7 +31,7 @@ public class Business {
 	private Integer idBusiness;
 	
 	@NotBlank
-	@Length(min = 9, max = 15, message = "Campo nome deve ter entre 3 e 45 caracteres (incluindo DDD).")
+	@Length(min = 3, max = 45, message = "Campo nome deve ter entre 3 e 45 caracteres (incluindo DDD).")
 	@NotNull(message = "O campo nome não pode ser nulo")
 	@Column(name = "nome")
 	private String nome;
@@ -48,7 +48,6 @@ public class Business {
 	@Column(name = "cep")
 	private String cep;
 	
-	@NotBlank
 	@Length(min = 9, max = 15, message = "Campo telefone deve ter entre 9 e 15 caracteres (incluindo DDD).")
 	@Column(name = "telefone")
 	private String telefone;
@@ -59,7 +58,7 @@ public class Business {
 	@Column(name = "logradouro")
 	private String logradouro;
 	
-	@Length( max = 45, message = "O campo complemento deve ter o maximo de 45 caracteres.")
+	@Length( min = 3, max = 45, message = "O campo complemento deve ter o maximo de 45 caracteres.")
 	@Column(name = "compl")
 	private String compl;
 	
