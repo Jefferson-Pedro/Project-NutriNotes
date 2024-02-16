@@ -44,8 +44,8 @@ public class BusinessController {
 	    return ResponseEntity.notFound().build();
 	}
 	
-	  @GetMapping("/all")
-	    public ResponseEntity<List<BusinessDTO>> findAll(){
+	@GetMapping("/all")
+	public ResponseEntity<List<BusinessDTO>> findAll(){
 	        List<BusinessDTO> list = service.findAll();
 	        if(!list.isEmpty()) {
 	            return ResponseEntity.ok(list);
@@ -72,21 +72,21 @@ public class BusinessController {
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<Business> create (@RequestBody @Valid @NotNull Business newBusiness){
+	public ResponseEntity<String> create (@RequestBody @Valid @NotNull Business newBusiness){
 		
 		Business business = service.create(newBusiness);
 		
 		if (business != null) {
-			return ResponseEntity.ok(newBusiness);	
+			return ResponseEntity.ok().body("Nova empresa criada!");	
 		}
 		return ResponseEntity.badRequest().build();
 	}
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<Business> update(@RequestBody Business business, @PathVariable @NotNull @Positive Integer id){
+	public ResponseEntity<String> update(@RequestBody Business business, @PathVariable @NotNull @Positive Integer id){
 		
 		if(service.update(business, id)) {
-			return ResponseEntity.ok(business);
+			return ResponseEntity.ok().body("Empresa atualizada com sucesso!");
 		}
 		return ResponseEntity.badRequest().build();
 	}
