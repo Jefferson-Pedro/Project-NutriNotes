@@ -2,6 +2,7 @@ package br.com.nutrinotes.dto;
 
 import org.hibernate.validator.constraints.Length;
 
+import br.com.nutrinotes.model.department.Department;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -32,5 +33,11 @@ public class DepartmentDTO {
 		this.nome = nome;
 	}
 	
-	
+	public static DepartmentDTO fromDepartmentDTO(Department department) {
+		DepartmentDTO dto = new DepartmentDTO();
+		dto.setIdSetores(department.getIdSetores());
+		dto.setNome(department.getNome());
+		
+		return dto;
+	}
 }
