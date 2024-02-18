@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.nutrinotes.dto.UserDTO;
+import br.com.nutrinotes.dto.UserWithoutBusinessDTO;
 import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.service.user.IUser;
 import jakarta.validation.Valid;
@@ -24,34 +26,40 @@ import jakarta.validation.constraints.Positive;
 
 @Validated
 @RestController
-@RequestMapping("/User")
+@RequestMapping("/user")
 @CrossOrigin("*")
 public class UserController {
 	
 	@Autowired
 	private IUser service;
 	
-	@GetMapping()
-	public ResponseEntity<List<User>> findAll(){
-		List<User> lista = service.findAll();
-		if (lista.size() > 0) {
-			return ResponseEntity.ok(lista);
+	@GetMapping("/all")
+	public ResponseEntity<List<UserWithoutBusinessDTO>> findAll(){
+		List<UserWithoutBusinessDTO> list = service.findAll();
+		if (list.size() > 0) {
+			return ResponseEntity.ok(list);
 		} 
 		return ResponseEntity.notFound().build();
+		
 	}
 	
 	@GetMapping("/buscar")
-	public ResponseEntity<List<User>> findByName(@RequestParam (name = "nome") @NotNull String nome){
-		List<User> lista = service.findByName(nome);
+	public ResponseEntity<List<?>> findByName(@RequestParam (name = "nome") @NotNull String nome){
+		
+		System.out.println("Nome vindo no controller: " + nome);
+				
+		List<UserWithoutBusinessDTO> lista = service.findByName(nome);
+				
 		if (lista.size() > 0) {
 			return ResponseEntity.ok(lista);
 		} 
 		return ResponseEntity.notFound().build();
+
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<User> findById(@PathVariable @NotNull @Positive Integer id){
-		User res = service.findById(id);
+	public ResponseEntity<UserDTO> findById(@PathVariable @NotNull @Positive Integer id){
+		UserDTO res = service.findById(id);
 		if (res != null) {
 			return ResponseEntity.ok(res);
 		} 
@@ -59,7 +67,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<User> save(@RequestBody @Valid @NotNull User novo){
+	public ResponseEntity<User> create(@RequestBody @Valid @NotNull User novo){
 	
 		if(service.create(novo) != null) {
 			return ResponseEntity.ok().body(novo);
@@ -68,12 +76,12 @@ public class UserController {
 	}
 	
 	@PutMapping("edit/{id}")
-	public ResponseEntity<User> update(@RequestBody @Valid @NotNull User user, 
-									   @PathVariable @NotNull @Positive Integer id){
+	public ResponseEntity<?> update(@RequestBody @Valid @NotNull User user, 
+									@PathVariable @NotNull @Positive Integer id){
 
 		if(service.update(user, id)) {
 			
-			return ResponseEntity.ok(user);
+			return ResponseEntity.ok().body("Usuário atualizado com sucesso!");
 		}
 		return ResponseEntity.badRequest().build();
 	}

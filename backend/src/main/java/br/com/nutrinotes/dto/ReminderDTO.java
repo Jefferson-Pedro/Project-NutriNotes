@@ -53,7 +53,7 @@ public class ReminderDTO {
 		this.categoria = categoria;
 	}
 	
-	public static ReminderDTO fromReminder(Reminder reminder) {
+	public static ReminderDTO fromReminderDTO(Reminder reminder) {
 		
 		ReminderDTO dto = new ReminderDTO();
 		

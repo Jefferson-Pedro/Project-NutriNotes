@@ -59,7 +59,9 @@ public class DepartmentImpl implements IDepartment {
 	
 	@Override
 	public List<Department> findDepartmentByIdBusiness(@NotNull @Positive Integer id) {
-		return dao.findDepartmentByIdBusiness(id);
+		List<Department> list = dao.findDepartmentByIdBusiness(id);
+		return list;
+		
 	}
 
 	@Override

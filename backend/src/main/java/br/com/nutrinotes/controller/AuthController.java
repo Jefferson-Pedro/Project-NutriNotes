@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nutrinotes.dto.AuthDTO;
 import br.com.nutrinotes.dto.LoginDTO;
-import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.service.auth.IAuthService;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 @Validated
@@ -24,17 +22,8 @@ public class AuthController {
 	private IAuthService service;
 	
 
-	@PostMapping("/user")
-	public ResponseEntity<?> create(@RequestBody @Valid @NotNull User user){
-		
-		if(service.create(user) != null) {
-			return ResponseEntity.ok().body("Usuário criado com sucesso!");
-		}
-		return ResponseEntity.status(403).body("ERRO! Usuário já existe no Banco de Dados!");
-	}
-	
 	@PostMapping("/login")
-	public ResponseEntity<AuthDTO> authenticate(@RequestBody @Valid @NotNull LoginDTO login){
+	public ResponseEntity<AuthDTO> authenticate(@RequestBody @NotNull LoginDTO login){
 		
 		AuthDTO auth = service.authenticate(login);
 		

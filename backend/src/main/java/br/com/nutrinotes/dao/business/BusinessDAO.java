@@ -11,6 +11,4 @@ import br.com.nutrinotes.model.business.Business;
 public interface BusinessDAO extends JpaRepository<Business, Integer>{
 	
 	public List<Business> findByNomeStartingWith(String palavraChave);
-	
-	
 }

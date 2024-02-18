@@ -1,17 +1,23 @@
 package br.com.nutrinotes.service.business;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.business.BusinessDAO;
+import br.com.nutrinotes.dto.BusinessDTO;
+import br.com.nutrinotes.dto.DepartmentDTO;
 import br.com.nutrinotes.model.business.Business;
+import br.com.nutrinotes.model.department.Department;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,7 +32,6 @@ public class BusinessImpl implements IBusiness {
 
 	@Override
 	public Business create(@Valid @NotNull Business novo) {
-		novo.setResponsavelTec(novo.getResponsavelTec()); 	
 		return dao.save(novo);
 	}
 
@@ -44,23 +49,53 @@ public class BusinessImpl implements IBusiness {
 	}
 	
 	@Override
-	public List<Business> findAll() {
-		return dao.findAll();
+	public List<BusinessDTO> findAll() {
+		List<Business> list = dao.findAll();
+	    List<BusinessDTO> businessDTOs = 
+	    				list.stream()
+	    				.map(BusinessDTO :: fromBusinessDTO)
+	    				.collect(Collectors.toList());
+	    
+	    return businessDTOs;
 	}
 
 	@Override
-	public Page<Business> findAllPage(Pageable pageable) {
-		return dao.findAll(pageable);
+	public Page<BusinessDTO> findAllPage(Pageable pageable) {
+		Page<Business> page = dao.findAll(pageable);
+		List<BusinessDTO> businessDTOs = page.getContent().stream()
+				.map(BusinessDTO :: fromBusinessDTO)
+				.collect(Collectors.toList());
+		return new PageImpl<>(businessDTOs, pageable, page.getTotalElements());
 	}
 
 	@Override
-	public List<Business> findByName(@NotBlank @NotNull String nome) {
-		return dao.findByNomeStartingWith(nome);
+	public List<BusinessDTO> findByName(@NotBlank @NotNull String nome) {
+		
+		List<Business> listBusinesses = dao.findByNomeStartingWith(nome);
+		List<BusinessDTO> listBusinessDTOs = listBusinesses.stream()
+				.map(BusinessDTO :: fromBusinessDTO)
+				.collect(Collectors.toList());
+		
+		return listBusinessDTOs;
+		
 	}
 	
 	@Override
-	public Business findById(@NotNull @Positive Integer id) {
-		return dao.findById(id).orElse(null);
+	public BusinessDTO findById(@NotNull @Positive Integer id) {
+		Business business =  dao.findById(id).orElse(null);
+		BusinessDTO businessDTO = new BusinessDTO();
+		BeanUtils.copyProperties(business, businessDTO, "setores");
+		
+		if(business != null && business.getSetores() !=null) {
+			List<DepartmentDTO> lisDepartmentDTOs = new ArrayList<>();
+			for (Department department : business.getSetores()) {
+				DepartmentDTO departmentDTO = new DepartmentDTO();
+				BeanUtils.copyProperties(department, departmentDTO);
+				lisDepartmentDTOs.add(departmentDTO);
+			}
+			businessDTO.setSetores(lisDepartmentDTOs);
+		}
+		return businessDTO;
 	}
 
 	@Override
@@ -73,4 +108,5 @@ public class BusinessImpl implements IBusiness {
 		System.err.println("Ocorreu um erro ao excluir a empresa!");
 		return false;
 	}
+
 }

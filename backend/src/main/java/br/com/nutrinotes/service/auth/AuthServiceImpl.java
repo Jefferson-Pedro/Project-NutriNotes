@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import br.com.nutrinotes.dao.user.UserDAO;
 import br.com.nutrinotes.dto.AuthDTO;
 import br.com.nutrinotes.dto.LoginDTO;
+import br.com.nutrinotes.exception.InvalidAccountException;
 import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.security.NutriToken;
 import br.com.nutrinotes.security.TokenUtil;
@@ -21,8 +22,8 @@ public class AuthServiceImpl implements IAuthService {
 	@Autowired
 	UserDAO dao;
 
-	@Override
-	public User create(@Valid @NotNull User newUser) {
+
+	private User create(@Valid @NotNull User newUser) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 		String newPassword = encoder.encode(newUser.getSenha());
 		newUser.setSenha(newPassword);
@@ -30,16 +31,21 @@ public class AuthServiceImpl implements IAuthService {
 	}
 
 	@Override
-	public AuthDTO authenticate(@Valid @NotNull LoginDTO login) {
+	public AuthDTO authenticate(@NotNull LoginDTO login) {
+		
 		User res = dao.findByEmail(login.email());
 		
 		if(res != null) {
+			
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-			if(encoder.matches(login.email(), res.getSenha())) {
+			
+			if(encoder.matches(login.password(), res.getSenha())) {
 				NutriToken token = TokenUtil.encode(res);
-				return new AuthDTO(res.getIdProfile(),res.getEmail(),token.toString());
+				return new AuthDTO(res.getIdUser(),res.getEmail(),token.toString());
+			}else {
+				throw new InvalidAccountException("Senha incorreta. Verifique as informações e tente novamente! ");
 			}
 		}
-		return null;
+		throw new InvalidAccountException("Usuário não existe no banco de dados!");
 	}
 }

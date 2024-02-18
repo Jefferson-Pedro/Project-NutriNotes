@@ -39,6 +39,7 @@ public class WebSecurityConfig {
 			.requestMatchers(new  AntPathRequestMatcher("/item/**", "POST")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/template/**", "POST")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/reminder/**", "POST")).permitAll()
+			.requestMatchers(new  AntPathRequestMatcher("/department/new", "POST")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/profile/**", "GET")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/business/**", "GET")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/checklist/**", "GET")).permitAll()
