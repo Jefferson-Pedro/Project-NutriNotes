@@ -20,19 +20,19 @@ import { CardsComponent } from './components/cards';
 import { HomeComponent } from './components/home';
 import { LegislationComponent } from './components/legislation';
 import { PageNotFoundComponent } from './components/page-not-found';
-import { ProfileComponent } from './components/profile';
 import { SupportUsComponent } from './components/support-us';
 import { CoreRoutingModule } from './core-routing.module';
 import { AlternativeMainColorsDirective } from './directives/css-alternative';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AccountComponent } from './components/account';
 import { MatStepperModule } from '@angular/material/stepper';
+import { UserComponent } from './components/user';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    ProfileComponent,
+    UserComponent,
     AboutComponent,
     SupportUsComponent,
     CardsComponent,
