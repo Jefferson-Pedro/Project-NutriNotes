@@ -34,6 +34,98 @@
         <mat-tab label="Cadastro" class="card-register">
           <div class="formAccount">
             <mat-stepper orientation="vertical" #stepper>
+              
+              <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                  <ng-template matStepLabel>Seu nome</ng-template>
+                  <mat-form-field>
+                    <mat-label>Nome</mat-label>
+                    <input
+                      matInput
+                      placeholder="Seu nome"
+                      type="text"
+                      formControlName="nome"
+                      required
+                    />
+                  </mat-form-field>
+                  <div>
+                    <button mat-button matStepperNext>Próximo</button>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                  <ng-template matStepLabel>Seu nome</ng-template>
+                  <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input
+                      matInput
+                      placeholder="email@exemple.com"
+                      type="email"
+                      formControlName="email"
+                      required
+                    />
+                  </mat-form-field>
+                  <div>
+                    <button mat-button matStepperNext>Próximo</button>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                  <ng-template matStepLabel>Seu nome</ng-template>
+                  <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input
+                      matInput
+                      placeholder="email@exemple.com"
+                      type="email"
+                      formControlName="email"
+                      required
+                    />
+                  </mat-form-field>
+                  <div>
+                    <button mat-button matStepperNext>Próximo</button>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                  <ng-template matStepLabel>Seu nome</ng-template>
+                  <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input
+                      matInput
+                      placeholder="email@exemple.com"
+                      type="email"
+                      formControlName="email"
+                      required
+                    />
+                  </mat-form-field>
+                  <div>
+                    <button mat-button matStepperNext>Próximo</button>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                  <ng-template matStepLabel>Seu nome</ng-template>
+                  <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input
+                      matInput
+                      placeholder="email@exemple.com"
+                      type="email"
+                      formControlName="email"
+                      required
+                    />
+                  </mat-form-field>
+                  <div>
+                    <button mat-button matStepperNext>Próximo</button>
+                  </div>
+                </form>
+              </mat-step>
+
               <mat-step [stepControl]="firstFormGroup">
                 <form [formGroup]="firstFormGroup">
                   <ng-template matStepLabel>Seu email</ng-template>

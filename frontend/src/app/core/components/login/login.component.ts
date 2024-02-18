@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../../models/User';
 import { AuthService } from '../../services/auth';
+import { User } from '../../models/Users';
 
 @Component({
   selector: 'app-login',
@@ -10,8 +10,13 @@ import { AuthService } from '../../services/auth';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+
   public stepperOrientation: 'horizontal' | 'vertical' = 'horizontal';
-  public user: User | undefined;
+ // private user: User;
+  private formBuilder = inject(FormBuilder);
+  private authUser = inject(AuthService);
+  private route = inject(Router);
+
 
   formLogin = this.formBuilder.group({
     login: ['', Validators.required],
@@ -19,22 +24,28 @@ export class LoginComponent {
   });
 
   firstFormGroup = this.formBuilder.group({
-    email: ['', Validators.required],
+    nome: ['', Validators.required],
   });
   secondFormGroup = this.formBuilder.group({
-    senha: ['', Validators.required],
+    email: ['', Validators.required],
   });
   thirdFormGroup = this.formBuilder.group({
+    data_nasc: ['', Validators.required],
+  });
+  roomFormGroup = this.formBuilder.group({
     crn: ['', Validators.required],
   });
+  fifthFormGroup = this.formBuilder.group({
+    sexo: ['', Validators.required],
+  });
+  sixthFormGroup = this.formBuilder.group({
+    telefone: ['', Validators.required],
+  });
+
 
   isEditable = false;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private authUser: AuthService,
-    private route: Router
-  ) {}
+  constructor() {}
 
   public onSubmit() {}
 
