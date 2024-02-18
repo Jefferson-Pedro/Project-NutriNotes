@@ -1,0 +1,74 @@
+.container{
+  display: flex;
+  justify-content: center;
+  margin-top: -15px;
+}
+.card-container {
+  margin-top: 5%;
+  width: 70%;
+  margin-bottom: 15px;
+}
+.profile-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-icon > img{
+  width: 200px;
+  height: 200pxpx;
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+  -webkit-appearance: none;
+  
+}
+input[type=number] { 
+ -moz-appearance: textfield;
+ appearance: textfield;
+
+}
+
+
+/*ESPAÇO PARA ACERTAR TELAS MOBILE*/
+
+@media (max-width: 884px) {
+  .container{
+    height: 100%;
+  }
+  .card-container {
+    margin-top: 5%;
+    width: 80%;
+    height: 100hv;
+  }
+  .name-birthday > .input-name{
+    width: 80%;
+  }
+  .name-birthday > .label-birthday{
+    font-size: 0.5rem;
+  }
+
+}
+
+/*Para telas menores que 428px*/
+@media (max-width: 428px) {
+  .card-container {
+    margin-top: 5%;
+    width: 80%;
+    height: 100hv;
+  }
+  img {
+    max-width: 50%;
+  }
+  .name-birthday, .email-tel, .crn-gener{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .name-birthday > .input-name{
+    width: 100%;
+  }
+  .input-name, .input-crn{
+    width: 100%;
+  }  
+    
+}
