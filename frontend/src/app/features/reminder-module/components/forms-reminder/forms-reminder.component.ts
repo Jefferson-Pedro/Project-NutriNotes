@@ -3,7 +3,7 @@ import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/features/shared-module/services/alert/alert.service';
 import { ReminderService } from '../../services';
 import { Reminder } from 'src/app/core/models/Reminder';
-import { Profile } from 'src/app/core/models/Profile';
+
 
 @Component({
   selector: 'app-forms-reminder',
@@ -71,7 +71,7 @@ export class FormsReminderComponent {
       descricao: form.descricao,
       dataEvento: form.dataEvento,
       //categoria: form.categoria['color'],
-      idProfile: profile as Profile
+      //idProfile: profile as Profile
     };
   }
   
