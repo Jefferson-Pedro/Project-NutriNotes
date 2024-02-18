@@ -1,4 +1,5 @@
-import { Profile } from "./Profile";
+import { User } from "./Users";
+
 
 export interface Reminder {
   idReminder: number;
@@ -6,5 +7,5 @@ export interface Reminder {
   descricao: string;
   dataEvento: Date;
   categoria: string;
-  idProfile: Profile; 
+  idUser: User; 
 }
