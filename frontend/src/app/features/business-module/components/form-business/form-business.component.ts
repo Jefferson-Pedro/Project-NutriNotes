@@ -9,7 +9,7 @@ import { ViaCepService } from 'src/app/features/shared-module/services/cep';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
 import { BusinessService } from '../../services';
 import { Business } from 'src/app/core/models/Business';
-import { Profile } from 'src/app/core/models/Profile';
+import { User } from 'src/app/core/models/Users';
 
 @Component({
   selector: 'app-form-business',
@@ -134,7 +134,7 @@ export class FormBusinessComponent implements OnInit {
       representante: form.representante,
       telefone: form.telefone,
       uf: form.uf,
-      responsavelTec: responsavelTec as Profile, //GAMBIARRA TEMPORARIA
+      //responsavelTec: responsavelTec as User, //GAMBIARRA TEMPORARIA
       idBusiness: form.idBusiness
     };
   }
@@ -172,7 +172,7 @@ export class FormBusinessComponent implements OnInit {
       representante: form.representante,
       telefone: form.telefone,
       uf: form.uf,
-      responsavelTec: form.responsavelTec as Profile,//GAMBIARRA TEMPORARIA
+     // responsavelTec: form.responsavelTec as User,//GAMBIARRA TEMPORARIA
     };
   }
 
