@@ -2,7 +2,7 @@ package br.com.nutrinotes.service.user;
 
 import java.util.List;
 
-import br.com.nutrinotes.dto.UserDTO;
+import br.com.nutrinotes.dto.UserResponseDTO;
 import br.com.nutrinotes.dto.UserWithoutBusinessDTO;
 import br.com.nutrinotes.model.user.User;
 import jakarta.validation.Valid;
@@ -16,6 +16,6 @@ public interface IUser {
 	public boolean update(@Valid @NotNull User User, @NotNull @Positive Integer id);
 	public List<UserWithoutBusinessDTO> findAll();
 	public List<UserWithoutBusinessDTO> findByName(@NotNull @NotBlank String nome);
-	public UserDTO findById(@NotNull @Positive Integer id);
+	public UserResponseDTO findById(@NotNull @Positive Integer id);
 	public boolean delete(@NotNull @Positive Integer id);
 }
