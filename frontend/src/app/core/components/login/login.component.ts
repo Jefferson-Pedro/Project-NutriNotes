@@ -41,7 +41,9 @@ export class LoginComponent {
   sixthFormGroup = this.formBuilder.group({
     telefone: ['', Validators.required],
   });
-
+  seventhFormGroup = this.formBuilder.group({
+    senha: ['', Validators.required],
+  });
 
   isEditable = false;
 
