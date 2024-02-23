@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.user.UserDAO;
 import br.com.nutrinotes.dto.BusinessDTO;
-import br.com.nutrinotes.dto.UserDTO;
+import br.com.nutrinotes.dto.UserResponseDTO;
 import br.com.nutrinotes.dto.UserWithoutBusinessDTO;
 import br.com.nutrinotes.model.business.Business;
 import br.com.nutrinotes.model.user.User;
@@ -79,10 +79,10 @@ public class UserImpl implements IUser {
 	}
 
 	@Override
-	public UserDTO findById(@NotNull @Positive Integer id) {
+	public UserResponseDTO findById(@NotNull @Positive Integer id) {
 		User user = dao.findById(id).orElse(null);
-		UserDTO userDTO = new UserDTO();
-		BeanUtils.copyProperties(user, userDTO, "business");
+		UserResponseDTO userResponseDTO = new UserResponseDTO();
+		BeanUtils.copyProperties(user, userResponseDTO, "business");
 		
 		//Copiando a lista de empresas manualmente
 		if (user != null && user.getBusiness() != null) {
@@ -92,9 +92,9 @@ public class UserImpl implements IUser {
 				BeanUtils.copyProperties(business, businessDTO);
 				listBusinessDTOs.add(businessDTO);
 			}
-			userDTO.setBusiness(listBusinessDTOs);
+			userResponseDTO.setBusiness(listBusinessDTOs);
 		}
-		return userDTO;
+		return userResponseDTO;
 	}
 
 	@Override
