@@ -33,7 +33,7 @@ public class AuthServiceImpl implements IAuthService {
 	@Override
 	public AuthDTO authenticate(@NotNull LoginDTO login) {
 		
-		User res = dao.findByEmail(login.email());
+		User res = dao.findByEmail(login.login());
 		
 		if(res != null) {
 			
