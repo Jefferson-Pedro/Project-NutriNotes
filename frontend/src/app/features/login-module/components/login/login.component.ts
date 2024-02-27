@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth';
-
+import { User } from 'src/app/core/models/Users';
+import { LoginDTO } from 'src/app/core/models/LoginDTO';
+import { NotificationService } from 'src/app/features/shared-module/services/notification';
 
 @Component({
   selector: 'app-login',
@@ -11,37 +13,91 @@ import { AuthService } from '../../services/auth';
 })
 export class LoginComponent {
   public stepperOrientation: 'horizontal' | 'vertical' = 'horizontal';
+  public isEditable = false;
+  private formBuilder =  inject(FormBuilder);
+  private authService = inject(AuthService);
+  private route = inject(Router);
+  private notification = inject(NotificationService);
+  protected formLogin = this.buildLoginForm();
+  private user!: User;
+  private loginDTO!: LoginDTO;
 
-  formLogin = this.formBuilder.group({
-    login: ['', Validators.required],
-    senha: ['', Validators.required],
-  });
+  private buildLoginForm() {
+    return this.formBuilder.nonNullable.group({
+      login: ['', Validators.required],
+      senha: ['', Validators.required],
+    });
+  }
 
   firstFormGroup = this.formBuilder.group({
+    nome: ['', Validators.required],
+  });
+
+  secondFormGroup = this.formBuilder.group({
     email: ['', Validators.required],
   });
-  secondFormGroup = this.formBuilder.group({
-    senha: ['', Validators.required],
-  });
+
   thirdFormGroup = this.formBuilder.group({
+    data_nasc: ['', Validators.required],
+  });
+
+  roomFormGroup = this.formBuilder.group({
     crn: ['', Validators.required],
   });
 
-  isEditable = false;
+  fifthFormGroup = this.formBuilder.group({
+    sexo: ['', Validators.required],
+  });
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private authUser: AuthService,
-    private route: Router
-  ) {}
+  sixthFormGroup = this.formBuilder.group({
+    telefone: ['', Validators.required],
+  });
+
+  seventhFormGroup = this.formBuilder.group({
+    senha: ['', Validators.required],
+  });
+
+  constructor() {}
+
+  public createUserPayLoad(): User {
+
+    const data_nasc = this.thirdFormGroup.get('data_nasc')?.value;
+    if (!data_nasc) {
+        throw new Error('Data de nascimento é obrigatória');
+    }
+    return {
+      idUser: this.formLogin.get('idUser')?.value || undefined, 
+      nome: this.firstFormGroup.get('nome')?.value || '',
+      email: this.secondFormGroup.get('email')?.value || '',
+      data_nasc: new Date(data_nasc),
+      crn: this.roomFormGroup.get('crn')?.value || '',
+      sexo: this.fifthFormGroup.get('sexo')?.value || '',
+      telefone: this.sixthFormGroup.get('telefone')?.value || '',
+      senha: this.seventhFormGroup.get('senha')?.value || '',
+    }
+  }
+
+  public createAuthUserDto(): LoginDTO{
+    const formValue = this.formLogin.getRawValue();
+    return{
+      login: formValue.login,
+      senha: formValue.senha
+    }
+  }
 
   public onSubmit() {}
 
-  public login() {
-    const { login, senha } = this.formLogin.value;
-    console.log(this.formLogin.value);
-    if (typeof login === 'string' && typeof senha === 'string') {
-      this.authUser.loginValidation(login, senha);
+  public loginUser() {
+
+    if (this.formLogin.invalid) {
+      this.notification.showMessageFail(
+        'Preencha todos os campos corretamente!'
+      );
+      return;
+    }else{
+      const loginDto = this.createAuthUserDto();
+      this.authService.loginValidation(loginDto);
     }
   }
 }
+
