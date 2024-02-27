@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SharedModule } from '../shared-module';
+import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { SharedModule } from '../shared-module';
     FormsModule,
     MatCardModule,
     MatToolbarModule,
+    MatRadioModule
   ],
   exports: [AccountComponent],
   providers: [AuthService],
