@@ -1,32 +1,27 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { EventEmitter, Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { LoginDTO } from 'src/app/core/models/LoginDTO';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
  
-  private authUser = false;
+  private authUser: boolean = false;
 
   public emitter = new EventEmitter<boolean>();
+  private route = inject(Router);
+  private http = inject(HttpClient);
 
-  constructor(private route: Router) { } 
+  constructor() { } 
 
-  public isAuth(): boolean{
-      return true;
-  }
-
-  public loginValidation(login: string, senha:string){
-
-   /* if (login === 'jefferson@nutri.com' && senha === '1234') {
-      this.authUser = true;
-      this.emitter.emit(true);
-      this.route.navigate(['home']);
-    } else {
-      this.authUserTest = false;
-      this.emitter.emit(false);
-      alert('Erro! Usuário não encontrado!');
-    }*/
+  public loginValidation(login:LoginDTO): Observable<LoginDTO>{
+    const url = `${environment.baseUrl}/login`;
+    
+    return this.http.post<LoginDTO>(url, login);
   }
 
   public logout(){}
