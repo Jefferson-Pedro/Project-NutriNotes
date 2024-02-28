@@ -25,8 +25,8 @@ export class HeaderComponent {
   //public paginator!: ReminderPaginator[];
 
   constructor() {
-    this.showReminderNotification();
-    console.log(this.showReminderNotification());
+   // this.showReminderNotification();
+    //console.log(this.showReminderNotification());
   }
 
   //Tratando das notificações
