@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth';
 import { User } from 'src/app/core/models/Users';
 import { LoginDTO } from 'src/app/core/models/LoginDTO';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
+import { AuthDTO } from 'src/app/core/models/AuthDTO';
 
 @Component({
   selector: 'app-login',
@@ -16,11 +17,10 @@ export class LoginComponent {
   public isEditable = false;
   private formBuilder =  inject(FormBuilder);
   private authService = inject(AuthService);
-  private route = inject(Router);
+  private router = inject(Router);
   private notification = inject(NotificationService);
   protected formLogin = this.buildLoginForm();
-  private user!: User;
-  private loginDTO!: LoginDTO;
+  protected isLoading = false;
 
   private buildLoginForm() {
     return this.formBuilder.nonNullable.group({
@@ -81,7 +81,7 @@ export class LoginComponent {
     const formValue = this.formLogin.getRawValue();
     return{
       login: formValue.login,
-      senha: formValue.senha
+      password: formValue.senha
     }
   }
 
@@ -94,10 +94,23 @@ export class LoginComponent {
         'Preencha todos os campos corretamente!'
       );
       return;
-    }else{
-      const loginDto = this.createAuthUserDto();
-      this.authService.loginValidation(loginDto);
-    }
+    }  
+    this.isLoading = true;
+    const loginDto = this.createAuthUserDto();
+
+    this.authService.loginValidation(loginDto).subscribe({
+      next:(res: AuthDTO) =>{
+        localStorage.setItem("NutriToken", res.token);
+        this.notification.showMessageSucess('Login feito com sucesso!');
+        this.router.navigate(['/home'])
+        this.isLoading = false;
+      },
+      error:(err)=> {
+        console.log(err);
+        this.notification.showMessageFail('Usuário ou senha incorretos!');
+        this.isLoading = false;
+      },
+    });
   }
 }
 
