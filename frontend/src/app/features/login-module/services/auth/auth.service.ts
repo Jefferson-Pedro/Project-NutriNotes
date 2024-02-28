@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthDTO } from 'src/app/core/models/AuthDTO';
 import { LoginDTO } from 'src/app/core/models/LoginDTO';
 import { environment } from 'src/environments/environment.development';
 
@@ -18,10 +19,10 @@ export class AuthService {
 
   constructor() { } 
 
-  public loginValidation(login:LoginDTO): Observable<LoginDTO>{
+  public loginValidation(login:LoginDTO): Observable<AuthDTO>{
     const url = `${environment.baseUrl}/login`;
     
-    return this.http.post<LoginDTO>(url, login);
+    return this.http.post<AuthDTO>(url, login);
   }
 
   public logout(){}
