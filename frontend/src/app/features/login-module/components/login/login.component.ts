@@ -77,7 +77,7 @@ export class LoginComponent {
     }
   }
 
-  public createAuthUserDto(): LoginDTO{
+  public createLoginDto(): LoginDTO{
     const formValue = this.formLogin.getRawValue();
     return{
       login: formValue.login,
@@ -85,7 +85,20 @@ export class LoginComponent {
     }
   }
 
-  public onSubmit() {}
+  public onSubmit() {
+    const user: User = this.createUserPayLoad();
+    this.authService.createUser(user).subscribe({
+      next:(res) => {
+        this.notification.showMessageSucess('Usuário criado com sucesso!');
+        window.location.reload();
+        console.log('Deu certo', res);
+      },
+      error:(err)=> {
+        this.notification.showMessageFail('Aconteceu um erro!');
+        console.log('Erro: ', err);
+      },
+    });
+  }
 
   public loginUser() {
 
@@ -96,7 +109,7 @@ export class LoginComponent {
       return;
     }  
     this.isLoading = true;
-    const loginDto = this.createAuthUserDto();
+    const loginDto = this.createLoginDto();
 
     this.authService.loginValidation(loginDto).subscribe({
       next:(res: AuthDTO) =>{
