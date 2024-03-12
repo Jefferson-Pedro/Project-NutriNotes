@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthDTO } from 'src/app/core/models/AuthDTO';
 import { LoginDTO } from 'src/app/core/models/LoginDTO';
+import { User } from 'src/app/core/models/Users';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -27,6 +28,10 @@ export class AuthService {
 
   public logout(){}
 
-  public createUser(){}
+  public createUser(user: User): Observable<User>{
+    const url = `${environment.baseUrl}/user/new`;
+
+    return this.http.post<User>(url, user);
+  }
 
 }
