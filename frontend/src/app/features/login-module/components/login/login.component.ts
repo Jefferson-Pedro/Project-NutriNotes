@@ -108,7 +108,6 @@ export class LoginComponent {
       );
       return;
     }  
-    this.isLoading = true;
     const loginDto = this.createLoginDto();
 
     this.authService.loginValidation(loginDto).subscribe({
@@ -116,12 +115,11 @@ export class LoginComponent {
         localStorage.setItem("NutriToken", res.token);
         this.notification.showMessageSucess('Login feito com sucesso!');
         this.router.navigate(['/home'])
-        this.isLoading = false;
+      
       },
       error:(err)=> {
         console.log(err);
         this.notification.showMessageFail('Usuário ou senha incorretos!');
-        this.isLoading = false;
       },
     });
   }
