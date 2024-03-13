@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, delay } from 'rxjs';
 import { AuthDTO } from 'src/app/core/models/AuthDTO';
 import { LoginDTO } from 'src/app/core/models/LoginDTO';
 import { User } from 'src/app/core/models/Users';
@@ -23,7 +23,7 @@ export class AuthService {
   public loginValidation(login:LoginDTO): Observable<AuthDTO>{
     const url = `${environment.baseUrl}/login`;
     
-    return this.http.post<AuthDTO>(url, login);
+    return this.http.post<AuthDTO>(url, login).pipe(delay(2000));
   }
 
   public logout(){}
@@ -31,7 +31,7 @@ export class AuthService {
   public createUser(user: User): Observable<User>{
     const url = `${environment.baseUrl}/user/new`;
 
-    return this.http.post<User>(url, user);
+    return this.http.post<User>(url, user).pipe(delay(2000));
   }
 
 }
