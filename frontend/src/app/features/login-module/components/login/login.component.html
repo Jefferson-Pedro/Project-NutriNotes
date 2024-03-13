@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container"  *ngIf="!isLoading; else loading">
   <mat-card class="card-container">
     <mat-card-header>
       <div class="image-logo">
@@ -181,5 +181,8 @@
         
       </mat-tab-group>
     </mat-card-content>
-  </mat-card>
+  </mat-card> 
 </div>
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>
