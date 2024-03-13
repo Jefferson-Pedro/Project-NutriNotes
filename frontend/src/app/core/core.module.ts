@@ -24,7 +24,6 @@ import { SupportUsComponent } from './components/support-us';
 import { CoreRoutingModule } from './core-routing.module';
 import { AlternativeMainColorsDirective } from './directives/css-alternative';
 import { MatTabsModule } from '@angular/material/tabs';
-import { AccountComponent } from './components/account';
 import { MatStepperModule } from '@angular/material/stepper';
 import { UserComponent } from './components/user';
 
@@ -39,7 +38,7 @@ import { UserComponent } from './components/user';
     PageNotFoundComponent,
     LegislationComponent,
     AlternativeMainColorsDirective,
-    AccountComponent
+
   ],
   imports: [
     CommonModule,
