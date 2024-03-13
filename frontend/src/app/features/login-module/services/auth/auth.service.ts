@@ -33,5 +33,4 @@ export class AuthService {
 
     return this.http.post<User>(url, user).pipe(delay(2000));
   }
-
 }
