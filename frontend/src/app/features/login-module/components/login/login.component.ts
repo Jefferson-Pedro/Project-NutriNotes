@@ -78,17 +78,7 @@ export class LoginComponent {
     }
   }
 
-  public createLoginDto(): LoginDTO{
-    const formValue = this.formLogin.getRawValue();
-    return{
-      login: formValue.login,
-      password: formValue.senha
-    }
-  }
-
-  public onSubmit() {
-    const user: User = this.createUserPayLoad();
-    this.isLoading = true;
+  public createUser(user: User): void{
     this.authService.createUser(user).subscribe({
       next:(res) => {
         this.notification.showMessageSucess('Usuário criado com sucesso!');
@@ -99,6 +89,34 @@ export class LoginComponent {
         console.log('Erro: ', err);
       },
     }).add(() => this.isLoading = false);
+  }
+
+  public createLoginDto(): LoginDTO{
+    const formValue = this.formLogin.getRawValue();
+    return{
+      login: formValue.login,
+      password: formValue.senha
+    }
+  }
+
+  public verifyLoginDto(loginDto: LoginDTO): void{
+    this.authService.loginValidation(loginDto).subscribe({
+      next:(res: AuthDTO) =>{
+        localStorage.setItem("NutriToken", res.token);
+        this.notification.showMessageSucess('Login feito com sucesso!');
+        this.router.navigate(['/home'])
+      },
+      error:(err)=> {
+        console.log(err);
+        this.notification.showMessageFail('Usuário ou senha incorretos!');
+      },
+    }).add(() => this.isLoading = false);
+  }
+
+  public onSubmit() {
+    const user: User = this.createUserPayLoad();
+    this.isLoading = true;
+    this.createUser(user);
   }
 
   public loginUser() {
@@ -112,18 +130,8 @@ export class LoginComponent {
     }  
     this.isLoading = true;
     const loginDto = this.createLoginDto();
+    this.verifyLoginDto(loginDto);
 
-    this.authService.loginValidation(loginDto).subscribe({
-      next:(res: AuthDTO) =>{
-        localStorage.setItem("NutriToken", res.token);
-        this.notification.showMessageSucess('Login feito com sucesso!');
-        this.router.navigate(['/home'])
-      },
-      error:(err)=> {
-        console.log(err);
-        this.notification.showMessageFail('Usuário ou senha incorretos!');
-      },
-    }).add(() => this.isLoading = false);
   }
 }
 
