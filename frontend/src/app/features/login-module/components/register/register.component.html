@@ -1,0 +1,72 @@
+<div class="container" *ngIf="!isLoading; else loading">
+  <mat-card class="card-container">
+    <mat-toolbar mainColors>
+      Cadastre-se
+    </mat-toolbar>
+    <form [formGroup]="register" class=" p-3">
+      <!--LEMBRAR DE INSERIR CAMPO PARA UPLOAD DE FOTO-->
+
+      <div class="row">
+        <mat-form-field class="col-12">
+          <mat-label>Nome e Sobrenome</mat-label>
+          <input matInput formControlName="nome" required />
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-error>O nome é obrigatório</mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field class="col-6">
+          <mat-label>Data de Aniversário</mat-label>
+          <input formControlName="data_nasc" matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error>A data de aniversário é obrigatória</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-6">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" placeholder="pat@example.com" required />
+          <mat-icon matSuffix>alternate_email</mat-icon>
+          <mat-error>O email é obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-6">
+          <mat-label>Telefone + DDD</mat-label>
+          <input matInput type="text" formControlName="telefone" placeholder="(XX)9XXXX-XXXX" />
+          <mat-icon matSuffix>phone</mat-icon>
+          <mat-error>O telefone é obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-6">
+          <mat-label>CRN</mat-label>
+          <input matInput formControlName="crn" required />
+          <mat-icon matSuffix>pin</mat-icon>
+          <mat-error>O CRN é obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-radio-group formControlName="sexo" class="col-6">
+          <mat-label class="sex">Sexo:</mat-label>
+          <mat-radio-button value="M">Masculino</mat-radio-button>
+          <mat-radio-button value="F">Feminino</mat-radio-button>
+          <mat-error *ngIf="!register.controls.sexo.value && submitted ">O sexo é obrigatório</mat-error>
+        </mat-radio-group>
+
+        <mat-form-field class="col-6">
+          <mat-label>Senha</mat-label>
+          <input matInput formControlName="senha" required />
+          <mat-icon matSuffix>password</mat-icon>
+          <mat-error>A Senha é obrigatória</mat-error>
+        </mat-form-field>
+
+        <div class="d-flex justify-content-end col-12 gap-3">
+          <button mat-button mat-stroked-button (click)="onCancel()">CANCELAR</button>
+          <button mat-button mat-raised-button mainColors (click)="onSubmit()">SALVAR</button>
+        </div>
+
+      </div>
+    </form>
+  </mat-card>
+</div>
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>
