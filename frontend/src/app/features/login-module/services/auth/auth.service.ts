@@ -28,9 +28,4 @@ export class AuthService {
 
   public logout(){}
 
-  public createUser(user: User): Observable<User>{
-    const url = `${environment.baseUrl}/user/new`;
-
-    return this.http.post<User>(url, user).pipe(delay(2000));
-  }
 }
