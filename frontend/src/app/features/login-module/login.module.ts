@@ -5,7 +5,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AuthService } from './services/auth';
 import { LoginComponent } from './components/login';
-import { AccountComponent } from './components/account';
+import { RegisterComponent } from './components/register';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,12 +14,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SharedModule } from '../shared-module';
 import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    AccountComponent,
+    RegisterComponent,
   ],
   imports: [
     CommonModule,
@@ -34,9 +36,11 @@ import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
     FormsModule,
     MatCardModule,
     MatToolbarModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDatepickerModule,
+    MatIconModule
   ],
-  exports: [AccountComponent],
+  exports: [RegisterComponent],
   providers: [AuthService],
 })
 export class LoginModule { }
