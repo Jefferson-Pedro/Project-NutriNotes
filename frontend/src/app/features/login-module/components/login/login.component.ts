@@ -14,8 +14,7 @@ import { Observable, delay } from 'rxjs';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  public stepperOrientation: 'horizontal' | 'vertical' = 'horizontal';
-  public isEditable = false;
+
   private formBuilder =  inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -30,66 +29,7 @@ export class LoginComponent {
     });
   }
 
-  firstFormGroup = this.formBuilder.group({
-    nome: ['', Validators.required],
-  });
-
-  secondFormGroup = this.formBuilder.group({
-    email: ['', Validators.required],
-  });
-
-  thirdFormGroup = this.formBuilder.group({
-    data_nasc: ['', Validators.required],
-  });
-
-  roomFormGroup = this.formBuilder.group({
-    crn: ['', Validators.required],
-  });
-
-  fifthFormGroup = this.formBuilder.group({
-    sexo: ['', Validators.required],
-  });
-
-  sixthFormGroup = this.formBuilder.group({
-    telefone: ['', Validators.required],
-  });
-
-  seventhFormGroup = this.formBuilder.group({
-    senha: ['', Validators.required],
-  });
-
   constructor() {}
-
-  public createUserPayLoad(): User {
-
-    const data_nasc = this.thirdFormGroup.get('data_nasc')?.value;
-    if (!data_nasc) {
-        throw new Error('Data de nascimento é obrigatória');
-    }
-    return {
-      idUser: this.formLogin.get('idUser')?.value || undefined, 
-      nome: this.firstFormGroup.get('nome')?.value || '',
-      email: this.secondFormGroup.get('email')?.value || '',
-      data_nasc: new Date(data_nasc),
-      crn: this.roomFormGroup.get('crn')?.value || '',
-      sexo: this.fifthFormGroup.get('sexo')?.value || '',
-      telefone: this.sixthFormGroup.get('telefone')?.value || '',
-      senha: this.seventhFormGroup.get('senha')?.value || '',
-    }
-  }
-
-  public createUser(user: User): void{
-    this.authService.createUser(user).subscribe({
-      next:(res) => {
-        this.notification.showMessageSucess('Usuário criado com sucesso!');
-        console.log('Deu certo', res);
-      },
-      error:(err)=> {
-        this.notification.showMessageFail('Aconteceu um erro!');
-        console.log('Erro: ', err);
-      },
-    }).add(() => this.isLoading = false);
-  }
 
   public createLoginDto(): LoginDTO{
     const formValue = this.formLogin.getRawValue();
@@ -114,14 +54,6 @@ export class LoginComponent {
   }
 
   public onSubmit() {
-    const user: User = this.createUserPayLoad();
-    this.isLoading = true;
-    this.createUser(user);
-  }
-
-  public loginUser() {
-    //this.isLoading = true;
-
     if (this.formLogin.invalid) {
       this.notification.showMessageFail(
         'Preencha todos os campos corretamente!'
@@ -131,7 +63,7 @@ export class LoginComponent {
     this.isLoading = true;
     const loginDto = this.createLoginDto();
     this.verifyLoginDto(loginDto);
-
   }
+
 }
 
