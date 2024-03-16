@@ -23,7 +23,7 @@ export class AuthService {
   public loginValidation(login:LoginDTO): Observable<AuthDTO>{
     const url = `${environment.baseUrl}/login`;
     
-    return this.http.post<AuthDTO>(url, login).pipe(delay(2000));
+    return this.http.post<AuthDTO>(url, login).pipe(delay(1500));
   }
 
   public logout(){}
