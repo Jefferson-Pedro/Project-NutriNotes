@@ -41,17 +41,19 @@ export class LoginComponent {
     }
   }
 
-  public managerToken(res: AuthDTO){
-    this.isLoggedin = this.localStorageService.insertToken(res);
+  public insertToken(res: AuthDTO){
+    this.localStorageService.insertToken(res);
+  }
+
+  public getToken(){
+    const token = this.localStorageService.getToken();
   }
 
   public verifyLoginDto(loginDto: LoginDTO): void{
     this.authService.loginValidation(loginDto).subscribe({
       next:(res: AuthDTO) =>{
-        if(this.isLoggedin){
           this.notification.showMessageSucess('Login feito com sucesso!');
           this.router.navigate(['/home']);
-        }
       },
       error:(err)=> {
         console.log(err);
