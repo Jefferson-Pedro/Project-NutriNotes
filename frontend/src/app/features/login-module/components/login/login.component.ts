@@ -2,11 +2,11 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth';
-import { User } from 'src/app/core/models/Users';
 import { LoginDTO } from 'src/app/core/models/LoginDTO';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
 import { AuthDTO } from 'src/app/core/models/AuthDTO';
 import { Observable, delay } from 'rxjs';
+import { LocalStorageService } from '../../services/localStorage';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +19,10 @@ export class LoginComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private notification = inject(NotificationService);
+  private localStorageService = inject(LocalStorageService);
   protected formLogin = this.buildLoginForm();
   protected isLoading: boolean = false;
+  private isLoggedin!: boolean;
 
   private buildLoginForm() {
     return this.formBuilder.nonNullable.group({
@@ -39,12 +41,17 @@ export class LoginComponent {
     }
   }
 
+  public managerToken(res: AuthDTO){
+    this.isLoggedin = this.localStorageService.insertToken(res);
+  }
+
   public verifyLoginDto(loginDto: LoginDTO): void{
     this.authService.loginValidation(loginDto).subscribe({
       next:(res: AuthDTO) =>{
-        localStorage.setItem("NutriToken", res.token);
-        this.notification.showMessageSucess('Login feito com sucesso!');
-        this.router.navigate(['/home'])
+        if(this.isLoggedin){
+          this.notification.showMessageSucess('Login feito com sucesso!');
+          this.router.navigate(['/home']);
+        }
       },
       error:(err)=> {
         console.log(err);
