@@ -23,14 +23,21 @@ public class AuthController {
 	
 
 	@PostMapping("/login")
-	public ResponseEntity<AuthDTO> authenticate(@RequestBody @NotNull LoginDTO login){
-				
-		AuthDTO auth = service.authenticate(login);
+	public ResponseEntity<?> authenticate(@RequestBody @NotNull LoginDTO login){
 		
-		if(auth != null) {
-			return ResponseEntity.ok(auth);
+		try {
+			AuthDTO auth = service.authenticate(login);
+			
+			if(auth != null) {
+				return ResponseEntity.ok(auth);
+			}
+		} catch (Exception e) {
+			
+			return ResponseEntity.status(401).body(e);
 		}
-		return ResponseEntity.status(401).build();
+		return null;
+		
+		
 	}
 	
 }
