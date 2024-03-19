@@ -9,7 +9,7 @@
     </mat-card-header>
     <mat-card-content>
   
-        <form [formGroup]="formLogin"> 
+        <form [formGroup]="formLogin" (ngSubmit)="onSubmit()"> 
       
           <div class="login-password">
             <mat-form-field class="input-email">
@@ -23,10 +23,9 @@
               <mat-label>Senha</mat-label>
               <input matInput placeholder="Senha" 
               type="password" 
-              formControlName="senha"
-              (keyup.enter)="onSubmit()"/>
+              formControlName="senha"/>
             </mat-form-field>
-            <button mat-raised-button mainColors (click)="onSubmit()" keypress>Login</button>
+            <button mat-raised-button mainColors >Login</button>
           </div>
         </form>
        
