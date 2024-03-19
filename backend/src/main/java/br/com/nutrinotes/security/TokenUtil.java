@@ -27,7 +27,7 @@ public class TokenUtil {
 	public static final long DIAS = 24 * HORAS;
 	public static final long EXPIRATION  = 5 * DIAS;
 	
-	public static final String ISSUER = "**TeamSquad20**";
+	public static final String ISSUER = "NutriToken";
 	public static final String SECRET_KEY = "0123456789012345678901234567890123"; //Chave com 32bytes
 	public static final String PREFIX = "Bearer ";
 	
