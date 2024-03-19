@@ -7,28 +7,29 @@ import { AuthDTO } from 'src/app/core/models/AuthDTO';
 })
 export class LocalStorageService {
 
-   // variável que irá ser setada true quando logado e false quando deslogado
-   private isLogged$ = new BehaviorSubject<boolean>(false);
+   // variável que irá ser setada com o tipo AuthDTO quando logado e null quando deslogado
+   private isLogged$ = new BehaviorSubject<AuthDTO | null>(null);
 
    // variável que será usada para armazenar o valor da variável acima
-   public isLoggedIn$ = this.isLogged$.asObservable();
+   public isLoggedInUser$ = this.isLogged$.asObservable();
  
 
   constructor() { }
 
-  public insertToken(res: AuthDTO): void{
-      localStorage.setItem("NutriToken", res.token);
+  public saveLoggedInUserInfo(res: AuthDTO){
+    localStorage.setItem("NutriToken", JSON.stringify(res));
 
-      this.isLogged$.next(true);
+    this.isLogged$.next(res);
   }
 
-  public getToken():string | null{
+  public getLoggedInUserInfo():string | null{
     return localStorage.getItem('NutriToken');
   }
 
   public removeToken(): void{
     localStorage.removeItem('NutriToken');
     
-    this.isLogged$.next(false);
+    this.isLogged$.next(null);
   }
+
 }

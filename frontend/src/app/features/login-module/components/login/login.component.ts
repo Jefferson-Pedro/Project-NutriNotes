@@ -41,24 +41,19 @@ export class LoginComponent {
     }
   }
 
-  public insertToken(res: AuthDTO){
-    this.localStorageService.insertToken(res);
+  public getLoggedInUserInfo():string | null{
+    return this.localStorageService.getLoggedInUserInfo();
   }
 
-  public getToken():string | null{
-    const token = this.localStorageService.getToken();
-    // if (token) {
-    //   const decoder = jwtDecoder(token);
-    //   return decoder;
-    // }
-    return token;
+  public saveLoggedInUserInfo(userInfo: AuthDTO){
+    this.localStorageService.saveLoggedInUserInfo(userInfo);
   }
 
-  public verifyLoginDto(loginDto: LoginDTO): void{
+  public verifyLogin(loginDto: LoginDTO): void{
     this.authService.loginValidation(loginDto).subscribe({
-      next:(res: AuthDTO) =>{
+      next:(userInfo: AuthDTO) =>{
           this.notification.showMessageSucess('Login feito com sucesso!');
-          this.insertToken(res);
+          this.saveLoggedInUserInfo(userInfo);
           this.router.navigate(['/home']);
           //console.log(res);
       },
@@ -78,6 +73,6 @@ export class LoginComponent {
     }  
     this.isLoading = true;
     const loginDto = this.createLoginDto();
-    this.verifyLoginDto(loginDto);
+    this.verifyLogin(loginDto);
   }
 }
