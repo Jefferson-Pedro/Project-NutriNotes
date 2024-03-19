@@ -5,8 +5,8 @@ import { AuthService } from '../../services/auth';
 import { LoginDTO } from 'src/app/core/models/LoginDTO';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
 import { AuthDTO } from 'src/app/core/models/AuthDTO';
-import { Observable, delay } from 'rxjs';
-import { LocalStorageService } from '../../services/localStorage';
+import { LocalStorageService } from '../../../shared-module/services/localStorage';
+import { jwtDecoder } from 'src/app/core/utils/nutriToken';
 
 @Component({
   selector: 'app-login',
@@ -45,19 +45,26 @@ export class LoginComponent {
     this.localStorageService.insertToken(res);
   }
 
-  public getToken(){
+  public getToken():string | null{
     const token = this.localStorageService.getToken();
+    // if (token) {
+    //   const decoder = jwtDecoder(token);
+    //   return decoder;
+    // }
+    return token;
   }
 
   public verifyLoginDto(loginDto: LoginDTO): void{
     this.authService.loginValidation(loginDto).subscribe({
       next:(res: AuthDTO) =>{
           this.notification.showMessageSucess('Login feito com sucesso!');
+          this.insertToken(res);
           this.router.navigate(['/home']);
+          //console.log(res);
       },
       error:(err)=> {
-        console.log(err);
-        this.notification.showMessageFail('Usuário ou senha incorretos!');
+        const errorMesseger = err.error.message;
+        this.notification.showMessageFail(errorMesseger);
       },
     }).add(() => this.isLoading = false);
   }
@@ -73,6 +80,4 @@ export class LoginComponent {
     const loginDto = this.createLoginDto();
     this.verifyLoginDto(loginDto);
   }
-
 }
-
