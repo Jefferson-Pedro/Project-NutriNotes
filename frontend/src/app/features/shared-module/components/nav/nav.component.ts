@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 
 import { auditTime, distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 import { Subject, fromEvent } from 'rxjs';
 
 import { AuthService } from 'src/app/features/login-module/services/auth';
 import { SidenavService } from '../../services/sidenav';
+import { LocalStorageService } from '../../services/localStorage';
 
 
 @Component({
@@ -13,11 +14,14 @@ import { SidenavService } from '../../services/sidenav';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit, OnDestroy {
-  
- destroyed$ = new Subject<void>();  
- screenWidth!: number;
 
- constructor(protected navService: SidenavService, private authserv: AuthService ){}
+  protected navService = inject(SidenavService);
+  private authserv = inject(AuthService);
+  private localStorageServ = inject(LocalStorageService);
+  protected destroyed$ = new Subject<void>();  
+  protected screenWidth!: number;
+
+ constructor(){}
 
   ngOnInit(): void {
    this.setScreenWidth();
@@ -28,7 +32,7 @@ export class NavComponent implements OnInit, OnDestroy {
     this.destroyed$.complete();
   }  
 
- private setScreenWidth(): void {
+  private setScreenWidth(): void {
   fromEvent(window, 'resize')
     .pipe(
       takeUntil(this.destroyed$),
@@ -40,6 +44,10 @@ export class NavComponent implements OnInit, OnDestroy {
       this.screenWidth = value;
       console.log(value);
     });
-}
+  }
+
+  public logout():void{
+    this.localStorageServ.removeToken();
+  }
 
 }
