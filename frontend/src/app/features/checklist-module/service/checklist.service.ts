@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, delay, first } from 'rxjs';
 import { Business } from 'src/app/core/models/Business';
 import { Checklist } from 'src/app/core/models/Checklist';
-import { QuestionDTO } from 'src/app/core/models/QuestionDTO';
+import { QuestionInfo } from 'src/app/core/models/QuestionInfo';
 import { environment } from 'src/environments/environment.development';
 
 
@@ -42,6 +42,6 @@ export class ChecklistService {
   public listQuestions(id: number) {
     const url = `${this.baseUrl}/question/template/${id}`;
     
-    return this.http.get<QuestionDTO[]>(url);
+    return this.http.get<QuestionInfo[]>(url);
   } 
 }
