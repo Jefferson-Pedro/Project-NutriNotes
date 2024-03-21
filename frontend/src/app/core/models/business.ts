@@ -1,5 +1,5 @@
 import { Department } from "./Department";
-import { User } from "./Users";
+import { User } from "./User";
 
 export interface Business {
     idBusiness?: any;
