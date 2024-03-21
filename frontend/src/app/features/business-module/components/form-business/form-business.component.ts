@@ -9,7 +9,7 @@ import { ViaCepService } from 'src/app/features/shared-module/services/cep';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
 import { BusinessService } from '../../services';
 import { Business } from 'src/app/core/models/Business';
-import { User } from 'src/app/core/models/Users';
+import { User } from 'src/app/core/models/User';
 
 @Component({
   selector: 'app-form-business',
