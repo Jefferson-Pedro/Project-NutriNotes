@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
-import { User } from '../../models/Users';
+import { User } from '../../models/User';
 import { UserService } from '../../services/user';
 
 
