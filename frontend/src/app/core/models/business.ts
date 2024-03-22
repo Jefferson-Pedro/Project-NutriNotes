@@ -1,5 +1,5 @@
 import { Department } from "./Department";
-import { User } from "./User";
+import { CreateUser } from "./CreateUser";
 
 export interface Business {
     idBusiness?: any;
@@ -13,7 +13,7 @@ export interface Business {
     bairro?: string;
     uf?: string;
     representante?: string;
-    responsavelTec?: User;
+    responsavelTec?: CreateUser;
     setores?: Department[];
     plano?: string;
   }
