@@ -47,6 +47,18 @@
           <mat-error>O CRN é obrigatório</mat-error>
         </mat-form-field>
 
+        <mat-form-field class="col-6">
+          <mat-label>Senha atual</mat-label>
+          <input matInput formControlName="senha" required />
+          <mat-icon matSuffix>password</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="col-6">
+          <mat-label>Nova Senha</mat-label>
+          <input matInput formControlName="senha" required />
+          <mat-icon matSuffix>password</mat-icon>
+        </mat-form-field>
+
         <mat-radio-group formControlName="sexo" class="col-12">
           <mat-label class="sex">Sexo:</mat-label>
           <mat-radio-button value="M">Masculino</mat-radio-button>
