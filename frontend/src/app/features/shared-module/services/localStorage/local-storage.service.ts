@@ -42,7 +42,7 @@ export class LocalStorageService {
     const decodedToken = jwtDecoder(response.token); 
     
     return {
-      id: decodedToken.id,
+      id: decodedToken.sub,
       email: decodedToken.email,
       signature: decodedToken.iss
     }
