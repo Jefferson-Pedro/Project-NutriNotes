@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
-import { User } from '../../models/User';
+import { CreateUser } from '../../models/CreateUser';
 import { UserService } from '../../services/user';
 
 
@@ -15,7 +15,7 @@ export class UserComponent implements OnInit {
   protected form = this.buildForm();
   protected loading!: boolean;
   protected submitted = false;
-  private user?: User;
+  private user?: CreateUser;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -60,7 +60,7 @@ export class UserComponent implements OnInit {
     });
   }
 
-  private createOrUpdateUserPayload(): User {
+  private createOrUpdateUserPayload(): CreateUser {
     //Armazena o valor cru do forms
     const formValue = this.form.getRawValue();
     return {
@@ -103,7 +103,7 @@ export class UserComponent implements OnInit {
     //No final da requisição, setar loading para false
   }
 
-  private fillForm(user: User): void {
+  private fillForm(user: CreateUser): void {
     this.form.patchValue({
       nome: user.nome,
       data_nasc: user.data_nasc,
