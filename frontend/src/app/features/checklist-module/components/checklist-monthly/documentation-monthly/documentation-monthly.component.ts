@@ -8,7 +8,7 @@ import { Profile } from 'src/app/core/models/Profile';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Department } from 'src/app/core/models/Department';
 import { MatTableDataSource } from '@angular/material/table';
-import { QuestionDTO } from 'src/app/core/models/QuestionDTO';
+import { QuestionDTO } from 'src/app/core/models/QuestionInfo';
 
 @Component({
   selector: 'app-monthly-documentation',
