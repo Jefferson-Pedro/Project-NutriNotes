@@ -2,11 +2,11 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth';
-import { LoginDTO } from 'src/app/core/models/LoginDTO';
+import { Login } from 'src/app/core/models/Login';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
-import { AuthDTO } from 'src/app/core/models/AuthDTO';
 import { LocalStorageService } from '../../../shared-module/services/localStorage';
-import { jwtDecoder } from 'src/app/core/utils/nutriToken';
+import { LoginUserResponse } from 'src/app/core/models/LoginUserResponse';
+
 
 @Component({
   selector: 'app-login',
@@ -22,7 +22,6 @@ export class LoginComponent {
   private localStorageService = inject(LocalStorageService);
   protected formLogin = this.buildLoginForm();
   protected isLoading: boolean = false;
-  private isLoggedin!: boolean;
 
   private buildLoginForm() {
     return this.formBuilder.nonNullable.group({
@@ -33,7 +32,7 @@ export class LoginComponent {
 
   constructor() {}
 
-  public createLoginDto(): LoginDTO{
+  public createLogin(): Login{
     const formValue = this.formLogin.getRawValue();
     return{
       login: formValue.login,
@@ -41,23 +40,15 @@ export class LoginComponent {
     }
   }
 
-  public getLoggedInUserInfo():string | null{
-    return this.localStorageService.getLoggedInUserInfo();
-  }
-
-  public saveLoggedInUserInfo(userInfo: AuthDTO){
-    this.localStorageService.saveLoggedInUserInfo(userInfo);
-  }
-
-  public verifyLogin(loginDto: LoginDTO): void{
-    this.authService.loginValidation(loginDto).subscribe({
-      next:(userInfo: AuthDTO) =>{
+  public verifyLogin(login: Login): void{
+    this.authService.loginValidation(login).subscribe({
+      next:(response: LoginUserResponse) =>{
           this.notification.showMessageSucess('Login feito com sucesso!');
-          this.saveLoggedInUserInfo(userInfo);
+          this.localStorageService.insertToken(response);
           this.router.navigate(['/home']);
-          //console.log(res);
       },
       error:(err)=> {
+        console.log(err);
         const errorMesseger = err.error.message;
         this.notification.showMessageFail(errorMesseger);
       },
@@ -72,7 +63,7 @@ export class LoginComponent {
       return;
     }  
     this.isLoading = true;
-    const loginDto = this.createLoginDto();
-    this.verifyLogin(loginDto);
+    const login = this.createLogin();
+    this.verifyLogin(login);
   }
 }
