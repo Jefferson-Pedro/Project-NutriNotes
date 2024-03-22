@@ -31,17 +31,18 @@ public class AuthServiceImpl implements IAuthService {
 	}
 
 	@Override
-	public AuthDTO authenticate(@NotNull LoginDTO login) {
+	public NutriToken authenticate(@NotNull LoginDTO login) {
 		
 		User res = dao.findByEmail(login.login());
 		
 		if(res != null) {
 			
-			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			BCryptPasswordEncoder verifyPass = new BCryptPasswordEncoder();
 			
-			if(encoder.matches(login.password(), res.getSenha())) {
+			if(verifyPass.matches(login.password(), res.getSenha())) {
 				NutriToken token = TokenUtil.encode(res);
-				return new AuthDTO(res.getIdUser(),res.getEmail(),token.toString());
+				//return new AuthDTO(res.getIdUser(),res.getEmail(),token.toString());
+				return token;
 			}else {
 				throw new InvalidAccountException("Senha incorreta. Verifique as informações e tente novamente! ");
 			}
