@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.nutrinotes.dto.AuthDTO;
 import br.com.nutrinotes.dto.LoginDTO;
 import br.com.nutrinotes.security.NutriToken;
 import br.com.nutrinotes.service.auth.IAuthService;
