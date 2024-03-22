@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment.development';
-import { User } from '../../models/User';
+import { CreateUser } from '../../models/CreateUser';
 
 
 @Injectable({
@@ -13,15 +13,15 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  public create(user: User): Observable<User> {
+  public create(user: CreateUser): Observable<CreateUser> {
     const url = `${environment.baseUrl}/user/new`;
 
-    return this.http.post<User>(url, user);
+    return this.http.post<CreateUser>(url, user);
   }
 
-  public update(user: User): Observable<User> {
+  public update(user: CreateUser): Observable<CreateUser> {
     const url = `${environment.baseUrl}/user/edit/${user.idUser}`;
 
-    return this.http.put<User>(url, user);
+    return this.http.put<CreateUser>(url, user);
   }
 }
