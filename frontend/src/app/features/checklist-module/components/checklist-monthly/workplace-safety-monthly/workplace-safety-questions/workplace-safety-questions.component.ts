@@ -8,7 +8,7 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Checklist } from 'src/app/core/models/Checklist';
-import { QuestionDTO } from 'src/app/core/models/QuestionDTO';
+import { QuestionInfo } from 'src/app/core/models/QuestionInfo';
 import { ChecklistService } from 'src/app/features/checklist-module/service';
 
 @Component({
@@ -23,7 +23,7 @@ export class WorkplaceSafetyQuestionsComponent implements OnInit {
   private checklistService = inject(ChecklistService);
   //protected formQuestion = inject(FormGroup);
   protected formQuestion!: FormGroup;
-  protected dataSource = new MatTableDataSource<QuestionDTO>();
+  protected dataSource = new MatTableDataSource<QuestionInfo>();
 
   private templateId = history.state.id;
   protected checkList!: Checklist[];
@@ -39,7 +39,7 @@ export class WorkplaceSafetyQuestionsComponent implements OnInit {
     this.getQuestions();
   }
 
-  private buildForm(questions: QuestionDTO[]): void {
+  private buildForm(questions: QuestionInfo[]): void {
     this.formQuestion = this.fb.group({
       questionsArray: this.fb.array(
         questions.map((item) =>
