@@ -1,35 +1,52 @@
 import { Injectable } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs';
-import { UserInfo } from 'src/app/core/models/UserInfo';
+import { DecodeToken } from 'src/app/core/models/DecodeToken';
+import { LoginUserResponse } from 'src/app/core/models/LoginUserResponse';
+import { jwtDecoder } from 'src/app/core/utils/jwt-decoder';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
 
-   // variável que irá ser setada com o tipo AuthDTO quando logado e null quando deslogado
-   private loggedInUserInfo$ = new BehaviorSubject<UserInfo | null>(null);
+  // variável que irá ser setada true quando logado e false quando deslogado
+  private _loggedUser$ = new BehaviorSubject<DecodeToken | null>(null);
 
-   // variável que será usada para armazenar o valor da variável acima
-   public isLoggedInUser$ = this.loggedInUserInfo$.asObservable();
- 
+  // variável que será usada para armazenar o valor da variável acima
+  public loggedUser$ = this._loggedUser$.asObservable();
 
-  constructor() { }
 
-  public saveLoggedInUserInfo(userInfo: UserInfo){
-    localStorage.setItem("NutriToken", JSON.stringify(userInfo));
+ constructor() { }
 
-    this.loggedInUserInfo$.next(userInfo);
+  public insertToken(response: LoginUserResponse): void{
+      localStorage.setItem("NutriToken", response.token);
+
+      const decodedToken = this.getDecodeToken(response);
+
+     this._loggedUser$.next(decodedToken);
   }
 
-  public getLoggedInUserInfo():string | null{
+  public getToken():string | null{
     return localStorage.getItem('NutriToken');
   }
 
-  public removeLoggedInUserInfo(): void{
+  public removeToken(): void{
     localStorage.removeItem('NutriToken');
     
-    this.loggedInUserInfo$.next(null);
+    this._loggedUser$.next(null);
+  }
+
+  private getDecodeToken(response: LoginUserResponse): DecodeToken{
+    const decodedToken = jwtDecoder(response.token); 
+    
+    return {
+      id: decodedToken.id,
+      email: decodedToken.email,
+      signature: decodedToken.iss
+    }
   }
 
 }
+
