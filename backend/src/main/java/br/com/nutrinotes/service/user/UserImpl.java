@@ -13,8 +13,9 @@ import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.user.UserDAO;
 import br.com.nutrinotes.dto.BusinessDTO;
-import br.com.nutrinotes.dto.UserResponseDTO;
+import br.com.nutrinotes.dto.UserWithBusinessDTO;
 import br.com.nutrinotes.dto.UserWithoutBusinessDTO;
+import br.com.nutrinotes.exception.InvalidAccountException;
 import br.com.nutrinotes.model.business.Business;
 import br.com.nutrinotes.model.user.User;
 import jakarta.validation.Valid;
@@ -44,18 +45,25 @@ public class UserImpl implements IUser {
 		Optional<User> res = dao.findById(id);
 
 		if (res.isPresent()) {
-			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-			String newPassword = encoder.encode(user.getSenha());
-			user.setSenha(newPassword);
-
 			User existingUser = res.get();
-			BeanUtils.copyProperties(user, existingUser, "idUser");
-			dao.save(existingUser);
-			System.out.println("Usuário atualizado com sucesso!");
-			return true;
+			BCryptPasswordEncoder verifyOrEncoderPass = new BCryptPasswordEncoder();
+			
+			
+			if(verifyOrEncoderPass.matches(user.getSenha(), existingUser.getSenha())) {
+				String newPassword = verifyOrEncoderPass.encode(user.getSenha());
+				user.setSenha(newPassword);
+
+				BeanUtils.copyProperties(user, existingUser, "idUser");
+				dao.save(existingUser);
+				System.out.println("Usuário atualizado com sucesso!");
+				return true;
+
+			}
+			
+			throw new InvalidAccountException("Senha incorreta. Verifique as informações e tente novamente! ");			
 		}
-		System.out.println("Erro ao editar a perfil!");
-		return false;
+		
+		throw new InvalidAccountException("Usuário não existe no banco de dados!");
 	}
 
 	@Override
@@ -79,9 +87,9 @@ public class UserImpl implements IUser {
 	}
 
 	@Override
-	public UserResponseDTO findById(@NotNull @Positive Integer id) {
+	public UserWithBusinessDTO findById(@NotNull @Positive Integer id) {
 		User user = dao.findById(id).orElse(null);
-		UserResponseDTO userResponseDTO = new UserResponseDTO();
+		UserWithBusinessDTO userResponseDTO = new UserWithBusinessDTO();
 		BeanUtils.copyProperties(user, userResponseDTO, "business");
 		
 		//Copiando a lista de empresas manualmente
