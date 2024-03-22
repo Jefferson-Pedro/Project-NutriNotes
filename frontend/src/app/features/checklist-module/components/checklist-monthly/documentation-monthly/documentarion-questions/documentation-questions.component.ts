@@ -13,7 +13,7 @@ import { Business } from 'src/app/core/models/Business';
 import { Checklist } from 'src/app/core/models/Checklist';
 import { Department } from 'src/app/core/models/Department';
 import { ItemChecklist } from 'src/app/core/models/ItemChecklist';
-import { QuestionDTO } from 'src/app/core/models/QuestionDTO';
+import { QuestionInfo } from 'src/app/core/models/QuestionInfo';
 import { ChecklistService } from 'src/app/features/checklist-module/service';
 
 @Component({
@@ -29,7 +29,7 @@ export class DocumentationQuestionsComponent implements OnInit {
   private formBuilderChecklist = inject(FormBuilder);
 
   protected formQuestion!: FormGroup;
-  protected dataSource = new MatTableDataSource<QuestionDTO>();
+  protected dataSource = new MatTableDataSource<QuestionInfo>();
   protected formChecklist = this.buildFormChecklist();
 
   private templateId = history.state.id;
@@ -107,7 +107,7 @@ export class DocumentationQuestionsComponent implements OnInit {
 
   //Daqui para baixo, tratamos do FormArray
 
-  private buildFormQuestion(questions: QuestionDTO[]): void {
+  private buildFormQuestion(questions: QuestionInfo[]): void {
     this.formQuestion = this.formBuilderQuestions.group({
       questionsArray: this.formBuilderQuestions.array(
         questions.map((item) =>
