@@ -1,4 +1,5 @@
-import { User } from "./User";
+import { CreateUser } from "./CreateUser";
+
 
 export interface Reminder {
   idReminder: number;
@@ -6,5 +7,5 @@ export interface Reminder {
   descricao: string;
   dataEvento: Date;
   categoria: string;
-  idUser: User; 
+  idUser: CreateUser; 
 }
