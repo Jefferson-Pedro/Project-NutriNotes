@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nutrinotes.dto.AuthDTO;
 import br.com.nutrinotes.dto.LoginDTO;
+import br.com.nutrinotes.security.NutriToken;
 import br.com.nutrinotes.service.auth.IAuthService;
 import jakarta.validation.constraints.NotNull;
 
@@ -24,12 +25,14 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public ResponseEntity<?> authenticate(@RequestBody @NotNull LoginDTO login){
+		System.err.println(login.login() + " " + login.password());
 		
 		try {
-			AuthDTO auth = service.authenticate(login);
+			NutriToken token = service.authenticate(login);
 			
-			if(auth != null) {
-				return ResponseEntity.ok(auth);
+			if(token != null) {
+				System.err.println(token);
+				return ResponseEntity.ok(token);
 			}
 		} catch (Exception e) {
 			
