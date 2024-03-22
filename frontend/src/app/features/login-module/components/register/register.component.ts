@@ -2,7 +2,7 @@ import { Component, HostListener, inject } from '@angular/core';
 import { FormBuilder, FormGroup, MinValidator, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { min } from 'rxjs';
-import { User } from 'src/app/core/models/Users';
+import { CreateUser } from 'src/app/core/models/CreateUser';
 import { UserService } from 'src/app/core/services/user';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
 
@@ -37,7 +37,7 @@ export class RegisterComponent {
     });
   }
 
-  private createUserPayload(): User {
+  private createUserPayload(): CreateUser {
     //Armazena o valor cru do forms
     const formValue = this.register.getRawValue();
     return {
@@ -53,7 +53,7 @@ export class RegisterComponent {
   }
 
   public createUser(): void{
-    const user: User = this.createUserPayload();
+    const user: CreateUser = this.createUserPayload();
 
     this.userService.create(user).subscribe({
       next:(res) => {
