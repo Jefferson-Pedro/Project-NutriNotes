@@ -20,7 +20,11 @@
 
         <mat-form-field class="col-6">
           <mat-label>Data de Aniversário</mat-label>
-          <input formControlName="data_nasc" matInput [matDatepicker]="picker">
+          <input 
+            formControlName="data_nasc" 
+            matInput [matDatepicker]="picker"
+           
+          />
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <mat-error>A data de aniversário é obrigatória</mat-error>
@@ -35,14 +39,25 @@
 
         <mat-form-field class="col-6">
           <mat-label>Telefone + DDD</mat-label>
-          <input matInput type="text" formControlName="telefone" placeholder="(XX)9XXXX-XXXX" />
+            <input 
+            matInput 
+            type="tel" 
+            mask="(00) 0 0000-0000" 
+            formControlName="telefone" 
+            placeholder="(XX)9XXXX-XXXX" 
+            />
           <mat-icon matSuffix>phone</mat-icon>
           <mat-error>O telefone é obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field class="col-6">
           <mat-label>CRN</mat-label>
-          <input matInput formControlName="crn" required />
+          <input matInput 
+          formControlName="crn" 
+          type="text"
+          mask ="00.000"
+          required 
+          />
           <mat-icon matSuffix>pin</mat-icon>
           <mat-error>O CRN é obrigatório</mat-error>
         </mat-form-field>
@@ -55,7 +70,7 @@
 
         <mat-form-field class="col-6">
           <mat-label>Nova Senha</mat-label>
-          <input matInput formControlName="senha" required />
+          <input matInput formControlName="novaSenha" required />
           <mat-icon matSuffix>password</mat-icon>
         </mat-form-field>
 
