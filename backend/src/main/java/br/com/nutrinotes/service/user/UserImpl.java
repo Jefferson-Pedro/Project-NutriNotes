@@ -1,6 +1,5 @@
 package br.com.nutrinotes.service.user;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,11 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.user.UserDAO;
-import br.com.nutrinotes.dto.BusinessDTO;
-import br.com.nutrinotes.dto.UserWithBusinessDTO;
+import br.com.nutrinotes.dto.UserEditFormDTO;
 import br.com.nutrinotes.dto.UserWithoutBusinessDTO;
 import br.com.nutrinotes.exception.InvalidAccountException;
-import br.com.nutrinotes.model.business.Business;
 import br.com.nutrinotes.model.user.User;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -87,22 +84,12 @@ public class UserImpl implements IUser {
 	}
 
 	@Override
-	public UserWithBusinessDTO findById(@NotNull @Positive Integer id) {
-		User user = dao.findById(id).orElse(null);
-		UserWithBusinessDTO userResponseDTO = new UserWithBusinessDTO();
-		BeanUtils.copyProperties(user, userResponseDTO, "business");
+	public UserEditFormDTO findById(@NotNull @Positive Integer id) {
+		User existingUser = dao.findById(id).orElse(null);
+		UserEditFormDTO userEditFormDTO = new UserEditFormDTO();
+		BeanUtils.copyProperties(existingUser, userEditFormDTO, "senha");
 		
-		//Copiando a lista de empresas manualmente
-		if (user != null && user.getBusiness() != null) {
-			List<BusinessDTO> listBusinessDTOs = new ArrayList<>();
-			for (Business business : user.getBusiness()) {
-				BusinessDTO businessDTO = new BusinessDTO();
-				BeanUtils.copyProperties(business, businessDTO);
-				listBusinessDTOs.add(businessDTO);
-			}
-			userResponseDTO.setBusiness(listBusinessDTOs);
-		}
-		return userResponseDTO;
+		return userEditFormDTO;
 	}
 
 	@Override
