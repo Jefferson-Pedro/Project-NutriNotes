@@ -24,4 +24,10 @@ export class UserService {
 
     return this.http.put<CreateUser>(url, user);
   }
+
+  public findById(id: Number) {
+    const url = `${environment.baseUrl}/user/{id}`;
+    
+    return this.http.get<CreateUser>(url);
+  }
 }
