@@ -6,13 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.user.UserDAO;
-import br.com.nutrinotes.dto.AuthDTO;
 import br.com.nutrinotes.dto.LoginDTO;
 import br.com.nutrinotes.exception.InvalidAccountException;
 import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.security.NutriToken;
 import br.com.nutrinotes.security.TokenUtil;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 @Validated
@@ -21,14 +19,6 @@ public class AuthServiceImpl implements IAuthService {
 	
 	@Autowired
 	UserDAO dao;
-
-
-	private User create(@Valid @NotNull User newUser) {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
-		String newPassword = encoder.encode(newUser.getSenha());
-		newUser.setSenha(newPassword);
-		return dao.save(newUser);
-	}
 
 	@Override
 	public NutriToken authenticate(@NotNull LoginDTO login) {
