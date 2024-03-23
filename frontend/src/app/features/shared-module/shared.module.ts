@@ -21,6 +21,7 @@ import { HeaderComponent } from './components/header';
 import { LoaderComponent } from './components/loader';
 import { NavComponent } from './components/nav';
 import { CssDirective } from './directives/css';
+import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
 
 
 registerLocaleData(localePt);
@@ -50,7 +51,8 @@ registerLocaleData(localePt);
     MatBadgeModule,
     MatMenuModule,
     MatButtonModule,
-
+    NgxMaskDirective, 
+    NgxMaskPipe
 
   ],
   exports: [
@@ -59,6 +61,9 @@ registerLocaleData(localePt);
       NavComponent,
       FooterComponent,
       HeaderComponent,
+      NgxMaskDirective, 
+      NgxMaskPipe
     ],
+    providers: [provideEnvironmentNgxMask()]
 })
 export class SharedModule { }
