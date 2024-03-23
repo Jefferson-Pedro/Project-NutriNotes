@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.nutrinotes.dto.UserWithBusinessDTO;
+import br.com.nutrinotes.dto.UserEditFormDTO;
 import br.com.nutrinotes.dto.UserWithoutBusinessDTO;
 import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.service.user.IUser;
@@ -58,8 +58,8 @@ public class UserController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<UserWithBusinessDTO> findById(@PathVariable @NotNull @Positive Integer id){
-		UserWithBusinessDTO res = service.findById(id);
+	public ResponseEntity<UserEditFormDTO> findById(@PathVariable @NotNull @Positive Integer id){
+		UserEditFormDTO res = service.findById(id);
 		if (res != null) {
 			return ResponseEntity.ok(res);
 		} 
