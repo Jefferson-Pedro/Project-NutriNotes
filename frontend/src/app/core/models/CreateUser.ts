@@ -1,10 +1,6 @@
-export interface CreateUser  {
-    idUser?: number,
-    nome: string,
-    data_nasc: Date | null,
-    sexo: string,
-    email: string,
-    senha?: string,
-    telefone: string,
-    crn: string,
+import { User } from "./User";
+
+export interface CreateUser extends User {
+    idUser: number,
+    senha: string,
 }
