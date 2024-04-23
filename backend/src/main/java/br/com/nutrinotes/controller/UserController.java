@@ -59,7 +59,10 @@ public class UserController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<UserEditFormDTO> findById(@PathVariable @NotNull @Positive Integer id){
+		
 		UserEditFormDTO res = service.findById(id);
+		System.err.println("Objeto retornado: " + res.toString());
+		
 		if (res != null) {
 			return ResponseEntity.ok(res);
 		} 
