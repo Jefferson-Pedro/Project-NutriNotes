@@ -40,6 +40,7 @@ public class WebSecurityConfig {
 			.requestMatchers(new  AntPathRequestMatcher("/template/**", "POST")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/reminder/**", "POST")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/department/new", "POST")).permitAll()
+			
 			.requestMatchers(new  AntPathRequestMatcher("/profile/**", "GET")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/business/**", "GET")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/checklist/**", "GET")).permitAll()
@@ -48,16 +49,20 @@ public class WebSecurityConfig {
 			.requestMatchers(new  AntPathRequestMatcher("/question/**", "GET")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/template/**", "GET")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/department/**", "GET")).permitAll()
+			.requestMatchers(new  AntPathRequestMatcher("/user/**", "GET")).permitAll()
+			
 			.requestMatchers(new  AntPathRequestMatcher("/business/{id}", "DELETE")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/checklist/{id}", "DELETE")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/question/{id}", "DELETE")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/item/delete/", "DELETE")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/template/{id}", "DELETE")).permitAll()
+			
 			.requestMatchers(new  AntPathRequestMatcher("/business/edit/{id}", "PUT")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/checklist/edit/{id}", "PUT")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/question/edit/{id}", "PUT")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/item/edit/", "PUT")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/template/edit/{id}", "PUT")).permitAll()
+			.requestMatchers(new  AntPathRequestMatcher("/user/edit/{id}", "PUT")).permitAll()
 		    .anyRequest().authenticated();
 	})
 		.addFilterBefore(new NutriFilter(), UsernamePasswordAuthenticationFilter.class)
