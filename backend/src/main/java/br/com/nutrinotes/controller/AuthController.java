@@ -24,7 +24,6 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public ResponseEntity<?> authenticate(@RequestBody @NotNull LoginDTO login){
-		System.err.println(login.login() + " " + login.password());
 		
 		try {
 			NutriToken token = service.authenticate(login);
