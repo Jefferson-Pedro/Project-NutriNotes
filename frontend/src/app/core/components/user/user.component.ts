@@ -1,8 +1,8 @@
+import { CreateUser } from './../../models/CreateUser';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
-import { CreateUser } from '../../models/CreateUser';
 import { UserService } from '../../services/user';
 import { EditUser } from '../../models/EditUser';
 import { LocalStorageService } from 'src/app/features/shared-module/services/localStorage';
@@ -23,13 +23,11 @@ export class UserComponent implements OnInit {
   protected form = this.buildForm();
   protected loading!: boolean;
   protected submitted = false;
-  private user?: CreateUser;
+  private user!: EditUser;
  // private userLoggedin;
 
-  constructor() {}
-
   ngOnInit(): void {
-    this.loadUser();
+    this.loadUserById();
   }
 
   public onSubmit() {
@@ -40,8 +38,8 @@ export class UserComponent implements OnInit {
         'Preencha todos os campos corretamente!'
       );
       return; //Quebra a função e não executa mais nada.
-    }    
-      this.editUser(); 
+    }
+      this.editUser();
   }
 
   public onCancel() {
@@ -50,6 +48,7 @@ export class UserComponent implements OnInit {
 
   private buildForm() {
     return this.formBuilder.nonNullable.group({
+      //idUser: [0], // Inicializa com 0 ou qualquer outro número padrão
       nome: ['', Validators.required],
       data_nasc: [null as Date | null, Validators.required],
       sexo: ['', Validators.required],
@@ -65,7 +64,7 @@ export class UserComponent implements OnInit {
       //Armazena o valor cru do forms
     const formValue = this.form.getRawValue();
     return {
-      idUser: this.user?.idUser,
+      idUser: this.user.idUser,
       nome: formValue.nome,
       data_nasc: formValue.data_nasc,
       sexo: formValue.sexo,
@@ -77,31 +76,25 @@ export class UserComponent implements OnInit {
     };
   }
 
-  private loadUser(): void {
+  //Recupera as informações do token e faz uma chamada para o back para verificar o id
+  private loadUserById(): void {
     this.loading = true;
-    //Criar a parte da autenticação
-    this.localStorageService.loggedUser$.subscribe({
-      next: (userResponse) => {
-        const user = this.findByIdUser();
-      }, 
-      error: (err) => {
-          console.log("Nenhum usuário logado: ", err);
+    const id = +this.localStorageService.getDecodeToken()!.id; //Uma forma de converter para Number
+    this.userService.findUserById(id).subscribe({
+      next:(userResponse)=> {
+        this.localStorageService.insertToken('LoggedUser', userResponse); //Salva um obj com os dados do usuário logado;
+        this.fillForm(userResponse);
       },
-      });
-
-
-    // criar no back end função que retorna profile se existir
-    // criar função no serviço para consumir o endpoint
-    //Se um usuário existir, chamar o fillform, passando o retorno da chamada como parametro;
-    //No final da requisição, setar loading para false
+      error: (err)=> {
+        console.log(err);
+      },
+    });
   }
-  // private findByIdUser(): CreateUser {
-  //   this.
-  // }
 
   //Preenche os campos do Profile
   private fillForm(user: EditUser): void {
     this.form.patchValue({
+      idUser: user.idUser,
       nome: user.nome,
       data_nasc: user.data_nasc,
       email: user.email,
@@ -111,6 +104,7 @@ export class UserComponent implements OnInit {
     });
   }
 
+  //Edita o perfil
   private editUser(): void {
     const body = this.updateUserPayload();
 
@@ -133,3 +127,4 @@ export class UserComponent implements OnInit {
   }
 
 }
+
