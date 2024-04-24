@@ -44,7 +44,7 @@ export class LoginComponent {
     this.authService.loginValidation(login).subscribe({
       next:(response: LoginUserResponse) =>{
           this.notification.showMessageSucess('Login feito com sucesso!');
-          this.localStorageService.insertToken(response);
+          this.localStorageService.insertToken('NutriToken', response.token);
           this.router.navigate(['/home']);
       },
       error:(err)=> {
@@ -61,7 +61,7 @@ export class LoginComponent {
         'Preencha todos os campos corretamente!'
       );
       return;
-    }  
+    }
     this.isLoading = true;
     const login = this.createLogin();
     this.verifyLogin(login);
