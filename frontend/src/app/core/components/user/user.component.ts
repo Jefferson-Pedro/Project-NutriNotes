@@ -1,3 +1,4 @@
+import { CepResponse } from 'src/app/core/models/CepResponse';
 import { CreateUser } from './../../models/CreateUser';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -6,6 +7,7 @@ import { NotificationService } from 'src/app/features/shared-module/services/not
 import { UserService } from '../../services/user';
 import { EditUser } from '../../models/EditUser';
 import { LocalStorageService } from 'src/app/features/shared-module/services/localStorage';
+import { finalize } from 'rxjs';
 
 
 @Component({
@@ -48,7 +50,7 @@ export class UserComponent implements OnInit {
 
   private buildForm() {
     return this.formBuilder.nonNullable.group({
-      //idUser: [0], // Inicializa com 0 ou qualquer outro número padrão
+      idUser: [0], // Inicializa com 0 ou qualquer outro número padrão
       nome: ['', Validators.required],
       data_nasc: [null as Date | null, Validators.required],
       sexo: ['', Validators.required],
@@ -64,7 +66,7 @@ export class UserComponent implements OnInit {
       //Armazena o valor cru do forms
     const formValue = this.form.getRawValue();
     return {
-      idUser: this.user.idUser,
+      idUser: formValue.idUser, //this.user.idUser,
       nome: formValue.nome,
       data_nasc: formValue.data_nasc,
       sexo: formValue.sexo,
@@ -78,17 +80,22 @@ export class UserComponent implements OnInit {
 
   //Recupera as informações do token e faz uma chamada para o back para verificar o id
   private loadUserById(): void {
+
     this.loading = true;
     const id = +this.localStorageService.getDecodeToken()!.id; //Uma forma de converter para Number
+
     this.userService.findUserById(id).subscribe({
       next:(userResponse)=> {
+
         this.localStorageService.insertToken('LoggedUser', userResponse); //Salva um obj com os dados do usuário logado;
         this.fillForm(userResponse);
       },
       error: (err)=> {
         console.log(err);
       },
-    });
+    }).add(() => {
+      this.loading = false;
+    })
   }
 
   //Preenche os campos do Profile
@@ -106,24 +113,28 @@ export class UserComponent implements OnInit {
 
   //Edita o perfil
   private editUser(): void {
+    this.loading = true;
     const body = this.updateUserPayload();
+    console.log('Entrou no EditUser: ' , body);
 
     this.userService.update(body).subscribe({
-      next: () => {
+      next: (response) => {
+        console.log("Resposta do back para editar: " , response);
         this.notificationService.showMessageSucess(
           'Perfil atualizado com sucesso!'
         );
+        location.reload();
+
       },
-      error: () => {
+      error: (err) => {
+        console.log(err);
         this.notificationService.showMessageFail(
           'Ocorreu um erro ao alterar as informações do perfil'
         );
       },
-      complete: () => {
-        //quando completar requisição cai nessa função;
-        this.loading = false;
-      },
-    });
+    }).add(() => {
+      this.loading = false;
+    })
   }
 
 }
