@@ -14,6 +14,7 @@ import br.com.nutrinotes.dao.user.UserDAO;
 import br.com.nutrinotes.dto.UserEditFormDTO;
 import br.com.nutrinotes.dto.UserWithoutBusinessDTO;
 import br.com.nutrinotes.exception.InvalidAccountException;
+import br.com.nutrinotes.exception.UserException;
 import br.com.nutrinotes.model.user.User;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -60,7 +61,7 @@ public class UserImpl implements IUser {
 			throw new InvalidAccountException("Senha incorreta. Verifique as informações e tente novamente! ");			
 		}
 		
-		throw new InvalidAccountException("Usuário não existe no banco de dados!");
+		throw new UserException("Usuário não existe no banco de dados!");
 	}
 
 	@Override
@@ -85,11 +86,15 @@ public class UserImpl implements IUser {
 
 	@Override
 	public UserEditFormDTO findById(@NotNull @Positive Integer id) {
+		
 		User existingUser = dao.findById(id).orElse(null);
 		UserEditFormDTO userEditFormDTO = new UserEditFormDTO();
 		BeanUtils.copyProperties(existingUser, userEditFormDTO, "senha");
 		
-		return userEditFormDTO;
+		if (userEditFormDTO != null) {
+			return userEditFormDTO;
+		}
+			throw new UserException("Usuário não encontrado!");	
 	}
 
 	@Override
