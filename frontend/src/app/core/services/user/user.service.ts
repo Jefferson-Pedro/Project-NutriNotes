@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment.development';
 import { CreateUser } from '../../models/CreateUser';
+import { EditUser } from '../../models/EditUser';
 
 
 @Injectable({
@@ -19,15 +20,15 @@ export class UserService {
     return this.http.post<CreateUser>(url, user);
   }
 
-  public update(user: CreateUser): Observable<CreateUser> {
+  public update(user: EditUser): Observable<EditUser> {
     const url = `${environment.baseUrl}/user/edit/${user.idUser}`;
 
-    return this.http.put<CreateUser>(url, user);
+    return this.http.put<EditUser>(url, user);
   }
 
-  public findById(id: Number) {
-    const url = `${environment.baseUrl}/user/{id}`;
-    
-    return this.http.get<CreateUser>(url);
+  public findUserById(id: Number) {
+    const url = `${environment.baseUrl}/user/${id}`;
+
+    return this.http.get<any>(url);
   }
 }
