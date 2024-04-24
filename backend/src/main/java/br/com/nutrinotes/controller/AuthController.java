@@ -37,8 +37,6 @@ public class AuthController {
 			return ResponseEntity.status(401).body(e);
 		}
 		return null;
-		
-		
 	}
 	
 }
