@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.nutrinotes.dto.UserEditFormDTO;
 import br.com.nutrinotes.dto.UserWithoutBusinessDTO;
+import br.com.nutrinotes.exception.InvalidAccountException;
+import br.com.nutrinotes.exception.UserException;
 import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.service.user.IUser;
 import jakarta.validation.Valid;
@@ -46,27 +48,34 @@ public class UserController {
 	@GetMapping("/buscar")
 	public ResponseEntity<List<?>> findByName(@RequestParam (name = "nome") @NotNull String nome){
 		
-		System.out.println("Nome vindo no controller: " + nome);
-				
-		List<UserWithoutBusinessDTO> lista = service.findByName(nome);
-				
-		if (lista.size() > 0) {
-			return ResponseEntity.ok(lista);
-		} 
-		return ResponseEntity.notFound().build();
-
+		try {
+			List<UserWithoutBusinessDTO> lista = service.findByName(nome);
+			
+			if (lista.size() > 0) {
+				return ResponseEntity.ok(lista);
+			} 
+			
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}				
+		
+		return null;
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<UserEditFormDTO> findById(@PathVariable @NotNull @Positive Integer id){
+	public ResponseEntity<?> findById(@PathVariable @NotNull @Positive Integer id){
 		
-		UserEditFormDTO res = service.findById(id);
-		System.err.println("Objeto retornado: " + res.toString());
-		
-		if (res != null) {
-			return ResponseEntity.ok(res);
-		} 
-		return ResponseEntity.notFound().build();
+		try {
+			UserEditFormDTO res = service.findById(id);
+			System.err.println("Objeto retornado: " + res.toString());
+			
+			if (res != null) {
+				return ResponseEntity.ok(res);
+			} 
+		} catch (Exception e) {
+			return ResponseEntity.status(404).body(e);
+		}
+		return null;
 	}
 	
 	@PostMapping("/new")
@@ -81,12 +90,22 @@ public class UserController {
 	@PutMapping("edit/{id}")
 	public ResponseEntity<?> update(@RequestBody @Valid @NotNull User user, 
 									@PathVariable @NotNull @Positive Integer id){
-
-		if(service.update(user, id)) {
+		
+		try {
+			if(service.update(user, id)) {
+				return ResponseEntity.ok().body("Usuário atualizado com sucesso!");
+			}
+		} catch (UserException e) {
+			return ResponseEntity.status(404).body(e);
 			
-			return ResponseEntity.ok().body("Usuário atualizado com sucesso!");
+		} catch (InvalidAccountException e) {
+			return ResponseEntity.status(400).body(e);
+			
+		}catch (Exception e) {
+			System.err.println("500 - Erro interno. " + e);
+			return ResponseEntity.status(500).body("Aconteceu um erro interno inesperado");
 		}
-		return ResponseEntity.badRequest().build();
+		return null;		
 	}
 	
 	@DeleteMapping("/{id}")
