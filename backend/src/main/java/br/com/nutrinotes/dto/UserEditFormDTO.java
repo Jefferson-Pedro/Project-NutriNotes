@@ -127,11 +127,11 @@ public class UserEditFormDTO {
 		this.business = business;
 	}
 
-	@Override
-	public String toString() {
-		return "UserEditFormDTO [idUser=" + idUser + ", nome=" + nome + ", data_nasc=" + data_nasc + ", sexo=" + sexo
-				+ ", email=" + email + ", telefone=" + telefone + ", crn=" + crn + ", business=" + business + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "UserEditFormDTO [idUser=" + idUser + ", nome=" + nome + ", data_nasc=" + data_nasc + ", sexo=" + sexo
+//				+ ", email=" + email + ", telefone=" + telefone + ", crn=" + crn + ", business=" + business + "]";
+//	}
 	
 	
 }
