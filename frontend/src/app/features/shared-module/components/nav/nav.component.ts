@@ -18,7 +18,7 @@ export class NavComponent implements OnInit, OnDestroy {
   protected navService = inject(SidenavService);
   private authserv = inject(AuthService);
   private localStorageServ = inject(LocalStorageService);
-  protected destroyed$ = new Subject<void>();  
+  protected destroyed$ = new Subject<void>();
   protected screenWidth!: number;
 
  constructor(){}
@@ -30,7 +30,7 @@ export class NavComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
-  }  
+  }
 
   private setScreenWidth(): void {
   fromEvent(window, 'resize')
@@ -47,7 +47,7 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   public logout():void{
-    this.localStorageServ.removeToken();
+    this.localStorageServ.clearLocalStorage();
   }
 
 }
