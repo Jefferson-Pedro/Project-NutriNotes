@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.nutrinotes.model.business.Business;
+import br.com.nutrinotes.model.midia.Midia;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -76,6 +78,9 @@ public class User {
 	@OneToMany(mappedBy = "responsavelTec", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("responsavelTec")
 	private List<Business> business;
+	
+	@OneToOne(mappedBy = "user")
+	private Midia midia;
 		
 	//GETS E SETS
 	
@@ -150,10 +155,21 @@ public class User {
 	public void setBusiness(List<Business> business) {
 		this.business = business;
 	}
+	
+	public Midia getMidia() {
+		return midia;
+	}
+
+	public void setMidia(Midia midia) {
+		this.midia = midia;
+	}
 
 	@Override
 	public String toString() {
-		return "Profile [idUser=" + idUser + ", nome=" + nome + ", data_nasc=" + data_nasc + ", sexo=" + sexo
-				+ ", email=" + email + ", senha=" + senha + ", telefone=" + telefone + ", crn=" + crn + ", business=" + business + "]";
+		return "User [idUser=" + idUser + ", nome=" + nome + ", data_nasc=" + data_nasc + ", sexo=" + sexo + ", email="
+				+ email + ", senha=" + senha + ", telefone=" + telefone + ", crn=" + crn + ", business=" + business
+				+ ", midia=" + midia + "]";
 	}
+
+	
 }
