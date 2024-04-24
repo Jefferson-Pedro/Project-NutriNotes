@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { jwtDecode } from 'jwt-decode';
-import { BehaviorSubject } from 'rxjs';
 import { DecodeToken } from 'src/app/core/models/DecodeToken';
-import { LoginUserResponse } from 'src/app/core/models/LoginUserResponse';
+import { User } from 'src/app/core/models/User';
 import { jwtDecoder } from 'src/app/core/utils/jwt-decoder';
 
 
@@ -11,36 +9,22 @@ import { jwtDecoder } from 'src/app/core/utils/jwt-decoder';
 })
 export class LocalStorageService {
 
-  // variável que irá ser setada true quando logado e false quando deslogado
-  private _loggedUser$ = new BehaviorSubject<DecodeToken | null>(null);
 
-  // variável que será usada para armazenar o valor da variável acima
-  public loggedUser$ = this._loggedUser$.asObservable();
+  public insertToken(key: string , value: string | User): void{
 
-
- constructor() { }
-
-  public insertToken(response: LoginUserResponse): void{
-      localStorage.setItem("NutriToken", response.token);
-
-      const decodedToken = this.getDecodeToken(response);
-
-     this._loggedUser$.next(decodedToken);
+    localStorage.setItem(key, JSON.stringify(value));
   }
 
-  public getToken():string | null{
-    return localStorage.getItem('NutriToken');
+  public clearLocalStorage(): void{
+
+    localStorage.clear();
   }
 
-  public removeToken(): void{
-    localStorage.removeItem('NutriToken');
-    
-    this._loggedUser$.next(null);
-  }
+  public getDecodeToken(): DecodeToken{
 
-  private getDecodeToken(response: LoginUserResponse): DecodeToken{
-    const decodedToken = jwtDecoder(response.token); 
-    
+    const token = localStorage.getItem('NutriToken') || '';
+    const decodedToken = jwtDecoder(token) ;
+
     return {
       id: decodedToken.sub,
       email: decodedToken.email,
