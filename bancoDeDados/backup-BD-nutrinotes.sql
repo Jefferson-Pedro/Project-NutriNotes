@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23/04/2024 às 03:25
+-- Tempo de geração: 24/04/2024 às 03:46
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.1.25
 
@@ -125,7 +125,8 @@ CREATE TABLE `item_checklist` (
 
 CREATE TABLE `photo_profile` (
   `id_midia` int(11) NOT NULL,
-  `midia` varchar(45) DEFAULT NULL,
+  `link_midia` varchar(25) DEFAULT NULL,
+  `descricao` varchar(255) NOT NULL,
   `id_profile` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -178,7 +179,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `nome`, `data_nasc`, `sexo`, `email`, `senha`, `telefone`, `crn`) VALUES
-(1, 'Anna Thays', '1990-01-01', 'F', 'anna.nutri@example.com', '$2a$10$gJmPIg71SuDrODYWlUaQ6.ml8ZckhkxyyTHGZlknTzk.NB636p./S', '123456789', 'CRN001'),
+(1, 'Anna Thays Ventura', '1990-01-01', 'F', 'anna.nutri@example.com', '$2a$10$15Jo9avqssD2U4.q15FKqOZHZ9E7WMLtKtkaEONYDXSIK.HDkrjOC', '(11)967570809', '54581'),
 (2, 'Nathalia Martins', '1995-05-05', 'F', 'nathalia.nutri@example.com', '$2a$10$8S0giklKdTIgyvfQuXferevF7aWWgqNxZgczNfOqCd3oyl0EFxdry', '987654321', 'CRN002');
 
 --
