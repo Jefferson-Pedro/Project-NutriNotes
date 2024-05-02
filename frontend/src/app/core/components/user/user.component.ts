@@ -26,6 +26,7 @@ export class UserComponent implements OnInit {
   protected loading!: boolean;
   protected submitted = false;
   private user!: EditUser;
+  protected link_photo: string = '../../../../assets/img/perfil.png';
  // private userLoggedin;
 
   ngOnInit(): void {
@@ -137,5 +138,8 @@ export class UserComponent implements OnInit {
     })
   }
 
+  //Faz o upload da foto de perfil
+  public uploadPhoto(event: Event){
+  }
 }
 
