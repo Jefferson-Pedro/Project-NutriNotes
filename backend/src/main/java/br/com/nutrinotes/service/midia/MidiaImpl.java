@@ -1,10 +1,12 @@
 package br.com.nutrinotes.service.midia;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.nutrinotes.dao.midia.MidiaDAO;
 import br.com.nutrinotes.model.midia.Midia;
 
+@Service
 public class MidiaImpl implements IMidiaService {
 
 	@Autowired
@@ -12,7 +14,7 @@ public class MidiaImpl implements IMidiaService {
 	
 	@Override
 	public Midia create(Midia midia) {
-		// TODO Auto-generated method stub
+		// MELHORAR ESTE METODO
 		return dao.save(midia);
 	}
 
@@ -28,11 +30,17 @@ public class MidiaImpl implements IMidiaService {
 
 	@Override
 	public boolean delete(Integer id) {
-		
+		// MELHORAR ESTE METODO
 		if (dao.existsById(id)) {
 			dao.deleteById(id);
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Midia findById(Integer id) {
+		// MELHORAR ESTE METODO
+		return dao.findById(id).orElse(null);
 	}
 }
