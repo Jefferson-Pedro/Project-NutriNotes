@@ -14,7 +14,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name = "tbl_midia")
+@Table(name = "photo_profile")
 public class Midia {
 	
 	@Id
