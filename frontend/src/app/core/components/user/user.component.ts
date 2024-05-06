@@ -8,6 +8,7 @@ import { UserService } from '../../services/user';
 import { EditUser } from '../../models/EditUser';
 import { LocalStorageService } from 'src/app/features/shared-module/services/localStorage';
 import { finalize } from 'rxjs';
+import { UploadMidiaService } from 'src/app/features/shared-module/services/upload-midia/upload-midia.service';
 
 
 @Component({
@@ -21,11 +22,13 @@ export class UserComponent implements OnInit {
   private userService = inject(UserService);
   private notificationService = inject(NotificationService);
   private localStorageService = inject(LocalStorageService);
+  private uploadService = inject(UploadMidiaService);
 
   protected form = this.buildForm();
   protected loading!: boolean;
   protected submitted = false;
   private user!: EditUser;
+  private  id!: Number;
   protected link_photo: string = '../../../../assets/img/perfil.png';
  // private userLoggedin;
 
@@ -83,9 +86,9 @@ export class UserComponent implements OnInit {
   private loadUserById(): void {
 
     this.loading = true;
-    const id = +this.localStorageService.getDecodeToken()!.id; //Uma forma de converter para Number
+    this.id = +this.localStorageService.getDecodeToken()!.id; //Uma forma de converter para Number
 
-    this.userService.findUserById(id).subscribe({
+    this.userService.findUserById(this.id).subscribe({
       next:(userResponse)=> {
 
         this.localStorageService.insertToken('LoggedUser', userResponse); //Salva um obj com os dados do usuário logado;
@@ -139,7 +142,21 @@ export class UserComponent implements OnInit {
   }
 
   //Faz o upload da foto de perfil
-  public uploadPhoto(event: Event){
+  public uploadPhoto(event: any){
+    // console.log(event);
+    const photo_user = event.target.files[0];
+    const formdata = new FormData();
+    formdata.append('file', photo_user);
+
+    this.uploadService.create(formdata, this.id).subscribe({
+      next: (value) => {
+        console.log(value);
+
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }
 
