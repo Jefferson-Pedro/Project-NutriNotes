@@ -40,7 +40,7 @@ public class UploadServiceImpl implements IUploadService {
 			// Retorne o caminho completo do arquivo salvo
 			System.out.println("Armazenando em: " + serveFile.getAbsolutePath());
 
-			return uniqueFileName;
+			return serveFile.getAbsolutePath();
 
 		} catch (IOException e) {
 			System.err.printf("Ocorreu um erro ao realizar o upload do arquivo: ");
