@@ -18,6 +18,7 @@ import br.com.nutrinotes.model.midia.Midia;
 import br.com.nutrinotes.service.midia.IMidiaService;
 import br.com.nutrinotes.service.midia.IUploadService;
 
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/midia")
@@ -26,7 +27,9 @@ public class MidiaController {
 	@Autowired
 	private IMidiaService service;
 	
-	@Autowired IUploadService uploadServ;
+	@Autowired 
+	IUploadService uploadServ;
+
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Midia> findById(@PathVariable Integer id){
@@ -66,12 +69,17 @@ public class MidiaController {
 	}
 	
 	@PostMapping("/upload")
-	public ResponseEntity<?> upload(@RequestParam(name="file") MultipartFile file){
+	public ResponseEntity<?> upload(@RequestParam(name="file") MultipartFile file,  
+									@RequestParam(name="id") Integer id){
+		
 		String res = uploadServ.upload(file);
+		
 		if (res != null) {
+			service.create(res, id);
+			//System.out.println("Armazenado em: " + res);
+	
 			return ResponseEntity.status(201).body(res);
 		}
 		return ResponseEntity.badRequest().build();
 	}
-
 }
