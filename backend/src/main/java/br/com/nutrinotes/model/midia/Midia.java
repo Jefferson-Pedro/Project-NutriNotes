@@ -33,6 +33,12 @@ public class Midia {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id_profile", referencedColumnName = "id_user")
 	private User user;
+
+	
+	public Midia() {
+		super();
+	}
+
 	
 	// GET E SET
 
