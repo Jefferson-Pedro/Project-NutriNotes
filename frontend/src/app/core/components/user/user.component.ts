@@ -29,7 +29,7 @@ export class UserComponent implements OnInit {
   protected submitted = false;
   private user!: EditUser;
   private  id!: Number;
-  protected link_photo: string = '../../../../assets/img/perfil.png';
+  protected photo_profile: string = '../../../../assets/img/perfil.png';
  // private userLoggedin;
 
   ngOnInit(): void {
@@ -61,6 +61,7 @@ export class UserComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       telefone: [''],
       crn: ['', Validators.required],
+      link_photo: [''],
       senha: [''],
       novaSenha: ['']
     });
@@ -77,6 +78,7 @@ export class UserComponent implements OnInit {
       email: formValue.email,
       telefone: formValue.telefone,
       crn: formValue.crn,
+      link_photo: formValue.link_photo,
       senha: formValue.senha,
       novaSenha: formValue.novaSenha
     };
