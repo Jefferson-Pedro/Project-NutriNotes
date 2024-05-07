@@ -34,6 +34,7 @@ export class RegisterComponent {
       senha: ['', Validators.required, Validators.minLength(3) ],
       telefone: [''],
       crn: ['', Validators.required],
+      link_photo: ['']
     });
   }
 
@@ -49,6 +50,7 @@ export class RegisterComponent {
       senha: formValue.senha,
       telefone: formValue.telefone,
       crn: formValue.crn,
+      link_photo: formValue.link_photo
     };
   }
 
