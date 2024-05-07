@@ -8,7 +8,6 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.nutrinotes.model.business.Business;
-import br.com.nutrinotes.model.midia.Midia;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +15,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -74,13 +72,13 @@ public class User {
 	@Column(name="crn", length = 45)
 	private String crn;
 	
+	@Length(max = 255)
+	@Column(name="link_photo")
+	private String link_photo;
 	
 	@OneToMany(mappedBy = "responsavelTec", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("responsavelTec")
 	private List<Business> business;
-	
-	@OneToOne(mappedBy = "user")
-	private Midia midia;
 		
 	//GETS E SETS
 	
@@ -156,19 +154,19 @@ public class User {
 		this.business = business;
 	}
 	
-	public Midia getMidia() {
-		return midia;
+	public String getLink_photo() {
+		return link_photo;
 	}
 
-	public void setMidia(Midia midia) {
-		this.midia = midia;
+	public void setLink_photo(String link_photo) {
+		this.link_photo = link_photo;
 	}
 
 	@Override
 	public String toString() {
 		return "User [idUser=" + idUser + ", nome=" + nome + ", data_nasc=" + data_nasc + ", sexo=" + sexo + ", email="
 				+ email + ", senha=" + senha + ", telefone=" + telefone + ", crn=" + crn + ", business=" + business
-				+ ", midia=" + midia + "]";
+				+ ", foto=" + link_photo + "]";
 	}
 
 	
