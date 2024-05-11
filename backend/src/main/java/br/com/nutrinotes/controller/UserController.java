@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.nutrinotes.dto.UserEditFormDTO;
-import br.com.nutrinotes.dto.UserWithoutBusinessDTO;
+import br.com.nutrinotes.dto.UserEditDTO;
+import br.com.nutrinotes.dto.UserViewDTO;
 import br.com.nutrinotes.exception.InvalidAccountException;
 import br.com.nutrinotes.exception.UserException;
 import br.com.nutrinotes.model.user.User;
@@ -36,8 +36,8 @@ public class UserController {
 	private IUser service;
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<UserWithoutBusinessDTO>> findAll(){
-		List<UserWithoutBusinessDTO> list = service.findAll();
+	public ResponseEntity<List<UserViewDTO>> findAll(){
+		List<UserViewDTO> list = service.findAll();
 		if (list.size() > 0) {
 			return ResponseEntity.ok(list);
 		} 
@@ -46,10 +46,10 @@ public class UserController {
 	}
 	
 	@GetMapping("/buscar")
-	public ResponseEntity<List<?>> findByName(@RequestParam (name = "nome") @NotNull String nome){
+	public ResponseEntity<List<UserViewDTO>> findByName(@RequestParam (name = "nome") @NotNull String nome){
 		
 		try {
-			List<UserWithoutBusinessDTO> lista = service.findByName(nome);
+			List<UserViewDTO> lista = service.findByName(nome);
 			
 			if (lista.size() > 0) {
 				return ResponseEntity.ok(lista);
@@ -66,7 +66,7 @@ public class UserController {
 	public ResponseEntity<?> findById(@PathVariable @NotNull @Positive Integer id){
 		
 		try {
-			UserEditFormDTO res = service.findById(id);
+			UserViewDTO res = service.findById(id);
 			System.err.println("Objeto retornado: " + res.toString());
 			
 			if (res != null) {
@@ -88,7 +88,7 @@ public class UserController {
 	}
 	
 	@PutMapping("edit/{id}")
-	public ResponseEntity<?> update(@RequestBody @Valid @NotNull User user, 
+	public ResponseEntity<?> update(@RequestBody @Valid @NotNull UserEditDTO user, 
 									@PathVariable @NotNull @Positive Integer id){
 		
 		try {
@@ -96,10 +96,10 @@ public class UserController {
 				return ResponseEntity.ok().body("Usuário atualizado com sucesso!");
 			}
 		} catch (UserException e) {
-			return ResponseEntity.status(404).body(e);
+			return ResponseEntity.status(404).body(e.getMessage());
 			
 		} catch (InvalidAccountException e) {
-			return ResponseEntity.status(400).body(e);
+			return ResponseEntity.status(400).body(e.getMessage());
 			
 		}catch (Exception e) {
 			System.err.println("500 - Erro interno. " + e);
