@@ -168,6 +168,4 @@ public class User {
 				+ email + ", senha=" + senha + ", telefone=" + telefone + ", crn=" + crn + ", business=" + business
 				+ ", foto=" + link_photo + "]";
 	}
-
-	
 }
