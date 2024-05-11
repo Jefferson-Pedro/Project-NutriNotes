@@ -14,8 +14,8 @@ export class UploadMidiaService {
   constructor() {}
 
   public create(photo_profile: FormData, id:Number): Observable<any> {
-    const url = `${environment.baseUrl}/midia/upload?id=${id}`;
+    const url = `${environment.baseUrl}/media/upload?id=${id}`;
 
-    return this.http.post<FormData>(url, photo_profile);
+    return this.http.post(url, photo_profile, {responseType: 'text'});
   }
 }
