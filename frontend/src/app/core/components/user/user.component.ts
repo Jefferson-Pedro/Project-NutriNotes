@@ -152,11 +152,12 @@ export class UserComponent implements OnInit {
 
     this.uploadService.create(formdata, this.id).subscribe({
       next: (value) => {
-        console.log(value);
 
+        this.photo_profile = value;
       },
       error: (err) => {
         console.log(err);
+
       },
     });
   }
