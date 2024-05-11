@@ -1,5 +1,3 @@
-import { CepResponse } from 'src/app/core/models/CepResponse';
-import { CreateUser } from './../../models/CreateUser';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,7 +5,6 @@ import { NotificationService } from 'src/app/features/shared-module/services/not
 import { UserService } from '../../services/user';
 import { EditUser } from '../../models/EditUser';
 import { LocalStorageService } from 'src/app/features/shared-module/services/localStorage';
-import { finalize } from 'rxjs';
 import { UploadMidiaService } from 'src/app/features/shared-module/services/upload-midia/upload-midia.service';
 
 
@@ -27,9 +24,9 @@ export class UserComponent implements OnInit {
   protected form = this.buildForm();
   protected loading!: boolean;
   protected submitted = false;
-  private user!: EditUser;
+  protected user!: EditUser;
   private  id!: Number;
-  protected photo_profile: string = '../../../../assets/img/perfil.png';
+ // protected photo_profile: string = '../../../../assets/img/perfil.png';
  // private userLoggedin;
 
   ngOnInit(): void {
@@ -92,7 +89,7 @@ export class UserComponent implements OnInit {
 
     this.userService.findUserById(this.id).subscribe({
       next:(userResponse)=> {
-
+        console.log(userResponse);
         this.localStorageService.insertToken('LoggedUser', userResponse); //Salva um obj com os dados do usuário logado;
         this.fillForm(userResponse);
       },
@@ -114,6 +111,7 @@ export class UserComponent implements OnInit {
       sexo: user.sexo,
       telefone: user.telefone,
       crn: user.crn,
+      link_photo: user.link_photo
     });
   }
 
@@ -153,7 +151,10 @@ export class UserComponent implements OnInit {
     this.uploadService.create(formdata, this.id).subscribe({
       next: (value) => {
 
-        this.photo_profile = value;
+       console.log(value);
+       this.user.link_photo = value;
+       console.log(this.user.link_photo);
+
       },
       error: (err) => {
         console.log(err);
