@@ -58,7 +58,7 @@ export class UserComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       telefone: [''],
       crn: ['', Validators.required],
-      link_photo: [''],
+      link_photo: ['../../../../assets/img/perfil.png'],
       senha: [''],
       novaSenha: ['']
     });
