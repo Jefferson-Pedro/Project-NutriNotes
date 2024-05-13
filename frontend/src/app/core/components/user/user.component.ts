@@ -1,3 +1,4 @@
+import { User } from './../../models/User';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -64,6 +65,27 @@ export class UserComponent implements OnInit {
     });
   }
 
+   //Recupera as informações do token e faz uma chamada para o back para verificar o id
+   private loadUserById(): void {
+
+    this.loading = true;
+    this.id = +this.localStorageService.getDecodeToken()!.id; //Uma forma de converter para Number
+
+    this.userService.findUserById(this.id).subscribe({
+      next:(userResponse)=> {
+        this.localStorageService.insertToken('LoggedUser', userResponse); //Salva um obj com os dados do usuário logado;
+        this.user = userResponse;
+        console.log('Link Foto: ', this.user.link_photo);
+        this.fillForm(userResponse);
+      },
+      error: (err)=> {
+        console.log(err);
+      },
+    }).add(() => {
+      this.loading = false;
+    })
+  }
+
   private updateUserPayload(): EditUser {
       //Armazena o valor cru do forms
     const formValue = this.form.getRawValue();
@@ -79,26 +101,6 @@ export class UserComponent implements OnInit {
       senha: formValue.senha,
       novaSenha: formValue.novaSenha
     };
-  }
-
-  //Recupera as informações do token e faz uma chamada para o back para verificar o id
-  private loadUserById(): void {
-
-    this.loading = true;
-    this.id = +this.localStorageService.getDecodeToken()!.id; //Uma forma de converter para Number
-
-    this.userService.findUserById(this.id).subscribe({
-      next:(userResponse)=> {
-        console.log(userResponse);
-        this.localStorageService.insertToken('LoggedUser', userResponse); //Salva um obj com os dados do usuário logado;
-        this.fillForm(userResponse);
-      },
-      error: (err)=> {
-        console.log(err);
-      },
-    }).add(() => {
-      this.loading = false;
-    })
   }
 
   //Preenche os campos do Profile
@@ -163,4 +165,3 @@ export class UserComponent implements OnInit {
     });
   }
 }
-

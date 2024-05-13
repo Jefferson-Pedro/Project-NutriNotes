@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -56,9 +58,15 @@ public class UploadServiceImpl implements IUploadService {
 	}
 
 	@Override
-	public String getImage(String imageName) {
-		// TODO Auto-generated method stub
-		return null;
+	public Resource download(String filePath) {
+		Resource resource;
+		try {
+			resource = new UrlResource(filePath);
+			return resource;
+			
+		} catch (Exception e) {
+			throw new RuntimeException("Não foi possível carregar o arquivo. Por favor, tente novamente.", e);
+		}
 	}
 
 	private String generateUniqueFileName(String originalFileName) {

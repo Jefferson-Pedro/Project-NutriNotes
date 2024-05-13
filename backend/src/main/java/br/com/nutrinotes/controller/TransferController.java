@@ -1,8 +1,11 @@
 package br.com.nutrinotes.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,26 +27,37 @@ import jakarta.validation.constraints.Positive;
 public class TransferController {
 	
 	@Autowired 
-	IUploadService sevice;
+	IUploadService transferSevice;
 	
 	@Autowired
-	private IUser user_service;
+	private IUser userService;
 	
 	@PostMapping("/upload")
 	public ResponseEntity<?> upload(@RequestParam(name="file") @Valid MultipartFile file,  
 									@RequestParam(name="id") @NotNull @Positive Integer id){
 		
-		UserEditDTO user = user_service.findByIdForUpdate(id);
-		String res = sevice.upload(file);
+		UserEditDTO user = userService.findByIdForUpdate(id);
+		String res = transferSevice.upload(file);
 		if (res != null && user != null) {
 			//System.out.println("Armazenado em: " + res);
 			user.setLink_photo(res);
 			
-			if (user_service.update(user, id)) {
+			if (userService.update(user, id)) {
 				return ResponseEntity.status(201).body(res);
 			}
 			return ResponseEntity.status(400).body("Erro ao atualizar o usuário");
 		}
 		return ResponseEntity.status(400).body("Erro ao processar a imagem!");
+	}
+
+	@GetMapping("download/{pathname:.+}")
+	public ResponseEntity<?> download(@PathVariable String pathfile){
+		
+		Resource file = transferSevice.download(pathfile);
+		
+		if(file != null) {
+			return ResponseEntity.ok(file);
+		}
+		return ResponseEntity.badRequest().build();	
 	}
 }
