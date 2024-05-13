@@ -66,7 +66,6 @@ public class WebSecurityConfig {
 			.requestMatchers(new  AntPathRequestMatcher("/item/edit/", "PUT")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/template/edit/{id}", "PUT")).permitAll()
 			.requestMatchers(new  AntPathRequestMatcher("/user/edit/{id}", "PUT")).permitAll()
-			.requestMatchers(new  AntPathRequestMatcher("/media/edit/{id}", "PUT")).permitAll()
 		    .anyRequest().authenticated();
 	})
 		.addFilterBefore(new NutriFilter(), UsernamePasswordAuthenticationFilter.class)
