@@ -2,14 +2,19 @@ package br.com.nutrinotes.service.media;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import br.com.nutrinotes.exception.FileSystemException;
 
 @Service
 public class UploadServiceImpl implements IUploadService {
@@ -50,6 +55,22 @@ public class UploadServiceImpl implements IUploadService {
 		}
 		return null;
 	}
+	
+	@Override
+	public Resource download(String imageName) throws FileNotFoundException, IOException {
+		
+		String fullPath = pathAbsolute(imageName);
+		System.err.println("Caminho absoluto: " + fullPath);
+		File file = new File(fullPath);
+		
+		
+		if (!file.exists()) {
+	        throw new FileNotFoundException("Arquivo não encontrado: " + fullPath);
+	    }
+		
+		InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+		return resource;
+	}
 
 	@Override
 	public Boolean delete(String fileName) {
@@ -57,18 +78,7 @@ public class UploadServiceImpl implements IUploadService {
 		return null;
 	}
 
-	@Override
-	public Resource download(String filePath) {
-		Resource resource;
-		try {
-			resource = new UrlResource(filePath);
-			return resource;
-			
-		} catch (Exception e) {
-			throw new RuntimeException("Não foi possível carregar o arquivo. Por favor, tente novamente.", e);
-		}
-	}
-
+	
 	private String generateUniqueFileName(String originalFileName) {
 		String uniqueID = UUID.randomUUID().toString();
 		return "image_" + uniqueID + "_" + originalFileName;
@@ -78,7 +88,7 @@ public class UploadServiceImpl implements IUploadService {
 		
 		String pathImage;
 		
-		if (extension.equals(".pdf")) {
+		if (extension.endsWith(".pdf")) {
 			pathImage = "src\\report";
 		} else {
 			pathImage = "src\\image";
@@ -88,7 +98,7 @@ public class UploadServiceImpl implements IUploadService {
 		String projectDirectory = new File("").getAbsolutePath();
 
 		// Concatena com o caminho da imagem para obter o caminho completo
-		String fullPath = projectDirectory + File.separator + pathImage;
+		String fullPath = projectDirectory + File.separator + pathImage + File.separator + extension;
 
 		return fullPath;
 	}
