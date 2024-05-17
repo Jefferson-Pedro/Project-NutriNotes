@@ -3,7 +3,7 @@
     <mat-toolbar mainColors>Perfil</mat-toolbar>
 
     <div class="profile-icon" *ngIf="user && user.link_photo">
-      <img [src]="user.link_photo ? user.link_photo : photo_profile" alt="logo-perfil">
+      <img [src]=defaultPhoto alt="logo-perfil">
       <mat-icon>edit</mat-icon>
     </div>
 
