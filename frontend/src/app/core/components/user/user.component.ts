@@ -27,8 +27,8 @@ export class UserComponent implements OnInit {
   protected submitted = false;
   protected user!: EditUser;
   private  id!: Number;
-  protected photo_profile: string = '../../../../assets/img/perfil.png';
- // private userLoggedin;
+  protected defaultPhoto: string = '../../../../assets/img/perfil.png';
+  protected userPhoto!: Blob;
 
   ngOnInit(): void {
     this.loadUserById();
@@ -75,6 +75,7 @@ export class UserComponent implements OnInit {
       next:(userResponse)=> {
         this.localStorageService.insertToken('LoggedUser', userResponse); //Salva um obj com os dados do usuário logado;
         this.user = userResponse;
+        this.downloadPhoto(this.user.link_photo);
         console.log('Link Foto: ', this.user.link_photo);
         this.fillForm(userResponse);
       },
@@ -157,6 +158,18 @@ export class UserComponent implements OnInit {
        this.user.link_photo = value;
        console.log(this.user.link_photo);
 
+      },
+      error: (err) => {
+        console.log(err);
+
+      },
+    });
+  }
+
+  public downloadPhoto(image: string){
+    this.uploadService.getImage(image).subscribe({
+      next: (response) => {
+        this.userPhoto = response;
       },
       error: (err) => {
         console.log(err);
