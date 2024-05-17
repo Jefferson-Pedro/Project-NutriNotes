@@ -1,5 +1,8 @@
 package br.com.nutrinotes.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.nutrinotes.dto.UserEditDTO;
-import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.service.media.IUploadService;
 import br.com.nutrinotes.service.user.IUser;
 import jakarta.validation.Valid;
@@ -50,14 +52,26 @@ public class TransferController {
 		return ResponseEntity.status(400).body("Erro ao processar a imagem!");
 	}
 
-	@GetMapping("download/{pathname:.+}")
-	public ResponseEntity<?> download(@PathVariable String pathfile){
+	@GetMapping("download/{imageName}")
+	public ResponseEntity<?> download(@PathVariable String imageName){
 		
-		Resource file = transferSevice.download(pathfile);
+		System.err.println("Imagem recebida: " + imageName);
 		
-		if(file != null) {
+		Resource file;
+		try {
+			file = transferSevice.download(imageName);
+			System.err.println("Caminho da imagem: " + file.toString());
 			return ResponseEntity.ok(file);
+			
+		} catch (FileNotFoundException e) {
+			
+			System.err.println("Imagem não encontrada: " + e.getMessage());
+			return ResponseEntity.status(404).body(e);
+			
+		} catch (IOException e) {
+			
+			System.err.println("Erro interno ao processar a imagem: " + e.getMessage());
+			return ResponseEntity.status(500).body(e);
 		}
-		return ResponseEntity.badRequest().build();	
 	}
 }
