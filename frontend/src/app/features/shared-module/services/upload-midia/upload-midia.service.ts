@@ -18,4 +18,11 @@ export class UploadMidiaService {
 
     return this.http.post(url, photo_profile, {responseType: 'text'});
   }
+
+  public getImage (image: string): Observable<Blob>{
+
+    const url = `${environment.baseUrl}/media/download/${image}`;
+
+    return this.http.get(url,  {responseType: 'blob' });
+  }
 }
