@@ -38,11 +38,14 @@ public class TransferController {
 	public ResponseEntity<?> upload(@RequestParam(name="file") @Valid MultipartFile file,  
 									@RequestParam(name="id") @NotNull @Positive Integer id){
 		
+		System.err.println("Tipo do multipartFile: " + file.getClass());
+		
 		UserEditDTO user = userService.findByIdForUpdate(id);
-		String res = transferSevice.upload(file);
+		String res = transferSevice.upload(file, user.getNome());
 		if (res != null && user != null) {
-			//System.out.println("Armazenado em: " + res);
-			user.setLink_photo(res);
+			System.err.println("Armazenado em: " + res);
+			
+			user.setImageProfile(res);
 			
 			if (userService.update(user, id)) {
 				return ResponseEntity.status(201).body(res);
