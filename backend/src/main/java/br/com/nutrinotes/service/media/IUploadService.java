@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface IUploadService {
 	
-	public String upload(MultipartFile file);
+	public String upload(MultipartFile file, String username);
 	
 	public Boolean delete(String fileName);
 	
