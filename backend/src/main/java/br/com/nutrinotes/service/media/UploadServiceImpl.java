@@ -8,19 +8,26 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.nutrinotes.dao.user.UserDAO;
 import br.com.nutrinotes.exception.FileSystemException;
+import br.com.nutrinotes.model.user.User;
+import br.com.nutrinotes.service.user.IUser;
 
 @Service
 public class UploadServiceImpl implements IUploadService {
+	
+	@Autowired
+	UserDAO userDAO;
 
 	@Override
-	public String upload(MultipartFile file) {
+	public String upload(MultipartFile file, String username) {
 
 		try {
 			System.out.println("DEBUG - Realizando upload do arquivo: " + file.getOriginalFilename());
@@ -30,7 +37,7 @@ public class UploadServiceImpl implements IUploadService {
 			
 			//System.out.println(extension);
 
-			File dir = new File(pathAbsolute(extension));
+			File dir = new File(pathAbsolute(extension, username));
 
 			// Cria o diretório se ele não existir
 			if (!dir.exists()) {
@@ -57,10 +64,20 @@ public class UploadServiceImpl implements IUploadService {
 	}
 	
 	@Override
-	public Resource download(String imageName) throws FileNotFoundException, IOException {
+	public Resource download(String filename) throws FileNotFoundException, IOException {
 		
-		String fullPath = pathAbsolute(imageName);
-		System.err.println("Caminho absoluto: " + fullPath);
+		System.err.println("Imagem recebida no service: " + filename);
+		
+		String extension = filename.substring(filename.lastIndexOf("."));
+		System.err.println("Extensão: " + extension);
+		
+		User user = userDAO.findByImageProfile(filename);
+		System.err.println("Resultado da busca da imagem: " + user.toString());
+		
+		String fullPath = pathAbsolute(extension, user.getNome()) + File.separator + filename;
+
+		System.err.println("Caminho no metodo Download: " + fullPath);
+		
 		File file = new File(fullPath);
 		
 		
@@ -84,7 +101,7 @@ public class UploadServiceImpl implements IUploadService {
 		return "image_" + uniqueID + "_" + originalFileName;
 	}
 
-	private static String pathAbsolute(String extension) {
+	private static String pathAbsolute(String extension, String username) {
 		
 		String pathImage;
 		
@@ -98,7 +115,7 @@ public class UploadServiceImpl implements IUploadService {
 		String projectDirectory = new File("").getAbsolutePath();
 
 		// Concatena com o caminho da imagem para obter o caminho completo
-		String fullPath = projectDirectory + File.separator + pathImage + File.separator + extension;
+		String fullPath = projectDirectory + File.separator + pathImage + File.separator + username;
 
 		return fullPath;
 	}
