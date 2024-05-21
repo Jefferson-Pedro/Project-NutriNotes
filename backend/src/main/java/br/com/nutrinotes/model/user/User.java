@@ -74,7 +74,7 @@ public class User {
 	
 	@Length(max = 255)
 	@Column(name="link_photo")
-	private String link_photo;
+	private String imageProfile;
 	
 	@OneToMany(mappedBy = "responsavelTec", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("responsavelTec")
@@ -154,18 +154,18 @@ public class User {
 		this.business = business;
 	}
 	
-	public String getLink_photo() {
-		return link_photo;
+	public String getImageProfile() {
+		return imageProfile;
 	}
 
-	public void setLink_photo(String link_photo) {
-		this.link_photo = link_photo;
+	public void setImageProfile(String imageProfile) {
+		this.imageProfile = imageProfile;
 	}
 
 	@Override
 	public String toString() {
 		return "User [idUser=" + idUser + ", nome=" + nome + ", data_nasc=" + data_nasc + ", sexo=" + sexo + ", email="
 				+ email + ", senha=" + senha + ", telefone=" + telefone + ", crn=" + crn + ", business=" + business
-				+ ", foto=" + link_photo + "]";
+				+ ", foto=" + imageProfile + "]";
 	}
 }
