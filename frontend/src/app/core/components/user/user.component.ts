@@ -6,7 +6,7 @@ import { NotificationService } from 'src/app/features/shared-module/services/not
 import { UserService } from '../../services/user';
 import { EditUser } from '../../models/EditUser';
 import { LocalStorageService } from 'src/app/features/shared-module/services/localStorage';
-import { UploadMidiaService } from 'src/app/features/shared-module/services/upload-midia/upload-midia.service';
+import { FilesService } from 'src/app/features/shared-module/services/files/files.service';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class UserComponent implements OnInit {
   private userService = inject(UserService);
   private notificationService = inject(NotificationService);
   private localStorageService = inject(LocalStorageService);
-  private uploadService = inject(UploadMidiaService);
+  private filesService = inject(FilesService);
 
   protected form = this.buildForm();
   protected loading!: boolean;
@@ -59,7 +59,7 @@ export class UserComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       telefone: [''],
       crn: ['', Validators.required],
-      link_photo: [''],
+      imageProfile: [''],
       senha: [''],
       novaSenha: ['']
     });
@@ -75,8 +75,9 @@ export class UserComponent implements OnInit {
       next:(userResponse)=> {
         this.localStorageService.insertToken('LoggedUser', userResponse); //Salva um obj com os dados do usuário logado;
         this.user = userResponse;
-        this.downloadPhoto(this.user.link_photo);
-        console.log('Link Foto: ', this.user.link_photo);
+        console.log(this.user);
+        console.log('Link Foto: ', this.user.imageProfile);
+        this.downloadPhoto(this.user.imageProfile);
         this.fillForm(userResponse);
       },
       error: (err)=> {
@@ -98,7 +99,7 @@ export class UserComponent implements OnInit {
       email: formValue.email,
       telefone: formValue.telefone,
       crn: formValue.crn,
-      link_photo: formValue.link_photo,
+      imageProfile: formValue.imageProfile,
       senha: formValue.senha,
       novaSenha: formValue.novaSenha
     };
@@ -114,7 +115,7 @@ export class UserComponent implements OnInit {
       sexo: user.sexo,
       telefone: user.telefone,
       crn: user.crn,
-      link_photo: user.link_photo
+      imageProfile: user.imageProfile
     });
   }
 
@@ -151,12 +152,12 @@ export class UserComponent implements OnInit {
     const formdata = new FormData();
     formdata.append('file', photo_user);
 
-    this.uploadService.create(formdata, this.id).subscribe({
+    this.filesService.create(formdata, this.id).subscribe({
       next: (value) => {
 
        console.log(value);
-       this.user.link_photo = value;
-       console.log(this.user.link_photo);
+       this.user.imageProfile = value;
+       console.log(this.user.imageProfile);
 
       },
       error: (err) => {
@@ -166,8 +167,8 @@ export class UserComponent implements OnInit {
     });
   }
 
-  public downloadPhoto(image: string){
-    this.uploadService.getImage(image).subscribe({
+  public downloadPhoto(link_photo: string){
+    this.filesService.getImage(link_photo).subscribe({
       next: (response) => {
         this.userPhoto = response;
       },
