@@ -92,6 +92,12 @@ public class UserImpl implements IUser {
 		
 		return listUsersDtos;
 	}
+	
+	@Override
+	public User findByImageProfile(@NotNull @NotBlank String filename) {
+		String pathPartial = "http://localhost:8080/files/download/" + filename;
+		return dao.findByImageProfile(pathPartial);
+	}
 
 	@Override
 	public UserViewDTO findById(@NotNull @Positive Integer id) {
@@ -126,6 +132,4 @@ public class UserImpl implements IUser {
 		System.out.println("Ocorreu um erro ao excluir o perfil " + id);
 		return false;
 	}
-
-	
 }
