@@ -47,7 +47,7 @@ public class UserViewDTO {
 	
 	@Length(max = 255)
 	@Column(name="link_photo")
-	private String link_photo;
+	private String imageProfile;
 	
 	@OneToMany(mappedBy = "responsavelTec", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("responsavelTec")
@@ -126,13 +126,13 @@ public class UserViewDTO {
 	}
 
 
-	public String getLink_photo() {
-		return link_photo;
+	public String getImageProfile() {
+		return imageProfile;
 	}
 
 
-	public void setLink_photo(String link_photo) {
-		this.link_photo = link_photo;
+	public void setImageProfile(String imageProfile) {
+		this.imageProfile = imageProfile;
 	}
 
 
