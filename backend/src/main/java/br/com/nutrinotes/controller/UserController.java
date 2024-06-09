@@ -62,6 +62,23 @@ public class UserController {
 		return null;
 	}
 	
+	@GetMapping("/foto")
+	public ResponseEntity <User> findByImageName(@RequestParam (name = "nome") @NotNull String nome){
+		
+		try {
+			User user = service.findByImageProfile(nome);
+			
+			if (user != null) {
+				return ResponseEntity.ok().body(user);
+			} 
+			
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}				
+		
+		return null;
+	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findById(@PathVariable @NotNull @Positive Integer id){
 		
