@@ -5,5 +5,5 @@ export interface User  {
   email: string,
   telefone: string,
   crn: string,
-  link_photo: string
+  imageProfile: string
 }
