@@ -16,6 +16,7 @@ public interface IUser {
 	public boolean update(@Valid @NotNull UserEditDTO User, @NotNull @Positive Integer id);
 	public List<UserViewDTO> findAll();
 	public List<UserViewDTO> findByName(@NotNull @NotBlank String nome);
+	public User findByImageProfile(@NotNull @NotBlank String nome);
 	public UserViewDTO findById(@NotNull @Positive Integer id);
 	public UserEditDTO findByIdForUpdate(@NotNull @Positive Integer id);
 	public boolean delete(@NotNull @Positive Integer id);
