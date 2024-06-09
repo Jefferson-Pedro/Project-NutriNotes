@@ -50,7 +50,7 @@ export class RegisterComponent {
       senha: formValue.senha,
       telefone: formValue.telefone,
       crn: formValue.crn,
-      link_photo: formValue.link_photo
+      imageProfile: formValue.link_photo
     };
   }
 
