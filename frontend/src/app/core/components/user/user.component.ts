@@ -7,6 +7,7 @@ import { UserService } from '../../services/user';
 import { EditUser } from '../../models/EditUser';
 import { LocalStorageService } from 'src/app/features/shared-module/services/localStorage';
 import { FilesService } from 'src/app/features/shared-module/services/files/files.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class UserComponent implements OnInit {
   private notificationService = inject(NotificationService);
   private localStorageService = inject(LocalStorageService);
   private filesService = inject(FilesService);
+  private sanitizer = inject(DomSanitizer);
 
   protected form = this.buildForm();
   protected loading!: boolean;
@@ -28,7 +30,7 @@ export class UserComponent implements OnInit {
   protected user!: EditUser;
   private  id!: Number;
   protected defaultPhoto: string = '../../../../assets/img/perfil.png';
-  protected userPhoto!: Blob;
+  protected userPhoto!: SafeUrl;
 
   ngOnInit(): void {
     this.loadUserById();
@@ -154,11 +156,11 @@ export class UserComponent implements OnInit {
 
     this.filesService.create(formdata, this.id).subscribe({
       next: (value) => {
-
-       console.log(value);
-       this.user.imageProfile = value;
-       console.log(this.user.imageProfile);
-
+        this.user.imageProfile = value;
+        location.reload();
+        this.notificationService.showMessageSucess(
+          'Foto atualizada com sucesso!'
+        );
       },
       error: (err) => {
         console.log(err);
@@ -170,7 +172,9 @@ export class UserComponent implements OnInit {
   public downloadPhoto(link_photo: string){
     this.filesService.getImage(link_photo).subscribe({
       next: (response) => {
-        this.userPhoto = response;
+        console.log('response: ' , response);
+        //this.userPhoto = link_photo;
+        this.userPhoto = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(response));
       },
       error: (err) => {
         console.log(err);
