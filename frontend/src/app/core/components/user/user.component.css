@@ -12,17 +12,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 100px;
 }
 .profile-icon > img{
+  margin-top: 5px;
   width: 200px;
-  height: 200pxpx;
+  height: 200px;
+  border-radius: 50%;
+  border: 1px solid #000000;
 }
 
-input[type=number]::-webkit-inner-spin-button { 
-  -webkit-appearance: none;
-  
+.send-photo{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
-input[type=number] { 
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+
+}
+input[type=number] {
  -moz-appearance: textfield;
  appearance: textfield;
 
@@ -69,6 +79,6 @@ input[type=number] {
   }
   .input-name, .input-crn{
     width: 100%;
-  }  
-    
+  }
+
 }
