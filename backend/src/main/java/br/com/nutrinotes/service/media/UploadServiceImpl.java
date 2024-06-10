@@ -1,22 +1,24 @@
 package br.com.nutrinotes.service.media;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.nutrinotes.dao.user.UserDAO;
-import br.com.nutrinotes.exception.FileSystemException;
+import br.com.nutrinotes.dto.UserEditDTO;
+import br.com.nutrinotes.exception.UserException;
 import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.service.user.IUser;
 
@@ -24,69 +26,75 @@ import br.com.nutrinotes.service.user.IUser;
 public class UploadServiceImpl implements IUploadService {
 	
 	@Autowired
-	UserDAO userDAO;
+	private IUser userService;
+	
+	@Value("${file.upload-dir.image}")
+    private String imageDir;
 
+    @Value("${file.upload-dir.pdf}")
+    private String pdfDir;
+           
+    
 	@Override
-	public String upload(MultipartFile file, String username) {
-
-		try {
-			System.out.println("DEBUG - Realizando upload do arquivo: " + file.getOriginalFilename());
-
-			String uniqueFileName = generateUniqueFileName(file.getOriginalFilename());
+	public String upload(MultipartFile file, Integer id) throws FileNotFoundException {
+    	 
+		Path targetLocation = null;
+		
+		UserEditDTO user = userService.findByIdForUpdate(id);
+		
+		if(user != null) {
+			
+			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 			String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 			
-			//System.out.println(extension);
-
-			File dir = new File(pathAbsolute(extension, username));
-
-			// Cria o diretório se ele não existir
-			if (!dir.exists()) {
-				dir.mkdirs();
+			try {
+				targetLocation = pathAbsolute(extension).resolve(fileName);
+				Files.createDirectories(targetLocation.getParent());
+				file.transferTo(targetLocation);
+				
+				String fileDownloadUri = ServletUriComponentsBuilder
+						.fromCurrentContextPath()
+						.path("/files/download/")
+						.path(fileName)
+						.toUriString();
+				
+				user.setImageProfile(fileDownloadUri);
+				userService.update(user, id);
+				
+				return fileDownloadUri;
+				
+			} catch (IOException e) {
+				System.err.println("Erro ao processar o arquivo! " + e);
 			}
-
-			// Criando arquivo no diretório
-			File serveFile = new File(dir.getAbsolutePath() + File.separator + uniqueFileName);
-
-			BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serveFile));
-			stream.write(file.getBytes());
-			stream.close();
-
-			// Retorne o caminho completo do arquivo salvo
-			System.out.println("Armazenando em: " + serveFile.getAbsolutePath());
-
-			return uniqueFileName;
-
-		} catch (IOException e) {
-			System.err.printf("Ocorreu um erro ao realizar o upload do arquivo: ");
-			e.printStackTrace();
 		}
+			
 		return null;
 	}
 	
 	@Override
 	public Resource download(String filename) throws FileNotFoundException, IOException {
 		
-		System.err.println("Imagem recebida no service: " + filename);
+		User user = userService.findByImageProfile(filename);
+		
+		if(user == null) {
+			throw new UserException("Usuário não encontrado!");
+		}
 		
 		String extension = filename.substring(filename.lastIndexOf("."));
-		System.err.println("Extensão: " + extension);
+	    Path basePath = pathAbsolute(extension);
+	    Path filePath = basePath.resolve(filename).normalize();
 		
-		User user = userDAO.findByImageProfile(filename);
-		System.err.println("Resultado da busca da imagem: " + user.toString());
-		
-		String fullPath = pathAbsolute(extension, user.getNome()) + File.separator + filename;
-
-		System.err.println("Caminho no metodo Download: " + fullPath);
-		
-		File file = new File(fullPath);
-		
-		
-		if (!file.exists()) {
-	        throw new FileNotFoundException("Arquivo não encontrado: " + fullPath);
+		try {
+			Resource resource = new UrlResource(filePath.toUri());
+			
+			if (resource.exists() && resource.isReadable()) {
+	            return resource;
+	        } else {
+	            throw new FileNotFoundException("Service: Arquivo não encontrado!");
+	        }
+		} catch (MalformedURLException e) {
+	        throw new IllegalArgumentException("URL inválida: " + filePath);
 	    }
-		
-		InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-		return resource;
 	}
 
 	@Override
@@ -101,22 +109,23 @@ public class UploadServiceImpl implements IUploadService {
 		return "image_" + uniqueID + "_" + originalFileName;
 	}
 
-	private static String pathAbsolute(String extension, String username) {
-		
-		String pathImage;
-		
-		if (extension.endsWith(".pdf")) {
-			pathImage = "src\\report";
+	private Path pathAbsolute(String extension) throws FileNotFoundException {
+		Path fullPath = null;
+			
+		if (extension.equals(".pdf")) {
+			fullPath = Paths.get(pdfDir);
+			
+		} else if (extension.equalsIgnoreCase(".jpeg") || 
+					extension.equalsIgnoreCase(".jpg") || 
+					extension.equalsIgnoreCase(".png") || 
+					extension.equalsIgnoreCase(".gif")) {
+			
+			fullPath = Paths.get(imageDir);
+			
 		} else {
-			pathImage = "src\\image";
+			throw new FileNotFoundException("Extensão de arquivo não suportada: " + extension);
 		}
-		
-		// Obtem o caminho absoluto do diretório do projeto
-		String projectDirectory = new File("").getAbsolutePath();
-
-		// Concatena com o caminho da imagem para obter o caminho completo
-		String fullPath = projectDirectory + File.separator + pathImage + File.separator + username;
-
-		return fullPath;
+				 
+		 return fullPath.toAbsolutePath().normalize();
 	}
 }
