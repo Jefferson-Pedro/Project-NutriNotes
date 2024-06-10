@@ -164,7 +164,6 @@ export class UserComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-
       },
     });
   }
@@ -178,7 +177,7 @@ export class UserComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-
+        this.userPhoto = this.defaultPhoto;
       },
     });
   }
