@@ -2,10 +2,19 @@ package br.com.nutrinotes.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+
+import org.springframework.http.HttpHeaders;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,10 +23,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.nutrinotes.dto.UserEditDTO;
+import br.com.nutrinotes.exception.FileSystemException;
 import br.com.nutrinotes.service.media.IUploadService;
 import br.com.nutrinotes.service.user.IUser;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -25,56 +37,55 @@ import jakarta.validation.constraints.Positive;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/media")
+@RequestMapping("/files")
 public class TransferController {
 	
 	@Autowired 
 	IUploadService transferSevice;
-	
-	@Autowired
-	private IUser userService;
+
 	
 	@PostMapping("/upload")
-	public ResponseEntity<?> upload(@RequestParam(name="file") @Valid MultipartFile file,  
-									@RequestParam(name="id") @NotNull @Positive Integer id){
-		
-		System.err.println("Tipo do multipartFile: " + file.getClass());
-		
-		UserEditDTO user = userService.findByIdForUpdate(id);
-		String res = transferSevice.upload(file, user.getNome());
-		if (res != null && user != null) {
-			System.err.println("Armazenado em: " + res);
-			
-			user.setImageProfile(res);
-			
-			if (userService.update(user, id)) {
-				return ResponseEntity.status(201).body(res);
-			}
-			return ResponseEntity.status(400).body("Erro ao atualizar o usuário");
-		}
-		return ResponseEntity.status(400).body("Erro ao processar a imagem!");
-	}
-
-	@GetMapping("download/{imageName}")
-	public ResponseEntity<?> download(@PathVariable String imageName){
-		
-		System.err.println("Imagem recebida: " + imageName);
-		
-		Resource file;
+	public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file, 
+			  								   @RequestParam(name="id") @NotNull @Positive Integer id) {
+		 
+		String fileDownloadUri;
 		try {
-			file = transferSevice.download(imageName);
-			System.err.println("Caminho da imagem: " + file.toString());
-			return ResponseEntity.ok(file);
+			fileDownloadUri = transferSevice.upload(file, id);
+			if (fileDownloadUri != null) {
+				return ResponseEntity.ok("Upload feito com sucesso. Download link: " + fileDownloadUri);
+			}
+			
+		} catch (FileSystemException e) {
+			return ResponseEntity.status(500).body(e);
+		
+		} catch (FileNotFoundException e) {
+			return ResponseEntity.status(400).body(e);
+		}
+		
+		return null;
+	  }
+
+	@GetMapping("download/{fileName:.+}")
+	public ResponseEntity<?> download(@PathVariable String fileName){
+
+		try {
+			Resource fileResource = transferSevice.download(fileName);
+			
+			String contentType = Files.probeContentType(Paths.get(fileResource.getFilename()));
+			
+			if(contentType == null) {
+				contentType = "application/octet-stream";
+			}
+			
+			return ResponseEntity.ok()
+					.contentType(MediaType.parseMediaType(contentType))
+					.body(fileResource);
 			
 		} catch (FileNotFoundException e) {
-			
-			System.err.println("Imagem não encontrada: " + e.getMessage());
-			return ResponseEntity.status(404).body(e);
+			return ResponseEntity.status(400).body(e);
 			
 		} catch (IOException e) {
-			
-			System.err.println("Erro interno ao processar a imagem: " + e.getMessage());
-			return ResponseEntity.status(500).body(e);
+			return ResponseEntity.internalServerError().body(e);
 		}
 	}
 }
