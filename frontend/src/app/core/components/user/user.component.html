@@ -3,14 +3,14 @@
     <mat-toolbar mainColors>Perfil</mat-toolbar>
 
     <div class="profile-icon">
-      <img [src]="userPhoto ? userPhoto : defaultPhoto" alt="logo-perfil">
-      <mat-icon>edit</mat-icon>
+      <img [class.has-photo]="user.imageProfile" [src]="user.imageProfile || defaultPhoto" alt="logo-perfil">
     </div>
 
     <div class="d-flex justify-content-center col-12 gap-3">
       <input type="file" #fileUpload style="display: none" (change)="uploadPhoto($event)"/>
       <button class="send-photo" mat-button mat-stroked-button (click)="fileUpload.click()">
-        <span *ngIf="user && user.imageProfile; else noPhoto">Alterar Foto</span>
+        <mat-icon>edit</mat-icon>
+        <span *ngIf="user.imageProfile; else noPhoto">Alterar Foto</span>
         <ng-template #noPhoto>Enviar Foto</ng-template>
       </button>
     </div>
