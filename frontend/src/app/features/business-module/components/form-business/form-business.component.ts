@@ -166,7 +166,7 @@ export class FormBusinessComponent implements OnInit {
       representante: form.representante,
       telefone: form.telefone,
       uf: form.uf,
-      responsavelTec: this.businessCreate.responsavelTec,
+      responsavelTec: this.businessCreate.responsavelTec, //Estou passando o objeto inteiro
       idBusiness: form.idBusiness
     };
   }
