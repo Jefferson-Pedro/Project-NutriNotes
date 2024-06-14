@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { delay, first } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { Business } from 'src/app/core/models/Business';
+import { BusinessCreate } from 'src/app/core/models/BusinessCreate';
+import { BusinessResponse } from 'src/app/core/models/BusinessResponse ';
 import { Department } from 'src/app/core/models/Department';
 import { environment } from 'src/environments/environment.development';
 
@@ -19,26 +20,26 @@ export class BusinessService {
   public list() {
     const url = `${environment.baseUrl}/business/all`;
 
-    return this.http.get<Business[]>(url).pipe(first(), delay(1000));
+    return this.http.get<BusinessResponse[]>(url).pipe(first(), delay(1000));
   }
 
   public getPageList(page = 0 , size = 5): Observable<any> {
 
    const url = `${environment.baseUrl}/business?page=${page}&size=${size}`;
 
-    return this.http.get<Business>(url);
+    return this.http.get<BusinessResponse>(url);
   }
 
-  public create(business: Business): Observable<Business> {
+  public create(business: BusinessCreate): Observable<BusinessCreate> {
     const url = `${environment.baseUrl}/business/new`;
 
-    return this.http.post<Business>(url, business);
+    return this.http.post<BusinessCreate>(url, business);
   }
 
   public loadById(id: Number) {
     const url = `${environment.baseUrl}/business/${id}`;
 
-    return this.http.get<Business>(url);
+    return this.http.get<BusinessResponse>(url);
   }
 
   public delete(id: Number) {
@@ -47,10 +48,10 @@ export class BusinessService {
     return this.http.delete(url);
   }
 
-  public update(business: Business): Observable<Business> {
+  public update(business: BusinessCreate): Observable<BusinessCreate> {
     const url = `${environment.baseUrl}/business/edit/${business.idBusiness}`;
 
-    return this.http.put<Business>(url, business);
+    return this.http.put<BusinessCreate>(url, business);
   }
 
   public findDepartmentByBusiness(id: number) {
