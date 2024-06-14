@@ -84,7 +84,7 @@ public class UserController {
 		
 		try {
 			UserViewDTO res = service.findById(id);
-			System.err.println("Objeto retornado: " + res.toString());
+			//System.err.println("Objeto retornado: " + res.toString());
 			
 			if (res != null) {
 				return ResponseEntity.ok(res);
