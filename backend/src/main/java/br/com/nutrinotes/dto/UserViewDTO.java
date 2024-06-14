@@ -46,12 +46,12 @@ public class UserViewDTO {
 	private String crn;
 	
 	@Length(max = 255)
-	@Column(name="link_photo")
+	@Column(name="photo_profile")
 	private String imageProfile;
 	
 	@OneToMany(mappedBy = "responsavelTec", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("responsavelTec")
-	private List<Business> business;
+	private List<BusinessDTO> business;
 
 	
 	//GET AND SET
@@ -136,12 +136,12 @@ public class UserViewDTO {
 	}
 
 
-	public List<Business> getBusiness() {
+	public List<BusinessDTO> getBusiness() {
 		return business;
 	}
 
 
-	public void setBusiness(List<Business> business) {
+	public void setBusiness(List<BusinessDTO> business) {
 		this.business = business;
 	}
 	
