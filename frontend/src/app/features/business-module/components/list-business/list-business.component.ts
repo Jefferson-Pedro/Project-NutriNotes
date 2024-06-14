@@ -4,12 +4,13 @@ import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
-import { Business } from 'src/app/core/models/Business';
 import { AlertService } from 'src/app/features/shared-module/services/alert/alert.service';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
 import { BusinessService } from '../../services';
 import { PaginatorConfig } from '../../../../core/models/PaginatorConfig';
 import { FormDepartmentComponent } from '../form-department';
+import { BusinessResponse } from 'src/app/core/models/BusinessResponse ';
+import { BusinessCreate } from 'src/app/core/models/BusinessCreate';
 
 @Component({
   selector: 'app-list-business',
@@ -17,7 +18,7 @@ import { FormDepartmentComponent } from '../form-department';
   styleUrls: ['./list-business.component.css'],
 })
 export class ListBusinessComponent implements OnInit {
-  business!: Observable<Business[]>;
+  business!: Observable<BusinessResponse[]>;
   //business!: Business[];
 
   pageEvent: PageEvent | undefined;
@@ -79,7 +80,7 @@ export class ListBusinessComponent implements OnInit {
     this.router.navigate(['business/new']);
   }
 
-  public onCreateDepartment(business: Business){
+  public onCreateDepartment(business: BusinessCreate){
     const dialogRef = this.dialog.open(FormDepartmentComponent, {
         data: {
             idBusiness: business.idBusiness
@@ -87,7 +88,7 @@ export class ListBusinessComponent implements OnInit {
     });
   }
 
-  public onEdit(business: Business) {
+  public onEdit(business: BusinessCreate) {
     this.router.navigate(['business/edit', business.idBusiness]);
   }
 
