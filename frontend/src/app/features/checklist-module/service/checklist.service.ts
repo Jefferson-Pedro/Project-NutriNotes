@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, delay, first } from 'rxjs';
-import { Business } from 'src/app/core/models/Business';
+import { BusinessResponse } from 'src/app/core/models/BusinessResponse ';
 import { Checklist } from 'src/app/core/models/Checklist';
 import { QuestionInfo } from 'src/app/core/models/QuestionInfo';
 import { environment } from 'src/environments/environment.development';
@@ -19,13 +19,13 @@ export class ChecklistService {
 
   public list(): Observable<Checklist[]> {
     const url = `${this.baseUrl}/checklist/all`
-    
+
     return this.http.get<Checklist[]>(url);
   }
 
   public getPageList(page = 0 , size = 5): Observable<any> {
     const url = `${this.baseUrl}/checklist?page=${page}&size=${size}`;
-    
+
     return this.http.get<Checklist>(url);
   }
 
@@ -33,15 +33,15 @@ export class ChecklistService {
   public update() {}
   public delete() {}
 
-  public listBusiness(): Observable<Business[]> {
+  public listBusiness(): Observable<BusinessResponse[]> {
     const url = `${this.baseUrl}/business/all`;
 
-    return this.http.get<Business[]>(url);
+    return this.http.get<BusinessResponse[]>(url);
   }
 
   public listQuestions(id: number) {
     const url = `${this.baseUrl}/question/template/${id}`;
-    
+
     return this.http.get<QuestionInfo[]>(url);
-  } 
+  }
 }
