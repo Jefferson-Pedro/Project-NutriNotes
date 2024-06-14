@@ -1,9 +1,9 @@
 import { HttpClientModule } from '@angular/common/http';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { Input, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
-import { AppRoutingModule } from './app-routing.module';
+import { RouterModule, provideRouter, withComponentInputBinding } from '@angular/router';
+import { AppRoutingModule, routes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BusinessModule } from './features/business-module';
 import { ChecklistModule } from './features/checklist-module';
@@ -18,10 +18,10 @@ import { CoreModule } from './core/core.module';
     AppComponent,
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    RouterModule,
+    RouterModule.forRoot(routes, {bindToComponentInputs: true}),
     AppRoutingModule,
     ChecklistModule,
     CheklistRoutingModule,
@@ -30,13 +30,14 @@ import { CoreModule } from './core/core.module';
     SharedModule,
     LoginModule,
     CoreModule,
-  
+
   ],
   exports: [],
   providers: [{
     provide: LOCALE_ID,
       useValue: 'pt'
-  },  ],
+  },
+     ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
