@@ -1,7 +1,7 @@
-import { Business } from "./Business";
+import { BusinessCreate } from "./BusinessCreate";
 
 export interface Department {
     idSetores: number;
     nome: string;
-    idBusiness: Business;
+    idBusiness: BusinessCreate;
   }
