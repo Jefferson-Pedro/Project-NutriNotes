@@ -1,6 +1,6 @@
 import { Component, inject, type OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Business } from 'src/app/core/models/Business';
+import { BusinessCreate } from 'src/app/core/models/BusinessCreate';
 import { Department } from 'src/app/core/models/Department';
 import { ChecklistService } from 'src/app/features/checklist-module/service';
 
@@ -16,8 +16,8 @@ export class WorkplaceSafetyFormComponent implements OnInit {
   private checklistService = inject(ChecklistService);
 
   protected setores?: Department[];
-  private business: Business[] = [];
-  protected options: Business[] = [];
+  private business: BusinessCreate[] = [];
+  protected options: BusinessCreate[] = [];
 
   ngOnInit(): void {
     this.onInputNomeEmpresaListener();
@@ -58,14 +58,14 @@ export class WorkplaceSafetyFormComponent implements OnInit {
         this.findMatchingOptions(value);
         return;
       }
-      this.setores = (value as Business).setores;
+      this.setores = (value as BusinessCreate).setores;
       this.formChecklist.patchValue({
-        gestor: (value as Business).representante,
+        gestor: (value as BusinessCreate).representante,
       });
     });
   }
 
-  protected displayFn(business: Business): string{
+  protected displayFn(business: BusinessCreate): string{
     return business?.nome || '';
   }
 
