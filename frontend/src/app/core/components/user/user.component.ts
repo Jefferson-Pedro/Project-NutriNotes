@@ -1,3 +1,4 @@
+import { CepResponse } from 'src/app/core/models/CepResponse';
 import { User } from './../../models/User';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -34,6 +35,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserById();
+    console.log("User: ", this.user);
   }
 
   public onSubmit() {
@@ -172,13 +174,16 @@ export class UserComponent implements OnInit {
     this.filesService.getImage(link_photo).subscribe({
       next: (response) => {
         console.log('response: ' , response);
-        //this.userPhoto = link_photo;
-        this.userPhoto = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(response));
+        this.userPhoto = this.sanitizeUrl(response);
       },
       error: (err) => {
         console.log(err);
         this.userPhoto = this.defaultPhoto;
       },
     });
+  }
+
+  private sanitizeUrl(url : Blob): SafeUrl{
+    return this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(url));
   }
 }
