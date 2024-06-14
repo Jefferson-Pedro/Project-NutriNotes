@@ -1,4 +1,4 @@
-import { Business } from "./Business";
+import { BusinessCreate } from "./BusinessCreate";
 import { Department } from "./Department";
 import { TemplateCheckList } from "./TemplateChecklist";
 
@@ -9,6 +9,6 @@ export interface Checklist {
     nomeGestor?: string;
     dataAuditoria?: Date;
     idSetores?: Department;
-    idBusiness?: Business;
+    idBusiness?: BusinessCreate;
     idTemplate?: TemplateCheckList;
   }
