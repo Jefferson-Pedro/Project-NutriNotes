@@ -73,7 +73,7 @@ public class User {
 	private String crn;
 	
 	@Length(max = 255)
-	@Column(name="link_photo")
+	@Column(name="photo_profile")
 	private String imageProfile;
 	
 	@OneToMany(mappedBy = "responsavelTec", cascade = CascadeType.ALL)
