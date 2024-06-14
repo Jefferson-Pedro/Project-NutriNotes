@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, of, switchMap } from 'rxjs';
@@ -8,8 +8,11 @@ import { AlertService } from 'src/app/features/shared-module/services/alert/aler
 import { ViaCepService } from 'src/app/features/shared-module/services/cep';
 import { NotificationService } from 'src/app/features/shared-module/services/notification';
 import { BusinessService } from '../../services';
-import { Business } from 'src/app/core/models/Business';
 import { CreateUser } from 'src/app/core/models/CreateUser';
+import { LocalStorageService } from 'src/app/features/shared-module/services/localStorage';
+import { UserService } from 'src/app/core/services/user';
+import { BusinessCreate } from 'src/app/core/models/BusinessCreate';
+import { BusinessResponse } from 'src/app/core/models/BusinessResponse ';
 
 @Component({
   selector: 'app-form-business',
@@ -17,20 +20,30 @@ import { CreateUser } from 'src/app/core/models/CreateUser';
   styleUrls: ['./form-business.component.css'],
 })
 export class FormBusinessComponent implements OnInit {
+
+  @Input() id!: string;
+
   private router = inject(Router);
   private alertService = inject(AlertService);
   private viacepService = inject(ViaCepService);
   private activatedRoute = inject(ActivatedRoute);
   private businessService = inject(BusinessService);
   private notification = inject(NotificationService);
+  private localStorageService = inject(LocalStorageService);
+  private userService = inject(UserService);
   private formBuilder = inject(NonNullableFormBuilder);
 
   protected form = this.buildForm();
-  protected business!: Business;
+  protected businessCreate!: BusinessCreate;
+  protected businessResponse!: BusinessResponse
   protected submitted = false;
+  private  userId!: Number;
+  protected loading!: boolean;
 
   ngOnInit(): void {
+    this.loadUserById();
     this.loadBusinessById();
+    console.log(this.id);
   }
 
   protected onSubmit(): void {
@@ -44,12 +57,12 @@ export class FormBusinessComponent implements OnInit {
       );
       return;
     }
-    if (this.business.idBusiness != undefined) {
+    if (this.businessCreate.idBusiness) {
       // SE A EMPRESA EXISTIR, É EXECUTADA A FUNÇÃO DE ALTERAÇÃO
       this.updateBusiness();
       return; // QUEBRA A FUNÇÃO E NÃO EXECUTA NENHUM CÓDIGO QUE ESTÁ ABAIXO
     }else{
-      this.createBusiness(); // CASO A EMPRESA NÃO EXISTA, É EXECUTADA A FUNÇÃO DE CRIAÇÃO    
+      this.createBusiness(); // CASO A EMPRESA NÃO EXISTA, É EXECUTADA A FUNÇÃO DE CRIAÇÃO
     }
   }
 
@@ -66,12 +79,11 @@ export class FormBusinessComponent implements OnInit {
       uf: ['', [Validators.required, Validators.minLength(2)]],
       representante: ['', [Validators.required, Validators.minLength(5)]],
       plano: ['', Validators.required],
-      responsavelTec: [{ idProfile: 1 }],
+      responsavelTec: [''], //[null as CreateUser | null],
       compl: [''],
       telefone: [''],
     });
   }
-  
 
   protected validationCep(): void {
     // Armazena o valor do CEP digitado no formulário na variável
@@ -97,7 +109,6 @@ export class FormBusinessComponent implements OnInit {
     this.viacepService.searchCep(cep).subscribe({
       next: (cepResponse: CepResponse) => {
         this.fillCepForms(cepResponse);
-        console.log(cepResponse);
       },
       error: (err) => {
         console.log(err);
@@ -117,10 +128,31 @@ export class FormBusinessComponent implements OnInit {
     });
   }
 
-  private createBusinessPayload(): Business {
+  private loadUserById(): void {
+
+    this.loading = true;
+    this.userId = +this.localStorageService.getDecodeToken()!.id; //Uma forma de converter para Number
+
+    this.userService.findUserById(this.userId).subscribe({
+      next:(userResponse)=> {
+        this.localStorageService.insertToken('LoggedUser', userResponse); //Salva um obj com os dados do usuário logado;
+        this.fillResponsavelTecControl(userResponse.nome);
+        console.log("UserResponse: " , userResponse);
+      },
+      error: (err)=> {
+        console.log(err);
+      },
+    }).add(() => {
+      this.loading = false;
+    })
+  }
+
+  private fillResponsavelTecControl(nameTec: string){
+    this.form.controls.responsavelTec.setValue(nameTec);
+  }
+
+  private createBusinessPayload(): BusinessCreate {
     const form = this.form.getRawValue();
-    const responsavelTec = {idProfile: 1,};
-  
 
     return {
       nome: form.nome,
@@ -134,7 +166,7 @@ export class FormBusinessComponent implements OnInit {
       representante: form.representante,
       telefone: form.telefone,
       uf: form.uf,
-      //responsavelTec: responsavelTec as CreateUser, //GAMBIARRA TEMPORARIA
+      responsavelTec: this.businessCreate.responsavelTec,
       idBusiness: form.idBusiness
     };
   }
@@ -145,7 +177,7 @@ export class FormBusinessComponent implements OnInit {
       next: (res) => {
         this.notification.showMessageSucess('Sucesso! Empresa cadastrada');
         this.router.navigate(['business/list']);
-        console.log(res);
+       // console.log(res);
       },
       error: (err) => {
         this.notification.showMessageFail(
@@ -156,7 +188,7 @@ export class FormBusinessComponent implements OnInit {
     });
   }
 
-  private updateBusinessPayload(): Business {
+  private updateBusinessPayload(): BusinessCreate {
     const form = this.form.getRawValue();
     console.log('FORMULARIO COM VALORES CRUS: ', form);
     return {
@@ -170,9 +202,9 @@ export class FormBusinessComponent implements OnInit {
       logradouro: form.logradouro,
       plano: form.plano,
       representante: form.representante,
+      responsavelTec: this.businessCreate.responsavelTec,
       telefone: form.telefone,
       uf: form.uf,
-     // responsavelTec: form.responsavelTec as CreateUser,//GAMBIARRA TEMPORARIA
     };
   }
 
@@ -182,7 +214,7 @@ export class FormBusinessComponent implements OnInit {
       next: (res) => {
         this.notification.showMessageSucess('Sucesso! Empresa alterada');
         this.router.navigate(['business/list']);
-        console.log(res);
+        //console.log(res);
       },
       error: (err) => {
         this.notification.showMessageFail(
@@ -195,28 +227,41 @@ export class FormBusinessComponent implements OnInit {
 
   private loadBusinessById(): void {
     // FAZ A CHAMADA PARA O DATABASE, RETORNA UM OBJETO COM BASE NO ID DA URL
-    this.activatedRoute.params
-      .pipe(
-        map((params) => {
-          return params['id'];
-        }),
-        switchMap((id) => {
-          return id !== undefined
-          ? this.businessService.loadById(id)
-          : of({} as Business);
-        })
-      )
-      .subscribe({
+    this.businessService.loadById(+this.id).subscribe({
         next: (business) => {
-          console.log('OBJETO DO BANCO:',business);
-          this.business = business;
-          this.form.patchValue(business as Partial<{ idBusiness: any; nome: string; cnpj: string; cep: string; logradouro: string; cidade: string; bairro: string; uf: string; representante: string; plano: string; responsavelTec: { idProfile: number; }; compl: string; telefone: string; }>)
+          //console.log('OBJETO DO BANCO:',business);
+          this.businessResponse = business;
+          console.log("this.businessResponse:" , this.businessResponse);
+          this.fillForm(business);
         },
         error: (err) => {
           console.log(err);
         },
       });
   }
+
+  private fillForm(business: BusinessResponse): void{
+
+    this.form.patchValue({
+      nome: business.nome,
+      cnpj: business.cnpj,
+      cep: business.cep,
+      logradouro: business.logradouro,
+      compl: business.compl,
+      bairro: business.bairro,
+      cidade: business.cidade,
+      uf: business.uf,
+      telefone: business.telefone,
+      plano: business.plano,
+      representante: business.representante,
+      responsavelTec: business.nomeUser
+    });
+  }
+
+  // //Compara o valor retornado pela API com todas as opções do select quando ele encontrar a opção que é igual, seleciona no mat-select
+  // protected compareOptions(selectPlan: string, savedPlan: string): boolean{
+  //   return selectPlan === savedPlan;
+  // }
 
   public onCancel(): void {
     this.router.navigate(['home']);
