@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Business } from 'src/app/core/models/Business';
+import { BusinessCreate } from 'src/app/core/models/BusinessCreate';
 import { Checklist } from 'src/app/core/models/Checklist';
 import { Department } from 'src/app/core/models/Department';
 import { ItemChecklist } from 'src/app/core/models/ItemChecklist';
@@ -34,11 +34,11 @@ export class DocumentationQuestionsComponent implements OnInit {
 
   private templateId = history.state.id;
   private itemChecklist!: ItemChecklist;
-  private checklist!: Checklist; 
+  private checklist!: Checklist;
   protected setores?: Department[];
-  private business: Business[] = [];
-  protected options: Business[] = [];
-  
+  private business: BusinessCreate[] = [];
+  protected options: BusinessCreate[] = [];
+
   displayedColumns = ['idQuestion', 'question', 'status', 'considerations'];
 
   public get questionFormArray(): FormArray {
@@ -86,9 +86,9 @@ export class DocumentationQuestionsComponent implements OnInit {
         this.findMatchingOptions(value);
         return;
       }
-      this.setores = (value as Business).setores;
+      this.setores = (value as BusinessCreate).setores;
       this.formChecklist.patchValue({
-        gestor: (value as Business).representante,
+        gestor: (value as BusinessCreate).representante,
       });
     });
 
@@ -101,7 +101,7 @@ export class DocumentationQuestionsComponent implements OnInit {
     return this.options = filteredBusiness;
   }
 
-  protected displayFn(business: Business): string{
+  protected displayFn(business: BusinessCreate): string{
     return business?.nome || '';
   }
 
@@ -140,7 +140,7 @@ export class DocumentationQuestionsComponent implements OnInit {
     const checklist = this.formChecklist.getRawValue();
     console.log('Build Form:', checklist);
     console.log('Build Form2:', this.questionFormArray.value);
-    
+
   }
 
   public onCancel() {
