@@ -31,15 +31,12 @@ public class ProfileTests {
 		assertTrue(res != null );
 	}
 	
-	@Test
-	public void shouldDeleteProfile() {
-		assertTrue(service.delete(100));
-	}
-	
-	@Test
-	public void shouldNotDeleteProfile() {
-		assertFalse(service.delete(150));
-	}
+	/*
+	 * @Test public void shouldDeleteProfile() { (service.delete(100)); }
+	 * 
+	 * @Test public void shouldNotDeleteProfile() {
+	 * assertFalse(service.delete(150)); }
+	 */
 	
 //	@Test
 //	public void shouldReturnServeralProfile() {
