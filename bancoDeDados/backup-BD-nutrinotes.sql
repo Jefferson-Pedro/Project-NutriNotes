@@ -118,20 +118,6 @@ CREATE TABLE `item_checklist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
-
---
--- Estrutura para tabela `photo_profile`
---
-
-CREATE TABLE `photo_profile` (
-  `id_midia` int(11) NOT NULL,
-  `link_midia` varchar(25) DEFAULT NULL,
-  `descricao` varchar(255) NOT NULL,
-  `id_profile` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- --------------------------------------------------------
-
 --
 -- Estrutura para tabela `questions_checklist`
 --
@@ -171,7 +157,8 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL,
   `senha` varchar(255) NOT NULL,
   `telefone` varchar(45) DEFAULT NULL,
-  `crn` varchar(45) NOT NULL
+  `crn` varchar(45) NOT NULL,
+  `photo_profile`varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -224,13 +211,6 @@ ALTER TABLE `item_checklist`
   ADD PRIMARY KEY (`id_checkList`,`id_questions`),
   ADD KEY `fk_checkList_has_questions_checklist_questions_checklist1_idx` (`id_questions`),
   ADD KEY `fk_checkList_has_questions_checklist_checkList1_idx` (`id_checkList`);
-
---
--- Índices de tabela `photo_profile`
---
-ALTER TABLE `photo_profile`
-  ADD PRIMARY KEY (`id_midia`),
-  ADD KEY `fk_midia_profile1_idx` (`id_profile`);
 
 --
 -- Índices de tabela `questions_checklist`
