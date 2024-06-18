@@ -1,7 +1,6 @@
 package br.com.nutrinotes.service.user;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,9 @@ import org.springframework.validation.annotation.Validated;
 import br.com.nutrinotes.dao.user.UserDAO;
 import br.com.nutrinotes.dto.UserEditDTO;
 import br.com.nutrinotes.dto.UserViewDTO;
+import br.com.nutrinotes.exception.EmptyListException;
 import br.com.nutrinotes.exception.InvalidAccountException;
-import br.com.nutrinotes.exception.UserException;
+import br.com.nutrinotes.exception.RecordNotFoundException;
 import br.com.nutrinotes.model.user.User;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -38,44 +38,43 @@ public class UserImpl implements IUser {
 
 	@Override
 	public boolean update(@Valid @NotNull UserEditDTO user, @NotNull @Positive Integer id) {
-		Optional<User> res = dao.findById(id);
+		User res = dao.findById(id)
+				.orElseThrow(()-> new RecordNotFoundException(id));;
 
-		if (res.isPresent()) {
-			User existingUser = res.get();
-			
-			if(user.getSenha() != null && user.getNovaSenha() != null &&
-			  !user.getSenha().isEmpty() && !user.getNovaSenha().isEmpty()) {
-				
-				if(user.getNovaSenha().length() < 6 || user.getNovaSenha().length() > 155) {
-					
-					throw new InvalidAccountException("Nova senha deve ter entre 3 e 155 caracteres.");
-				}
-				
-				BCryptPasswordEncoder verifyOrEncoderPass = new BCryptPasswordEncoder();
-				
-				if (verifyOrEncoderPass.matches(user.getSenha(), existingUser.getSenha())) {
-					String newPassword = verifyOrEncoderPass.encode(user.getNovaSenha());
-					user.setSenha(newPassword);
-					
-				}else {
-					throw new InvalidAccountException("Senha incorreta. Verifique as informações e tente novamente! ");
-				}	
-			
-			} else {
-				user.setSenha(user.getSenha());
-				BeanUtils.copyProperties(user, existingUser, "idUser", "novaSenha");
-				dao.save(existingUser);
-				System.out.println("Usuário atualizado com sucesso!");
-				return true;	
+		if(user.getSenha() != null && user.getNovaSenha() != null &&
+		   !user.getSenha().isEmpty() && !user.getNovaSenha().isEmpty()) {
+
+			if(user.getNovaSenha().length() < 6 || user.getNovaSenha().length() > 155) {
+
+				throw new InvalidAccountException("Nova senha deve ter entre 3 e 155 caracteres.");
 			}
+
+			BCryptPasswordEncoder verifyOrEncoderPass = new BCryptPasswordEncoder();
+
+			if (verifyOrEncoderPass.matches(user.getSenha(), res.getSenha())) {
+				String newPassword = verifyOrEncoderPass.encode(user.getNovaSenha());
+				user.setSenha(newPassword);
+
+			}else {
+				throw new InvalidAccountException("Senha incorreta. Verifique as informações e tente novamente! ");
+			}	
+
+		} else {
+			user.setSenha(user.getSenha());
+			BeanUtils.copyProperties(user, res, "idUser", "novaSenha");
+			dao.save(res);
+			System.out.println("Usuário atualizado com sucesso!");
+			return true;	
 		}
-		
-		throw new UserException("Usuário não existe no banco de dados!");
+		return false;
 	}
 
 	@Override
 	public List<UserViewDTO> findAll() {
 		List<User> listUsers = dao.findAll();
+		if(listUsers.isEmpty()) {
+			throw new EmptyListException("Usuários");
+		}
 		List<UserViewDTO> listUsersDtos = listUsers.stream()
 				.map(UserViewDTO :: fromUserWithoutBusinessDTO)
 				.collect(Collectors.toList());
@@ -86,6 +85,9 @@ public class UserImpl implements IUser {
 	@Override
 	public List<UserViewDTO> findByName(@NotNull @NotBlank String nome) {
 		List<User> listUsers = dao.findByNomeContaining(nome);
+		if(listUsers.isEmpty()) {
+			throw new EmptyListException("Usuários");
+		}
 		List<UserViewDTO> listUsersDtos = listUsers.stream()
 				.map(UserViewDTO :: fromUserWithoutBusinessDTO)
 				.collect(Collectors.toList());
@@ -93,7 +95,7 @@ public class UserImpl implements IUser {
 		return listUsersDtos;
 	}
 	
-	@Override
+	@Override //Metodo Interno
 	public User findByImageProfile(@NotNull @NotBlank String filename) {
 		String pathPartial = "http://localhost:8080/files/download/" + filename;
 		return dao.findByImageProfile(pathPartial);
@@ -102,19 +104,19 @@ public class UserImpl implements IUser {
 	@Override
 	public UserViewDTO findById(@NotNull @Positive Integer id) {
 		
-		User existingUser = dao.findById(id).orElse(null);
+		User existingUser = dao.findById(id)
+				.orElseThrow(()-> new RecordNotFoundException(id));
+		
 		UserViewDTO userViewDTO = new UserViewDTO();
 		BeanUtils.copyProperties(existingUser, userViewDTO, "senha");
 		
-		if (userViewDTO != null) {
-			return userViewDTO;
-		}
-			throw new UserException("Usuário não encontrado!");	
+		return userViewDTO;
 	}
 	
-	@Override
+	@Override //Metodo interno
 	public UserEditDTO findByIdForUpdate(@NotNull @Positive Integer id) {
-		User existingUser = dao.findById(id).orElse(null);
+		User existingUser = dao.findById(id)
+				.orElseThrow(()-> new RecordNotFoundException(id));;
 		UserEditDTO updateUser = new UserEditDTO();
 		BeanUtils.copyProperties(existingUser, updateUser, "novaSenha");
 		
@@ -122,14 +124,10 @@ public class UserImpl implements IUser {
 	}
 
 	@Override
-	public boolean delete(@NotNull @Positive Integer id) {
-		Optional<User> p = dao.findById(id);
-		if (p.isPresent()) {
+	public void delete(@NotNull @Positive Integer id) {
+		User res = dao.findById(id)
+				.orElseThrow(()-> new RecordNotFoundException(id));
 			dao.deleteById(id);
 			System.out.println("Perfil com id " + id + " excluido com sucesso!");
-			return true;
-		}
-		System.out.println("Ocorreu um erro ao excluir o perfil " + id);
-		return false;
 	}
 }
