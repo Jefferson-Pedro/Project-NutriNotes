@@ -19,5 +19,5 @@ public interface IUser {
 	public User findByImageProfile(@NotNull @NotBlank String nome);
 	public UserViewDTO findById(@NotNull @Positive Integer id);
 	public UserEditDTO findByIdForUpdate(@NotNull @Positive Integer id);
-	public boolean delete(@NotNull @Positive Integer id);
+	public void delete(@NotNull @Positive Integer id);
 }
