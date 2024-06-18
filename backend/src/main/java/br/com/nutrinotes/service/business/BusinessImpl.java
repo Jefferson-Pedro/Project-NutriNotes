@@ -1,6 +1,5 @@
 package br.com.nutrinotes.service.business;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,10 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.nutrinotes.dao.business.BusinessDAO;
+import br.com.nutrinotes.dao.user.UserDAO;
 import br.com.nutrinotes.dto.BusinessDTO;
-import br.com.nutrinotes.dto.DepartmentDTO;
+import br.com.nutrinotes.exception.EmptyListException;
+import br.com.nutrinotes.exception.RecordNotFoundException;
 import br.com.nutrinotes.model.business.Business;
-import br.com.nutrinotes.model.department.Department;
+import br.com.nutrinotes.model.user.User;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -29,6 +30,9 @@ public class BusinessImpl implements IBusiness {
 	
 	@Autowired
 	BusinessDAO dao;
+	
+	@Autowired
+	UserDAO userDao;
 
 	@Override
 	public Business create(@Valid @NotNull Business novo) {
@@ -36,21 +40,21 @@ public class BusinessImpl implements IBusiness {
 	}
 
 	@Override
-	public boolean update(@Valid @NotNull Business business, @NotNull @Positive Integer id) {
-	    Optional<Business> res = dao.findById(id);
-	    if (res.isPresent()) {
-	        Business existingBusiness = res.get();
+	public Business update(@Valid @NotNull Business business, @NotNull @Positive Integer id) {
+	    Business res = dao.findById(id)
+	    		.orElseThrow(()-> new RecordNotFoundException(id));
+	    
+	        Business existingBusiness = res;
 	        BeanUtils.copyProperties(business, existingBusiness, "idBusiness");
-	        dao.save(existingBusiness);
-	        return true;
-	    }
-	    System.err.println("Erro ao editar a empresa!");
-	    return false;
+	        return dao.save(existingBusiness);
 	}
 	
 	@Override
 	public List<BusinessDTO> findAll() {
 		List<Business> list = dao.findAll();
+		if(list.isEmpty()) {
+			throw new EmptyListException("Empresas");
+		}
 	    List<BusinessDTO> businessDTOs = 
 	    				list.stream()
 	    				.map(BusinessDTO :: fromBusinessDTO)
@@ -60,12 +64,18 @@ public class BusinessImpl implements IBusiness {
 	}
 
 	@Override
-	public Page<BusinessDTO> findAllPage(Pageable pageable) {
-		Page<Business> page = dao.findAll(pageable);
-		List<BusinessDTO> businessDTOs = page.getContent().stream()
-				.map(BusinessDTO :: fromBusinessDTO)
-				.collect(Collectors.toList());
-		return new PageImpl<>(businessDTOs, pageable, page.getTotalElements());
+	public Page<BusinessDTO> findAllPageByUser(Pageable pageable, Integer id) {
+		
+		User user = userDao.findById(id)
+				.orElseThrow(()-> new RecordNotFoundException(id));;
+		
+			Page<Business> page = dao.findByResponsavelTec(user, pageable);
+
+			List<BusinessDTO> businessDTOs = page.getContent().stream()
+					.map(BusinessDTO :: fromBusinessDTO)
+					.collect(Collectors.toList());
+			
+			return new PageImpl<>(businessDTOs, pageable, page.getTotalElements());
 	}
 
 	@Override
@@ -82,31 +92,15 @@ public class BusinessImpl implements IBusiness {
 	
 	@Override
 	public BusinessDTO findById(@NotNull @Positive Integer id) {
-		Business business =  dao.findById(id).orElse(null);
-		BusinessDTO businessDTO = new BusinessDTO();
-		BeanUtils.copyProperties(business, businessDTO, "setores");
-		
-		if(business != null && business.getSetores() !=null) {
-			List<DepartmentDTO> lisDepartmentDTOs = new ArrayList<>();
-			for (Department department : business.getSetores()) {
-				DepartmentDTO departmentDTO = new DepartmentDTO();
-				BeanUtils.copyProperties(department, departmentDTO);
-				lisDepartmentDTOs.add(departmentDTO);
-			}
-			businessDTO.setSetores(lisDepartmentDTOs);
-		}
-		return businessDTO;
+		Business business =  dao.findById(id)
+				.orElseThrow(()-> new RecordNotFoundException(id));
+		return BusinessDTO.fromBusinessDTO(business);
 	}
 
 	@Override
-	public boolean delete(@NotNull @Positive Integer id) {
-		Optional<Business> b = dao.findById(id);
-		if (b.isPresent()) {
-			dao.deleteById(id);
-			return true;
-		}
-		System.err.println("Ocorreu um erro ao excluir a empresa!");
-		return false;
+	public void delete(@NotNull @Positive Integer id) {
+		dao.findById(id).orElseThrow(()-> new RecordNotFoundException(id));
+		dao.deleteById(id);
 	}
 
 }
