@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.nutrinotes.dto.UserEditDTO;
-import br.com.nutrinotes.exception.UserException;
+import br.com.nutrinotes.exception.RecordNotFoundException;
 import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.service.user.IUser;
 
@@ -77,7 +77,7 @@ public class UploadServiceImpl implements IUploadService {
 		User user = userService.findByImageProfile(filename);
 		
 		if(user == null) {
-			throw new UserException("Usuário não encontrado!");
+			throw new RecordNotFoundException();
 		}
 		
 		String extension = filename.substring(filename.lastIndexOf("."));
