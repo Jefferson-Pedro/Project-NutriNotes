@@ -34,9 +34,10 @@ public class BusinessController {
 	@Autowired
 	IBusiness service;
 	
-	@GetMapping()
-	public ResponseEntity<Page<BusinessDTO>> findAllPage(Pageable pageable){
-	    Page<BusinessDTO> page = service.findAllPage(pageable);
+	@GetMapping("/user/{id}")
+	public ResponseEntity<Page<BusinessDTO>> findAllPageByUser(@PathVariable Integer id, Pageable pageable){
+		
+	    Page<BusinessDTO> page = service.findAllPageByUser(pageable, id);
 	    
 	    if(page.hasContent()) {
 	        return ResponseEntity.ok(page);
@@ -46,20 +47,14 @@ public class BusinessController {
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<BusinessDTO>> findAll(){
-	        List<BusinessDTO> list = service.findAll();
-	        if(!list.isEmpty()) {
-	            return ResponseEntity.ok(list);
-	        }
-	        return ResponseEntity.notFound().build();    
-	    }
+	    List<BusinessDTO> list = service.findAll();
+	    return ResponseEntity.ok(list);     
+	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<BusinessDTO> findById(@PathVariable @NotNull @Positive Integer id){
 		BusinessDTO res = service.findById(id);
-		if(res != null) {
-			return ResponseEntity.ok().body(res);
-		}
-		return ResponseEntity.notFound().build();	
+		return ResponseEntity.ok().body(res);
 	}
 	
 	@GetMapping("/search")
@@ -74,6 +69,8 @@ public class BusinessController {
 	@PostMapping("/new")
 	public ResponseEntity<String> create (@RequestBody @Valid @NotNull Business newBusiness){
 		
+		System.out.println("Usuário recebido: " + newBusiness.getResponsavelTec());
+		
 		Business business = service.create(newBusiness);
 		
 		if (business != null) {
@@ -85,18 +82,14 @@ public class BusinessController {
 	@PutMapping("/edit/{id}")
 	public ResponseEntity<String> update(@RequestBody Business business, @PathVariable @NotNull @Positive Integer id){
 		
-		if(service.update(business, id)) {
-			return ResponseEntity.ok().body("Empresa atualizada com sucesso!");
-		}
-		return ResponseEntity.badRequest().build();
+		service.update(business, id);
+		return ResponseEntity.ok().body("Empresa atualizada com sucesso!");
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Business> delete(@PathVariable @NotNull @Positive Integer id) {
 		
-		if(service.delete(id)) { 
-			return ResponseEntity.noContent().build();
-		}
-		return ResponseEntity.notFound().build();
+		service.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 }
