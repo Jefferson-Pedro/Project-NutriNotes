@@ -26,7 +26,7 @@ public class NutriFilter extends OncePerRequestFilter {
 
 			} else {
 				response.setStatus(401);
-				response.getWriter().println("Token invalido!");
+				response.getWriter().println("Token invalido ou expirado!");
 				return;
 			}
 		} 
