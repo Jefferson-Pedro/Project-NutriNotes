@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.nutrinotes.dto.UserEditDTO;
 import br.com.nutrinotes.dto.UserViewDTO;
 import br.com.nutrinotes.exception.InvalidAccountException;
-import br.com.nutrinotes.exception.UserException;
 import br.com.nutrinotes.model.user.User;
 import br.com.nutrinotes.service.user.IUser;
 import jakarta.validation.Valid;
@@ -38,11 +37,7 @@ public class UserController {
 	@GetMapping("/all")
 	public ResponseEntity<List<UserViewDTO>> findAll(){
 		List<UserViewDTO> list = service.findAll();
-		if (list.size() > 0) {
-			return ResponseEntity.ok(list);
-		} 
-		return ResponseEntity.notFound().build();
-		
+		return ResponseEntity.ok(list);
 	}
 	
 	@GetMapping("/buscar")
@@ -80,19 +75,10 @@ public class UserController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> findById(@PathVariable @NotNull @Positive Integer id){
+	public ResponseEntity<UserViewDTO> findById(@PathVariable @NotNull @Positive Integer id){
 		
-		try {
-			UserViewDTO res = service.findById(id);
-			//System.err.println("Objeto retornado: " + res.toString());
-			
-			if (res != null) {
-				return ResponseEntity.ok(res);
-			} 
-		} catch (Exception e) {
-			return ResponseEntity.status(404).body(e);
-		}
-		return null;
+		UserViewDTO res = service.findById(id);
+		return ResponseEntity.ok(res);
 	}
 	
 	@PostMapping("/new")
@@ -105,31 +91,23 @@ public class UserController {
 	}
 	
 	@PutMapping("edit/{id}")
-	public ResponseEntity<?> update(@RequestBody @Valid @NotNull UserEditDTO user, 
+	public ResponseEntity<String> update(@RequestBody @Valid @NotNull UserEditDTO user, 
 									@PathVariable @NotNull @Positive Integer id){
 		
 		try {
 			if(service.update(user, id)) {
 				return ResponseEntity.ok().body("Usuário atualizado com sucesso!");
 			}
-		} catch (UserException e) {
-			return ResponseEntity.status(404).body(e.getMessage());
 			
 		} catch (InvalidAccountException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
-			
-		}catch (Exception e) {
-			System.err.println("500 - Erro interno. " + e);
-			return ResponseEntity.status(500).body("Aconteceu um erro interno inesperado");
 		}
 		return null;		
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<User> delete(@PathVariable @NotNull @Positive Integer id){
-		if(service.delete(id)) {
-			return ResponseEntity.noContent().build();
-		}
-		return ResponseEntity.notFound().build();
+		service.delete(id);
+		return ResponseEntity.ok().build();
 	}
 }
