@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 
 import br.com.nutrinotes.model.user.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -51,6 +52,10 @@ public class TokenUtil {
 			NutriToken token = new NutriToken(jwtToken);
 			return token;
 		} 
+		catch (ExpiredJwtException ex) {
+			System.err.println("Token expirado!");
+			ex.printStackTrace();
+		}
 		catch (Exception ex) {
 			System.err.println("Erro ao gerar o token: ");
 			ex.printStackTrace();
