@@ -1,8 +1,12 @@
 package br.com.nutrinotes.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
+
 import br.com.nutrinotes.model.business.Business;
+import br.com.nutrinotes.model.department.Department;
 
 public class BusinessDTO {
 	
@@ -162,6 +166,27 @@ public class BusinessDTO {
 	        dto.setIdUser(business.getResponsavelTec().getIdUser());
 	        dto.setNomeUser(business.getResponsavelTec().getNome());
 	        
+	        if (business.getSetores() != null) {
+	            List<DepartmentDTO> setores = new ArrayList<>();
+	            for (Department department : business.getSetores()) {
+	                DepartmentDTO departmentDTO = new DepartmentDTO();
+	                BeanUtils.copyProperties(department, departmentDTO);
+	                setores.add(departmentDTO);
+	            }
+	            dto.setSetores(setores);
+	        }
+	        
 	    return dto;
 	}
+
+	
+	  @Override public String toString() { return "BusinessDTO [idBusiness=" +
+	  idBusiness + ", nome=" + nome + ", cnpj=" + cnpj + ", cep=" + cep +
+	  ", telefone=" + telefone + ", logradouro=" + logradouro + ", compl=" + compl
+	  + ", cidade=" + cidade + ", bairro=" + bairro + ", uf=" + uf +
+	  ", representante=" + representante + ", plano=" + plano + ", idUser=" +
+	  idUser + ", nomeUser=" + nomeUser + ", setores=" + setores + "]"; }
+	 
+	
+	
 }
